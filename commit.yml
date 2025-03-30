@@ -2,13 +2,31 @@
 branches: {
   }
 fileChange:
-  /docker:
-    newFile: !uuid 'f69a8f38063edb57aacadcd624acb3cd05003afc'
-    oldFile: !uuid 'd19fcbc4418ddfeaf8ebe85a1f7b13b152f72314'
-  /docker/docker-compose.yml:
-    newFile: !uuid '4cca2adfa9a38045538fb805fef06e975b8f4dfc'
-    oldFile: !uuid '2924da9f6459434cacd7eb24ac7920bef73512e0'
-gitCommitId: !uuid '6301978bddde5620e4d6c0c91754d32ea6620f5d'
+  /Admin.NET:
+    newFile: !uuid '61a431c0ac7e2443b4ff70c28de1b00b9cd6b851'
+    oldFile: !uuid 'eb777259d0e151772efd2f85231950c9d03ca451'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '531806a8cda45d928625c906f8df386e2ed0d974'
+    oldFile: !uuid '480d2e86507e495e25aa8bc5adff9c8805670a34'
+  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
+    newFile: !uuid '567b9137be6b275fbeab93b5be5f648200b1f05a'
+    oldFile: !uuid 'aad969cb04a9127a5033a11157087a85afffa117'
+  /Admin.NET/Admin.NET.Test:
+    newFile: !uuid '501c84b7134e1d99abd5ec669f2ea8c24bc55ad0'
+    oldFile: !uuid '34f2fd04f17e16d12c026240a1e54b3dcde38bc0'
+  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
+    newFile: !uuid '24966fc3d001292aa1ab24637c1d7850cee2dd43'
+    oldFile: !uuid '41bd0f8d1b933f3a83ee979d3adaf0623c7dd183'
+  /Admin.NET/Plugins:
+    newFile: !uuid '0a4027960dc4eaa28ef35d96647388bacc85e2b3'
+    oldFile: !uuid '6000f2e89d2bf8450365f385de00bc02ee8b7eca'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero:
+    newFile: !uuid '148cf480bbd829b000af4d1d79f416df2c087e09'
+    oldFile: !uuid '601ae0ea99c9875099f908a7df1d0f683e2e6ce7'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero/Admin.NET.Plugin.ReZero.csproj:
+    newFile: !uuid '2c3486b73d2b17dab2033269984831586b28d599'
+    oldFile: !uuid '99d214119a804ceb39005081c306ecce211d4987'
+gitCommitId: !uuid '1b16cf4c89341cb4610c17fb12033c36f08bcf0c'
 renames: {
   }
-revisionId: 2798
+revisionId: 2799
