@@ -563,16 +563,16 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     private static string GetEntityTargetPath(CreateEntityInput input)
     {
         var backendPath = Path.Combine(new DirectoryInfo(App.WebHostEnvironment.ContentRootPath).Parent.FullName, input.Position, "Entity");
-        if (!Directory.Exists(backendPath))
-        {
-            var pluginsPath = App.GetConfig<string[]>("AppSettings:ExternalAssemblies");
-            foreach (var pluginPath in pluginsPath)
-            {
-                backendPath = Path.Combine(new DirectoryInfo(App.WebHostEnvironment.ContentRootPath).Parent.FullName, pluginPath, input.Position, "Entity");
-                if (Directory.Exists(backendPath))
-                    break;
-            }
-        }
+        //if (!Directory.Exists(backendPath))
+        //{
+        //    var pluginsPath = App.GetConfig<string[]>("AppSettings:ExternalAssemblies");
+        //    foreach (var pluginPath in pluginsPath)
+        //    {
+        //        backendPath = Path.Combine(new DirectoryInfo(App.WebHostEnvironment.ContentRootPath).Parent.FullName, pluginPath, input.Position, "Entity");
+        //        if (Directory.Exists(backendPath))
+        //            break;
+        //    }
+        //}
         if (!Directory.Exists(backendPath))
             Directory.CreateDirectory(backendPath);
         return Path.Combine(backendPath, input.EntityName + ".cs");
