@@ -25,6 +25,15 @@
 	max-height: 280px !important;
 }
 
+// InputNumber无控制器时与Input保持一致
+.el-input-number.is-without-controls .el-input__wrapper {
+	padding-left: 7px !important;
+	padding-right: 7px !important;
+	.el-input__inner {
+		text-align: left !important;
+	}
+}
+
 /* Form 表单
 ------------------------------- */
 .el-form {
@@ -306,18 +315,19 @@
 		height: 100%;
 
 		.el-dialog {
+			padding: 0 !important;
 			margin: 0 auto !important;
 			position: absolute;
 
 			.el-dialog__body {
-				padding: 20px !important;
+				padding: 18px !important;
 			}
 		}
 	}
 }
 
 .el-dialog__body {
-	max-height: calc(100vh - 85px) !important;
+	max-height: calc(100vh - 160px) !important;
 	overflow-y: auto;
 	overflow-x: auto;
 }
@@ -328,18 +338,18 @@
 // 	font-weight: 700;
 // }
 .el-dialog__header {
-	margin: -16px -16px 0px -16px;
-	padding: 8px 0px 8px 20px;
+	margin-right: 0;
+	padding: 8px;
 	background: var(--el-color-primary);
 }
-
-// .el-dialog__footer {
-// 	// border-top: 1px solid var(--el-color-info-light-7);
-// 	padding-bottom: 10px;
-// }
+.el-dialog__footer {
+	padding: 15px;
+	// border-top: 1px solid var(--el-color-primary-light-7);
+}
 .el-dialog__headerbtn {
-	margin-top: -5px;
-
+	height: 37px;
+	width: 40px;
+	font-weight: 900;
 	.el-dialog__close {
 		color: #fff;
 	}
@@ -354,15 +364,16 @@
 .el-card__header {
 	padding: 15px 20px;
 }
+.el-card__body {
+	padding: 8px;
+}
 
 /* Table 表格 element plus 2.2.0 版本
 ------------------------------- */
 .el-table {
 	// 表头背景色
 	--el-table-header-bg-color: var(--next-bg-main-color);
-}
 
-.el-table {
 	.el-button.is-text {
 		padding: 0;
 	}
@@ -398,9 +409,10 @@
 // 分页组件靠右显示
 .el-pagination {
 	float: right;
-	margin: 10px 0 -10px 0 !important;
+	margin: 8px 0 0 0 !important;
 }
-//由于index.vue模板中加入了el-select宽度为100%，导致分页组件的下拉框无法正确显示，这里强制给个宽度分页组件可正常显示
+
+// 强制给分页组件的下拉框设置宽度
 .el-pagination--small {
 	.el-select {
 		width: 100px !important;
@@ -442,13 +454,13 @@
 	--el-drawer-padding-primary: unset !important;
 
 	.el-drawer__header {
-		padding: 0 15px !important;
-		height: 50px;
+		padding: 8px !important;
 		display: flex;
 		align-items: center;
 		margin-bottom: 0 !important;
 		border-bottom: 1px solid var(--el-border-color);
-		color: var(--el-text-color-primary);
+		color: var(--el-color-white);
+		background-color: var(--el-color-primary);
 	}
 
 	.el-drawer__body {
@@ -456,6 +468,31 @@
 		height: 100%;
 		overflow: auto;
 	}
+	.el-drawer__footer {
+		padding: 5px;
+	}
+}
+.el-drawer__close-btn:hover .el-drawer__close {
+	color: var(--el-color-danger) !important;
+}
+
+// 级联选择-点击文本也生效
+.el-cascader-panel .el-radio {
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	position: absolute;
+	top: 0px;
+	right: -8px;
+}
+
+.el-cascader-panel .el-checkbox {
+	width: 100%;
+	height: 100%;
+	z-index: 10;
+	position: absolute;
+	top: 0px;
+	right: 0px;
 }
 
 $--el-table-text-color: #fb6d49;
@@ -488,6 +525,7 @@ $--el-table-text-color: #fb6d49;
 			.el-card__body {
 				height: 100%;
 				display: flex;
+				//padding: 5px 5px 0px 5px;
 				flex-direction: column;
 				justify-content: space-between;
 

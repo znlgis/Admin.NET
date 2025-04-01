@@ -97,7 +97,7 @@ public class Startup : AppStartup
             // setting.DateParseHandling = DateParseHandling.None; // 解决DateTimeOffset异常
             setting.Converters.Add(new IsoDateTimeConverter
             {
-                DateTimeFormat = "yyyy-MM-dd HH:mm:ss", // 自定义日期时间格式
+                DateTimeFormat = "yyyy-MM-dd HH:mm:ss", // 时间格式化
                 DateTimeStyles = DateTimeStyles.AssumeLocal | DateTimeStyles.AdjustToUniversal
             }); // 解决DateTimeOffset异常
         }
@@ -112,7 +112,7 @@ public class Startup : AppStartup
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All); // 禁止Unicode转码
-                options.JsonSerializerOptions.Converters.AddDateTimeTypeConverters("yyyy-MM-dd HH:mm:ss",localized:true);
+                options.JsonSerializerOptions.Converters.AddDateTimeTypeConverters("yyyy-MM-dd HH:mm:ss", localized: true); // 时间格式化
             });
 
         // 三方授权登录OAuth
@@ -217,6 +217,7 @@ public class Startup : AppStartup
         // 控制台logo
         services.AddConsoleLogo();
 
+        // Swagger 时间格式化
         services.AddSwaggerGen(c =>
         {
             c.MapType<DateTime>(() => new Microsoft.OpenApi.Models.OpenApiSchema
