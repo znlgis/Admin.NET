@@ -78,14 +78,6 @@ export interface AddOpenAccessInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddOpenAccessInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 绑定租户Id
      *
      * @type {number}

@@ -78,14 +78,6 @@ export interface AddTemplateInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddTemplateInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

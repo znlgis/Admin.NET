@@ -80,14 +80,6 @@ export interface AddMenuInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddMenuInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 父Id
      *
      * @type {number}

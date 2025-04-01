@@ -78,22 +78,6 @@ export interface SysDictData {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysDictData
-     */
-    isDelete?: boolean;
-
-    /**
-     * 租户Id
-     *
-     * @type {number}
-     * @memberof SysDictData
-     */
-    tenantId?: number | null;
-
-    /**
      * 字典类型Id
      *
      * @type {number}
@@ -124,6 +108,14 @@ export interface SysDictData {
      * @memberof SysDictData
      */
     code?: string | null;
+
+    /**
+     * 名称
+     *
+     * @type {string}
+     * @memberof SysDictData
+     */
+    name?: string | null;
 
     /**
      * 显示样式-标签颜色

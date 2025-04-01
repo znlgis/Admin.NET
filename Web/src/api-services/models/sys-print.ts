@@ -79,14 +79,6 @@ export interface SysPrint {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysPrint
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

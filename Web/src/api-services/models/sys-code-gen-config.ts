@@ -77,14 +77,6 @@ export interface SysCodeGenConfig {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysCodeGenConfig
-     */
-    isDelete?: boolean;
-
-    /**
      * 代码生成主表Id
      *
      * @type {number}

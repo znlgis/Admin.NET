@@ -21,18 +21,32 @@
 export interface GenerateQRImageOutput {
 
     /**
+     * 生成状态
+     *
      * @type {boolean}
      * @memberof GenerateQRImageOutput
      */
     success?: boolean;
 
     /**
+     * 生成图片的绝对路径
+     *
      * @type {string}
      * @memberof GenerateQRImageOutput
      */
     imgPath?: string | null;
 
     /**
+     * 生成图片的相对路径
+     *
+     * @type {string}
+     * @memberof GenerateQRImageOutput
+     */
+    relativeImgPath?: string | null;
+
+    /**
+     * 生成图片的错误信息
+     *
      * @type {string}
      * @memberof GenerateQRImageOutput
      */

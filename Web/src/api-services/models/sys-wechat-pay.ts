@@ -77,14 +77,6 @@ export interface SysWechatPay {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysWechatPay
-     */
-    isDelete?: boolean;
-
-    /**
      * 微信商户号
      *
      * @type {string}

@@ -47,6 +47,7 @@ export enum DbType {
     NUMBER_26 = 26,
     NUMBER_27 = 27,
     NUMBER_28 = 28,
+    NUMBER_29 = 29,
     NUMBER_900 = 900
 }
 

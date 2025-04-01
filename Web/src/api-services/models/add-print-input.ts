@@ -79,14 +79,6 @@ export interface AddPrintInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddPrintInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

@@ -209,6 +209,7 @@ export * from './gen-auth-url-input';
 export * from './gender-enum';
 export * from './generate-qrimage-input';
 export * from './generate-qrimage-output';
+export * from './generate-qrimage-un-limit-input';
 export * from './generate-signature-input';
 export * from './generic-parameter-attributes';
 export * from './http-method-enum';

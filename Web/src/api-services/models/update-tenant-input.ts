@@ -81,22 +81,6 @@ export interface UpdateTenantInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof UpdateTenantInput
-     */
-    isDelete?: boolean;
-
-    /**
-     * 应用Id
-     *
-     * @type {number}
-     * @memberof UpdateTenantInput
-     */
-    appId?: number | null;
-
-    /**
      * 租管用户Id
      *
      * @type {number}

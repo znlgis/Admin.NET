@@ -13,52 +13,40 @@
  */
 
  /**
- * 用户登录参数
+ * 生成带参数小程序二维码(获取不受限制的小程序码)
  *
  * @export
- * @interface LoginInput
+ * @interface GenerateQRImageUnLimitInput
  */
-export interface LoginInput {
+export interface GenerateQRImageUnLimitInput {
 
     /**
-     * 账号
+     * 扫码进入的小程序页面路径，最大长度 128 个字符，不能为空； eg: pages/index?id=0001
      *
      * @type {string}
-     * @memberof LoginInput
-     * @example admin
+     * @memberof GenerateQRImageUnLimitInput
      */
-    account: string;
+    pagePath?: string | null;
 
     /**
-     * 密码
+     * 文件保存的名称
      *
      * @type {string}
-     * @memberof LoginInput
-     * @example 123456
+     * @memberof GenerateQRImageUnLimitInput
      */
-    password: string;
+    imageName?: string | null;
 
     /**
-     * 租户
+     * 图片宽度 默认430
      *
      * @type {number}
-     * @memberof LoginInput
+     * @memberof GenerateQRImageUnLimitInput
      */
-    tenantId?: number | null;
+    width?: number;
 
     /**
-     * 验证码Id
-     *
-     * @type {number}
-     * @memberof LoginInput
-     */
-    codeId?: number;
-
-    /**
-     * 验证码
-     *
      * @type {string}
-     * @memberof LoginInput
+     * @memberof GenerateQRImageUnLimitInput
      */
-    code?: string | null;
+    scene?: string | null;
 }

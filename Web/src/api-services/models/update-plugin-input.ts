@@ -78,14 +78,6 @@ export interface UpdatePluginInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof UpdatePluginInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

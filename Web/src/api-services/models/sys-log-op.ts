@@ -78,14 +78,6 @@ export interface SysLogOp {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysLogOp
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

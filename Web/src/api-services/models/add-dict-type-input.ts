@@ -80,14 +80,6 @@ export interface AddDictTypeInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddDictTypeInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 名称
      *
      * @type {string}
@@ -120,16 +112,16 @@ export interface AddDictTypeInput {
     remark?: string | null;
 
     /**
-     * @type {YesNoEnum}
-     * @memberof AddDictTypeInput
-     */
-    sysFlag?: YesNoEnum;
-
-    /**
      * @type {StatusEnum}
      * @memberof AddDictTypeInput
      */
     status?: StatusEnum;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof AddDictTypeInput
+     */
+    isTenant?: YesNoEnum;
 
     /**
      * 字典值集合
@@ -138,4 +130,10 @@ export interface AddDictTypeInput {
      * @memberof AddDictTypeInput
      */
     children?: Array<SysDictData> | null;
+
+    /**
+     * @type {YesNoEnum}
+     * @memberof AddDictTypeInput
+     */
+    sysFlag?: YesNoEnum;
 }

@@ -77,28 +77,12 @@ export interface SysFile {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysFile
-     */
-    isDelete?: boolean;
-
-    /**
-     * 创建者部门Id
+     * 机构Id
      *
      * @type {number}
      * @memberof SysFile
      */
-    createOrgId?: number | null;
-
-    /**
-     * 创建者部门名称
-     *
-     * @type {string}
-     * @memberof SysFile
-     */
-    createOrgName?: string | null;
+    orgId?: number;
 
     /**
      * 租户Id

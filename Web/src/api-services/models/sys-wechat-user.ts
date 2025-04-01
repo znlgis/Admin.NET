@@ -78,14 +78,6 @@ export interface SysWechatUser {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysWechatUser
-     */
-    isDelete?: boolean;
-
-    /**
      * 系统用户Id
      *
      * @type {number}

@@ -79,14 +79,6 @@ export interface UpdateRoleInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof UpdateRoleInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

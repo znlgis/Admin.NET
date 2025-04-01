@@ -78,14 +78,6 @@ export interface SysSchedule {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysSchedule
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

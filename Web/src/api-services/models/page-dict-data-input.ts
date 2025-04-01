@@ -91,10 +91,18 @@ export interface PageDictDataInput {
     dictTypeId?: number;
 
     /**
-     * 字典文本
+     * 文本
      *
      * @type {string}
      * @memberof PageDictDataInput
      */
-    label?: string | null;
+    lable?: string | null;
+
+    /**
+     * 编码
+     *
+     * @type {string}
+     * @memberof PageDictDataInput
+     */
+    code?: string | null;
 }

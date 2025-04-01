@@ -78,22 +78,6 @@ export interface UpdateDictDataInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof UpdateDictDataInput
-     */
-    isDelete?: boolean;
-
-    /**
-     * 租户Id
-     *
-     * @type {number}
-     * @memberof UpdateDictDataInput
-     */
-    tenantId?: number | null;
-
-    /**
      * 字典类型Id
      *
      * @type {number}
@@ -124,6 +108,14 @@ export interface UpdateDictDataInput {
      * @memberof UpdateDictDataInput
      */
     code?: string | null;
+
+    /**
+     * 名称
+     *
+     * @type {string}
+     * @memberof UpdateDictDataInput
+     */
+    name?: string | null;
 
     /**
      * 显示样式-标签颜色

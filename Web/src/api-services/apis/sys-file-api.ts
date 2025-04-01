@@ -179,6 +179,54 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
+         * @summary 根据文件Id集合获取文件 🔖
+         * @param {Array<number>} [ids] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysFileFileByIdsGet: async (ids?: Array<number>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysFile/fileByIds`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            if (ids) {
+                localVarQueryParameter['ids'] = ids;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 获取文件 🔖
          * @param {number} [id] 
          * @param {*} [options] Override http request option.
@@ -811,6 +859,20 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 根据文件Id集合获取文件 🔖
+         * @param {Array<number>} [ids] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysFileFileByIdsGet(ids?: Array<number>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysFile>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileFileByIdsGet(ids, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取文件 🔖
          * @param {number} [id] 
          * @param {*} [options] Override http request option.
@@ -1011,6 +1073,16 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
+         * @summary 根据文件Id集合获取文件 🔖
+         * @param {Array<number>} [ids] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysFileFileByIdsGet(ids?: Array<number>, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysFile>> {
+            return SysFileApiFp(configuration).apiSysFileFileByIdsGet(ids, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取文件 🔖
          * @param {number} [id] 
          * @param {*} [options] Override http request option.
@@ -1168,6 +1240,17 @@ export class SysFileApi extends BaseAPI {
      */
     public async apiSysFileDownloadFilePost(body?: SysFile, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultIActionResult>> {
         return SysFileApiFp(this.configuration).apiSysFileDownloadFilePost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 根据文件Id集合获取文件 🔖
+     * @param {Array<number>} [ids] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysFileApi
+     */
+    public async apiSysFileFileByIdsGet(ids?: Array<number>, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysFile>> {
+        return SysFileApiFp(this.configuration).apiSysFileFileByIdsGet(ids, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

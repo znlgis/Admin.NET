@@ -78,14 +78,6 @@ export interface SysCodeGen {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysCodeGen
-     */
-    isDelete?: boolean;
-
-    /**
      * 作者姓名
      *
      * @type {string}

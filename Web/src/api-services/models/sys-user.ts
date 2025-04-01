@@ -83,12 +83,12 @@ export interface SysUser {
     updateUserName?: string | null;
 
     /**
-     * 软删除
+     * 机构Id
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof SysUser
      */
-    isDelete?: boolean;
+    orgId?: number;
 
     /**
      * 租户Id
@@ -287,14 +287,6 @@ export interface SysUser {
      * @memberof SysUser
      */
     accountType?: AccountTypeEnum;
-
-    /**
-     * 直属机构Id
-     *
-     * @type {number}
-     * @memberof SysUser
-     */
-    orgId?: number;
 
     /**
      * @type {SysOrg}

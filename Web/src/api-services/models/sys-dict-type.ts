@@ -80,14 +80,6 @@ export interface SysDictType {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysDictType
-     */
-    isDelete?: boolean;
-
-    /**
      * 名称
      *
      * @type {string}
@@ -120,16 +112,22 @@ export interface SysDictType {
     remark?: string | null;
 
     /**
+     * @type {StatusEnum}
+     * @memberof SysDictType
+     */
+    status?: StatusEnum;
+
+    /**
      * @type {YesNoEnum}
      * @memberof SysDictType
      */
     sysFlag?: YesNoEnum;
 
     /**
-     * @type {StatusEnum}
+     * @type {YesNoEnum}
      * @memberof SysDictType
      */
-    status?: StatusEnum;
+    isTenant?: YesNoEnum;
 
     /**
      * 字典值集合

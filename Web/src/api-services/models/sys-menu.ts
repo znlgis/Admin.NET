@@ -80,14 +80,6 @@ export interface SysMenu {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysMenu
-     */
-    isDelete?: boolean;
-
-    /**
      * 父Id
      *
      * @type {number}

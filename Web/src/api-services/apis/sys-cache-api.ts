@@ -29,7 +29,7 @@ export const SysCacheApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 申请分布式锁
+         * @summary 申请分布式锁 🔖
          * @param {string} key 要锁定的key
          * @param {number} msTimeout 申请锁等待的时间，单位毫秒
          * @param {number} msExpire 锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒
@@ -387,7 +387,7 @@ export const SysCacheApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 申请分布式锁
+         * @summary 申请分布式锁 🔖
          * @param {string} key 要锁定的key
          * @param {number} msTimeout 申请锁等待的时间，单位毫秒
          * @param {number} msExpire 锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒
@@ -495,7 +495,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 申请分布式锁
+         * @summary 申请分布式锁 🔖
          * @param {string} key 要锁定的key
          * @param {number} msTimeout 申请锁等待的时间，单位毫秒
          * @param {number} msExpire 锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒
@@ -576,7 +576,7 @@ export const SysCacheApiFactory = function (configuration?: Configuration, baseP
 export class SysCacheApi extends BaseAPI {
     /**
      * 
-     * @summary 申请分布式锁
+     * @summary 申请分布式锁 🔖
      * @param {string} key 要锁定的key
      * @param {number} msTimeout 申请锁等待的时间，单位毫秒
      * @param {number} msExpire 锁过期时间，超过该时间没有主动是放则自动是放，必须整数秒，单位毫秒

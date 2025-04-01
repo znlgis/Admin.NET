@@ -78,14 +78,6 @@ export interface AddConfigInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddConfigInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 名称
      *
      * @type {string}
@@ -102,7 +94,7 @@ export interface AddConfigInput {
     code?: string | null;
 
     /**
-     * 属性默认值
+     * 参数值
      *
      * @type {string}
      * @memberof AddConfigInput

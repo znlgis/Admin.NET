@@ -13,7 +13,7 @@
  */
 
  /**
- * 生成带参数小程序二维码
+ * 生成带参数小程序二维码(总共生成的码数量限制为 100,000)
  *
  * @export
  * @interface GenerateQRImageInput

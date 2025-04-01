@@ -78,14 +78,6 @@ export interface SysLogEx {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysLogEx
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

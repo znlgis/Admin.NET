@@ -78,22 +78,6 @@ export interface AddDictDataInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof AddDictDataInput
-     */
-    isDelete?: boolean;
-
-    /**
-     * 租户Id
-     *
-     * @type {number}
-     * @memberof AddDictDataInput
-     */
-    tenantId?: number | null;
-
-    /**
      * 字典类型Id
      *
      * @type {number}
@@ -124,6 +108,14 @@ export interface AddDictDataInput {
      * @memberof AddDictDataInput
      */
     code?: string | null;
+
+    /**
+     * 名称
+     *
+     * @type {string}
+     * @memberof AddDictDataInput
+     */
+    name?: string | null;
 
     /**
      * 显示样式-标签颜色

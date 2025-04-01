@@ -79,14 +79,6 @@ export interface SysPos {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysPos
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

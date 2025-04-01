@@ -70,14 +70,6 @@ export interface UpdateUserRegWayInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof UpdateUserRegWayInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

@@ -79,14 +79,6 @@ export interface UpdateNoticeInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof UpdateNoticeInput
-     */
-    isDelete?: boolean;
-
-    /**
      * 标题
      *
      * @type {string}

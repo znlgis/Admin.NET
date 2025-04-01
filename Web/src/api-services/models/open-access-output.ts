@@ -78,14 +78,6 @@ export interface OpenAccessOutput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof OpenAccessOutput
-     */
-    isDelete?: boolean;
-
-    /**
      * 身份标识
      *
      * @type {string}

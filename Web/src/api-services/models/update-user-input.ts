@@ -84,12 +84,12 @@ export interface UpdateUserInput {
     updateUserName?: string | null;
 
     /**
-     * 软删除
+     * 机构Id
      *
-     * @type {boolean}
+     * @type {number}
      * @memberof UpdateUserInput
      */
-    isDelete?: boolean;
+    orgId?: number;
 
     /**
      * 租户Id
@@ -272,14 +272,6 @@ export interface UpdateUserInput {
      * @memberof UpdateUserInput
      */
     accountType?: AccountTypeEnum;
-
-    /**
-     * 直属机构Id
-     *
-     * @type {number}
-     * @memberof UpdateUserInput
-     */
-    orgId?: number;
 
     /**
      * @type {SysOrg}

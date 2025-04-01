@@ -77,14 +77,6 @@ export interface SysWechatRefund {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysWechatRefund
-     */
-    isDelete?: boolean;
-
-    /**
      * 定单主键
      *
      * @type {number}

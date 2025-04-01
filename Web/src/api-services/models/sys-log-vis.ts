@@ -78,14 +78,6 @@ export interface SysLogVis {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysLogVis
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

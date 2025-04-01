@@ -78,14 +78,6 @@ export interface SysTemplate {
     updateUserName?: string | null;
 
     /**
-     * 软删除
-     *
-     * @type {boolean}
-     * @memberof SysTemplate
-     */
-    isDelete?: boolean;
-
-    /**
      * 租户Id
      *
      * @type {number}

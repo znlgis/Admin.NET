@@ -227,6 +227,49 @@ export const SysJobApiAxiosParamCreator = function (configuration?: Configuratio
         },
         /**
          * 
+         * @summary 清空作业触发器运行记录 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysJobClearJobTriggerRecordPost: async (options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysJob/clearJobTriggerRecord`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 删除作业 ⏰
          * @param {DeleteJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
@@ -1082,6 +1125,19 @@ export const SysJobApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 清空作业触发器运行记录 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysJobClearJobTriggerRecordPost(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysJobApiAxiosParamCreator(configuration).apiSysJobClearJobTriggerRecordPost(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 删除作业 ⏰
          * @param {DeleteJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
@@ -1363,6 +1419,15 @@ export const SysJobApiFactory = function (configuration?: Configuration, basePat
         },
         /**
          * 
+         * @summary 清空作业触发器运行记录 🔖
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysJobClearJobTriggerRecordPost(options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysJobApiFp(configuration).apiSysJobClearJobTriggerRecordPost(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 删除作业 ⏰
          * @param {DeleteJobDetailInput} [body] 
          * @param {*} [options] Override http request option.
@@ -1578,6 +1643,16 @@ export class SysJobApi extends BaseAPI {
      */
     public async apiSysJobCancelSleepPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysJobApiFp(this.configuration).apiSysJobCancelSleepPost(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 清空作业触发器运行记录 🔖
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysJobApi
+     */
+    public async apiSysJobClearJobTriggerRecordPost(options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysJobApiFp(this.configuration).apiSysJobClearJobTriggerRecordPost(options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
