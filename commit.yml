@@ -3,27 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'f923470aa1ac401b703ade03964a1f246bee7ce4'
-    oldFile: !uuid 'd92e1e71519510e34eb1eb2f0a445cc775c7349a'
-  /Admin.NET/Admin.NET.Web.Core:
-    newFile: !uuid 'a9d9a04195f99be50d0c8a515bb6aea9228aac69'
-    oldFile: !uuid '3b4181796af92f5a9c608cac7d3786ed8eccb2bf'
-  /Admin.NET/Admin.NET.Web.Core/Startup.cs:
-    newFile: !uuid 'ebe2856526c0562387046bdaf83ca9468e750944'
-    oldFile: !uuid 'b4143eeb89341378348400dbfb8b5d5f87cf2031'
-  /Web:
-    newFile: !uuid '69440dbbb6ef8edbd0a59510c2661497bb627eed'
-    oldFile: !uuid '100e5c31c333e5bf036b3fcd192cc595c7e74f64'
-  /Web/src:
-    newFile: !uuid '22346a282f961d09ba5917573cb23bcbfd252f9d'
-    oldFile: !uuid '96be3190db2e6e3c05f000174eecc945b37f454f'
-  /Web/src/theme:
-    newFile: !uuid '8cbf0675e75083b58c6d4d0c6a46a6f04d20804e'
-    oldFile: !uuid '16efdff9df44101b29cfeb37652e61318adff063'
-  /Web/src/theme/element.scss:
-    newFile: !uuid 'fac401837d13a355669eb3710edf7f033e61a284'
-    oldFile: !uuid '18fc68187be942065997e00f6fc6775adbddc0c9'
-gitCommitId: !uuid 'f9f8eff6715fcb8e5204c8f08b7cd69c3bceb74f'
+    newFile: !uuid 'b6698ff5fba8606acc56631d0013eb578f3485ec'
+    oldFile: !uuid 'f923470aa1ac401b703ade03964a1f246bee7ce4'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '545a5ef63ef906416b3ab5ca39315d1982b499c1'
+    oldFile: !uuid 'bd76a3e732b91d568ca5fde9908134db7844a459'
+  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
+    newFile: !uuid 'fef80d26d428f1e2c01140c05b0d98a17c112f92'
+    oldFile: !uuid 'b51d1ed0060676a7742fca4532d2747d6a112942'
+  /Admin.NET/Admin.NET.Test:
+    newFile: !uuid '24c05d091f81c6bb81466f5ddfc8ee4254f3121d'
+    oldFile: !uuid '501c84b7134e1d99abd5ec669f2ea8c24bc55ad0'
+  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
+    newFile: !uuid '79ae1d1471558f0b04112c130c34c51918cc776b'
+    oldFile: !uuid '24966fc3d001292aa1ab24637c1d7850cee2dd43'
+gitCommitId: !uuid '80f072320897360ba43a879819370e3ae9c69e54'
 renames: {
   }
-revisionId: 2803
+revisionId: 2804
