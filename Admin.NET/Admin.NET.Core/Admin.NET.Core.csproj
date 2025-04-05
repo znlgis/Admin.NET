@@ -19,9 +19,9 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.4.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="8.17.3" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.7.36" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.7.36" />
-    <PackageReference Include="Furion.Pure" Version="4.9.7.36" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.7.38" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.7.38" />
+    <PackageReference Include="Furion.Pure" Version="4.9.7.38" />
 	<PackageReference Include="Hardware.Info" Version="101.0.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
@@ -41,12 +41,12 @@
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.4" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.7.0" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.TenpayV3" Version="3.11.0" />
-    <PackageReference Include="SqlSugarCore" Version="5.1.4.187" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.188" />
     <PackageReference Include="SSH.NET" Version="2024.2.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.0.2" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
     <PackageReference Include="System.Private.Uri" Version="4.3.2" />
-    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1213" />
+    <PackageReference Include="TencentCloudSDK.Sms" Version="3.0.1215" />
     <PackageReference Include="UAParser" Version="3.1.47" />
     <PackageReference Include="Yitter.IdGenerator" Version="1.0.14" />
     <PackageReference Include="BouncyCastle.Cryptography" Version="2.5.1" Aliases="BouncyCastleV2" />
