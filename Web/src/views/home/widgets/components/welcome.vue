@@ -52,7 +52,7 @@ export default {
 
 <script setup lang="ts" name="welcome">
 const godoc = () => {
-	window.open('http://101.43.53.74:5050/');
+	window.open('https://adminnet.top/');
 };
 </script>
 
