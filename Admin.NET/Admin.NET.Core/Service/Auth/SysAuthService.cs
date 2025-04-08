@@ -54,6 +54,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         _sysConfigService = sysConfigService;
         _httpContextAccessor = httpContextAccessor;
         _sysOnlineUserService = sysOnlineUserService;
+        _sysLdapService = sysLdapService;
     }
 
     /// <summary>
