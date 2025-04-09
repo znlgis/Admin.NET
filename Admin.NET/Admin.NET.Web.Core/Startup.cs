@@ -87,7 +87,7 @@ public class Startup : AppStartup
         {
             setting.DateFormatHandling = DateFormatHandling.IsoDateFormat;
             setting.DateTimeZoneHandling = DateTimeZoneHandling.Local;
-            setting.Converters.AddDateTimeTypeConverters(localized: true); // 时间本地化
+            //setting.Converters.AddDateTimeTypeConverters(localized: true); // 时间本地化
             setting.DateFormatString = "yyyy-MM-dd HH:mm:ss"; // 时间格式化
             setting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // 忽略循环引用
             // setting.ContractResolver = new CamelCasePropertyNamesContractResolver(); // 解决动态对象属性名大写
@@ -95,13 +95,8 @@ public class Startup : AppStartup
             // setting.Converters.AddLongTypeConverters(); // long转string（防止js精度溢出） 超过17位开启
             // setting.MetadataPropertyHandling = MetadataPropertyHandling.Ignore; // 解决DateTimeOffset异常
             // setting.DateParseHandling = DateParseHandling.None; // 解决DateTimeOffset异常
-            setting.Converters.Add(new IsoDateTimeConverter
-            {
-                DateTimeFormat = "yyyy-MM-dd HH:mm:ss", // 时间格式化
-                DateTimeStyles = DateTimeStyles.AssumeLocal | DateTimeStyles.AdjustToUniversal
-            }); // 解决DateTimeOffset异常
-        }
-        ;
+            // setting.Converters.Add(new IsoDateTimeConverter { DateTimeStyles = DateTimeStyles.AssumeUniversal }); // 解决DateTimeOffset异常
+        };
 
         services.AddControllersWithViews()
             .AddAppLocalization()
@@ -112,7 +107,7 @@ public class Startup : AppStartup
             .AddJsonOptions(options =>
             {
                 options.JsonSerializerOptions.Encoder = JavaScriptEncoder.Create(UnicodeRanges.All); // 禁止Unicode转码
-                options.JsonSerializerOptions.Converters.AddDateTimeTypeConverters("yyyy-MM-dd HH:mm:ss", localized: true); // 时间格式化
+                options.JsonSerializerOptions.Converters.AddDateTimeTypeConverters("yyyy-MM-dd HH:mm:ss"); // 时间格式化
             });
 
         // 三方授权登录OAuth
