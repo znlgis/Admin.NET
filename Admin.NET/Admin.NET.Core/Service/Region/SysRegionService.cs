@@ -325,13 +325,14 @@ public class SysRegionService : IDynamicApiController, ITransient
                         Level = 3
                     };
                     if (city.Code.IsNullOrEmpty())
-                    {//省直辖县级行政单位 节点无Code编码处理
+                    {
+                        // 省直辖县级行政单位 节点无Code编码处理
                         city.Code = county.Code.Substring(0, 3).PadRight(6, '0');
                     }
                     list.Add(county);
                 }
             }
-            //按省份同步快速写入提升同步效率，全部一次性写入容易出现从统计局获取数据失败
+            // 按省份同步快速写入提升同步效率，全部一次性写入容易出现从统计局获取数据失败
             await _sysRegionRep.Context.Fastest<SysRegion>().BulkCopyAsync(list);
         }
 
