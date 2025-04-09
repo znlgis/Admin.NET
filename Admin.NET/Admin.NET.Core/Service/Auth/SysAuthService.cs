@@ -147,14 +147,14 @@ public class SysAuthService : IDynamicApiController, ITransient
     {
         try
         {
+            // 国密SM2解密（前端密码传输SM2加密后的）
+            password = CryptogramUtil.SM2Decrypt(password);
             if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
             {
                 if (user.Password.Equals(MD5Encryption.Encrypt(password))) return;
             }
             else
             {
-                // 国密SM2解密（前端密码传输SM2加密后的）
-                password = CryptogramUtil.SM2Decrypt(password);
                 if (CryptogramUtil.Decrypt(user.Password).Equals(password)) return;
             }
         }
