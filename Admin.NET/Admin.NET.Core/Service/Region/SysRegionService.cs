@@ -324,6 +324,10 @@ public class SysRegionService : IDynamicApiController, ITransient
                         Pid = city.Id,
                         Level = 3
                     };
+                    if (city.Code.IsNullOrEmpty())
+                    {//省直辖县级行政单位 节点无Code编码处理
+                        city.Code = county.Code.Substring(0, 3).PadRight(6, '0');
+                    }
                     list.Add(county);
                 }
             }
