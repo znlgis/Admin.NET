@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace Admin.NET.Core;
@@ -68,7 +69,19 @@ public static partial class ObjectExtension
     /// <returns></returns>
     public static string ToJson(this object obj)
     {
-        return JSON.GetJsonSerializer().Serialize(obj);
+        var jsonSettings = SetNewtonsoftJsonSetting();
+        return JSON.GetJsonSerializer().Serialize(obj,jsonSettings);
+    }
+
+    private static JsonSerializerSettings SetNewtonsoftJsonSetting()
+    {
+        JsonSerializerSettings setting = new JsonSerializerSettings();
+        setting.DateFormatHandling = DateFormatHandling.IsoDateFormat;
+        setting.DateTimeZoneHandling = DateTimeZoneHandling.Local;
+        setting.DateFormatString = "yyyy-MM-dd HH:mm:ss"; // 时间格式化
+        setting.ReferenceLoopHandling = ReferenceLoopHandling.Ignore; // 忽略循环引用
+                                                                      //setting.ContractResolver = new HelErpContractResolver("StartTime", customName);
+        return setting;
     }
 
     /// <summary>
@@ -457,7 +470,8 @@ public static partial class ObjectExtension
     /// <returns></returns>
     public static T DeepCopy<T>(this T obj)
     {
-        var json = JsonSerializer.Serialize(obj);
-        return JsonSerializer.Deserialize<T>(json);
+        var jsonSettings = SetNewtonsoftJsonSetting();
+        var json = JSON.Serialize(obj, jsonSettings);
+        return JSON.Deserialize<T>(json);
     }
 }

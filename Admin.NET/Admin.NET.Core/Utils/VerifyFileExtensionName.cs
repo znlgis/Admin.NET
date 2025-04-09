@@ -109,7 +109,7 @@ public static class VerifyFileExtensionName
             foreach (var len in dic)
             {
                 byte[] b = new byte[len];
-                stream.Read(b, 0, b.Length);
+                stream.ReadExactly(b);
                 // string fileType = System.Text.Encoding.UTF8.GetString(b);
                 string fileKey = GetFileHeader(b);
                 if (DicsExt.ContainsKey(fileKey))
