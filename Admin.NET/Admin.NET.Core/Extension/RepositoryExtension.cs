@@ -407,6 +407,32 @@ public static class RepositoryExtension
     }
 
     /// <summary>
+    /// 导航只更新（主表）某些列
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <typeparam name="R"></typeparam>
+    /// <param name="t"></param>
+    /// <param name="r"></param>
+    /// <returns></returns>
+    public static UpdateNavRootOptions OnlyNavUpdateColumn<T, R>(this T t, R r)
+    {
+        UpdateNavRootOptions uNOption = new UpdateNavRootOptions();
+        var updateColumns = new List<string>();
+
+        foreach (PropertyInfo info in r.GetType().GetProperties())
+        {
+            //判断是否是相同属性
+            PropertyInfo pro = t.GetType().GetProperty(info.Name);
+            var attr = pro.GetCustomAttribute<SugarColumn>();
+            if (pro != null && attr!=null &&!attr.IsPrimaryKey)
+                updateColumns.Add(info.Name);
+
+        }
+        uNOption.UpdateColumns = updateColumns.ToArray();
+        return uNOption;
+    }
+
+    /// <summary>
     /// 批量列表in查询
     /// </summary>
     /// <typeparam name="T1"></typeparam>
