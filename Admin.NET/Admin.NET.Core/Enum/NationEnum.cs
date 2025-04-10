@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -16,55 +16,55 @@ public enum NationEnum
     /// 汉族
     /// </summary>
     [Description("汉族")]
-    HanZu = 01,
+    HanZu = 1,
 
     /// <summary>
     /// 壮族
     /// </summary>
     [Description("壮族")]
-    ZhuangZu = 02,
+    ZhuangZu = 2,
 
     /// <summary>
     /// 满族
     /// </summary>
     [Description("满族")]
-    ManZu = 03,
+    ManZu = 3,
 
     /// <summary>
     /// 回族
     /// </summary>
     [Description("回族")]
-    HuiZu = 04,
+    HuiZu = 4,
 
     /// <summary>
     /// 苗族
     /// </summary>
     [Description("苗族")]
-    MiaoZu = 05,
+    MiaoZu = 5,
 
     /// <summary>
     /// 维吾尔族
     /// </summary>
     [Description("维吾尔族")]
-    WeiWuErZu = 06,
+    WeiWuErZu = 6,
 
     /// <summary>
     /// 土家族
     /// </summary>
     [Description("土家族")]
-    TuJiaZu = 07,
+    TuJiaZu = 7,
 
     /// <summary>
     /// 彝族
     /// </summary>
     [Description("彝族")]
-    YiZu = 08,
+    YiZu = 8,
 
     /// <summary>
     /// 蒙古族
     /// </summary>
     [Description("蒙古族")]
-    MengGuZu = 09,
+    MengGuZu = 9,
 
     /// <summary>
     /// 藏族
