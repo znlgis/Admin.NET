@@ -69,7 +69,27 @@ const handleExceed: UploadProps['onExceed'] = (files) => {
 const handleImportData = (opt: UploadRequestOptions): any => {
   state.loading = true;
   props.import(opt.file).then((res: any) => {
-    downloadStreamFile(res);
+    // 返回json数据的情况
+	const contentType = res.headers['content-type'];
+	if (contentType && contentType.toLowerCase().includes('application/json')) {
+		const decoder = new TextDecoder('utf-8');
+		const data = decoder.decode(res.data);
+		try {
+			const result = JSON.parse(data);
+			if(result.code == '200'){
+				ElMessage.success(result.message);
+			} else {
+				ElMessage.error(result.message);
+				return;
+			}
+		} catch (e) {
+			console.error("解析数据导入结果失败:", e);
+			downloadStreamFile(res);
+		}
+	}
+	else {
+		downloadStreamFile(res);
+	}
     emit('refresh');
     state.isShowDialog = false;
   }).finally(() => {
