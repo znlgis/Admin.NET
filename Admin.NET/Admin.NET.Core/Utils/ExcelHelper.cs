@@ -45,13 +45,14 @@ public class ExcelHelper
             Task.WhenAll(tasks).GetAwaiter().GetResult();
 
             // 仅导出错误记录
-            var errorList = result.Where(u => !string.IsNullOrWhiteSpace(u.Error));
-            return ExportData(errorList.Any() ? errorList : new List<IN>());
+            var errorList = result.Where(u => !string.IsNullOrWhiteSpace(u.Error)).ToList();
+            if (!errorList.Any())
+                return new JsonResult(AdminResultProvider.Ok("导入成功"));
+            return ExportData(errorList);
         }
         catch (Exception ex)
         {
-            App.HttpContext.Response.Headers["Content-Type"] = "application/json; charset=utf-8";
-            throw Oops.Oh(AdminResultProvider.Error(ex.Message, 500).ToJson());
+            return new JsonResult(AdminResultProvider.Error(ex.Message));
         }
     }
 
