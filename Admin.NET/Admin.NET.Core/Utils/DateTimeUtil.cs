@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -109,9 +109,10 @@ public class DateTimeUtil
     /// <summary>
     /// 毫秒转天时分秒
     /// </summary>
-    /// <param name="ms"></param>
+    /// <param name="ms">TotalMilliseconds</param>
+    /// <param name="isSimplify">是否简化显示</param>
     /// <returns></returns>
-    public static string FormatTime(long ms)
+    public static string FormatTime(long ms, bool isSimplify = false)
     {
         int ss = 1000;
         int mi = ss * 60;
@@ -131,7 +132,23 @@ public class DateTimeUtil
         //string sMilliSecond = milliSecond < 10 ? "0" + milliSecond : "" + milliSecond;//毫秒
         //sMilliSecond = milliSecond < 100 ? "0" + sMilliSecond : "" + sMilliSecond;
 
-        return $"{sDay} 天 {sHour} 小时 {sMinute} 分 {sSecond} 秒";
+        if (!isSimplify)
+            return $"{sDay} 天 {sHour} 小时 {sMinute} 分 {sSecond} 秒";
+        else
+        {
+            string result = string.Empty;
+            if (day > 0)
+                result = $"{sDay}天";
+            if (hour > 0)
+                result = $"{result}{sHour}小时";
+            if (minute > 0)
+                result = $"{result}{sMinute}分";
+            if (!result.IsNullOrEmpty())
+                result = $"{result}{sSecond}秒";
+            else
+                result = $"{sSecond}秒";
+            return result;
+        }
     }
 
     /// <summary>
