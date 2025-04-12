@@ -126,7 +126,7 @@ public class ExcelHelper
             if (dataList != null)
             {
                 // 添加下拉列表
-                AddListValidation(columnIndex, dataList);
+                AddListValidation(dropdownSheet, columnIndex, dataList);
                 dropdownSheet.Cells[1, columnIndex, dataList.Count, columnIndex].LoadFromCollection(dataList);
             }
         }
@@ -135,10 +135,10 @@ public class ExcelHelper
         package.Stream.Position = 0;
         return new XlsxFileResult(stream: package.Stream, fileDownloadName: $"{filename}-{DateTime.Now:yyyy-MM-dd_HHmmss}");
 
-        void AddListValidation(int columnIndex, List<string> dataList)
+        void AddListValidation(ExcelWorksheet dropdownSheet, int columnIndex, List<string> dataList)
         {
-            var validation = worksheet.DataValidations.AddListValidation(worksheet.Cells[2, columnIndex, 999999, columnIndex].Address);
-            validation!.Formula.ExcelFormula = "=下拉数据!" + worksheet.Cells[1, columnIndex, dataList.Count, columnIndex].Address;
+            var validation = worksheet.DataValidations.AddListValidation(worksheet.Cells[2, columnIndex, ExcelPackage.MaxRows, columnIndex].Address);
+            validation!.Formula.ExcelFormula = "=" + dropdownSheet.Cells[1, columnIndex, dataList.Count, columnIndex].FullAddressAbsolute;
             validation.ShowErrorMessage = true;
             validation.ErrorTitle = "无效输入";
             validation.Error = "请从列表中选择一个有效的选项";
