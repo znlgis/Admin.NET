@@ -3,27 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'de8c03df8ab6ee18d88e1984e3abe3d68079c43a'
-    oldFile: !uuid '32c9881460c597def2efc8217470e1b4fcc09831'
+    newFile: !uuid '8d1ede9e74190659dfc42d53009ad2490eb08e4b'
+    oldFile: !uuid 'de8c03df8ab6ee18d88e1984e3abe3d68079c43a'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '81559b620f1be1ad8af83226fc1988614bf79872'
-    oldFile: !uuid '6d984310b40eb3cc77e6b1d31793065b23c60320'
-  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
-    newFile: !uuid '06d306cfc000b9cf3ed05d53f329d5f8dbff4ebc'
-    oldFile: !uuid '5375f076721441464571416152fe4426da5dcefc'
-  /Admin.NET/Admin.NET.Test:
-    newFile: !uuid '4cb3b84f774b12b8270baee8bcafed3d465f0689'
-    oldFile: !uuid 'e40d7cd33ff233ba5b6ef8a034a7e18651b483ca'
-  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
-    newFile: !uuid '02380abf64d16543b1610dff566b8b1f01631243'
-    oldFile: !uuid '77befc32105930886392a541b04c1aa5acacc36e'
-  /Web:
-    newFile: !uuid '8cab9580c0f8bf18c30b49fb71bb7a5287225cc8'
-    oldFile: !uuid '826acb4b9a75479f53546a91cda1c3d7db18a389'
-  /Web/package.json:
-    newFile: !uuid '5d4b4092dfeaa929b8916f8788468f251f8822fa'
-    oldFile: !uuid 'bdcb7588f5549a54939553cbf1bacb5d8835f531'
-gitCommitId: !uuid '16aa4ea72f3c287e0ab3f3d8c002f1f155212595'
+    newFile: !uuid '9132ca754bc7930d0d9de8584ed466717033781b'
+    oldFile: !uuid '81559b620f1be1ad8af83226fc1988614bf79872'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid 'b8882408524fe3f7745463a60d2235005c52082e'
+    oldFile: !uuid '066300c58a02c020129cecc50b40528f05cad693'
+  /Admin.NET/Admin.NET.Core/Service/Job:
+    newFile: !uuid '703a29c507c4aeeca84031e04b9d40d9772b39cd'
+    oldFile: !uuid '41ce02de79e24ca8b02853423905fac55f59930b'
+  /Admin.NET/Admin.NET.Core/Service/Job/SysJobService.cs:
+    newFile: !uuid 'a04f11c8cf1c718ea6535563d59833e8c57fd776'
+    oldFile: !uuid '99307b60efe070df4a64169121c84cf6c936e677'
+gitCommitId: !uuid '2ad99f9a7385f89951624897ee0121a3429a610c'
 renames: {
   }
-revisionId: 2822
+revisionId: 2823
