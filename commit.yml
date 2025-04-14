@@ -3,24 +3,27 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '32c9881460c597def2efc8217470e1b4fcc09831'
-    oldFile: !uuid 'be82cddbc8baaec95548b4022c398efef046891a'
+    newFile: !uuid 'de8c03df8ab6ee18d88e1984e3abe3d68079c43a'
+    oldFile: !uuid '32c9881460c597def2efc8217470e1b4fcc09831'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '6d984310b40eb3cc77e6b1d31793065b23c60320'
-    oldFile: !uuid '8156fd2e92e4f9143181924baf41885fdd366175'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '066300c58a02c020129cecc50b40528f05cad693'
-    oldFile: !uuid '45988ca914f8da042052c571fe307b83bf689a1a'
-  /Admin.NET/Admin.NET.Core/Service/Config:
-    newFile: !uuid '934936a9d2b6955a5b6895e2723e9484e7647b4b'
-    oldFile: !uuid '538ee9aba44ce77d99ee3e5baff31f134380864d'
-  /Admin.NET/Admin.NET.Core/Service/Config/SysTenantConfigService.cs:
-    newFile: !uuid '3ce14534b8a9a052e3304acbf4af6a97e6be1208'
-    oldFile: !uuid '709ab7b0b3fa01a57e85410c37ea7f6546e6dd23'
-  /Admin.NET/Admin.NET.Core/Service/Config/SysUserConfigService.cs:
-    newFile: !uuid '39b067af32b9ed3e8a18b4d4bdd665be60e8dbd9'
-    oldFile: !uuid 'b792dcbd414efb4c85b3b6e0c2280766a22f2a0e'
-gitCommitId: !uuid '2e3c945c06559174a25f4be717744f503e87d4aa'
+    newFile: !uuid '81559b620f1be1ad8af83226fc1988614bf79872'
+    oldFile: !uuid '6d984310b40eb3cc77e6b1d31793065b23c60320'
+  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
+    newFile: !uuid '06d306cfc000b9cf3ed05d53f329d5f8dbff4ebc'
+    oldFile: !uuid '5375f076721441464571416152fe4426da5dcefc'
+  /Admin.NET/Admin.NET.Test:
+    newFile: !uuid '4cb3b84f774b12b8270baee8bcafed3d465f0689'
+    oldFile: !uuid 'e40d7cd33ff233ba5b6ef8a034a7e18651b483ca'
+  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
+    newFile: !uuid '02380abf64d16543b1610dff566b8b1f01631243'
+    oldFile: !uuid '77befc32105930886392a541b04c1aa5acacc36e'
+  /Web:
+    newFile: !uuid '8cab9580c0f8bf18c30b49fb71bb7a5287225cc8'
+    oldFile: !uuid '826acb4b9a75479f53546a91cda1c3d7db18a389'
+  /Web/package.json:
+    newFile: !uuid '5d4b4092dfeaa929b8916f8788468f251f8822fa'
+    oldFile: !uuid 'bdcb7588f5549a54939553cbf1bacb5d8835f531'
+gitCommitId: !uuid '16aa4ea72f3c287e0ab3f3d8c002f1f155212595'
 renames: {
   }
-revisionId: 2821
+revisionId: 2822
