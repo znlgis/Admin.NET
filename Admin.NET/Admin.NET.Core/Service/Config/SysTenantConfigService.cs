@@ -159,7 +159,7 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 根据Code获取配置参数
+    /// 根据Code获取配置参数 🔖
     /// </summary>
     /// <param name="code"></param>
     /// <returns></returns>
@@ -172,7 +172,7 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
     /// <summary>
     /// 根据Code获取配置参数值 🔖
     /// </summary>
-    /// <param name="code"></param>
+    /// <param name="code">编码</param>
     /// <returns></returns>
     [DisplayName("根据Code获取配置参数值")]
     public async Task<string> GetConfigValueByCode(string code)
@@ -183,12 +183,25 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
     /// <summary>
     /// 获取配置参数值
     /// </summary>
-    /// <param name="code"></param>
+    /// <param name="code">编码</param>
+    /// <param name="defaultValue">默认值</param>
     /// <returns></returns>
     [NonAction]
-    public async Task<T> GetConfigValueByCode<T>(string code)
+    public async Task<string> GetConfigValueByCode(string code, string defaultValue = default)
     {
-        if (string.IsNullOrWhiteSpace(code)) return default;
+        return await GetConfigValueByCode<string>(code, defaultValue);
+    }
+
+    /// <summary>
+    /// 获取配置参数值
+    /// </summary>
+    /// <param name="code">编码</param>
+    /// <param name="defaultValue">默认值</param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<T> GetConfigValueByCode<T>(string code, T defaultValue = default)
+    {
+        if (string.IsNullOrWhiteSpace(code)) return defaultValue;
 
         var value = _sysCacheService.Get<string>($"{CacheConst.KeyTenantConfig}{_userManager.TenantId}{code}");
         if (string.IsNullOrEmpty(value))
@@ -196,7 +209,7 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
             value = (await VSysConfig.FirstAsync(u => u.Code == code))?.Value;
             _sysCacheService.Set($"{CacheConst.KeyTenantConfig}{_userManager.TenantId}{code}", value);
         }
-        if (string.IsNullOrWhiteSpace(value)) return default;
+        if (string.IsNullOrWhiteSpace(value)) return defaultValue;
         return (T)Convert.ChangeType(value, typeof(T));
     }
 
