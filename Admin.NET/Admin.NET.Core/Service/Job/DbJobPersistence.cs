@@ -182,5 +182,7 @@ public class DbJobPersistence : IJobPersistence
 
         var jobTriggerRecord = context.Timeline.Adapt<SysJobTriggerRecord>();
         await db.Insertable(jobTriggerRecord).ExecuteCommandAsync();
+
+        await scope.ServiceProvider.GetRequiredService<SysJobService>().ClearExpireJobTriggerRecord(jobTriggerRecord);
     }
 }
