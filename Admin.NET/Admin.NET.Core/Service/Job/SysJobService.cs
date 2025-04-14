@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -366,5 +366,19 @@ public class SysJobService : IDynamicApiController, ITransient
     public void ClearJobTriggerRecord()
     {
         _sysJobTriggerRecordRep.AsSugarClient().DbMaintenance.TruncateTable<SysJobTriggerRecord>();
+    }
+    
+    /// <summary>
+    /// 清空不保留的作业触发器运行记录 🔖
+    /// </summary>
+    /// <returns></returns>
+    [NonAction]
+    [DisplayName("清空过期的作业触发器运行记录")]
+    public async Task ClearExpireJobTriggerRecord(SysJobTriggerRecord input)
+    {
+        int keepRecords = 30;//保留记录条数
+        await _sysJobTriggerRecordRep.AsDeleteable().In(it => it.Id,
+         _sysJobTriggerRecordRep.AsQueryable().Skip(keepRecords).OrderByDescending(it => it.LastRunTime)
+         .Where(u => u.JobId == input.JobId && u.TriggerId == input.TriggerId).Select(it => it.Id)).ExecuteCommandAsync();//注意Select不要ToList(), ToList就2次查询了
     }
 }
