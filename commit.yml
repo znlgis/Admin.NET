@@ -3,21 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '8d1ede9e74190659dfc42d53009ad2490eb08e4b'
-    oldFile: !uuid 'de8c03df8ab6ee18d88e1984e3abe3d68079c43a'
+    newFile: !uuid '43525b249ece16b09274d9b4c2a88da84f4efb2a'
+    oldFile: !uuid '8d1ede9e74190659dfc42d53009ad2490eb08e4b'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '9132ca754bc7930d0d9de8584ed466717033781b'
-    oldFile: !uuid '81559b620f1be1ad8af83226fc1988614bf79872'
+    newFile: !uuid 'e739927f05a087e0160ed8a9c17d3a4dc7c8c590'
+    oldFile: !uuid '9132ca754bc7930d0d9de8584ed466717033781b'
   /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid 'b8882408524fe3f7745463a60d2235005c52082e'
-    oldFile: !uuid '066300c58a02c020129cecc50b40528f05cad693'
+    newFile: !uuid '0a028e28346b3c0bdc5e6b5ef5a35658cb1780e4'
+    oldFile: !uuid 'b8882408524fe3f7745463a60d2235005c52082e'
   /Admin.NET/Admin.NET.Core/Service/Job:
-    newFile: !uuid '703a29c507c4aeeca84031e04b9d40d9772b39cd'
-    oldFile: !uuid '41ce02de79e24ca8b02853423905fac55f59930b'
-  /Admin.NET/Admin.NET.Core/Service/Job/SysJobService.cs:
-    newFile: !uuid 'a04f11c8cf1c718ea6535563d59833e8c57fd776'
-    oldFile: !uuid '99307b60efe070df4a64169121c84cf6c936e677'
-gitCommitId: !uuid '2ad99f9a7385f89951624897ee0121a3429a610c'
+    newFile: !uuid 'c1462ff77540d290bc715b2bce222493e7685f5a'
+    oldFile: !uuid '703a29c507c4aeeca84031e04b9d40d9772b39cd'
+  /Admin.NET/Admin.NET.Core/Service/Job/DbJobPersistence.cs:
+    newFile: !uuid '561183514c78ac869bb953bf3bc985c49e0c5207'
+    oldFile: !uuid 'd53712a0120b692583592cece62644268c12efc7'
+gitCommitId: !uuid 'eacde7f0b53016705906ac613c2dcb9edb36d1c2'
 renames: {
   }
-revisionId: 2823
+revisionId: 2824
