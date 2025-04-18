@@ -217,7 +217,8 @@ const dbChanged = async () => {
 
 // table改变
 const tableChanged = (item: any) => {
-	state.ruleForm.tableName = item.entityName;
+	state.ruleForm.tableName = item.tableName;
+	state.ruleForm.entityName = item.entityName;
 	state.ruleForm.busName = item.tableComment;
   state.ruleForm.tableUniqueList = [];
 	getColumnInfoList();
@@ -279,6 +280,7 @@ const submit = () => {
 	ruleFormRef.value.validate(async (valid: boolean) => {
 		if (!valid) return;
     if (state.ruleForm.tableUniqueList?.length === 0) state.ruleForm.tableUniqueList = null;
+		state.ruleForm.tableName = state.ruleForm.entityName;
 		if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
 			await getAPI(SysCodeGenApi).apiSysCodeGenUpdatePost(state.ruleForm as UpdateCodeGenInput);
 		} else {
