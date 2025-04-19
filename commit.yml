@@ -2,28 +2,19 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid '2c8f666e41b61d4afa05b40f87e591223dd380c0'
-    oldFile: !uuid '8cab9580c0f8bf18c30b49fb71bb7a5287225cc8'
-  /Web/src:
-    newFile: !uuid 'd04c28b29579a93752c22cddf8f764ed039cba0f'
-    oldFile: !uuid '6037eaa57f4e23a5a992e54020d591dedfada872'
-  /Web/src/views:
-    newFile: !uuid '6351365845c844e07358bff968a363ce3ca8a616'
-    oldFile: !uuid '5655dd4a62ea50f3ab30f6cfbd272a9ac7311586'
-  /Web/src/views/system:
-    newFile: !uuid '9340f88530c4656956dac4def8ac50e39b0df0e7'
-    oldFile: !uuid '288fab38b35cbbd0f81fe5af78c2d1fecc09d9d8'
-  /Web/src/views/system/codeGen:
-    newFile: !uuid '565123bf5f1d2a4a090379767d9b2153c1aad254'
-    oldFile: !uuid 'a8ad1458ee47580e6a2d064198469ebf649e08a6'
-  /Web/src/views/system/codeGen/component:
-    newFile: !uuid '0c25f78c99b470d1511e2b225fb8e3d4d1860c7f'
-    oldFile: !uuid 'a5b4746e4e197dabaa631cbd509c30790e25ba3d'
-  /Web/src/views/system/codeGen/component/editCodeGenDialog.vue:
-    newFile: !uuid '188b0c12193ef9b9aeb04f8fd45b1d597695f9f5'
-    oldFile: !uuid 'b5c9deea21ff402f5ee67116b1c822f69a7d82a9'
-gitCommitId: !uuid 'efea912b3e693374b2061201ce23eeeecdd1806a'
+  /Admin.NET:
+    newFile: !uuid '4c1e8a4162e542a36ff74467a76fd900c869bd8e'
+    oldFile: !uuid '7a58da7f1efadcefb2d46798b5b95dee9548e899'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid 'a74be6025255622e83bc6bb05aef1088ff5dffe7'
+    oldFile: !uuid 'd9ee7f72f43c595336ca0e0baf419b9f7963da76'
+  /Admin.NET/Admin.NET.Core/Option:
+    newFile: !uuid '4326e7427368c5b97ab92a8cf06ab75342716895'
+    oldFile: !uuid '8c2c6e4cb1351d79446ee03245de8e1b737c49eb'
+  /Admin.NET/Admin.NET.Core/Option/DbConnectionOptions.cs:
+    newFile: !uuid 'bd8098b64eff2ea58b004ab213e3ba3f99be90f6'
+    oldFile: !uuid 'f1781555d9d4d53d7ded9156a4692068f075828b'
+gitCommitId: !uuid '0077660ecd27da3da7eb4cf1894ae8e28af4a90f'
 renames: {
   }
-revisionId: 2827
+revisionId: 2828
