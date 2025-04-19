@@ -36,7 +36,7 @@
 		"echarts-gl": "^2.0.9",
 		"echarts-wordcloud": "^2.1.0",
 		"element-plus": "^2.9.7",
-		"ezuikit-js": "^8.1.7",
+		"ezuikit-js": "^8.1.9-beta.3",
 		"js-cookie": "^3.0.5",
 		"js-table2excel": "^1.1.2",
 		"json-editor-vue": "^0.18.1",
