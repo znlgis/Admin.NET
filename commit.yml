@@ -2,19 +2,13 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid '4c1e8a4162e542a36ff74467a76fd900c869bd8e'
-    oldFile: !uuid '7a58da7f1efadcefb2d46798b5b95dee9548e899'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'a74be6025255622e83bc6bb05aef1088ff5dffe7'
-    oldFile: !uuid 'd9ee7f72f43c595336ca0e0baf419b9f7963da76'
-  /Admin.NET/Admin.NET.Core/Option:
-    newFile: !uuid '4326e7427368c5b97ab92a8cf06ab75342716895'
-    oldFile: !uuid '8c2c6e4cb1351d79446ee03245de8e1b737c49eb'
-  /Admin.NET/Admin.NET.Core/Option/DbConnectionOptions.cs:
-    newFile: !uuid 'bd8098b64eff2ea58b004ab213e3ba3f99be90f6'
-    oldFile: !uuid 'f1781555d9d4d53d7ded9156a4692068f075828b'
-gitCommitId: !uuid '0077660ecd27da3da7eb4cf1894ae8e28af4a90f'
+  /Web:
+    newFile: !uuid '3f8603830f4635ca2b7b15cd8f6319bad4427d38'
+    oldFile: !uuid '2c8f666e41b61d4afa05b40f87e591223dd380c0'
+  /Web/package.json:
+    newFile: !uuid '5f2a0f613b98831dc6f7b3f5362bf3a2fd30b751'
+    oldFile: !uuid '5d4b4092dfeaa929b8916f8788468f251f8822fa'
+gitCommitId: !uuid '041a55994a6156020aad1ff6a0f1132bf45efe29'
 renames: {
   }
-revisionId: 2828
+revisionId: 2829
