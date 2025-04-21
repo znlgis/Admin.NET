@@ -197,7 +197,8 @@ onUnmounted(() => {
 
 // 检测大小写按键
 const handleKeyPress = (e: KeyboardEvent) => {
-	state.capsLockVisible = e.getModifierState('CapsLock');
+    if (e.getModifierState != undefined)
+	    state.capsLockVisible = e.getModifierState('CapsLock');
 };
 
 // 获取验证码
