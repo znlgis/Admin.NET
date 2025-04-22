@@ -219,6 +219,14 @@ public class SysJobService : IDynamicApiController, ITransient
         if (isExist) throw Oops.Oh(ErrorCodeEnum.D1006);
 
         var jobTrigger = input.Adapt<SysJobTrigger>();
+        if (jobTrigger.EndTime.HasValue && jobTrigger.EndTime.Value.Year < 1901)
+        {
+            jobTrigger.EndTime = null;
+        }
+        if (jobTrigger.StartTime.HasValue && jobTrigger.StartTime.Value.Year < 1901)
+        {
+            jobTrigger.StartTime = null;
+        }
         jobTrigger.Args = "[" + jobTrigger.Args + "]";
 
         var scheduler = _schedulerFactory.GetJob(input.JobId);
