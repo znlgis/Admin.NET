@@ -196,19 +196,34 @@ public class SysUserConfigService : IDynamicApiController, ITransient
     /// <summary>
     /// 获取配置参数值
     /// </summary>
+    /// <typeparam name="T">类型</typeparam>
     /// <param name="code">编码</param>
     /// <param name="defaultValue">默认值</param>
     /// <returns></returns>
     [NonAction]
     public async Task<T> GetConfigValueByCode<T>(string code, T defaultValue = default)
     {
+        return await GetConfigValueByCode<T>(code, _userManager.UserId, defaultValue);
+    }
+
+    /// <summary>
+    /// 获取配置参数值
+    /// </summary>
+    /// <typeparam name="T">类型</typeparam>
+    /// <param name="code">编码</param>
+    /// <param name="userId">用户Id</param>
+    /// <param name="defaultValue">默认值</param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<T> GetConfigValueByCode<T>(string code, long userId, T defaultValue = default)
+    {
         if (string.IsNullOrWhiteSpace(code)) return defaultValue;
 
-        var value = _sysCacheService.Get<string>($"{CacheConst.KeyUserConfig}{_userManager.UserId}{code}");
+        var value = _sysCacheService.Get<string>($"{CacheConst.KeyUserConfig}{userId}{code}");
         if (string.IsNullOrEmpty(value))
         {
             value = (await VSysConfig.FirstAsync(u => u.Code == code))?.Value;
-            _sysCacheService.Set($"{CacheConst.KeyUserConfig}{_userManager.UserId}{code}", value);
+            _sysCacheService.Set($"{CacheConst.KeyUserConfig}{userId}{code}", value);
         }
         if (string.IsNullOrWhiteSpace(value)) return defaultValue;
         return (T)Convert.ChangeType(value, typeof(T));
