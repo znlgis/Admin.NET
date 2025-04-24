@@ -195,19 +195,34 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
     /// <summary>
     /// 获取配置参数值
     /// </summary>
+    /// <typeparam name="T">类型</typeparam>
     /// <param name="code">编码</param>
     /// <param name="defaultValue">默认值</param>
     /// <returns></returns>
     [NonAction]
     public async Task<T> GetConfigValueByCode<T>(string code, T defaultValue = default)
     {
+        return await GetConfigValueByCode<T>(code, _userManager.TenantId, defaultValue);
+    }
+
+    /// <summary>
+    /// 获取配置参数值
+    /// </summary>
+    /// <typeparam name="T">类型</typeparam>
+    /// <param name="code">编码</param>
+    /// <param name="tenantId">租户Id</param>
+    /// <param name="defaultValue">默认值</param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<T> GetConfigValueByCode<T>(string code, long tenantId, T defaultValue = default)
+    {
         if (string.IsNullOrWhiteSpace(code)) return defaultValue;
 
-        var value = _sysCacheService.Get<string>($"{CacheConst.KeyTenantConfig}{_userManager.TenantId}{code}");
+        var value = _sysCacheService.Get<string>($"{CacheConst.KeyTenantConfig}{tenantId}{code}");
         if (string.IsNullOrEmpty(value))
         {
             value = (await VSysConfig.FirstAsync(u => u.Code == code))?.Value;
-            _sysCacheService.Set($"{CacheConst.KeyTenantConfig}{_userManager.TenantId}{code}", value);
+            _sysCacheService.Set($"{CacheConst.KeyTenantConfig}{tenantId}{code}", value);
         }
         if (string.IsNullOrWhiteSpace(value)) return defaultValue;
         return (T)Convert.ChangeType(value, typeof(T));
