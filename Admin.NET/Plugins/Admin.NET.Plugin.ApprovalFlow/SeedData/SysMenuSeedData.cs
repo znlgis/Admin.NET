@@ -19,7 +19,7 @@ public class SysMenuSeedData : ISqlSugarEntitySeedData<SysMenu>
     {
         return new[]
         {
-            new SysMenu{ Id=1320000000001, Pid=1310000000301, Title="审批流程", Path="/platform/approvalFlow", Name="approvalFlow", Component="/approvalFlow/index", Icon="ele-Help", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=2000 },
+            new SysMenu{ Id=1310300010101, Pid=1300300000101, Title="审批流程", Path="/platform/approvalFlow", Name="approvalFlow", Component="/approvalFlow/index", Icon="ele-Help", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=2000 },
         };
     }
 }
