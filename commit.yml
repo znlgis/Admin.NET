@@ -3,21 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '9898463b06692185bea85357cb298366a5e3223a'
-    oldFile: !uuid 'd009f9d6cf98121ad04fb8dd1e58a24a1f5ca541'
+    newFile: !uuid 'fdee79c18b98ab49e37766fb6126742eaae448a9'
+    oldFile: !uuid '9898463b06692185bea85357cb298366a5e3223a'
   /Admin.NET/Plugins:
-    newFile: !uuid 'b3f243da4d391601f6a32e1540c08fa6d9bed14c'
-    oldFile: !uuid 'c021d47bbabbc8ceaf43f59be082974f08545400'
-  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow:
-    newFile: !uuid 'f03fbeb80b1f55df0dc0ece045fb7b2663885386'
-    oldFile: !uuid '47096e6f16f544fcd94b9d4d144408e430efc4e8'
-  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/SeedData:
-    newFile: !uuid '3a300dab5c630899c95a7f4267b2a13d691ef317'
-    oldFile: !uuid 'fa8545be0255291e12d3cc2aeda8a7ab384a2ff5'
-  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/SeedData/SysMenuSeedData.cs:
-    newFile: !uuid 'a538a1c6ee4fb78da52b0568883564cde0adc70e'
-    oldFile: !uuid '7688a96a88d1e69201229316d19d778f9584d647'
-gitCommitId: !uuid '4da46c99acbef779ea83f59a72fc15ebee1661c2'
+    newFile: !uuid 'a5b8fba8ab7a24d5070836e3ad867f221014af71'
+    oldFile: !uuid 'b3f243da4d391601f6a32e1540c08fa6d9bed14c'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero:
+    newFile: !uuid '1c861d211a9f883571a974c33d1e17a69af00dd1'
+    oldFile: !uuid '37f08247ffe09fa321bdef19a0f7cb006a94e738'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero/SeedData:
+    newFile: !uuid '40757cca0deae8fc7a6a8cbbf938f04eff907a8a'
+    oldFile: !uuid 'a69584ee83f81e180a3ef4f218f1db30a6eaa95c'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero/SeedData/SysMenuSeedData.cs:
+    newFile: !uuid '1f5e4d5e4ee1583a5f01a5308bf60b45c395ad4a'
+    oldFile: !uuid '4adcd1218f0d55cec8e41c2f4caf878de50c3fa8'
+gitCommitId: !uuid '9f00a4a912f4d4bc70ff8c9ad6e70c78ab9b5e0d'
 renames: {
   }
-revisionId: 2837
+revisionId: 2838
