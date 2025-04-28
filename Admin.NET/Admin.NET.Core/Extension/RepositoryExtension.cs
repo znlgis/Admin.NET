@@ -361,31 +361,6 @@ public static class RepositoryExtension
     }
 
     /// <summary>
-    /// 导航+子表过滤 创建一个扩展函数，默认是Class不支持Where
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="thisValue"></param>
-    /// <param name="whereExpression"></param>
-    /// <returns></returns>
-    public static List<T> Where<T>(this T thisValue, Func<T, bool> whereExpression) where T : class, new()
-    {
-        return new List<T>() { thisValue };
-    }
-
-    /// <summary>
-    /// 导航+子表过滤 创建一个扩展函数，默认是Class不支持WhereIF
-    /// </summary>
-    /// <typeparam name="T"></typeparam>
-    /// <param name="thisValue"></param>
-    /// <param name="isWhere"></param>
-    /// <param name="whereExpression"></param>
-    /// <returns></returns>
-    public static List<T> WhereIF<T>(this T thisValue, bool isWhere, Func<T, bool> whereExpression) where T : class, new()
-    {
-        return new List<T>() { thisValue };
-    }
-
-    /// <summary>
     /// 只更新某些列
     /// </summary>
     /// <typeparam name="T"></typeparam>
