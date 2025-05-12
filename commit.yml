@@ -3,24 +3,24 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '5190c6a9f4c77661344c84976ae060673c7a891d'
-    oldFile: !uuid '0d096aef9a771aca246f3b3be631c658a1e5352b'
+    newFile: !uuid '9c53a0413446773c995715af845375ccce0a0137'
+    oldFile: !uuid '5190c6a9f4c77661344c84976ae060673c7a891d'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'c6f0ae3c8314013a36361f2c074f1be291b93e76'
-    oldFile: !uuid 'add084cc30e8816d39012bdc148dc452c3167ed0'
+    newFile: !uuid 'cb974e03ddf9154e7a003fdc3d7f6de4176de4e8'
+    oldFile: !uuid 'c6f0ae3c8314013a36361f2c074f1be291b93e76'
   /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '4159798c4642a9a5fa1066d2b3e2a690d685b196'
-    oldFile: !uuid 'f010c96abb6a82b08c02b139e717cb3d2dbe6012'
-  /Admin.NET/Admin.NET.Core/Service/Dict:
-    newFile: !uuid 'c0ee3fb1557c2475901d1ec6b086ab641c995b7e'
-    oldFile: !uuid '3765c3203df4f352fa844d0e70f0ba86e0aab9ed'
-  /Admin.NET/Admin.NET.Core/Service/Dict/Dto:
-    newFile: !uuid '0039c9622835f69d1b94ec12a07b96cc8266c963'
-    oldFile: !uuid '168fcc604341802c44ac185a3930ee905254fa91'
-  /Admin.NET/Admin.NET.Core/Service/Dict/Dto/DictDataInput.cs:
-    newFile: !uuid 'ecff3bfb8e4753aa4c6688c053584f42238f1921'
-    oldFile: !uuid '9dc88a94b53adaa4f7e333b897ff836a555cbe63'
-gitCommitId: !uuid '53d0faa8d7d47880a2d8f1efdaba4b9d5e16a3a3'
+    newFile: !uuid '9c533795628c95d3cc46a9bffad3034fcd8b0942'
+    oldFile: !uuid '4159798c4642a9a5fa1066d2b3e2a690d685b196'
+  /Admin.NET/Admin.NET.Core/Service/Wechat:
+    newFile: !uuid 'daec035c5a5b72ad46bcc19972faeebb81f2b33d'
+    oldFile: !uuid '34365298a78c00b5e6c45e04a9d3034dea868708'
+  /Admin.NET/Admin.NET.Core/Service/Wechat/SysWechatService.cs:
+    newFile: !uuid '8196b7cc751eec3e1563a015d68d8e8d5e85d7a1'
+    oldFile: !uuid 'd0b8ae026c42bcdc2f9569849d3619cd28df7036'
+  /Admin.NET/Admin.NET.Core/Service/Wechat/WechatApiHttpClient.cs:
+    newFile: !uuid 'cec2978024e5c5adde8d49ae05474421fc6da37b'
+    oldFile: !uuid 'e71653b1de8a93042c06c04a29292b46eec8e517'
+gitCommitId: !uuid '5d2d729fd2921cd091df36308f904674c4f2926a'
 renames: {
   }
-revisionId: 2845
+revisionId: 2846
