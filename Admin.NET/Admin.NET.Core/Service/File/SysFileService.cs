@@ -308,13 +308,14 @@ public class SysFileService : IDynamicApiController, ITransient
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = await sysUserRep.GetByIdAsync(_userManager.UserId);
+        await sysUserRep.UpdateAsync(u => new SysUser() { Avatar = sysFile.Url }, u => u.Id == user.Id);
         // 删除已有头像文件
         if (!string.IsNullOrWhiteSpace(user.Avatar))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Avatar);
             await DeleteFile(new DeleteFileInput { Id = long.Parse(fileId) });
         }
-        await sysUserRep.UpdateAsync(u => new SysUser() { Avatar = sysFile.Url }, u => u.Id == user.Id);
+
         return sysFile;
     }
 
