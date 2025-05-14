@@ -3,24 +3,33 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '9c53a0413446773c995715af845375ccce0a0137'
-    oldFile: !uuid '5190c6a9f4c77661344c84976ae060673c7a891d'
+    newFile: !uuid 'd1f9734566574642619e5a67c0e7967acf222f15'
+    oldFile: !uuid '9c53a0413446773c995715af845375ccce0a0137'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'cb974e03ddf9154e7a003fdc3d7f6de4176de4e8'
-    oldFile: !uuid 'c6f0ae3c8314013a36361f2c074f1be291b93e76'
+    newFile: !uuid '5110d3b080516b2969d51b1200a2e8a1c52b5db2'
+    oldFile: !uuid 'cb974e03ddf9154e7a003fdc3d7f6de4176de4e8'
+  /Admin.NET/Admin.NET.Core/Job:
+    newFile: !uuid '5b68da3e61d7a81eb0d589b9036524a722530411'
+    oldFile: !uuid '795309bb4ddb2bbafc2511b6e03bb1bba75f0b5c'
+  /Admin.NET/Admin.NET.Core/Job/WechatAccessTokenCheckJob.cs:
+    newFile: null
+    oldFile: !uuid '2d99afee87b3361d75923d6b3e52e498cd824e50'
   /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '9c533795628c95d3cc46a9bffad3034fcd8b0942'
-    oldFile: !uuid '4159798c4642a9a5fa1066d2b3e2a690d685b196'
+    newFile: !uuid '6a6fce0c3fd47ef6fd0e690b2e283d8733138273'
+    oldFile: !uuid '9c533795628c95d3cc46a9bffad3034fcd8b0942'
   /Admin.NET/Admin.NET.Core/Service/Wechat:
-    newFile: !uuid 'daec035c5a5b72ad46bcc19972faeebb81f2b33d'
-    oldFile: !uuid '34365298a78c00b5e6c45e04a9d3034dea868708'
+    newFile: !uuid '099d3b86d268111e3f70979ed547cfa79e8c564a'
+    oldFile: !uuid 'daec035c5a5b72ad46bcc19972faeebb81f2b33d'
   /Admin.NET/Admin.NET.Core/Service/Wechat/SysWechatService.cs:
-    newFile: !uuid '8196b7cc751eec3e1563a015d68d8e8d5e85d7a1'
-    oldFile: !uuid 'd0b8ae026c42bcdc2f9569849d3619cd28df7036'
+    newFile: !uuid 'ca0224ecd1f0962f907b9ab75ca9b57f14eba71e'
+    oldFile: !uuid '8196b7cc751eec3e1563a015d68d8e8d5e85d7a1'
+  /Admin.NET/Admin.NET.Core/Service/Wechat/SysWxOpenService.cs:
+    newFile: !uuid 'a0f20e3859d2421850dd92b667a8d49711acc3cd'
+    oldFile: !uuid '18496e1dd63cc6ad017c6ac030114dec3b494ae6'
   /Admin.NET/Admin.NET.Core/Service/Wechat/WechatApiHttpClient.cs:
-    newFile: !uuid 'cec2978024e5c5adde8d49ae05474421fc6da37b'
-    oldFile: !uuid 'e71653b1de8a93042c06c04a29292b46eec8e517'
-gitCommitId: !uuid '5d2d729fd2921cd091df36308f904674c4f2926a'
+    newFile: !uuid '37ac83602a7486efbed0fce4924cdd9704696087'
+    oldFile: !uuid 'cec2978024e5c5adde8d49ae05474421fc6da37b'
+gitCommitId: !uuid 'da31dde99a96521b60e03eccf42ea74476ce4059'
 renames: {
   }
-revisionId: 2846
+revisionId: 2847
