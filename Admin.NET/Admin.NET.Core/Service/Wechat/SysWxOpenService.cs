@@ -16,6 +16,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     private readonly SysConfigService _sysConfigService;
     private readonly WechatApiClient _wechatApiClient;
     private readonly SysFileService _sysFileService;
+    private readonly WechatApiClientFactory _wechatApiClientFactory;
 
     public SysWxOpenService(SqlSugarRepository<SysWechatUser> sysWechatUserRep,
         SysConfigService sysConfigService,
@@ -26,6 +27,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
         _sysConfigService = sysConfigService;
         _wechatApiClient = wechatApiClientFactory.CreateWxOpenClient();
         _sysFileService = sysFileService;
+        _wechatApiClientFactory = wechatApiClientFactory;
     }
 
     /// <summary>
@@ -402,10 +404,6 @@ public class SysWxOpenService : IDynamicApiController, ITransient
     /// </summary>
     private async Task<string> GetCgibinToken()
     {
-        var reqCgibinToken = new CgibinTokenRequest();
-        var resCgibinToken = await _wechatApiClient.ExecuteCgibinTokenAsync(reqCgibinToken);
-        if (resCgibinToken.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
-            throw Oops.Oh(resCgibinToken.ErrorMessage + " " + resCgibinToken.ErrorCode);
-        return resCgibinToken.AccessToken;
+        return await _wechatApiClientFactory.TryGetWxOpenAccessTokenAsync();
     }
 }
