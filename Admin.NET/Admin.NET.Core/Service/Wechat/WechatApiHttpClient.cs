@@ -132,7 +132,7 @@ public partial class WechatApiClientFactory : ISingleton
 
 		var req = new CgibinOpenApiQuotaGetRequest
 		{
-			AccessToken = await TryGetWxOpenAccessTokenAsync(),
+			AccessToken = await TryGetWechatAccessTokenAsync(),
 			CgiPath = "/cgi-bin/token"
 		};
 		var client = CreateWechatClient();
