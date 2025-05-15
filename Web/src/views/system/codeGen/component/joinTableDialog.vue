@@ -12,7 +12,7 @@
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="库定位器" prop="fkConfigId" :rules="[{ required: true, message: '库不能为空', trigger: 'blur' }]">
 							<el-select v-model="state.ruleForm.fkConfigId" placeholder="库名" filterable clearable @change="DbChanged()" class="w100">
-								<el-option v-for="item in state.dbData" :key="item.configId" :label="item.configId" :value="item.configId" />
+								<el-option v-for="item in state.dbData" :key="item.configId" :label="item.dbNickName" :value="item.configId" />
 							</el-select>
 						</el-form-item>
 					</el-col>

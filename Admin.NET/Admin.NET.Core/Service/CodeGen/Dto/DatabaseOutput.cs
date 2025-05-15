@@ -17,6 +17,11 @@ public class DatabaseOutput
     public string ConfigId { get; set; }
 
     /// <summary>
+    /// 库名
+    /// </summary>
+    public string DbNickName { get; set; }
+
+    /// <summary>
     /// 数据库类型
     /// </summary>
     public SqlSugar.DbType DbType { get; set; }
