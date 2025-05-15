@@ -1,8 +1,8 @@
 <template>
-	<el-tooltip :visible="state.capsLockVisible" effect="light" content="大写锁定已打开" placement="top">
+	<el-tooltip :visible="state.capsLockVisible" effect="light" :content="$t('message.account.placeholder5')" placement="top">
 		<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
 			<el-form-item class="login-animation1" prop="account">
-				<el-input ref="accountRef" text :placeholder="$t('message.account.accountPlaceholder1')" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
+				<el-input ref="accountRef" text :placeholder="$t('message.account.placeholder1')" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
 					<template #prefix>
 						<el-icon>
 							<ele-User />
@@ -11,7 +11,7 @@
 				</el-input>
 			</el-form-item>
 			<el-form-item class="login-animation2" prop="password">
-				<el-input ref="passwordRef" :type="state.isShowPassword ? 'text' : 'password'" :placeholder="$t('message.account.accountPlaceholder2')" v-model="state.ruleForm.password" autocomplete="off" @keyup.enter.native="handleSignIn">
+				<el-input ref="passwordRef" :type="state.isShowPassword ? 'text' : 'password'" :placeholder="$t('message.account.placeholder2')" v-model="state.ruleForm.password" autocomplete="off" @keyup.enter.native="handleSignIn">
 					<template #prefix>
 						<el-icon>
 							<ele-Unlock />
@@ -24,7 +24,7 @@
 				</el-input>
 			</el-form-item>
 			<el-form-item class="login-animation2" prop="tenantId" clearable v-if="!props.tenantInfo.id && !state.hideTenantForLogin">
-				<el-select v-model="state.ruleForm.tenantId" :placeholder="$t('message.account.accountPlaceholder3')" style="width: 100%" filterable>
+				<el-select v-model="state.ruleForm.tenantId" :placeholder="$t('message.account.placeholder3')" style="width: 100%" filterable>
 					<template #prefix>
 						<i class="iconfont icon-shuxingtu el-input__icon"></i>
 					</template>
@@ -37,7 +37,7 @@
 						ref="codeRef"
 						text
 						maxlength="4"
-						:placeholder="$t('message.account.accountPlaceholder4')"
+						:placeholder="$t('message.account.placeholder4')"
 						v-model="state.ruleForm.code"
 						clearable
 						autocomplete="off"
@@ -59,7 +59,7 @@
 			</el-form-item>
 			<el-form-item class="login-animation4">
 				<el-button type="primary" class="login-content-submit" round v-waves @click="handleSignIn" :loading="state.loading.signIn">
-					<span>{{ $t('message.account.accountBtnText') }}</span>
+					<span>{{ $t('message.account.btnText') }}</span>
 				</el-button>
 			</el-form-item>
 			<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
@@ -72,8 +72,8 @@
 				ref="dragRef"
 				:imgsrc="state.rotateVerifyImg"
 				v-model:isPassing="state.isPassRotate"
-				text="请按住滑块拖动"
-				successText="验证通过"
+				:text="$t('message.account.placeholder6')"
+				:successText="$t('message.account.placeholder7')"
 				handlerIcon="fa fa-angle-double-right"
 				successIcon="fa fa-hand-peace-o"
 				@passcallback="passRotateVerify"
@@ -132,9 +132,9 @@ const state = reactive({
 		codeId: 0,
 	},
 	rules: {
-		account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-		password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
-		// code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+		account: [{ required: true, message: t('message.account.placeholder1'), trigger: 'blur' }],
+		password: [{ required: true, message: t('message.account.placeholder2'), trigger: 'blur' }],
+		// code: [{ required: true, message: t('message.account.placeholder4'), trigger: 'blur' }],
 	},
 	loading: {
 		signIn: false,
@@ -239,7 +239,7 @@ const onSignIn = async () => {
 			}
 			if (res.data.result?.accessToken == undefined) {
 				getCaptcha(); // 重新获取验证码
-				ElMessage.error('登录失败，请检查账号！');
+				ElMessage.error(t('message.account.placeholder8'));
 				return;
 			}
 			await saveTokenAndInitRoutes(res.data.result?.accessToken);
@@ -264,7 +264,7 @@ const saveTokenAndInitRoutes = async (accessToken: string | any) => {
 // 登录成功后的跳转
 const signInSuccess = (isNoPower: boolean | undefined) => {
 	if (isNoPower) {
-		ElMessage.warning('抱歉，您没有登录权限');
+		ElMessage.warning(t('message.account.placeholder9'));
 		clearTokens(); // 清空Token缓存
 	} else {
 		// 初始化登录成功时间问候语

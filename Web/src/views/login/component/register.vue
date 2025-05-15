@@ -1,5 +1,5 @@
 <template>
-	<el-tooltip :visible="state.capsLockVisible" effect="light" content="大写锁定已打开" placement="top">
+	<el-tooltip :visible="state.capsLockVisible" effect="light" :content="$t('message.account.placeholder5')" placement="top">
 		<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
 			<el-form-item class="login-animation2" prop="tenantId" clearable v-if="!props.tenantInfo.id && !themeConfig.hideTenantForLogin">
 				<el-select v-model="state.ruleForm.tenantId" :placeholder="$t('message.register.placeholder1')" style="width: 100%" filterable>
@@ -74,8 +74,8 @@
 				ref="dragRef"
 				:imgsrc="state.rotateVerifyImg"
 				v-model:isPassing="state.isPassRotate"
-				text="请按住滑块拖动"
-				successText="验证通过"
+				:text="$t('message.account.placeholder6')"
+				:successText="$t('message.account.placeholder7')"
 				handlerIcon="fa fa-angle-double-right"
 				successIcon="fa fa-hand-peace-o"
 				@passcallback="passRotateVerify"
@@ -130,10 +130,10 @@ const state = reactive({
 		codeId: 0,
 	},
 	rules: {
-		account: [{ required: true, message: '请输入用户名', trigger: 'blur' }],
-		realName: [{ required: true, message: '请输入姓名', trigger: 'blur' }],
-		phone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
-		code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
+		account: [{ required: true, message: t('message.register.placeholder3'), trigger: 'blur' }],
+		realName: [{ required: true, message: t('message.register.placeholder4'), trigger: 'blur' }],
+		phone: [{ required: true, message: t('message.register.placeholder2'), trigger: 'blur' }],
+		code: [{ required: true, message: t('message.register.placeholder5'), trigger: 'blur' }],
 	},
 	loading: {
 		register: false,
@@ -225,7 +225,7 @@ const onRegister = async () => {
 				getCaptcha(); // 重新获取验证码
 			} else if (res.data.type != 'success') {
 				getCaptcha(); // 重新获取验证码
-				ElMessage.error('注册失败！');
+				ElMessage.error(t('message.register.placeholder6'));
 			}
 		} finally {
 			state.loading.register = false;
