@@ -16,7 +16,6 @@ public class SysWechatService : IDynamicApiController, ITransient
 	private readonly SysConfigService _sysConfigService;
 	private readonly WechatApiClientFactory _wechatApiClientFactory;
 	private readonly WechatApiClient _wechatApiClient;
-	private readonly SysCacheService _sysCacheService;
 
 	public SysWechatService(SqlSugarRepository<SysWechatUser> sysWechatUserRep,
 		SysConfigService sysConfigService,
@@ -27,7 +26,6 @@ public class SysWechatService : IDynamicApiController, ITransient
 		_sysConfigService = sysConfigService;
 		_wechatApiClientFactory = wechatApiClientFactory;
 		_wechatApiClient = wechatApiClientFactory.CreateWechatClient();
-		_sysCacheService = sysCacheService;
 	}
 
 	/// <summary>
@@ -199,20 +197,6 @@ public class SysWechatService : IDynamicApiController, ITransient
 	[NonAction]
 	public async Task<string> GetCgibinToken()
 	{
-		// 先从缓存中取 AccessToken
-		var wx_accessToken = _sysCacheService.Get<string>("sys_wx_accessToken");
-		if (!string.IsNullOrWhiteSpace(wx_accessToken))
-		{
-			return wx_accessToken;
-		}
-
-		// 若缓存没有则从微信公众号重新获取 AccessToken
-		var reqCgibinToken = new CgibinTokenRequest();
-		var resCgibinToken = await _wechatApiClient.ExecuteCgibinTokenAsync(reqCgibinToken);
-		if (resCgibinToken.ErrorCode != (int)WechatReturnCodeEnum.请求成功)
-			throw Oops.Oh(resCgibinToken.ErrorMessage + " " + resCgibinToken.ErrorCode);
-
-		_sysCacheService.Set("sys_wx_accessToken", resCgibinToken.AccessToken, TimeSpan.FromSeconds(resCgibinToken.ExpiresIn)); // 缓存 AccessToken
-		return resCgibinToken.AccessToken;
+		return await _wechatApiClientFactory.TryGetWechatAccessTokenAsync();
 	}
 }
