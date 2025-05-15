@@ -9,6 +9,7 @@
       {
         //"ConfigId": "1300000000001", // 默认库标识-禁止修改
         "DbType": "Sqlite", // MySql、SqlServer、Sqlite、Oracle、PostgreSQL、Dm、Kdbndp、Oscar、MySqlConnector、Access、OpenGauss、QuestDB、HG、ClickHouse、GBase、Odbc、Custom
+        "DbNickName": "系统库",
         "ConnectionString": "DataSource=./Admin.NET.db", // Sqlite
         //"ConnectionString": "PORT=5432;DATABASE=xxx;HOST=localhost;PASSWORD=xxx;USER ID=xxx", // PostgreSQL
         //"ConnectionString": "Server=localhost;Database=xxx;Uid=xxx;Pwd=xxx;SslMode=None;AllowLoadLocalInfile=true;AllowUserVariables=true;", // MySql,
@@ -43,6 +44,7 @@
       //// 日志独立数据库配置
       //{
       //  "ConfigId": "1300000000002", // 日志库标识-禁止修改
+      //  "DbNickName": "日志库",
       //  "DbType": "Sqlite",
       //  "ConnectionString": "DataSource=./Admin.NET.Log.db", // 库连接字符串
       //  "DbSettings": {

@@ -24,6 +24,7 @@
 			<el-table :data="state.tableData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="configId" label="库定位器" align="center" show-overflow-tooltip />
+				<el-table-column prop="dbNickName" label="库名" align="center" show-overflow-tooltip />
 				<el-table-column prop="tableName" label="表名称" align="center" show-overflow-tooltip />
 				<el-table-column prop="busName" label="业务名" align="center" show-overflow-tooltip />
 				<el-table-column prop="nameSpace" label="命名空间" align="center" show-overflow-tooltip />

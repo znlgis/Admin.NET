@@ -42,7 +42,25 @@ public partial class SysCodeGen : EntityBase
     [SugarColumn(ColumnDescription = "库定位器名", Length = 64)]
     [MaxLength(64)]
     public string? ConfigId { get; set; }
-
+    /// <summary>
+    /// 库名
+    /// </summary>
+    public string DbNickName
+    {
+        get
+        {
+            try
+            {
+                var dbOptions = App.GetConfig<DbConnectionOptions>("DbConnection", true);
+                var config = dbOptions.ConnectionConfigs.FirstOrDefault(m => m.ConfigId.ToString() == ConfigId);
+                return config.DbNickName;
+            }
+            catch (Exception)
+            {
+                return null;
+            }
+        }
+    }
     /// <summary>
     /// 数据库名(保留字段)
     /// </summary>
@@ -135,4 +153,5 @@ public partial class SysCodeGen : EntityBase
     /// </summary>
     [SugarColumn(IsIgnore = true)]
     public virtual List<TableUniqueConfigItem> TableUniqueList => string.IsNullOrWhiteSpace(TableUniqueConfig) ? null : JSON.Deserialize<List<TableUniqueConfigItem>>(TableUniqueConfig);
+
 }
