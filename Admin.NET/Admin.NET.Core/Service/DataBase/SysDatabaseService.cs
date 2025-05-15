@@ -32,9 +32,9 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取库列表")]
-    public List<string> GetList()
+    public List<VisualDb> GetList()
     {
-        return App.GetOptions<DbConnectionOptions>().ConnectionConfigs.Select(u => u.ConfigId.ToString()).ToList();
+        return App.GetOptions<DbConnectionOptions>().ConnectionConfigs.Select(u => new VisualDb { ConfigId = u.ConfigId.ToString(), DbNickName = u.DbNickName }).ToList();
     }
 
     /// <summary>

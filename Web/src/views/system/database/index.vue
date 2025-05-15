@@ -4,7 +4,7 @@
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true" v-loading="state.loading">
 				<el-form-item label="库名">
 					<el-select v-model="state.configId" placeholder="库名" filterable @change="handleQueryTable">
-						<el-option v-for="item in state.dbData" :key="item" :label="item" :value="item" />
+						<el-option v-for="item in state.dbData" :key="item.configId" :label="item.dbNickName" :value="item.configId" />
 					</el-select>
 				</el-form-item>
 				<el-form-item label="表名">
