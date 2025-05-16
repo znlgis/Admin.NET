@@ -2,31 +2,25 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid '4d31ba6737b7c175979590143717a05851849ee9'
-    oldFile: !uuid 'd9c1f4c72d4fe20ced48ca42b657987e438edefc'
-  /Admin.NET/Admin.NET.Web.Entry:
-    newFile: !uuid 'de07aa161723cedb41d485b17f2c55c6f3dc13fd'
-    oldFile: !uuid 'ab6abe392e0c8a0bee4ad32ece23439384543b26'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
-    newFile: !uuid 'b3b5df269bae2328cb0fe23114645ffedea63c40'
-    oldFile: !uuid '0563f16522811ff719063098a4816cce0bad66df'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
-    newFile: !uuid '33c3e456e8ffa1d236f236b68be27d7958ea5f4f'
-    oldFile: !uuid 'fdb6174cd7e36a8cc016cd33fc1de441ffeda169'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Entity.cs.vm:
-    newFile: !uuid 'b9b31bd13279019962e4b68cb33c04239f29995f'
-    oldFile: !uuid 'e7c24f7a1a6a7ba9db9590da10ea6e690c24d70d'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Input.cs.vm:
-    newFile: !uuid 'b972c9f1be49eb499f01582085802bb068ff48ab'
-    oldFile: !uuid 'f137f785737d37d91563ec3bc5e738328486ea3c'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Output.cs.vm:
-    newFile: !uuid '0971db2ebb6a459d031bcbe65cdd06bd9334554a'
-    oldFile: !uuid 'a7c5be72d129052eddc3fd8b12b3c6b2a61d2eec'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Service.cs.vm:
-    newFile: !uuid 'b853d8a6ed528e782e3c8cf3e6cf609312147fbb'
-    oldFile: !uuid '953f583ae5f296a19352307a604b5021c45eb894'
-gitCommitId: !uuid '5d04b196d6a7d54f336d3680a89aef618231c86a'
+  /Web:
+    newFile: !uuid '5085df8a001bbc018b8fed49f65c566502d702e3'
+    oldFile: !uuid '09f5d2aec0ad62d94e4fa3397e43b5a3788bd7fe'
+  /Web/.eslintignore:
+    newFile: null
+    oldFile: !uuid 'cfc877d6cdb8bb6afbad7b032477a6f54ac013f6'
+  /Web/.eslintrc.js:
+    newFile: null
+    oldFile: !uuid '672463c2cf1a71d2da08e7ced6042587329ebc49'
+  /Web/eslint.config.mjs:
+    newFile: !uuid '6f7c47ae7d6447bd838e7e2448be2ea42894e3d5'
+    oldFile: !uuid '162b8531328759e8f233707950dec44fb755a676'
+  /Web/package.json:
+    newFile: !uuid '7dcca51dcf3f0c1718e92e5e6a998267722b0743'
+    oldFile: !uuid '54561c590bec8db7aa2a2259268aa24e86afaa72'
+  /Web/pnpm-workspace.yaml:
+    newFile: !uuid 'bad3b7ebfea7b55aebac3cf006d662b1316a7739'
+    oldFile: null
+gitCommitId: !uuid '228b763d09dc5e9c78340ba3952bd89b64588636'
 renames: {
   }
-revisionId: 2855
+revisionId: 2856
