@@ -6,6 +6,7 @@
 
 @if(Model.BaseClassName!=""){
 @:using Admin.NET.Core;
+@:using SqlSugar;
 }
 namespace @(Model.NameSpace);
 
