@@ -1,19 +1,8 @@
-import vue from 'eslint-plugin-vue';
-import typescriptEslint from '@typescript-eslint/eslint-plugin';
-import globals from 'globals';
-import parser from 'vue-eslint-parser';
-import path from 'node:path';
-import { fileURLToPath } from 'node:url';
 import js from '@eslint/js';
-import { FlatCompat } from '@eslint/eslintrc';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-const compat = new FlatCompat({
-	baseDirectory: __dirname,
-	recommendedConfig: js.configs.recommended,
-	allConfig: js.configs.all,
-});
+import vue from 'eslint-plugin-vue';
+import tseslint from '@typescript-eslint/eslint-plugin';
+import vueParser from 'vue-eslint-parser';
+import globals from 'globals';
 
 export default [
 	{
@@ -37,28 +26,25 @@ export default [
 			'src/assets',
 		],
 	},
-	...compat.extends('plugin:vue/vue3-essential', 'plugin:vue/essential', 'eslint:recommended'),
+	js.configs.recommended,
 	{
 		plugins: {
 			vue,
-			'@typescript-eslint': typescriptEslint,
+			'@typescript-eslint': tseslint,
 		},
 
 		languageOptions: {
+			parser: vueParser,
+			parserOptions: {
+				parser: '@typescript-eslint/parser',
+				ecmaVersion: 2022,
+				sourceType: 'module',
+			},
 			globals: {
 				...globals.browser,
 				...globals.node,
 			},
-
-			parser: parser,
-			ecmaVersion: 12,
-			sourceType: 'module',
-
-			parserOptions: {
-				parser: '@typescript-eslint/parser',
-			},
 		},
-
 		rules: {
 			'@typescript-eslint/ban-ts-ignore': 'off',
 			'@typescript-eslint/explicit-function-return-type': 'off',
