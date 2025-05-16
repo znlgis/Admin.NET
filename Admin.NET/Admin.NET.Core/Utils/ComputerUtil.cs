@@ -36,6 +36,7 @@ public static class ComputerUtil
         {
             memoryMetrics.CpuRates = cpuRates.Select(u => Math.Ceiling(u.ParseToDouble()) + "%").ToList();
         }
+        memoryMetrics.CpuRate = memoryMetrics.CpuRates[0];
         return memoryMetrics;
     }
 
@@ -176,19 +177,28 @@ public static class ComputerUtil
     public static List<string> GetCPURates()
     {
         var cpuRates = new List<string>();
+        string output = "";
         if (IsMacOS())
         {
-            string output = ShellUtil.Bash("top -l 1 | grep \"CPU usage\" | awk '{print $3 + $5}'");
+            output = ShellUtil.Bash("top -l 1 | grep \"CPU usage\" | awk '{print $3 + $5}'");
             cpuRates.Add(output.Trim());
         }
         else if (IsUnix())
         {
-            string output = ShellUtil.Bash("awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else print ($2+$4-u1) * 100 / (t-t1); }' <(grep 'cpu ' /proc/stat) <(sleep 1;grep 'cpu ' /proc/stat)");
+            output = ShellUtil.Bash("awk '{u=$2+$4; t=$2+$4+$5; if (NR==1){u1=u; t1=t;} else print ($2+$4-u1) * 100 / (t-t1); }' <(grep 'cpu ' /proc/stat) <(sleep 1;grep 'cpu ' /proc/stat)");
             cpuRates.Add(output.Trim());
         }
         else
         {
-            string output = ShellUtil.Cmd("wmic", "cpu get LoadPercentage");
+            try
+            {
+                output = ShellUtil.Cmd("wmic", "cpu get LoadPercentage");
+            }
+            catch (Exception)
+            {
+                output = ShellUtil.PowerShell("Get-CimInstance -ClassName Win32_Processor | Select-Object LoadPercentage");
+                output = output.Replace("@", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty).Replace("=", string.Empty).Trim();
+            }
             cpuRates.AddRange(output.Replace("LoadPercentage", string.Empty).Trim().Split("\r\r\n"));
         }
         return cpuRates;
@@ -201,26 +211,36 @@ public static class ComputerUtil
     public static string GetRunTime()
     {
         string runTime = string.Empty;
+        string output = "";
         if (IsMacOS())
         {
             // macOS 获取系统启动时间：
             // sysctl -n kern.boottime | awk '{print $4}' | tr -d ','
             // 返回：1705379131
             // 使用date格式化即可
-            string output = ShellUtil.Bash("date -r $(sysctl -n kern.boottime | awk '{print $4}' | tr -d ',') +\"%Y-%m-%d %H:%M:%S\"").Trim();
+            output = ShellUtil.Bash("date -r $(sysctl -n kern.boottime | awk '{print $4}' | tr -d ',') +\"%Y-%m-%d %H:%M:%S\"").Trim();
             runTime = DateTimeUtil.FormatTime((DateTime.Now - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
         }
         else if (IsUnix())
         {
-            string output = ShellUtil.Bash("date -d \"$(awk -F. '{print $1}' /proc/uptime) second ago\" +\"%Y-%m-%d %H:%M:%S\"").Trim();
+            output = ShellUtil.Bash("date -d \"$(awk -F. '{print $1}' /proc/uptime) second ago\" +\"%Y-%m-%d %H:%M:%S\"").Trim();
             runTime = DateTimeUtil.FormatTime((DateTime.Now - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
         }
         else
         {
-            string output = ShellUtil.Cmd("wmic", "OS get LastBootUpTime/Value");
-            string[] outputArr = output.Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
-            if (outputArr.Length == 2)
-                runTime = DateTimeUtil.FormatTime((DateTime.Now - outputArr[1].Split('.')[0].ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
+            try
+            {
+                output = ShellUtil.Cmd("wmic", "OS get LastBootUpTime/Value");
+                string[] outputArr = output.Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
+                if (outputArr.Length == 2)
+                    runTime = DateTimeUtil.FormatTime((DateTime.Now - outputArr[1].Split('.')[0].ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
+            }
+            catch (Exception)
+            {
+                output = ShellUtil.PowerShell("Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object LastBootUpTime");
+                output = output.Replace("LastBootUpTime", string.Empty).Replace("@", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty).Replace("=", string.Empty).Trim();
+                runTime = DateTimeUtil.FormatTime((DateTime.Now - output.ParseToDateTime()).TotalMilliseconds.ToString().Split('.')[0].ParseToLong());
+            }
         }
         return runTime;
     }
@@ -262,6 +282,7 @@ public class MemoryMetrics
     /// CPU使用率%
     /// </summary>
     public List<string> CpuRates { get; set; }
+    public string CpuRate { get; set; }
 
     /// <summary>
     /// 总内存 GB
@@ -328,16 +349,33 @@ public class MemoryMetricsClient
     /// <returns></returns>
     public static MemoryMetrics GetWindowsMetrics()
     {
-        string output = ShellUtil.Cmd("wmic", "OS get FreePhysicalMemory,TotalVisibleMemorySize /Value");
+        string output = "";
         var metrics = new MemoryMetrics();
-        var lines = output.Trim().Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
-        if (lines.Length <= 1) return metrics;
+        try
+        {
+            output = ShellUtil.Cmd("wmic", "OS get FreePhysicalMemory,TotalVisibleMemorySize /Value");
+            var lines = output.Trim().Split('\n', (char)StringSplitOptions.RemoveEmptyEntries);
+            if (lines.Length <= 1) return metrics;
 
-        var freeMemoryParts = lines[0].Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
-        var totalMemoryParts = lines[1].Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
+            var freeMemoryParts = lines[0].Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
+            var totalMemoryParts = lines[1].Split('=', (char)StringSplitOptions.RemoveEmptyEntries);
+            metrics.Total = Math.Round(double.Parse(totalMemoryParts[1]) / 1024, 0);
+            metrics.Free = Math.Round(double.Parse(freeMemoryParts[1]) / 1024, 0);//m
+        }
+        catch (Exception)
+        {
+            output = ShellUtil.PowerShell("Get-CimInstance -ClassName Win32_OperatingSystem | Select-Object FreePhysicalMemory, TotalVisibleMemorySize");
+            output = output.Replace("@", string.Empty).Replace("{", string.Empty).Replace("}", string.Empty).Trim();
+            var lines = output.Trim().Split(';', (char)StringSplitOptions.RemoveEmptyEntries);
 
-        metrics.Total = Math.Round(double.Parse(totalMemoryParts[1]) / 1024, 0);
-        metrics.Free = Math.Round(double.Parse(freeMemoryParts[1]) / 1024, 0);//m
+            // 跳过表头与分隔线（通常为前两行）
+            if (lines.Length >= 2)
+            {
+                // 解析并转换为MB（原单位为KB）
+                metrics.Free = Math.Round(double.Parse(lines[0].Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1]) / 1024, 0);
+                metrics.Total = Math.Round(double.Parse(lines[1].Split(new[] { '=' }, StringSplitOptions.RemoveEmptyEntries)[1]) / 1024, 0);
+            }
+        }
         metrics.Used = metrics.Total - metrics.Free;
 
         return metrics;
@@ -443,7 +481,7 @@ public class ShellUtil
         var output = new StringBuilder();
         foreach (var outputItem in PSOutput)
         {
-            output.AppendLine(outputItem.BaseObject.ToString());
+            output.AppendLine(outputItem.ToString());
         }
         return output.ToString();
     }

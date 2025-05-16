@@ -58,7 +58,8 @@ public class SysServerService : IDynamicApiController, ITransient
             memoryMetrics.UsedRam, // 已用内存
             memoryMetrics.TotalRam, // 总内存
             memoryMetrics.RamRate, // 内存使用率
-            memoryMetrics.CpuRates, // Cpu使用率
+            memoryMetrics.CpuRates, // Cpu使用率多CPU未完成
+            memoryMetrics.CpuRate, // Cpu 1使用率
             StartTime = programStartTime.ToString("yyyy-MM-dd HH:mm:ss"), // 服务启动时间
             RunTime = programRunTime, // 服务运行时间
         };
