@@ -2,49 +2,19 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid '09f5d2aec0ad62d94e4fa3397e43b5a3788bd7fe'
-    oldFile: !uuid '06921ae5338c0d73bb150c21d67d7a1f07565687'
-  /Web/src:
-    newFile: !uuid 'eea23bafe708cc242c4b3fa863dea6102bc05e49'
-    oldFile: !uuid '322b5e23f37e0700c5383b3f546c33bc67297f69'
-  /Web/src/i18n:
-    newFile: !uuid '0bc4596cd4be455dd3b25ba351493c8d21ccd019'
-    oldFile: !uuid 'a41318c6b78f6c598f699c5b0ab9cd3548e55e3c'
-  /Web/src/i18n/pages:
-    newFile: !uuid '9462639fa2ef34a75c70dfbaf665276d5e3bc41e'
-    oldFile: !uuid 'c80553e57342bc1e152e41fd1dd3ea7b07b18819'
-  /Web/src/i18n/pages/login:
-    newFile: !uuid 'b0a9a6e6350b6f70a46504ef5a86c18e06f01388'
-    oldFile: !uuid '18bd3cd79945b8b2888bb66e04352a3e26691a8c'
-  /Web/src/i18n/pages/login/en.ts:
-    newFile: !uuid 'e73d46aed74cf1aaad525d1512ab531f41285f29'
-    oldFile: !uuid '8dc3abf673fe5021fe3b5980d56564629bcf6232'
-  /Web/src/i18n/pages/login/zh-cn.ts:
-    newFile: !uuid 'f1eb9e460b922589d9f585ef94660200ad0642d0'
-    oldFile: !uuid 'e461a5e017eabb908bee7aba5fc4526dc4f6c94e'
-  /Web/src/i18n/pages/login/zh-tw.ts:
-    newFile: !uuid '0c7d5b4c6b4cb25636e92dde48874379cde90e5e'
-    oldFile: !uuid '2fbab54a744af2dac73f30d68b6a01e3957dae04'
-  /Web/src/views:
-    newFile: !uuid '3fdf63791933d7090254878c9f6d09edc9c66815'
-    oldFile: !uuid 'a0303363f52788bfcc33448b9fb3a316c2437466'
-  /Web/src/views/login:
-    newFile: !uuid '2954fe71d495eda65f3708f465107ce79bc08eb8'
-    oldFile: !uuid '6fa1edc0419b62517d051309679a48da8e642d7d'
-  /Web/src/views/login/component:
-    newFile: !uuid '9bf4fdd250d7b3ea7c16d39d822e6a84b7299cec'
-    oldFile: !uuid '9811a5445d3e650ddbcb117631c9b9ab1be5ce69'
-  /Web/src/views/login/component/account.vue:
-    newFile: !uuid '537240e206205b58d3377690c812b13cf1526598'
-    oldFile: !uuid 'de165d18c4b913c8ef1659dda53fa8b55ca1174d'
-  /Web/src/views/login/component/register.vue:
-    newFile: !uuid '25435d7fa0baf5e54e65cd430768e29924c3c4a9'
-    oldFile: !uuid 'bc74a7d13e514c6412200301cb85b017cf00a76f'
-  /Web/src/views/login/index.vue:
-    newFile: !uuid '24627f886d8cf15321a6c05df03ae32ab9bd555d'
-    oldFile: !uuid '108a49872be8665c0632eee9ecd1e6a14b611f37'
-gitCommitId: !uuid '6c42f875d3935f0dc0b64247b8603d252aa63d3a'
+  /Admin.NET:
+    newFile: !uuid 'c8caf75c16ccbe77e93899b9d7113e2cf681df3e'
+    oldFile: !uuid 'eb0165a9357e87ef8859b6a49df20f1ba27fa5c1'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '0c9e2d01cf4bccc115fbb48cbbe44da33824db0a'
+    oldFile: !uuid 'de96def22c9a3cc8fb28ac63bbb3e7dc7c9a85fb'
+  /Admin.NET/Admin.NET.Core/Entity:
+    newFile: !uuid '0dde07106432c648ee3af7151f97bad734db5271'
+    oldFile: !uuid '3a2a153fc263e9350b0b07552664b0d2f7d9f3c0'
+  /Admin.NET/Admin.NET.Core/Entity/SysDictDataTenant.cs:
+    newFile: !uuid 'd14eac75f61bc93aa5094b1bf22c13c6c74ec77c'
+    oldFile: !uuid '045192a7be705c4d3060c0d267dbcbbd197db84f'
+gitCommitId: !uuid '4586ae49385ddd181fe9d0b030eb852bbaf9b5fa'
 renames: {
   }
-revisionId: 2850
+revisionId: 2851
