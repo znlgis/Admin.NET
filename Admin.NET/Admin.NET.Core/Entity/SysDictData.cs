@@ -11,7 +11,7 @@ namespace Admin.NET.Core;
 /// </summary>
 [SugarTable(null, "系统字典值表")]
 [SysTable]
-[SugarIndex("index_{table}_TV", nameof(DictTypeId), OrderByType.Asc, nameof(Value), OrderByType.Asc)]
+[SugarIndex("index_{table}_TV", nameof(DictTypeId), OrderByType.Asc, nameof(Value), OrderByType.Asc, IsUnique = true)]
 public partial class SysDictData : EntityBase
 {
     /// <summary>
