@@ -243,13 +243,69 @@ public class SysCacheService : IDynamicApiController, ISingleton
     [DisplayName("获取缓存值")]
     public object GetValue(string key)
     {
-        // 若Key经过URL编码则进行解码
+        if (string.IsNullOrEmpty(key)) return null;
+
         if (Regex.IsMatch(key, @"%[0-9a-fA-F]{2}"))
             key = HttpUtility.UrlDecode(key);
 
-        return _cacheProvider.Cache == Cache.Default
-            ? _cacheProvider.Cache.Get<object>($"{_cacheOptions.Prefix}{key}")
-            : _cacheProvider.Cache.Get<string>($"{_cacheOptions.Prefix}{key}");
+        var fullKey = $"{_cacheOptions.Prefix}{key}";
+
+        if (_cacheProvider.Cache == Cache.Default)
+            return _cacheProvider.Cache.Get<object>(fullKey);
+
+        if (_cacheProvider.Cache is FullRedis redisCache)
+        {
+            if (!redisCache.ContainsKey(fullKey))
+                return null;
+            try
+            {
+                var keyType = redisCache.TYPE(fullKey)?.ToLower();
+                switch (keyType)
+                {
+                    case "string":
+                        return redisCache.Get<string>(fullKey);
+
+                    case "list":
+                        var list = redisCache.GetList<string>(fullKey);
+                        return list?.ToList();
+
+                    case "hash":
+                        var hash = redisCache.GetDictionary<string>(fullKey);
+                        return hash?.ToDictionary(k => k.Key, v => v.Value);
+
+                    case "set":
+                        var set = redisCache.GetSet<string>(fullKey);
+                        return set?.ToArray();
+
+                    case "zset":
+                        var sortedSet = redisCache.GetSortedSet<string>(fullKey);
+                        return sortedSet?.Range(0, -1)?.ToList();
+
+                    case "none":
+                        return null;
+
+                    default:
+                        // 未知类型或特殊类型
+                        return new Dictionary<string, object>
+                        {
+                            { "key", key },
+                            { "type", keyType ?? "unknown" },
+                            { "message", "无法使用标准方式获取此类型数据" }
+                        };
+                }
+            }
+            catch (Exception ex)
+            {
+                return new Dictionary<string, object>
+                {
+                    { "key", key },
+                    { "error", ex.Message },
+                    { "type", "exception" }
+                };
+            }
+        }
+
+        return _cacheProvider.Cache.Get<object>(fullKey);
     }
 
     /// <summary>
