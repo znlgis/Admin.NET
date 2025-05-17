@@ -2,25 +2,19 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid '5085df8a001bbc018b8fed49f65c566502d702e3'
-    oldFile: !uuid '09f5d2aec0ad62d94e4fa3397e43b5a3788bd7fe'
-  /Web/.eslintignore:
-    newFile: null
-    oldFile: !uuid 'cfc877d6cdb8bb6afbad7b032477a6f54ac013f6'
-  /Web/.eslintrc.js:
-    newFile: null
-    oldFile: !uuid '672463c2cf1a71d2da08e7ced6042587329ebc49'
-  /Web/eslint.config.mjs:
-    newFile: !uuid '6f7c47ae7d6447bd838e7e2448be2ea42894e3d5'
-    oldFile: !uuid '162b8531328759e8f233707950dec44fb755a676'
-  /Web/package.json:
-    newFile: !uuid '7dcca51dcf3f0c1718e92e5e6a998267722b0743'
-    oldFile: !uuid '54561c590bec8db7aa2a2259268aa24e86afaa72'
-  /Web/pnpm-workspace.yaml:
-    newFile: !uuid 'bad3b7ebfea7b55aebac3cf006d662b1316a7739'
-    oldFile: null
-gitCommitId: !uuid '228b763d09dc5e9c78340ba3952bd89b64588636'
+  /Admin.NET:
+    newFile: !uuid 'fe7231464760a79870b6a459684aed00350eed31'
+    oldFile: !uuid '4d31ba6737b7c175979590143717a05851849ee9'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '45d5d5bb7acae038c297a38a3d2cb4f4e66203a7'
+    oldFile: !uuid '80c08ffb477041939c45c3f2b679495f05998329'
+  /Admin.NET/Admin.NET.Core/Entity:
+    newFile: !uuid 'dd2326ba34417a7e34f045211a2f8be58c14e3cd'
+    oldFile: !uuid 'd9eb9e4b116ad0d376f265249c907fda0ab4faf5'
+  /Admin.NET/Admin.NET.Core/Entity/SysCodeGen.cs:
+    newFile: !uuid '10e5fa48557be2cca514e948dd9f64835cbe39aa'
+    oldFile: !uuid '00dea8deee7aaec2ac97d4cfb33728390b85bfbb'
+gitCommitId: !uuid 'e1a5eb5821430e4f6d543c36ff4388b48e6a0716'
 renames: {
   }
-revisionId: 2856
+revisionId: 2857
