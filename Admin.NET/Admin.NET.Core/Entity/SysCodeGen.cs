@@ -45,6 +45,7 @@ public partial class SysCodeGen : EntityBase
     /// <summary>
     /// 库名
     /// </summary>
+    [SugarColumn(IsIgnore = true)]
     public string DbNickName
     {
         get
