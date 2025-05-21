@@ -188,6 +188,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
             throw Oops.Oh(ErrorCodeEnum.D3011);
 
         var dictType = await _sysDictDataRep.Change<SysDictType>().AsQueryable()
+            .Where(u => u.Status == StatusEnum.Enable)
             .WhereIF(!string.IsNullOrWhiteSpace(code), u => u.Code == code)
             .WhereIF(typeId != null, u => u.Id == typeId)
             .FirstAsync();
@@ -198,18 +199,13 @@ public class SysDictDataService : IDynamicApiController, ITransient
         if (dictDataList == null)
         {
             //平台字典和租户字典分开缓存
-            ISugarQueryable<SysDictData> sysDictData = _sysDictDataRep.AsQueryable();
             if (dictType.IsTenant == YesNoEnum.Y)
-                sysDictData = _sysDictDataRep.Change<SysDictDataTenant>().AsQueryable().WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId).Select<SysDictData>();
-
-            dictDataList = await sysDictData.InnerJoin<SysDictType>((u, a) => u.DictTypeId == a.Id)
-                .Where(u => u.DictTypeId == dictType.Id)
-                .Select((u, a) => new SysDictData
-                {
-                    Status = u.Status == StatusEnum.Enable && a.Status == StatusEnum.Enable ? StatusEnum.Enable : StatusEnum.Disable,
-                }, true)
-                .OrderBy(u => new { u.OrderNo, u.Value, u.Code })
-                .ToListAsync();
+                dictDataList = await _sysDictDataRep.Change<SysDictDataTenant>().AsQueryable()
+                    .Where(u => u.DictTypeId == dictType.Id)
+                    .Where(u => u.Status == StatusEnum.Enable)
+                    .WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId).Select<SysDictData>()
+                    .OrderBy(u => new { u.OrderNo, u.Value, u.Code })
+                    .ToListAsync();
             _sysCacheService.Set(dicKey, dictDataList);
         }
         return dictDataList;
