@@ -347,6 +347,8 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 发布系统用户操作事件
         _ = _eventPublisher.PublishAsync(SysUserEventTypeEnum.LoginOut, new { Entity = _sysUserRep.GetById(_userManager.UserId) });
         if (string.IsNullOrWhiteSpace(_userManager.Account)) throw Oops.Oh(ErrorCodeEnum.D1011);
+        var token = _httpContextAccessor.HttpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+        _sysCacheService.Set($"blacklist:token:{token}", "1");
         _httpContextAccessor.HttpContext.SignoutToSwagger();
     }
 
