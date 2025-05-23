@@ -74,7 +74,7 @@ const setDictValue = (value: any) => {
 
 watch(
 	() => props.modelValue,
-	(newValue) => setDictValue(newValue),
+	(newValue) => setDictValue(newValue?.toString()),
 	{ immediate: true }
 );
 </script>
