@@ -81,6 +81,11 @@ public sealed class DbSettings
     /// 启用库表初始化
     /// </summary>
     public bool EnableInitDb { get; set; }
+    
+    /// <summary>
+    /// 启用视图初始化
+    /// </summary>
+    public bool EnableInitView { get; set; }
 
     /// <summary>
     /// 启用库表差异日志
