@@ -3,51 +3,30 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '72a1d47bc4f8f39d6eff280d5895db165f0b3acc'
-    oldFile: !uuid '19cb5f7dfefed2412d98ebcc2dd5ec90cba9fd16'
+    newFile: !uuid 'ea406e931b96677dae8a4701634173fca81e325f'
+    oldFile: !uuid '72a1d47bc4f8f39d6eff280d5895db165f0b3acc'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '3401f3f49e10dcdf53d41ce87521b8429dd7a355'
-    oldFile: !uuid '9074bb3c4d125f4424ded908c57d7f9aebff6aae'
-  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
-    newFile: !uuid '15ee29054a9c9db2dc3e2fd10170a8b82aa3fad7'
-    oldFile: !uuid '21b54c96c519bcacd1b201112779ae7c05c1ad4f'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '6f4b81c164f2761f09e76ce90a663c7e8874fb4c'
-    oldFile: !uuid '9f1fa98f235520bd84a504c77a883ae7888a6dfd'
-  /Admin.NET/Admin.NET.Core/Service/Tenant:
-    newFile: !uuid '370873f6e2a4cb546cc13293dba1ebb880de4ce8'
-    oldFile: !uuid 'c42e30c9bebf3ca8a9189c56b5a30d9186b13c7c'
-  /Admin.NET/Admin.NET.Core/Service/Tenant/SysTenantService.cs:
-    newFile: !uuid '3bce75fdef5fab66e9bd5ec49eed9e442bc3a4a6'
-    oldFile: !uuid '85d82f26f68b3999b28cbe65f0e0bf7782ca2311'
-  /Admin.NET/Admin.NET.Core/Service/Wechat:
-    newFile: !uuid '0ad8f5ec95eef69550ca432bf17257d821bb3bda'
-    oldFile: !uuid 'aab1647af8325086beb4c80d86b76f4e2ce3ec9b'
-  /Admin.NET/Admin.NET.Core/Service/Wechat/Dto:
-    newFile: !uuid '3f81eaad42f608feeb299949d156c9124e5237ad'
-    oldFile: !uuid '2f9d4ffbe9219fa2cafcc8aa51794f23807c00bc'
-  /Admin.NET/Admin.NET.Core/Service/Wechat/Dto/WxOpenInput.cs:
-    newFile: !uuid '0f1562774826ab2b4c2233c99175e6de872c4c64'
-    oldFile: !uuid '7072aa4bbd99f404e15c21dc84ab3b86a593fc41'
+    newFile: !uuid '46525005371d2f76b72bc67ce45c9884dd99c53b'
+    oldFile: !uuid '3401f3f49e10dcdf53d41ce87521b8429dd7a355'
+  /Admin.NET/Admin.NET.Core/Attribute:
+    newFile: !uuid '416c1c835b529e9f6ef82a3e5ea0787c165591a9'
+    oldFile: !uuid '706b52e28738a789fffcba7182fcd4f47a6aff8d'
+  /Admin.NET/Admin.NET.Core/Attribute/DataMaskAttribute.cs:
+    newFile: !uuid '67d71f3c0a44c5dc51707c6802d245f32fc93c87'
+    oldFile: null
+  /Admin.NET/Admin.NET.Core/Extension:
+    newFile: !uuid '73576c5a1ba04dea00910fa1a556b24b7458fed9'
+    oldFile: !uuid 'c9d2b82996ac2fcd92420b7adde4f6f429f1b755'
+  /Admin.NET/Admin.NET.Core/Extension/ObjectExtension.cs:
+    newFile: !uuid 'ca5c7e61ba91312abf3aea60031b0601c803dfbd'
+    oldFile: !uuid 'bf65badd6cda91d06f580c5a6de2985c9d0ce8d7'
   /Admin.NET/Admin.NET.Core/SqlSugar:
-    newFile: !uuid 'b9323956e8589c5dfa06ef1d8e3917119f683494'
-    oldFile: !uuid '6697399f210899f8983779c3970b338f5257ff92'
-  /Admin.NET/Admin.NET.Core/SqlSugar/SqlSugarSetup.cs:
-    newFile: !uuid '4b1b0a8b09144904c52a9a7bf78b9df1452976e0'
-    oldFile: !uuid '9dea13c3066e450ab3e38238c5fa8303a3e89013'
-  /Admin.NET/Admin.NET.Test:
-    newFile: !uuid '56f799634bcafd0d4ca7ef78b5bca5b189841ace'
-    oldFile: !uuid '9f50b23d1b90263818a7c307a449cf2a173fa6a2'
-  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
-    newFile: !uuid 'a8667b068ac3937e78ce36e6f6f9b6e89eaafa76'
-    oldFile: !uuid 'c646030ad0b1f8c4d65efb415d9491c6b4f243f3'
-  /Web:
-    newFile: !uuid '752f8fe2d9573ebfd829e2c525e03c7d0b81c8d2'
-    oldFile: !uuid 'bd9fc13cb07fc9e513b13d3a09014ccb267b462a'
-  /Web/package.json:
-    newFile: !uuid '777f0f8c53f32814d66efa5d15b3b718cc0cf516'
-    oldFile: !uuid 'e20484a529c28403a5ddafe25eca21fd95014248'
-gitCommitId: !uuid '85844392edfafdf69d1c2eb2f2557817c80b1e39'
+    newFile: !uuid 'e91e36474718316064d311c023c5fbf54133bdb7'
+    oldFile: !uuid 'b9323956e8589c5dfa06ef1d8e3917119f683494'
+  /Admin.NET/Admin.NET.Core/SqlSugar/SqlSugarPagedList.cs:
+    newFile: !uuid '706eb441f653725cf56b34bb713b60ae8a2aa79d'
+    oldFile: !uuid 'c53ddc58a5c6d8ed7df31c19d30dc70840da40d3'
+gitCommitId: !uuid 'aebfcccd1eb26028123b2def1ca1c45ed95c9392'
 renames: {
   }
-revisionId: 2865
+revisionId: 2866
