@@ -45,6 +45,7 @@ public sealed class DbConnectionConfig : ConnectionConfig
     /// 数据库名称
     /// </summary>
     public string DbNickName { get; set; }
+
     /// <summary>
     /// 数据库配置
     /// </summary>
@@ -68,7 +69,7 @@ public sealed class DbConnectionConfig : ConnectionConfig
     /// <summary>
     /// 数据库存储目录（仅SqlServer支持指定目录创建）
     /// </summary>
-    public string DatabaseDirectory { get; set; }    
+    public string DatabaseDirectory { get; set; }
 }
 
 /// <summary>

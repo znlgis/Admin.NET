@@ -375,7 +375,7 @@ public class SysJobService : IDynamicApiController, ITransient
     {
         _sysJobTriggerRecordRep.AsSugarClient().DbMaintenance.TruncateTable<SysJobTriggerRecord>();
     }
-    
+
     /// <summary>
     /// 清空不保留的作业触发器运行记录 🔖
     /// </summary>

@@ -399,9 +399,8 @@ public static class RepositoryExtension
             //判断是否是相同属性
             PropertyInfo pro = t.GetType().GetProperty(info.Name);
             var attr = pro.GetCustomAttribute<SugarColumn>();
-            if (pro != null && attr!=null &&!attr.IsPrimaryKey)
+            if (pro != null && attr != null && !attr.IsPrimaryKey)
                 updateColumns.Add(info.Name);
-
         }
         uNOption.UpdateColumns = updateColumns.ToArray();
         return uNOption;
