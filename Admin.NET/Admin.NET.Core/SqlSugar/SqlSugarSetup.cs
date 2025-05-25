@@ -150,7 +150,6 @@ public static class SqlSugarSetup
                     Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(log);
                 Console.ForegroundColor = originColor;
-                App.PrintToMiniProfiler("SqlSugar", "Info", log);
             };
         }
         db.Aop.OnError = ex =>
@@ -158,7 +157,6 @@ public static class SqlSugarSetup
             if (ex.Parametres == null) return;
             var log = $"【{DateTime.Now}——错误SQL】\r\n{UtilMethods.GetNativeSql(ex.Sql, (SugarParameter[])ex.Parametres)}\r\n";
             Log.Error(log, ex);
-            App.PrintToMiniProfiler("SqlSugar", "Error", log);
         };
         db.Aop.OnLogExecuted = (sql, pars) =>
         {
@@ -178,7 +176,6 @@ public static class SqlSugarSetup
             var firstMethodName = db.Ado.SqlStackTrace.FirstMethodName; // 方法名
             var log = $"【{DateTime.Now}——超时SQL】\r\n【所在文件名】：{fileName}\r\n【代码行数】：{fileLine}\r\n【方法名】：{firstMethodName}\r\n" + $"【SQL语句】：{UtilMethods.GetNativeSql(sql, pars)}";
             Log.Warning(log);
-            App.PrintToMiniProfiler("SqlSugar", "Slow", log);
         };
 
         // 数据审计

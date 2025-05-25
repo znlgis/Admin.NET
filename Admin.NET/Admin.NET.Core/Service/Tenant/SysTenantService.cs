@@ -354,6 +354,7 @@ public class SysTenantService : IDynamicApiController, ITransient
     /// 获取种子数据类型
     /// </summary>
     /// <param name="config">数据库连接配置</param>
+    /// <param name="typeName"></param>
     /// <returns>种子数据类型列表</returns>
     [NonAction]
     private List<Type> GetSeedDataTypes(DbConnectionConfig config, string typeName)
