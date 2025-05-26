@@ -66,8 +66,8 @@ public class SysTenantService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<TenantOutput>> Page(PageTenantInput input)
     {
         return await _sysTenantRep.AsQueryable()
-            .LeftJoin<SysUser>((u, a) => u.UserId == a.Id)
-            .LeftJoin<SysOrg>((u, a, b) => u.OrgId == b.Id)
+            .LeftJoin<SysUser>((u, a) => u.UserId == a.Id).ClearFilter()
+            .LeftJoin<SysOrg>((u, a, b) => u.OrgId == b.Id).ClearFilter()
             .WhereIF(!string.IsNullOrWhiteSpace(input.Phone), (u, a) => a.Phone.Contains(input.Phone.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.Name), (u, a, b) => b.Name.Contains(input.Name.Trim()))
             .OrderBy(u => new { u.OrderNo, u.Id })
@@ -201,6 +201,8 @@ public class SysTenantService : IDynamicApiController, ITransient
     [NonAction]
     public void SetLogoUrl(SysTenant tenant, string logoBase64, string logoFileName)
     {
+        if (string.IsNullOrEmpty(tenant?.Logo) && string.IsNullOrEmpty(tenant?.Logo)) return;
+
         // 旧图标文件相对路径
         var oldSysLogoRelativeFilePath = tenant.Logo ?? "";
         var oldSysLogoAbsoluteFilePath = Path.Combine(App.WebHostEnvironment.WebRootPath, oldSysLogoRelativeFilePath.TrimStart('/'));
