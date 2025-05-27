@@ -2,10 +2,22 @@
 branches: {
   }
 fileChange:
-  /README.md:
-    newFile: !uuid '71c86d007a440f24a53ab1f84d5d6390b866b3ba'
-    oldFile: !uuid '6357f68388f211bda12540b0fd66b937166f72fa'
-gitCommitId: !uuid 'a1611c132850c0eecc858293c5ba9988788cb1c3'
+  /Web:
+    newFile: !uuid '9c3407ab90afd91fb3935fc53b7cd3e28bfbd307'
+    oldFile: !uuid '606338b65a5c44feb708324405d2684d2999ab27'
+  /Web/src:
+    newFile: !uuid '13a20244bdc3be4eb04ba38f479fe6bebba9ad4c'
+    oldFile: !uuid '982771de25a30424f95aa2986b5bfbd157d534e8'
+  /Web/src/views:
+    newFile: !uuid '8446f34a24a1d6152386684e21d97421c583bb9a'
+    oldFile: !uuid '478a76dd9ee09529e0b22493a63428fb2a7b6acb'
+  /Web/src/views/login:
+    newFile: !uuid '51967bc0611588512c7f9d66e3d434b3ccc8d491'
+    oldFile: !uuid '2954fe71d495eda65f3708f465107ce79bc08eb8'
+  /Web/src/views/login/index.vue:
+    newFile: !uuid '0d77e0aad85cf07f18a545d96f5f4e02216a2870'
+    oldFile: !uuid '24627f886d8cf15321a6c05df03ae32ab9bd555d'
+gitCommitId: !uuid '1aea42aa18a3d057be6d522c3133ebd4e3a92f35'
 renames: {
   }
-revisionId: 2873
+revisionId: 2874
