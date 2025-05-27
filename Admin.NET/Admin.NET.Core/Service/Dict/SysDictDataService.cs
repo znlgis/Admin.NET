@@ -200,12 +200,23 @@ public class SysDictDataService : IDynamicApiController, ITransient
         {
             //平台字典和租户字典分开缓存
             if (dictType.IsTenant == YesNoEnum.Y)
+            {
                 dictDataList = await _sysDictDataRep.Change<SysDictDataTenant>().AsQueryable()
+                       .Where(u => u.DictTypeId == dictType.Id)
+                       .Where(u => u.Status == StatusEnum.Enable)
+                       .WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId).Select<SysDictData>()
+                       .OrderBy(u => new { u.OrderNo, u.Value, u.Code })
+                       .ToListAsync();
+            }
+            else
+            {
+                dictDataList = await _sysDictDataRep.AsQueryable()
                     .Where(u => u.DictTypeId == dictType.Id)
                     .Where(u => u.Status == StatusEnum.Enable)
-                    .WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId).Select<SysDictData>()
                     .OrderBy(u => new { u.OrderNo, u.Value, u.Code })
                     .ToListAsync();
+            }
+
             _sysCacheService.Set(dicKey, dictDataList);
         }
         return dictDataList;
