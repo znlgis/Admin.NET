@@ -7,6 +7,7 @@
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
 using NewLife.Reflection;
+using System.Threading.Tasks;
 
 namespace Admin.NET.Core.Service;
 
@@ -224,9 +225,10 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// 生成Token令牌 🔖
     /// </summary>
     /// <param name="user"></param>\
+    /// <param name="sysUserEventTypeEnum"></param>\
     /// <returns></returns>
     [NonAction]
-    internal virtual async Task<LoginOutput> CreateToken(SysUser user)
+    internal virtual async Task<LoginOutput> CreateToken(SysUser user, SysUserEventTypeEnum sysUserEventTypeEnum = SysUserEventTypeEnum.Login)
     {
         // 单用户登录
         await _sysOnlineUserService.SingleLogin(user.Id);
@@ -279,7 +281,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         };
 
         // 发布系统用户操作事件
-        await _eventPublisher.PublishAsync(SysUserEventTypeEnum.Login, payload);
+        await _eventPublisher.PublishAsync(sysUserEventTypeEnum, payload);
         return payload.Output;
     }
 
@@ -329,25 +331,57 @@ public class SysAuthService : IDynamicApiController, ITransient
     /// <summary>
     /// 获取刷新Token 🔖
     /// </summary>
-    /// <param name="accessToken"></param>
-    /// <returns></returns>
+    /// <param name="accessToken">旧的AccessToken</param>
+    /// <returns>新的AccessToken和RefreshToken</returns>
     [DisplayName("获取刷新Token")]
-    public virtual string GetRefreshToken([FromQuery] string accessToken)
+    public virtual async Task<LoginOutput> GetRefreshToken([FromQuery] string accessToken)
     {
-        var refreshTokenExpire = _sysConfigService.GetRefreshTokenExpire().GetAwaiter().GetResult();
-        return JWTEncryption.GenerateRefreshToken(accessToken, refreshTokenExpire);
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) throw Oops.Oh(ErrorCodeEnum.D1016);
+
+        if (string.IsNullOrWhiteSpace(accessToken)) throw Oops.Oh(ErrorCodeEnum.D1011);
+
+        if (string.IsNullOrWhiteSpace(_userManager.Account)) throw Oops.Oh(ErrorCodeEnum.D1011);
+
+        // 黑名单校验
+        if (_sysCacheService.ExistKey($"blacklist:token:{accessToken}")) throw Oops.Oh(ErrorCodeEnum.D1011);
+
+        // 解析Token
+        var (isValid, tokenData, validationResult) = JWTEncryption.Validate(accessToken);
+        if (isValid) throw Oops.Oh(ErrorCodeEnum.D1016);
+
+        // 获取用户Id
+        var user = await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(u => u.Id == _userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D1011).StatusCode(401);
+        return await CreateToken(user, SysUserEventTypeEnum.RefreshToken);
     }
 
     /// <summary>
     /// 退出系统 🔖
     /// </summary>
     [DisplayName("退出系统")]
-    public void Logout()
+    public async Task Logout()
     {
-        // 发布系统用户操作事件
-        _ = _eventPublisher.PublishAsync(SysUserEventTypeEnum.LoginOut, new { Entity = _sysUserRep.GetById(_userManager.UserId) });
-        if (string.IsNullOrWhiteSpace(_userManager.Account)) throw Oops.Oh(ErrorCodeEnum.D1011);
-        _httpContextAccessor.HttpContext.SignoutToSwagger();
+        var httpContext = _httpContextAccessor.HttpContext;
+        if (httpContext == null) throw Oops.Oh(ErrorCodeEnum.D1016);
+
+        var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
+
+        if (string.IsNullOrWhiteSpace(token))
+            throw Oops.Oh(ErrorCodeEnum.D1011);
+
+        if (string.IsNullOrWhiteSpace(_userManager.Account))
+            throw Oops.Oh(ErrorCodeEnum.D1011);
+
+        // 写入黑名单（设置过期时间，避免Redis膨胀）
+        var tokenExpire = await _sysConfigService.GetTokenExpire();
+        _sysCacheService.Set($"blacklist:token:{token}", "1", TimeSpan.FromMinutes(tokenExpire));
+
+        // 发布登出事件（用户退出）
+        var user = await _sysUserRep.GetByIdAsync(_userManager.UserId);
+        await _eventPublisher.PublishAsync(SysUserEventTypeEnum.LoginOut, new { Entity = user });
+
+        // 清除 Swagger 登录信息
+        httpContext.SignoutToSwagger();
     }
 
     /// <summary>

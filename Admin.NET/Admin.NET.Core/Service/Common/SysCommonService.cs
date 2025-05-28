@@ -45,12 +45,12 @@ public class SysCommonService : IDynamicApiController, ITransient
     public SmKeyPairOutput GetSmKeyPair()
     {
         var kp = GM.GenerateKeyPair();
-        var privateKey = Hex.ToHexString(((ECPrivateKeyParameters)kp.Private).D.ToByteArray()).ToUpper();
+        //var privateKey = Hex.ToHexString(((ECPrivateKeyParameters)kp.Private).D.ToByteArray()).ToUpper();
         var publicKey = Hex.ToHexString(((ECPublicKeyParameters)kp.Public).Q.GetEncoded()).ToUpper();
 
         return new SmKeyPairOutput
         {
-            PrivateKey = privateKey,
+            //PrivateKey = privateKey,
             PublicKey = publicKey,
         };
     }

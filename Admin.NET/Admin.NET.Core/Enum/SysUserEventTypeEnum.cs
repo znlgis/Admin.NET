@@ -78,4 +78,10 @@ public enum SysUserEventTypeEnum
     /// </summary>
     [Description("用户退出")]
     LoginOut = 1001,
+
+    /// <summary>
+    /// RefreshToken
+    /// </summary>
+    [Description("刷新Token")]
+    RefreshToken = 1002,
 }
