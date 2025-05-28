@@ -332,7 +332,7 @@ const getTenantInfo = async () => {
 
 		/* 保持原有内容可见，放置在伪元素下方 */
 		.login-right-warp > * {
-			position: relative;
+			position: absolute;
 			z-index: 2;
 		}
 	}

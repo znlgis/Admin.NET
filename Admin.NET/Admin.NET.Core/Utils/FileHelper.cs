@@ -62,6 +62,7 @@ public static class FileHelper
             CopyDirectory(directory, dest, overwrite);
         }
     }
+
     /// <summary>
     /// 在文件倒数第lastIndex个identifier前插入内容（备份原文件）
     /// </summary>
@@ -73,7 +74,7 @@ public static class FileHelper
     public static async Task InsertsStringAtSpecifiedLocationInFile(string filePath, string insertContent, char identifier, int lastIndex, bool createBackup = false)
     {
         // 参数校验
-        if (lastIndex  < 1) throw new ArgumentOutOfRangeException(nameof(lastIndex));
+        if (lastIndex < 1) throw new ArgumentOutOfRangeException(nameof(lastIndex));
         if (identifier == 0) throw new ArgumentException("标识符不能为空字符");
 
         if (!File.Exists(filePath))
@@ -86,8 +87,8 @@ public static class FileHelper
             File.Copy(filePath, backupPath, true);
         }
 
-        using var reader  = new StreamReader(filePath, Encoding.UTF8);
-        var       content = await reader.ReadToEndAsync();
+        using var reader = new StreamReader(filePath, Encoding.UTF8);
+        var content = await reader.ReadToEndAsync();
         reader.Close();
         // 逆向查找算法
         int index = content.LastIndexOf(identifier);

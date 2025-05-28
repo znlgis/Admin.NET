@@ -51,7 +51,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         return await _db.Queryable<SysCodeGen>()
             .WhereIF(!string.IsNullOrWhiteSpace(input.TableName), u => u.TableName.Contains(input.TableName.Trim()))
             .WhereIF(!string.IsNullOrWhiteSpace(input.BusName), u => u.BusName.Contains(input.BusName.Trim()))
-            .ToPagedListAsync(input.Page, input.PageSize); 
+            .ToPagedListAsync(input.Page, input.PageSize);
     }
 
     /// <summary>

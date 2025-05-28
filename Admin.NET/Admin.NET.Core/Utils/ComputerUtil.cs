@@ -282,6 +282,7 @@ public class MemoryMetrics
     /// CPU使用率%
     /// </summary>
     public List<string> CpuRates { get; set; }
+
     public string CpuRate { get; set; }
 
     /// <summary>

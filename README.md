@@ -94,6 +94,7 @@ Admin.NET 是基于 .NET6 (Furion/SqlSugar) 实现的通用权限开发框架，
 23. ES 日志：通过 NEST 组件实现日志存取到 Elasticsearch 日志系统。
 24. 开放授权：支持OAuth 2.0开放标准授权登录，比如微信。
 25. APIJSON：适配腾讯APIJSON协议，支持后端0代码，[使用文档](https://github.com/liaozb/APIJSON.NET)。
+26. 数据库视图：基于SqlSugar生成查询SQL + 表实体维护视图，可维护性更强。
 
 ## 🛒应用商城
 

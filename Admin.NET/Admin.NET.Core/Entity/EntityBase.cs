@@ -186,7 +186,7 @@ public abstract class EntityBaseTenantOrg : EntityBaseOrg, ITenantIdFilter
 /// <summary>
 /// 租户机构实体基类（数据权限、删除标志）
 /// </summary>
-public abstract class EntityBaseTenantOrgDel: EntityBaseOrgDel, ITenantIdFilter
+public abstract class EntityBaseTenantOrgDel : EntityBaseOrgDel, ITenantIdFilter
 {
     /// <summary>
     /// 租户Id

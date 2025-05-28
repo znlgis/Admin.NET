@@ -79,20 +79,20 @@ public partial class SysTenant : EntityBase
     /// <summary>
     /// 图标
     /// </summary>
-    [SugarColumn(ColumnDescription = "图标", Length = 256), Required, MaxLength(256)]
+    [SugarColumn(ColumnDescription = "图标", Length = 256), MaxLength(256)]
     public virtual string? Logo { get; set; }
 
     /// <summary>
     /// 标题
     /// </summary>
     [SugarColumn(ColumnDescription = "标题", Length = 32), MaxLength(32)]
-    public virtual string Title { get; set; }
+    public virtual string? Title { get; set; }
 
     /// <summary>
     /// 副标题
     /// </summary>
     [SugarColumn(ColumnDescription = "副标题", Length = 32), MaxLength(32)]
-    public virtual string ViceTitle { get; set; }
+    public virtual string? ViceTitle { get; set; }
 
     /// <summary>
     /// 副描述

@@ -353,8 +353,6 @@ public class SysWxOpenService : IDynamicApiController, ITransient
             AccessToken = accessToken,
             Width = input.Width,
             PagePath = input.PagePath,
-
-
         };
         var response = await _wechatApiClient.ExecuteWxaGetWxaCodeAsync(request);
 

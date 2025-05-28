@@ -144,7 +144,7 @@ public class GenerateQRImageInput
 public class GenerateQRImageUnLimitInput : GenerateQRImageInput
 {
     /// <summary>
-    /// 二维码携带的参数 eg:a=1（最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：!#$&'()*+,/:;=?@-._~）
+    /// 二维码携带的参数 eg:a=1（最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：<!-- !#$&'()*+,/:;=?@-._~ -->）
     /// </summary>
     public string Scene { get; set; }
 }

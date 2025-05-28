@@ -114,6 +114,36 @@ public static class SqlSugarPagedExtensions
     }
 
     /// <summary>
+    /// 脱敏分页拓展
+    /// </summary>
+    /// <param name="query"><see cref="ISugarQueryable{TEntity}"/>对象</param>
+    /// <param name="pageIndex">当前页码，从1开始</param>
+    /// <param name="pageSize">页码容量</param>
+    /// <returns></returns>
+    public static async Task<SqlSugarPagedList<TEntity>> ToPagedListDataMaskAsync<TEntity>(this ISugarQueryable<TEntity> query, int pageIndex, int pageSize) where TEntity : class
+    {
+        RefAsync<int> total = 0;
+        var items = await query.ToPageListAsync(pageIndex, pageSize, total);
+        items.ForEach(x => x.MaskSensitiveData());
+        return CreateSqlSugarPagedList(items, total, pageIndex, pageSize);
+    }
+    
+    /// <summary>
+    /// 脱敏分页拓展
+    /// </summary>
+    /// <param name="list">集合对象</param>
+    /// <param name="pageIndex">当前页码，从1开始</param>
+    /// <param name="pageSize">页码容量</param>
+    /// <returns></returns>
+    public static SqlSugarPagedList<TEntity> ToPagedListDataMask<TEntity>(this IEnumerable<TEntity> list, int pageIndex, int pageSize) where TEntity : class
+    {
+        var total = list.Count();
+        var items = list.Skip((pageIndex - 1) * pageSize).Take(pageSize).ToList();
+        items.ForEach(x => x.MaskSensitiveData());
+        return CreateSqlSugarPagedList(items, total, pageIndex, pageSize);
+    }
+
+    /// <summary>
     /// 分页拓展
     /// </summary>
     /// <param name="list">集合对象</param>

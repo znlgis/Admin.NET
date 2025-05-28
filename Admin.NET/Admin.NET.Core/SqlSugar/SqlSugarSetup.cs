@@ -150,7 +150,6 @@ public static class SqlSugarSetup
                     Console.ForegroundColor = ConsoleColor.Red;
                 Console.WriteLine(log);
                 Console.ForegroundColor = originColor;
-                App.PrintToMiniProfiler("SqlSugar", "Info", log);
             };
         }
         db.Aop.OnError = ex =>
@@ -158,7 +157,6 @@ public static class SqlSugarSetup
             if (ex.Parametres == null) return;
             var log = $"【{DateTime.Now}——错误SQL】\r\n{UtilMethods.GetNativeSql(ex.Sql, (SugarParameter[])ex.Parametres)}\r\n";
             Log.Error(log, ex);
-            App.PrintToMiniProfiler("SqlSugar", "Error", log);
         };
         db.Aop.OnLogExecuted = (sql, pars) =>
         {
@@ -178,7 +176,6 @@ public static class SqlSugarSetup
             var firstMethodName = db.Ado.SqlStackTrace.FirstMethodName; // 方法名
             var log = $"【{DateTime.Now}——超时SQL】\r\n【所在文件名】：{fileName}\r\n【代码行数】：{fileLine}\r\n【方法名】：{firstMethodName}\r\n" + $"【SQL语句】：{UtilMethods.GetNativeSql(sql, pars)}";
             Log.Warning(log);
-            App.PrintToMiniProfiler("SqlSugar", "Slow", log);
         };
 
         // 数据审计
@@ -329,6 +326,48 @@ public static class SqlSugarSetup
     }
 
     /// <summary>
+    /// 初始化视图
+    /// </summary>
+    /// <param name="dbProvider"></param>
+    private static void InitView(SqlSugarScopeProvider dbProvider)
+    {
+        var totalWatch = Stopwatch.StartNew(); // 开始总计时
+        Log.Information($"初始化视图 {dbProvider.CurrentConnectionConfig.DbType} - {dbProvider.CurrentConnectionConfig.ConfigId}");
+        var viewTypeList = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarView)))).ToList();
+
+        int taskIndex = 0, size = viewTypeList.Count;
+        var taskList = viewTypeList.Select(viewType => Task.Run(() =>
+        {
+            // 开始计时
+            var stopWatch = Stopwatch.StartNew();
+
+            // 获取视图实体和配置信息
+            var entityInfo = dbProvider.EntityMaintenance.GetEntityInfo(viewType) ?? throw new Exception("获取视图实体配置有误");
+
+            // 如果视图存在，则删除视图
+            if (dbProvider.DbMaintenance.GetViewInfoList(false).Any(it => it.Name.EqualIgnoreCase(entityInfo.DbTableName)))
+                dbProvider.DbMaintenance.DropView(entityInfo.DbTableName);
+
+            // 获取初始化视图查询SQL
+            var sql = viewType.GetMethod(nameof(ISqlSugarView.GetQueryableSqlString))?.Invoke(Activator.CreateInstance(viewType), [dbProvider]) as string;
+            if (string.IsNullOrWhiteSpace(sql)) throw new Exception("视图初始化Sql语句不能为空");
+
+            // 创建视图
+            dbProvider.Ado.ExecuteCommand($"CREATE VIEW {entityInfo.DbTableName} AS " + Environment.NewLine + " " + sql);
+
+            // 停止计时
+            stopWatch.Stop();
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"初始化视图 {viewType.FullName,-58} ({dbProvider.CurrentConnectionConfig.ConfigId} - {Interlocked.Increment(ref taskIndex):D003}/{size:D003}，耗时：{stopWatch.ElapsedMilliseconds:N0} ms)");
+        }));
+        Task.WaitAll(taskList.ToArray());
+
+        totalWatch.Stop(); // 停止总计时
+        Console.ForegroundColor = ConsoleColor.Green;
+        Console.WriteLine($"初始化视图 {dbProvider.CurrentConnectionConfig.DbType} - {dbProvider.CurrentConnectionConfig.ConfigId} 总耗时：{totalWatch.ElapsedMilliseconds:N0} ms");
+    }
+
+    /// <summary>
     /// 初始化数据库
     /// </summary>
     /// <param name="db">SqlSugarScope 实例</param>
@@ -351,6 +390,9 @@ public static class SqlSugarSetup
             var entityTypes = GetEntityTypesForInit(config);
             InitializeTables(dbProvider, entityTypes, config);
         }
+
+        // 初始化视图
+        if (config.DbSettings.EnableInitView) InitView(dbProvider);
 
         // 初始化种子数据
         if (config.SeedSettings.EnableInitSeed) InitSeedData(db, config);
@@ -405,6 +447,15 @@ public static class SqlSugarSetup
     /// <param name="config">数据库连接配置</param>
     private static void InitializeTables(SqlSugarScopeProvider dbProvider, List<Type> entityTypes, DbConnectionConfig config)
     {
+        // 删除视图再初始化表结构，防止因为视图导致无法同步表结构
+        var viewTypeList = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass && u.GetInterfaces().Any(i => i.HasImplementedRawGeneric(typeof(ISqlSugarView)))).ToList();
+        foreach (var viewType in viewTypeList)
+        {
+            var entityInfo = dbProvider.EntityMaintenance.GetEntityInfo(viewType) ?? throw new Exception("获取视图实体配置有误");
+            if (dbProvider.DbMaintenance.GetViewInfoList(false).Any(it => it.Name.EqualIgnoreCase(entityInfo.DbTableName)))
+                dbProvider.DbMaintenance.DropView(entityInfo.DbTableName);
+        }
+
         int count = 0, sum = entityTypes.Count;
         var tasks = entityTypes.Select(entityType => Task.Run(() =>
         {

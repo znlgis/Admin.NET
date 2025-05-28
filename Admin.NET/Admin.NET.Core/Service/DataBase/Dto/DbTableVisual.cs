@@ -10,8 +10,8 @@ public class VisualDb
 {
     public string ConfigId { get; set; }
     public string DbNickName { get; set; }
-
 }
+
 /// <summary>
 /// 库表可视化
 /// </summary>

@@ -28,7 +28,7 @@ public class SysUserConfigService : IDynamicApiController, ITransient
         _sysConfigRep = sysConfigRep;
         _sysConfigDataRep = sysConfigDataRep;
         VSysConfig = _sysConfigRep.AsQueryable().LeftJoin(_sysConfigDataRep.AsQueryable().WhereIF(_userManager.SuperAdmin, cv => cv.UserId == _userManager.UserId),
-            (c, cv) => c.Id == cv.ConfigId).MergeTable().Select<SysConfig>();
+            (c, cv) => c.Id == cv.ConfigId).Select<SysConfig>().MergeTable();
     }
 
     /// <summary>

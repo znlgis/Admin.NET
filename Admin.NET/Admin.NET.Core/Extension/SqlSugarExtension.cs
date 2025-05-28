@@ -291,4 +291,37 @@ public static class SqlSugarExtension
 
         return Expression.Call(selectorExpr, method, constant);
     }
+    
+    #region 视图操作
+
+    /// <summary>
+    /// 获取映射SQL语句, 用于创建视图
+    /// </summary>
+    /// <param name="queryable"></param>
+    /// <typeparam name="T"></typeparam>
+    /// <returns></returns>
+    public static string ToMappedSqlString<T>(this ISugarQueryable<T> queryable) where T : class
+    {
+        ArgumentNullException.ThrowIfNull(queryable);
+
+        // 获取实体映射信息
+        var entityInfo = queryable.Context.EntityMaintenance.GetEntityInfo(typeof(T));
+        if (entityInfo?.Columns == null || entityInfo.Columns.Count == 0) return queryable.ToSqlString();
+
+        // 构建需要替换的字段名映射（只处理实际有差异的字段）
+        var nameMap = entityInfo.Columns
+            .Where(c => !string.Equals(c.PropertyName, c.DbColumnName, StringComparison.OrdinalIgnoreCase))
+            .ToDictionary(k => k.PropertyName.ToLower(), v => v.DbColumnName, StringComparer.OrdinalIgnoreCase);
+        if (nameMap.Count == 0) return queryable.ToSqlString();
+
+        // 预编译正则表达式提升性能
+        var sql = queryable.ToSqlString();
+        foreach (var kv in nameMap)
+        {
+            sql = Regex.Replace(sql, $@"\b{kv.Key}\b", kv.Value ?? kv.Key, RegexOptions.IgnoreCase | RegexOptions.Compiled); // 单词边界匹配
+        }
+        return sql;
+    }
+
+    #endregion 视图操作
 }

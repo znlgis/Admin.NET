@@ -288,7 +288,6 @@ public class SysRegionService : IDynamicApiController, ITransient
                 Level = 1,
                 Pid = 0,
             };
-            if (municipalityList.Any(m => province.Name.StartsWith(m))) province.Name += "(省)";
             list.Add(province);
 
             if (syncLevel <= 1) continue;
@@ -306,7 +305,11 @@ public class SysRegionService : IDynamicApiController, ITransient
                     Name = prefName,
                     Level = 2
                 };
-                if (municipalityList.Any(m => city.Name.StartsWith(m))) city.Name += "(地)";
+                if (municipalityList.Any(m => city.Name.StartsWith(m)))
+                {
+                    city.Name = "市辖区";
+                    if (province.Code == city.Code) city.Code = province.Code.Substring(0, 2) + "0100";
+                }
                 list.Add(city);
 
                 if (syncLevel <= 2) continue;

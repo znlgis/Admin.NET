@@ -1,3 +1,8 @@
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+//
+// 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
+//
+// 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 /*
  *━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -25,12 +30,12 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
     private readonly IHttpRemoteService _httpRemoteService;
 
     /// <summary>
-    /// 百度翻译appId  
+    /// 百度翻译appId
     /// </summary>
     private static readonly string _appId = "xxxxxxxxxxx";
 
     /// <summary>
-    /// 百度翻译appKey  
+    /// 百度翻译appKey
     /// </summary>
     private static readonly string _appKey = "xxxxxxxxxxx";
 
@@ -42,14 +47,25 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
     // 语言映射字典
     private static readonly Dictionary<string, string> langMap = new Dictionary<string, string>
     {
-        ["en"] = "en", ["de"]     = "de", ["fi"]     = "fin",
-        ["es"] = "spa", ["fr"]    = "fra", ["it"]    = "it",
-        ["ja"] = "jp", ["ko"]     = "kor", ["no"]    = "nor",
-        ["pl"] = "pl", ["pt"]     = "pt", ["ru"]     = "ru",
-        ["th"] = "th", ["id"]     = "id", ["ms"]     = "may",
-        ["vi"] = "vie", ["zh-HK"] = "yue", ["zh-TW"] = "cht"
+        ["en"] = "en",
+        ["de"] = "de",
+        ["fi"] = "fin",
+        ["es"] = "spa",
+        ["fr"] = "fra",
+        ["it"] = "it",
+        ["ja"] = "jp",
+        ["ko"] = "kor",
+        ["no"] = "nor",
+        ["pl"] = "pl",
+        ["pt"] = "pt",
+        ["ru"] = "ru",
+        ["th"] = "th",
+        ["id"] = "id",
+        ["ms"] = "may",
+        ["vi"] = "vie",
+        ["zh-HK"] = "yue",
+        ["zh-TW"] = "cht"
     };
-
 
     /// <summary>
     /// 初始化一个<see cref="BaiDuTranslationService"/>类型的新实例.
@@ -59,7 +75,6 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
     {
         _httpRemoteService = httpRemoteService;
     }
-
 
     /// <summary>
     /// 百度在线翻译
@@ -94,17 +109,16 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
     /// <returns>翻译后的文本内容</returns>
     [DisplayName("百度在线翻译")]
     [HttpGet]
-    public async Task<BaiDuTranslationResult> Translation([FromQuery] [Required] string from, [FromQuery] [Required] string to, [FromQuery] [Required] string content)
+    public async Task<BaiDuTranslationResult> Translation([FromQuery][Required] string from, [FromQuery][Required] string to, [FromQuery][Required] string content)
     {
         // 标准版API授权只能翻译基础18语言，201种需要企业尊享版支持见百度api 文档
-        Random rd   = new Random();
+        Random rd = new Random();
         string salt = rd.Next(100000).ToString();
         // 改成您的密钥
         string secretKey = _appKey;
-        string sign      = EncryptString(_appId + content + salt + secretKey);
-        string url       = $"{_baseUrl}q={HttpUtility.UrlEncode(content)}&from={from}&to={to}&appid={_appId}&salt={salt}&sign={sign}";
-        var    res       = await _httpRemoteService.GetAsAsync<BaiDuTranslationResult>(url);
-
+        string sign = EncryptString(_appId + content + salt + secretKey);
+        string url = $"{_baseUrl}q={HttpUtility.UrlEncode(content)}&from={from}&to={to}&appid={_appId}&salt={salt}&sign={sign}";
+        var res = await _httpRemoteService.GetAsAsync<BaiDuTranslationResult>(url);
 
         if (!res.error_code.Equals("0"))
         {
@@ -113,7 +127,6 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
 
         return res;
     }
-
 
 #if DEBUG
 
@@ -150,8 +163,7 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
             foreach (var file in files)
             {
                 var langCode = Path.GetFileNameWithoutExtension(file);
-                var langDic  = await ReadLanguageFile(file);
-
+                var langDic = await ReadLanguageFile(file);
 
                 // 查询出没有生成的键值对
 
@@ -159,7 +171,7 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
                 // var notGen = dic.Where(kv => !langDic.ContainsKey(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
                 // 转换为 HashSet 提升性能
                 var langDicKey = new HashSet<string>(langDic.Keys);
-                var notGen     = dic.Where(kv => !langDicKey.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
+                var notGen = dic.Where(kv => !langDicKey.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
 
                 // 没有未生成的跳出
                 if (notGen.Count == 0)
@@ -181,7 +193,6 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
 
                         var result = await Translation("zh", targetLang, $"{gen.Value}");
 
-
                         if (!result.error_code.Equals("0"))
                         {
                             continue;
@@ -201,7 +212,7 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
                         {
                             translationValue = translationValue.Replace("'", "\\'");
                         }
-                        
+
                         str += ($"        {gen.Key}: '{translationValue}',{Environment.NewLine}");
                     }
                     catch (Exception e)
@@ -222,7 +233,6 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
             throw Oops.Bah(e.Message);
         }
     }
-
 
     /// <summary>
     /// 生成前端菜单i18n文件
@@ -257,7 +267,7 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
             foreach (var file in files)
             {
                 var langCode = Path.GetFileNameWithoutExtension(file);
-                var langDic  = await ReadLanguageFile(file);
+                var langDic = await ReadLanguageFile(file);
 
                 // 查询出没有生成的键值对
 
@@ -265,7 +275,7 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
                 // var notGen = dic.Where(kv => !langDic.ContainsKey(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
                 // 转换为 HashSet 提升性能
                 var langDicKey = new HashSet<string>(langDic.Keys);
-                var notGen     = dic.Where(kv => !langDicKey.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
+                var notGen = dic.Where(kv => !langDicKey.Contains(kv.Key)).ToDictionary(kv => kv.Key, kv => kv.Value);
 
                 // 没有未生成的跳出
                 if (notGen.Count == 0)
@@ -287,7 +297,6 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
 
                         var result = await Translation("zh", targetLang, $"{gen.Value}");
 
-                        
                         if (!result.error_code.Equals("0"))
                         {
                             continue;
@@ -339,15 +348,15 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
             throw Oops.Bah("【zh-CN.ts】文件未找到");
         }
 
-        var       dic    = new Dictionary<string, string>();
+        var dic = new Dictionary<string, string>();
         using var reader = new StreamReader(baseFile, Encoding.UTF8);
 
         while (await reader.ReadLineAsync() is { } line)
         {
             if (line.Contains('{') || line.Contains('}')) continue;
 
-            var cleanLine                               = line.Trim().TrimEnd(',').Replace("'", "");
-            var parts                                   = cleanLine.Split(new[] { ':' }, 2);
+            var cleanLine = line.Trim().TrimEnd(',').Replace("'", "");
+            var parts = cleanLine.Split(new[] { ':' }, 2);
             if (parts.Length == 2) dic[parts[0].Trim()] = parts[1].Trim();
         }
 
@@ -362,15 +371,15 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
             throw Oops.Bah($"【{filePath.Split('/').Last()}】文件未找到");
         }
 
-        var       dic    = new Dictionary<string, string>();
+        var dic = new Dictionary<string, string>();
         using var reader = new StreamReader(filePath, Encoding.UTF8);
 
         while (await reader.ReadLineAsync() is { } line)
         {
             if (line.Contains('{') || line.Contains('}')) continue;
 
-            var cleanLine                               = line.Trim().TrimEnd(',').Replace("'", "");
-            var parts                                   = cleanLine.Split(new[] { ':' }, 2);
+            var cleanLine = line.Trim().TrimEnd(',').Replace("'", "");
+            var parts = cleanLine.Split(new[] { ':' }, 2);
             if (parts.Length == 2) dic[parts[0].Trim()] = parts[1].Trim();
         }
 
@@ -392,11 +401,9 @@ public class BaiDuTranslationService : IDynamicApiController, ITransient
         Console.ResetColor();
     }
 
-    #endregion
-
+    #endregion 辅助方法
 
 #endif
-
 
     // 计算MD5值
     [NonAction]

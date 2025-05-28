@@ -28,7 +28,7 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
         _sysConfigRep = sysConfigRep;
         _sysConfigDataRep = sysConfigDataRep;
         VSysConfig = _sysConfigRep.AsQueryable().LeftJoin(_sysConfigDataRep.AsQueryable().WhereIF(_userManager.SuperAdmin, cv => cv.TenantId == _userManager.TenantId),
-            (c, cv) => c.Id == cv.ConfigId).MergeTable().Select<SysConfig>();
+            (c, cv) => c.Id == cv.ConfigId).Select<SysConfig>().MergeTable();
     }
 
     /// <summary>

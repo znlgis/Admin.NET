@@ -5,7 +5,6 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Newtonsoft.Json;
-using System.Text.Json;
 
 namespace Admin.NET.Core;
 
@@ -15,6 +14,16 @@ namespace Admin.NET.Core;
 [SuppressSniffer]
 public static partial class ObjectExtension
 {
+    /// <summary>
+    /// 类型属性列表映射表
+    /// </summary>
+    private static readonly ConcurrentDictionary<Type, PropertyInfo[]> PropertyCache = new();
+
+    /// <summary>
+    /// 脱敏特性缓存映射表
+    /// </summary>
+    private static readonly ConcurrentDictionary<PropertyInfo, DataMaskAttribute> AttributeCache = new();
+
     /// <summary>
     /// 判断类型是否实现某个泛型
     /// </summary>
@@ -70,7 +79,7 @@ public static partial class ObjectExtension
     public static string ToJson(this object obj)
     {
         var jsonSettings = SetNewtonsoftJsonSetting();
-        return JSON.GetJsonSerializer().Serialize(obj,jsonSettings);
+        return JSON.GetJsonSerializer().Serialize(obj, jsonSettings);
     }
 
     private static JsonSerializerSettings SetNewtonsoftJsonSetting()
@@ -473,5 +482,40 @@ public static partial class ObjectExtension
         var jsonSettings = SetNewtonsoftJsonSetting();
         var json = JSON.Serialize(obj, jsonSettings);
         return JSON.Deserialize<T>(json);
+    }
+
+    /// <summary>
+    /// 对带有<see cref="DataMaskAttribute"/>特性字段进行脱敏处理
+    /// </summary>
+    public static T MaskSensitiveData<T>(this T obj) where T : class
+    {
+        if (obj == null) return null;
+
+        var type = typeof(T);
+    
+        // 获取或缓存属性集合
+        var properties = PropertyCache.GetOrAdd(type, t => 
+            t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
+                .Where(p => p.PropertyType == typeof(string) && p.GetCustomAttribute<DataMaskAttribute>() != null)
+                .ToArray());
+
+        // 并行处理可写属性
+        Parallel.ForEach(properties, prop =>
+        {
+            if (!prop.CanWrite) return;
+        
+            // 获取或缓存特性
+            var maskAttr = AttributeCache.GetOrAdd(prop, p => p.GetCustomAttribute<DataMaskAttribute>());
+            
+            if (maskAttr == null) return;
+
+            // 处理非空字符串
+            if (prop.GetValue(obj) is string { Length: > 0 } value)
+            {
+                prop.SetValue(obj, maskAttr.Mask(value));
+            }
+        });
+
+        return obj;
     }
 }

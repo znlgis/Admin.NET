@@ -45,6 +45,7 @@ public sealed class DbConnectionConfig : ConnectionConfig
     /// 数据库名称
     /// </summary>
     public string DbNickName { get; set; }
+
     /// <summary>
     /// 数据库配置
     /// </summary>
@@ -68,7 +69,7 @@ public sealed class DbConnectionConfig : ConnectionConfig
     /// <summary>
     /// 数据库存储目录（仅SqlServer支持指定目录创建）
     /// </summary>
-    public string DatabaseDirectory { get; set; }    
+    public string DatabaseDirectory { get; set; }
 }
 
 /// <summary>
@@ -80,6 +81,11 @@ public sealed class DbSettings
     /// 启用库表初始化
     /// </summary>
     public bool EnableInitDb { get; set; }
+    
+    /// <summary>
+    /// 启用视图初始化
+    /// </summary>
+    public bool EnableInitView { get; set; }
 
     /// <summary>
     /// 启用库表差异日志
