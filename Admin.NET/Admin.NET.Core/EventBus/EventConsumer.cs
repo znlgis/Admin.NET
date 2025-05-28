@@ -54,13 +54,21 @@ public class EventConsumer<T> : IDisposable
         }
         _consumerCts = new CancellationTokenSource();
         var ct = _consumerCts.Token;
-        _consumerTask = Task.Factory.StartNew(() =>
+        _consumerTask = Task.Factory.StartNew(async () =>
         {
             while (!ct.IsCancellationRequested)
             {
-                var cr = Consumer.TakeOne(10);
-                if (cr == null) continue;
-                Received?.Invoke(this, cr);
+                try
+                {
+                    var cr = Consumer.TakeOne(10);
+                    if (cr == null) continue;
+                    Received?.Invoke(this, cr);
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine($"消息消费异常: {ex.Message}");
+                    await Task.Delay(1000); // 短暂等待后继续尝试
+                }
             }
         }, ct, TaskCreationOptions.LongRunning, TaskScheduler.Default);
     }
