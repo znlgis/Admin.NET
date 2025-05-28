@@ -9,8 +9,9 @@ namespace Admin.NET.Plugin.DingTalk;
 /// <summary>
 /// 钉钉用户表
 /// </summary>
-[SugarTable(null, "钉钉用户表")]
-public class DingTalkUser : EntityBase
+[Tenant("DbOA")]
+[SugarTable("ding_talk_user", "钉钉用户表")]
+public class DingTalkUser : EntityBaseDel
 {
     /// <summary>
     /// 系统用户Id

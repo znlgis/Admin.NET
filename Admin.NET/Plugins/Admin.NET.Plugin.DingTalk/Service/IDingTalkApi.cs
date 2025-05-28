@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -25,7 +25,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <returns></returns>
     [Post("https://oapi.dingtalk.com/topapi/smartwork/hrm/employee/queryonjob")]
     Task<DingTalkBaseResponse<GetDingTalkCurrentEmployeesListOutput>> GetDingTalkCurrentEmployeesList([Query] string access_token,
-        [Body, Required] GetDingTalkCurrentEmployeesListInput input);
+        [Body(ContentType = "application/json", UseStringContent = true), Required] GetDingTalkCurrentEmployeesListInput input);
 
     /// <summary>
     /// 获取员工花名册字段信息
@@ -35,7 +35,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <returns></returns>
     [Post("https://oapi.dingtalk.com/topapi/smartwork/hrm/employee/v2/list")]
     Task<DingTalkBaseResponse<List<DingTalkEmpRosterFieldVo>>> GetDingTalkCurrentEmployeesRosterList([Query] string access_token,
-        [Body, Required] GetDingTalkCurrentEmployeesRosterListInput input);
+        [Body(ContentType = "application/json", UseStringContent = true), Required] GetDingTalkCurrentEmployeesRosterListInput input);
 
     /// <summary>
     /// 发送钉钉互动卡片
@@ -51,7 +51,7 @@ public interface IDingTalkApi : IHttpDeclarative
     [Obsolete]
     Task<DingTalkSendInteractiveCardsOutput> DingTalkSendInteractiveCards(
         [Header("x-acs-dingtalk-access-token")] string token,
-        [Body] DingTalkSendInteractiveCardsInput input);
+        [Body(ContentType = "application/json", UseStringContent = true)] DingTalkSendInteractiveCardsInput input);
 
     /// <summary>
     /// 获取钉钉卡片消息读取状态
@@ -72,7 +72,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <returns></returns>
     [Post("https://oapi.dingtalk.com/topapi/role/list")]
     Task<DingTalkBaseResponse<DingTalkRoleListOutput>> GetDingTalkRoleList([Query] string access_token,
-        [Body, Required] GetDingTalkCurrentRoleListInput input);
+        [Body(ContentType = "application/json", UseStringContent = true), Required] GetDingTalkCurrentRoleListInput input);
 
     /// <summary>
     /// 获取指定角色的员工列表
@@ -83,4 +83,14 @@ public interface IDingTalkApi : IHttpDeclarative
     [Post("https://oapi.dingtalk.com/topapi/role/simplelist")]
     Task<DingTalkBaseResponse<DingTalkRoleSimplelistOutput>> GetDingTalkRoleSimplelist([Query] string access_token,
         [Body, Required] GetDingTalkCurrentRoleSimplelistInput input);
+    /// <summary>
+    /// 创建并投放卡片
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [Post("https://api.dingtalk.com/v1.0/card/instances/createAndDeliver")]
+    Task<DingTalkCreateAndDeliverOutput> DingTalkCreateAndDeliver(
+        [Header("x-acs-dingtalk-access-token")] string token,
+        [Body] DingTalkCreateAndDeliverInput input);
 }

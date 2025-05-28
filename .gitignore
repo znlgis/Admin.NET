@@ -41,3 +41,5 @@ node_modules/
 .idea
 .DS_Store
 /Admin.NET/Admin.NET.Web.Entry/Admin.NET.db-journal
+/Admin.NET/Admin.NET.Application/Configuration/App.json
+/Admin.NET/Admin.NET.Application/Configuration/Database.json

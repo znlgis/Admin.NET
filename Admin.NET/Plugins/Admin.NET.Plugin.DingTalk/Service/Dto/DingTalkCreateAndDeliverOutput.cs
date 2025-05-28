@@ -5,26 +5,26 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 namespace Admin.NET.Plugin.DingTalk;
-
-public sealed class DingTalkOptions : DingTalkOptionsYlt, IConfigurableOptions
+public class DingTalkCreateAndDeliverOutput
 {
     /// <summary>
-    /// AppId
+    /// 返回结果
     /// </summary>
-    public string AppId { get; set; }
+    public bool success { get; set; }
 
     /// <summary>
-    /// AgentId
+    /// 创建卡片结果
     /// </summary>
-    public string AgentId { get; set; }
+    public DingTalkCreateAndDeliverResult result { get; set; }
+    public string code { get; set; }
+    public string requestid { get; set; }
+    public string message { get; set; }
 
+}
+public class DingTalkCreateAndDeliverResult
+{
     /// <summary>
-    /// 原 AppKey 和 SuiteKey
+    /// 用于业务方后续查看已读列表的查询key
     /// </summary>
-    public string ClientId { get; set; }
-
-    /// <summary>
-    /// 原 AppSecret 和 SuiteSecret
-    /// </summary>
-    public string ClientSecret { get; set; }
+    public string processQueryKey { get; set; }
 }
