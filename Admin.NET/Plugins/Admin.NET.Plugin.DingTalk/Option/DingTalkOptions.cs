@@ -6,7 +6,7 @@
 
 namespace Admin.NET.Plugin.DingTalk;
 
-public sealed class DingTalkOptions : IConfigurableOptions
+public sealed class DingTalkOptions : DingTalkOptionsYlt, IConfigurableOptions
 {
     /// <summary>
     /// AppId

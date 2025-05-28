@@ -73,13 +73,14 @@ public class DingTalkService : IDynamicApiController, IScoped
         return await _dingTalkApi.DingTalkSendInteractiveCards(token, input);
     }
     /// <summary>
-    /// 创建并投放钉钉消息卡片
+    /// 发送钉钉互动卡片 🔖
     /// </summary>
     /// <param name="token"></param>
     /// <param name="input"></param>
     /// <returns></returns>
-    [Post("https://api.dingtalk.com/v1.0/card/instances/createAndDeliver")]
-    Task<DingTalkCreateAndDeliverOutput> DingTalkCreateAndDeliver(
-        [Header("x-acs-dingtalk-access-token")] string token,
-        [Body(ContentType = "application/json", UseStringContent = true)] DingTalkCreateAndDeliverInput input);
+    [DisplayName("给指定用户发送钉钉互动卡片")]
+    public async Task<DingTalkCreateAndDeliverOutput> DingTalkCreateAndDeliver(string token, DingTalkCreateAndDeliverInput input)
+    {
+        return await _dingTalkApi.DingTalkCreateAndDeliver(token, input);
+    }
 }
