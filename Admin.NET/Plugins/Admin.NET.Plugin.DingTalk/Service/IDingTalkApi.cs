@@ -83,4 +83,14 @@ public interface IDingTalkApi : IHttpDeclarative
     [Post("https://oapi.dingtalk.com/topapi/role/simplelist")]
     Task<DingTalkBaseResponse<DingTalkRoleSimplelistOutput>> GetDingTalkRoleSimplelist([Query] string access_token,
         [Body, Required] GetDingTalkCurrentRoleSimplelistInput input);
+    /// <summary>
+    /// 创建并投放钉钉消息卡片
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [Post("https://api.dingtalk.com/v1.0/card/instances/createAndDeliver")]
+    Task<DingTalkCreateAndDeliverOutput> DingTalkCreateAndDeliver(
+        [Header("x-acs-dingtalk-access-token")] string token,
+        [Body(ContentType = "application/json", UseStringContent = true)] DingTalkCreateAndDeliverInput input);
 }

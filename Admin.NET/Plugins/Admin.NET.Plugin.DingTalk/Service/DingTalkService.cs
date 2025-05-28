@@ -72,4 +72,15 @@ public class DingTalkService : IDynamicApiController, IScoped
     {
         return await _dingTalkApi.DingTalkSendInteractiveCards(token, input);
     }
+    /// <summary>
+    /// 创建并投放钉钉消息卡片 🔖
+    /// </summary>
+    /// <param name="token"></param>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [DisplayName("给指定用户发送钉钉消息卡片")]
+    public async Task<DingTalkCreateAndDeliverOutput> DingTalkCreateAndDeliver(string token, DingTalkCreateAndDeliverInput input)
+    {
+        return await _dingTalkApi.DingTalkCreateAndDeliver(token, input);
+    }
 }
