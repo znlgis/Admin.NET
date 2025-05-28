@@ -30,9 +30,11 @@ public class JwtHandler : AppAuthorizeHandler
     /// <returns></returns>
     public override async Task HandleAsync(AuthorizationHandlerContext context, DefaultHttpContext httpContext)
     {
-        // 若当前账号存在黑名单中则授权失败
+        var userId = context.User.FindFirst(ClaimConst.UserId)?.Value;
         var token = httpContext.Request.Headers["Authorization"].ToString().Replace("Bearer ", "");
-        if (_sysCacheService.ExistKey($"{CacheConst.KeyBlacklist}{context.User.FindFirst(ClaimConst.UserId)?.Value}") ||
+
+        // 🛡️ 黑名单校验（包括用户和token）
+        if (_sysCacheService.ExistKey($"{CacheConst.KeyBlacklist}{userId}") ||
             _sysCacheService.ExistKey($"blacklist:token:{token}"))
         {
             context.Fail();
