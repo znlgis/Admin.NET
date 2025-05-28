@@ -3,33 +3,48 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'b393778b9efa169c5caf0649cc40b2114f2457a7'
-    oldFile: !uuid '8d4e0a53afdaeb601f3a3fa619ff984718f06dde'
-  /Admin.NET/Plugins:
-    newFile: !uuid '950bceaa26b58d1647739ae49377b40b1c6a9892'
-    oldFile: !uuid '427799ac0a3569268f108b8e44dcab575db5d550'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk:
-    newFile: !uuid '89a66572935a6702f902ad0435c27b6f45a2f29f'
-    oldFile: !uuid '98a36cd1bbd102e5188f3009cb2a7f5544cedc37'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service:
-    newFile: !uuid '9e26579b502f211db6570c6214726f9b20058029'
-    oldFile: !uuid '5d556ae9518c05e84105eff9fa58f42cff7c2889'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/DingTalkService.cs:
-    newFile: !uuid '87a125624eca897f548e2663f10f30e26cbd4ba0'
-    oldFile: !uuid 'c622a9cdb775733211f246373a87dadcf60349a4'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto:
-    newFile: !uuid '0a5dedb5f9d856a4d936893dec513f5acd5ed569'
-    oldFile: !uuid 'f4b6d4137c19431b2531b692b7675e45c9efc11a'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkCreateAndDeliverInput.cs:
-    newFile: !uuid '7003fc4ac81bcce81742051e6cc742c16066771b'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkCreateAndDeliverOutput.cs:
-    newFile: !uuid 'e8a932b142a8c00411a4979f53d465248c56a0fb'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/IDingTalkApi.cs:
-    newFile: !uuid '9aeb74ce0fae659fdd4648becb6dc69047e90a45'
-    oldFile: !uuid '3c753ebda2e95ce036a809fd15bd9dd495bbc69e'
-gitCommitId: !uuid '5eb042ff417c34b72ef6a12ba5b6e6cda6a3d96e'
+    newFile: !uuid '6d5cfd733f76da9d0df36d2a42e50a2f10d33cb9'
+    oldFile: !uuid 'b393778b9efa169c5caf0649cc40b2114f2457a7'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '6cc0384de7269bb3271552584edb3b1504063697'
+    oldFile: !uuid 'e88301ee57f44750f64259262f25561136565666'
+  /Admin.NET/Admin.NET.Core/Enum:
+    newFile: !uuid '794e24557717def49801f0c3ce09670ad60f3417'
+    oldFile: !uuid 'db6e346802997226b52d56eacd042293a8cd04a6'
+  /Admin.NET/Admin.NET.Core/Enum/SysUserEventTypeEnum.cs:
+    newFile: !uuid '72456263f1bcf895484aad78f48fda07e80f0baa'
+    oldFile: !uuid '2442b22703edaaee7a7b75bae005690884ee06b5'
+  /Admin.NET/Admin.NET.Core/EventBus:
+    newFile: !uuid '89e79c9e849456579ae5812c770b5083e6300822'
+    oldFile: !uuid 'f536275470b9602ab1df62993691eb24bb349187'
+  /Admin.NET/Admin.NET.Core/EventBus/EventConsumer.cs:
+    newFile: !uuid '971d2e7cf96667f71e7b6215d105667d6d6698d3'
+    oldFile: !uuid '0f774b1a265748fb642c285d5a216d929bad157a'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid '9da5d790bec2c1dff01ebc4c20e33d2cd7e81c3f'
+    oldFile: !uuid '3a226e54cbf37b35171f9d5540b7aeefeacddcf9'
+  /Admin.NET/Admin.NET.Core/Service/Auth:
+    newFile: !uuid 'fae2d47e5727d2da2d8aed273281a39dd49e6225'
+    oldFile: !uuid '21fcd86f3877ac3215624f3299712422d6d68213'
+  /Admin.NET/Admin.NET.Core/Service/Auth/SysAuthService.cs:
+    newFile: !uuid '9e017da57105c70054dc6a80e5190d3be0edf48d'
+    oldFile: !uuid '8e1dcc4cc7b2bbec4155803a8136653742665698'
+  /Admin.NET/Admin.NET.Core/Service/Common:
+    newFile: !uuid 'a627aa8ede0ece231a81a238d1807b0f3c3387a4'
+    oldFile: !uuid 'bf5622bbc1d142c49c525a3b6807bb4c15ea5f9e'
+  /Admin.NET/Admin.NET.Core/Service/Common/SysCommonService.cs:
+    newFile: !uuid '96870dd70d110a11680c7029faba42a2adb4f166'
+    oldFile: !uuid '503d7222073ea9510835dd0a4fd397978ba53364'
+  /Admin.NET/Admin.NET.Web.Core:
+    newFile: !uuid '9e105c5f919176b15dd2583b5ca22349ed3fe5f8'
+    oldFile: !uuid '90dfae278cde8eef54eb744f9fc5d094548f3c13'
+  /Admin.NET/Admin.NET.Web.Core/Handlers:
+    newFile: !uuid '28abd1e04dbfc00fa48aedd28ddb0e81e25ff2fe'
+    oldFile: !uuid 'b280af3ceadeb157ad044f1d4b17d9b72aacfc41'
+  /Admin.NET/Admin.NET.Web.Core/Handlers/JwtHandler.cs:
+    newFile: !uuid '7899823d6e326215f0d4fa0b63de7e2114f093dd'
+    oldFile: !uuid 'bcd2bd60f3cfadacc998232e30cf095a5c177eaf'
+gitCommitId: !uuid '01679fbfa15b3b599c701754ae79d7a2b25acd40'
 renames: {
   }
-revisionId: 2875
+revisionId: 2876
