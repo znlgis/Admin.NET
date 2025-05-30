@@ -1,142 +1,225 @@
 <!-- 组件使用文档： https://gitee.com/zuohuaijun/Admin.NET/pulls/1559  -->
 <script setup lang="ts">
-import { reactive, watch, PropType, onMounted } from 'vue';
-import { DictItem } from '/@/types/global';
+import { reactive, watch, computed, PropType } from 'vue';
 import { useUserInfo } from '/@/stores/userInfo';
 
+type DictItem = {
+  [key: string]: any;
+  tagType?: string;
+  styleSetting?: string;
+  classSetting?: string;
+};
+
+const userStore = useUserInfo();
 const emit = defineEmits(['update:modelValue']);
-const dictList = useUserInfo().dictList;
 const props = defineProps({
-	modelValue: {
-		type: [String, Number, Boolean, Array, null],
-		default: null,
-		required: true,
-	},
-	code: {
-		type: String,
-		required: true,
-	},
-	propLabel: {
-		type: String,
-		default: 'label',
-	},
-	propValue: {
-		type: String,
-		default: 'value',
-	},
-	onItemFilter: {
-		type: Function,
-		default: (dict: any): boolean => dict,
-	},
-	onItemFormatter: {
-		type: Function as PropType<(dict: any) => string | undefined | null>,
-		default: () => undefined,
-	},
-	renderAs: {
-		type: String,
-		default: 'tag',
-		validator(value: string) {
-			return ['tag', 'select', 'radio', 'checkbox'].includes(value);
-		},
-	},
-	multiple: {
-		type: Boolean,
-		default: false,
-	},
-	disabled: {
-		type: Boolean,
-		default: false,
-	},
+  /**
+   * 绑定的值，支持多种类型
+   * @example
+   * <DictSelect v-model="selectedValue" />
+   */
+  modelValue: {
+    type: [String, Number, Boolean, Array, null] as PropType<string | number | boolean | any[] | null>,
+    default: null,
+    required: true,
+  },
+  /**
+   * 字典编码，用于获取字典项
+   * @example 'gender'
+   */
+  code: {
+    type: String,
+    required: true,
+  },
+  /**
+   * 是否是常量
+   * @default false
+   */
+  isConst: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * 字典项中用于显示的字段名
+   * @default 'label'
+   */
+  propLabel: {
+    type: String,
+    default: 'label',
+  },
+  /**
+   * 字典项中用于取值的字段名
+   * @default 'value'
+   */
+  propValue: {
+    type: String,
+    default: 'value',
+  },
+  /**
+   * 字典项过滤函数
+   * @param dict - 字典项
+   * @returns 是否保留该项
+   * @default (dict) => true
+   */
+  onItemFilter: {
+    type: Function as PropType<(dict: DictItem) => boolean>,
+    default: (dict: DictItem) => true,
+  },
+  /**
+   * 字典项显示内容格式化函数
+   * @param dict - 字典项
+   * @returns 格式化后的显示内容
+   * @default () => undefined
+   */
+  onItemFormatter: {
+    type: Function as PropType<(dict: DictItem) => string | undefined | null>,
+    default: () => undefined,
+  },
+  /**
+   * 组件渲染方式
+   * @values 'tag', 'select', 'radio', 'checkbox'
+   * @default 'tag'
+   */
+  renderAs: {
+    type: String as PropType<'tag' | 'select' | 'radio' | 'checkbox'>,
+    default: 'tag',
+    validator(value: string) {
+      return ['tag', 'select', 'radio', 'checkbox'].includes(value);
+    },
+  },
+  /**
+   * 是否多选
+   * @default false
+   */
+  multiple: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const state = reactive({
-	dict: {} as DictItem | DictItem[] | undefined,
-	dictData: [] as DictItem[],
-	value: null as any,
+  dict: undefined as DictItem | DictItem[] | undefined,
+  dictData: [] as DictItem[],
+  value: undefined as any,
 });
 
-const setDictValue = (value: any) => {
-	if (typeof value === 'number' && props.renderAs === 'select') {
-	    state.value = value.toString();
-	} else {
-	    state.value = value;
-	}
-	state.dictData = dictList[props.code]?.filter(props.onItemFilter) ?? [];
-
-	if (Array.isArray(value)) {
-		state.dict = state.dictData.filter((x: any) => value.includes(x[props.propValue]));
-		if (state.dict) {
-			state.dict.forEach((item: any) => {
-				if (!['success', 'warning', 'info', 'primary', 'danger'].includes(item.tagType ?? '')) {
-					item.tagType = 'primary';
-				}
-			});
-		}
-	} else {
-		state.dict = state.dictData.find((x: any) => x[props.propValue] == state.value);
-		if (state.dict && !['success', 'warning', 'info', 'primary', 'danger'].includes((state.dict as DictItem).tagType ?? '')) {
-			(state.dict as DictItem).tagType = 'primary';
-		}
-	}
+// 处理数字类型的值
+const processNumericValues = (value: any) => {
+  if (typeof value === 'number' || (Array.isArray(value) && typeof value[0] === 'number')) {
+    state.dictData.forEach((item) => {
+      item[props.propValue] = Number(item[props.propValue]);
+    });
+  }
 };
 
+// 获取数据集
+const getDataList = () => {
+  if (props.isConst) {
+    const data = userStore.constList?.find((x: any) => x.code === props.code)?.data?.result ?? [];
+    // 与字典的显示文本和值保持一致，方便渲染
+    data?.forEach(item => {
+      item.label = item.name;
+      item.value = item.code;
+      delete item.name;
+    });
+    return data;
+  } else {
+    return userStore.dictList[props.code];
+  }
+}
+
+// 设置字典数据
+const setDictData = () => {
+  state.dictData = getDataList()?.filter(props.onItemFilter) ?? [];
+  processNumericValues(props.modelValue);
+};
+
+// 设置字典值
+const setDictValue = (value: any) => {
+  setDictData();
+  if (Array.isArray(value)) {
+    state.dict = state.dictData.filter((x) => value.includes(x[props.propValue]));
+    state.dict?.forEach(ensureTagType);
+  } else {
+    state.dict = state.dictData.find((x) => x[props.propValue] == value);
+    if (state.dict) {
+      ensureTagType(state.dict);
+    }
+  }
+  state.value = value;
+};
+
+// 确保标签类型存在
+const ensureTagType = (item: DictItem) => {
+  if (!['success', 'warning', 'info', 'primary', 'danger'].includes(item.tagType ?? '')) {
+    item.tagType = 'primary';
+  }
+};
+
+// 更新绑定值
+const updateValue = (newValue: any) => {
+  emit('update:modelValue', newValue);
+};
+
+// 计算显示的文本
+const displayText = computed(() => {
+  if (!state.dict) return state.value;
+
+  if (Array.isArray(state.dict)) {
+    return state.dict.map(item => props.onItemFormatter?.(item) ?? item[props.propLabel]).join(', ');
+  }
+
+  return props.onItemFormatter?.(state.dict) ?? state.dict[props.propLabel];
+});
+
 watch(
-	() => props.modelValue,
-	(newValue) => setDictValue(newValue),
-	{ immediate: true }
+    () => props.modelValue,
+    (newValue) => setDictValue(newValue),
+    { immediate: true }
 );
-onMounted(() => {
-	 if (typeof props.modelValue === 'number' && props.renderAs === 'select') {
-	     state.value = props.modelValue.toString();
-	 } else {
-	     state.value = props.modelValue;
-	 }
-})
 </script>
 
 <template>
-	<!-- 渲染标签 -->
-	<template v-if="props.renderAs === 'tag'">
-		<template v-if="Array.isArray(state.dict)">
-			<el-tag v-for="(item, index) in state.dict" :key="index" v-bind="$attrs" :type="item.tagType"
-				:style="item.styleSetting" :class="item.classSetting" class="mr-1">
-				{{ onItemFormatter(item) ?? item[props.propLabel] }}
-			</el-tag>
-		</template>
-		<template v-else>
-			<el-tag v-if="state.dict" v-bind="$attrs" :type="state.dict.tagType" :style="state.dict.styleSetting"
-				:class="state.dict.classSetting">
-				{{ onItemFormatter(state.dict) ?? state.dict[props.propLabel] }}
-			</el-tag>
-			<span v-else>{{ state.value }}</span>
-		</template>
-	</template>
-	<!-- 渲染选择器 -->
-	<template v-if="props.renderAs === 'select'">
-		<el-select :disabled="props.disabled" v-model="state.value" v-bind="$attrs" :multiple="props.multiple"
-			@change="(newValue: any) => emit('update:modelValue', newValue)">
-			<el-option v-for="(item, index) in state.dictData" :key="index"
-				:label="onItemFormatter(item) ?? item[props.propLabel]" :value="item[props.propValue]" />
-		</el-select>
-	</template>
-	<!-- 渲染复选框（多选） -->
-	<template v-if="props.renderAs === 'checkbox'">
-		<el-checkbox-group v-model="state.value" v-bind="$attrs"
-			@change="(newValue: any) => emit('update:modelValue', newValue)">
-			<el-checkbox v-for="(item, index) in state.dictData" :key="index" :label="item[props.propValue]">
-				{{ onItemFormatter(item) ?? item[props.propLabel] }}
-			</el-checkbox>
-		</el-checkbox-group>
-	</template>
-	<!-- 渲染单选框 -->
-	<template v-if="props.renderAs === 'radio'">
-		<el-radio-group v-model="state.value" v-bind="$attrs"
-			@change="(newValue: any) => emit('update:modelValue', newValue)">
-			<el-radio v-for="(item, index) in state.dictData" :key="index" :value="item[props.propValue]">
-				{{ onItemFormatter(item) ?? item[props.propLabel] }}
-			</el-radio>
-		</el-radio-group>
-	</template>
+  <!-- 渲染标签 -->
+  <template v-if="props.renderAs === 'tag'">
+    <template v-if="Array.isArray(state.dict)">
+      <el-tag v-for="(item, index) in state.dict" :key="index" v-bind="$attrs" :type="item.tagType" :style="item.styleSetting" :class="item.classSetting" class="mr-1">
+        {{ onItemFormatter(item) ?? item[propLabel] }}
+      </el-tag>
+    </template>
+    <template v-else>
+      <el-tag v-if="state.dict" v-bind="$attrs" :type="state.dict.tagType" :style="state.dict.styleSetting" :class="state.dict.classSetting">
+        {{ onItemFormatter(state.dict) ?? state.dict[propLabel] }}
+      </el-tag>
+      <span v-else>{{ displayText }}</span>
+    </template>
+  </template>
+
+  <!-- 渲染选择器 -->
+  <template v-if="props.renderAs === 'select'">
+    <el-select v-model="state.value" v-bind="$attrs" :multiple="props.multiple" @change="updateValue" clearable>
+      <el-option v-for="(item, index) in state.dictData" :key="index" :label="onItemFormatter(item) ?? item[propLabel]" :value="item[propValue]"/>
+    </el-select>
+  </template>
+
+  <!-- 渲染复选框（多选） -->
+  <template v-if="props.renderAs === 'checkbox'">
+    <el-checkbox-group v-model="state.value" v-bind="$attrs" @change="updateValue">
+      <el-checkbox-button v-for="(item, index) in state.dictData" :key="index" :value="item[propValue]">
+        {{ onItemFormatter(item) ?? item[propLabel] }}
+      </el-checkbox-button>
+    </el-checkbox-group>
+  </template>
+
+  <!-- 渲染单选框 -->
+  <template v-if="props.renderAs === 'radio'">
+    <el-radio-group v-model="state.value" v-bind="$attrs" @change="updateValue">
+      <el-radio v-for="(item, index) in state.dictData" :key="index" :value="item[propValue]">
+        {{ onItemFormatter(item) ?? item[propLabel] }}
+      </el-radio>
+    </el-radio-group>
+  </template>
 </template>
 
-<style scoped lang="scss"></style>
+<style scoped lang="scss">
+</style>
