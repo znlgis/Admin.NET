@@ -116,7 +116,7 @@ const processNumericValues = (value: any) => {
 const getDataList = () => {
   if (props.isConst) {
     const data = userStore.constList?.find((x: any) => x.code === props.code)?.data?.result ?? [];
-    // 与字典的显示文本和值保持一致，方便渲染
+    // 与字典的显示文本、值保持一致，方便渲染
     data?.forEach(item => {
       item.label = item.name;
       item.value = item.code;
@@ -134,9 +134,29 @@ const setDictData = () => {
   processNumericValues(props.modelValue);
 };
 
+// 设置多选值
+const trySetMultipleValue = (value: any) => {
+  let newValue = value;
+  if (typeof value === 'string') {
+    const trimmedValue = value.trim();
+    if (trimmedValue.startsWith('[') && trimmedValue.endsWith(']')) {
+      try {
+        newValue = JSON.parse(trimmedValue);
+      } catch (error) {
+        console.warn('[g-sys-dict]解析多选值失败, 异常信息:', error);
+      }
+    }
+  } else if (props.multiple && !value) {
+    newValue = [];
+  }
+  if (newValue != value) emit('update:modelValue', value);
+  return newValue;
+}
+
 // 设置字典值
 const setDictValue = (value: any) => {
   setDictData();
+  value = trySetMultipleValue(value);
   if (Array.isArray(value)) {
     state.dict = state.dictData.filter((x) => value.includes(x[props.propValue]));
     state.dict?.forEach(ensureTagType);
@@ -183,7 +203,7 @@ watch(
   <!-- 渲染标签 -->
   <template v-if="props.renderAs === 'tag'">
     <template v-if="Array.isArray(state.dict)">
-      <el-tag v-for="(item, index) in state.dict" :key="index" v-bind="$attrs" :type="item.tagType" :style="item.styleSetting" :class="item.classSetting" class="mr-1">
+      <el-tag v-for="(item, index) in state.dict" :key="index" v-bind="$attrs" :type="item.tagType" :style="item.styleSetting" :class="item.classSetting" class="mr2">
         {{ onItemFormatter(item) ?? item[propLabel] }}
       </el-tag>
     </template>
