@@ -1,6 +1,6 @@
 <!-- 组件使用文档： https://gitee.com/zuohuaijun/Admin.NET/pulls/1559  -->
 <script setup lang="ts">
-import { reactive, watch, computed, PropType } from 'vue';
+import { reactive, watch, PropType } from 'vue';
 import { useUserInfo } from '/@/stores/userInfo';
 
 type DictItem = {
@@ -16,7 +16,7 @@ const props = defineProps({
   /**
    * 绑定的值，支持多种类型
    * @example
-   * <DictSelect v-model="selectedValue" />
+   * <g-sys-dict v-model="selectedValue" code="xxxx" />
    */
   modelValue: {
     type: [String, Number, Boolean, Array, null] as PropType<string | number | boolean | any[] | null>,
@@ -103,21 +103,12 @@ const state = reactive({
   value: undefined as any,
 });
 
-// 处理数字类型的值
-const processNumericValues = (value: any) => {
-  if (typeof value === 'number' || (Array.isArray(value) && typeof value[0] === 'number')) {
-    state.dictData.forEach((item) => {
-      item[props.propValue] = Number(item[props.propValue]);
-    });
-  }
-};
-
 // 获取数据集
 const getDataList = () => {
   if (props.isConst) {
     const data = userStore.constList?.find((x: any) => x.code === props.code)?.data?.result ?? [];
     // 与字典的显示文本、值保持一致，方便渲染
-    data?.forEach(item => {
+    data?.forEach((item: any) => {
       item.label = item.name;
       item.value = item.code;
       delete item.name;
@@ -132,6 +123,15 @@ const getDataList = () => {
 const setDictData = () => {
   state.dictData = getDataList()?.filter(props.onItemFilter) ?? [];
   processNumericValues(props.modelValue);
+};
+
+// 处理数字类型的值
+const processNumericValues = (value: any) => {
+  if (typeof value === 'number' || (Array.isArray(value) && typeof value[0] === 'number')) {
+    state.dictData.forEach((item) => {
+      item[props.propValue] = Number(item[props.propValue]);
+    });
+  }
 };
 
 // 设置多选值
@@ -149,22 +149,21 @@ const trySetMultipleValue = (value: any) => {
   } else if (props.multiple && !value) {
     newValue = [];
   }
-  if (newValue != value) emit('update:modelValue', value);
+  if (newValue != value) updateValue(newValue);
+
+  setDictData();
   return newValue;
 }
 
 // 设置字典值
 const setDictValue = (value: any) => {
-  setDictData();
   value = trySetMultipleValue(value);
   if (Array.isArray(value)) {
-    state.dict = state.dictData.filter((x) => value.includes(x[props.propValue]));
+    state.dict = state.dictData?.filter((x) => value.find(y => y == x[props.propValue]));
     state.dict?.forEach(ensureTagType);
   } else {
-    state.dict = state.dictData.find((x) => x[props.propValue] == value);
-    if (state.dict) {
-      ensureTagType(state.dict);
-    }
+    state.dict = state.dictData?.find((x) => x[props.propValue] == value);
+    if (state.dict) ensureTagType(state.dict);
   }
   state.value = value;
 };
@@ -182,15 +181,10 @@ const updateValue = (newValue: any) => {
 };
 
 // 计算显示的文本
-const displayText = computed(() => {
-  if (!state.dict) return state.value;
-
-  if (Array.isArray(state.dict)) {
-    return state.dict.map(item => props.onItemFormatter?.(item) ?? item[props.propLabel]).join(', ');
-  }
-
-  return props.onItemFormatter?.(state.dict) ?? state.dict[props.propLabel];
-});
+const getDisplayText = (dict: DictItem | undefined = undefined) => {
+  if (dict) return props.onItemFormatter?.(dict) ?? dict[props.propLabel];
+  return state.value;
+}
 
 watch(
     () => props.modelValue,
@@ -204,21 +198,21 @@ watch(
   <template v-if="props.renderAs === 'tag'">
     <template v-if="Array.isArray(state.dict)">
       <el-tag v-for="(item, index) in state.dict" :key="index" v-bind="$attrs" :type="item.tagType" :style="item.styleSetting" :class="item.classSetting" class="mr2">
-        {{ onItemFormatter(item) ?? item[propLabel] }}
+        {{ getDisplayText(item) }}
       </el-tag>
     </template>
     <template v-else>
       <el-tag v-if="state.dict" v-bind="$attrs" :type="state.dict.tagType" :style="state.dict.styleSetting" :class="state.dict.classSetting">
-        {{ onItemFormatter(state.dict) ?? state.dict[propLabel] }}
+        {{ getDisplayText(state.dict) }}
       </el-tag>
-      <span v-else>{{ displayText }}</span>
+      <span v-else>{{ getDisplayText() }}</span>
     </template>
   </template>
 
   <!-- 渲染选择器 -->
   <template v-if="props.renderAs === 'select'">
     <el-select v-model="state.value" v-bind="$attrs" :multiple="props.multiple" @change="updateValue" clearable>
-      <el-option v-for="(item, index) in state.dictData" :key="index" :label="onItemFormatter(item) ?? item[propLabel]" :value="item[propValue]"/>
+      <el-option v-for="(item, index) in state.dictData" :key="index" :label="getDisplayText(item)" :value="item[propValue]" />
     </el-select>
   </template>
 
@@ -226,7 +220,7 @@ watch(
   <template v-if="props.renderAs === 'checkbox'">
     <el-checkbox-group v-model="state.value" v-bind="$attrs" @change="updateValue">
       <el-checkbox-button v-for="(item, index) in state.dictData" :key="index" :value="item[propValue]">
-        {{ onItemFormatter(item) ?? item[propLabel] }}
+        {{ getDisplayText(item) }}
       </el-checkbox-button>
     </el-checkbox-group>
   </template>
@@ -235,11 +229,10 @@ watch(
   <template v-if="props.renderAs === 'radio'">
     <el-radio-group v-model="state.value" v-bind="$attrs" @change="updateValue">
       <el-radio v-for="(item, index) in state.dictData" :key="index" :value="item[propValue]">
-        {{ onItemFormatter(item) ?? item[propLabel] }}
+        {{ getDisplayText(item) }}
       </el-radio>
     </el-radio-group>
   </template>
 </template>
-
 <style scoped lang="scss">
 </style>
