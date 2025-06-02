@@ -4,6 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Microsoft.Data.Sqlite;
+using SqlSugar;
+using System.Data.Common;
 using DbType = SqlSugar.DbType;
 
 namespace Admin.NET.Core;
@@ -480,7 +483,10 @@ public static class SqlSugarSetup
         foreach (var dbColumn in dbColumns.Where(c => !c.IsPrimarykey && entityInfo.Columns.All(u => u.DbColumnName != c.DbColumnName)))
         {
             dbColumn.IsNullable = true;
-            dbProvider.DbMaintenance.UpdateColumn(entityInfo.DbTableName, dbColumn);
+            Retry(() =>
+            {
+                dbProvider.DbMaintenance.UpdateColumn(entityInfo.DbTableName, dbColumn);
+            }, maxRetry: 3, retryIntervalMs: 1000);
         }
     }
 
@@ -491,14 +497,17 @@ public static class SqlSugarSetup
     /// <param name="entityType">实体类型</param>
     private static void InitializeTable(SqlSugarScopeProvider dbProvider, Type entityType)
     {
-        if (entityType.GetCustomAttribute<SplitTableAttribute>() == null)
+        Retry(() =>
         {
-            dbProvider.CodeFirst.InitTables(entityType);
-        }
-        else
-        {
-            dbProvider.CodeFirst.SplitTables().InitTables(entityType);
-        }
+            if (entityType.GetCustomAttribute<SplitTableAttribute>() == null)
+            {
+                dbProvider.CodeFirst.InitTables(entityType);
+            }
+            else
+            {
+                dbProvider.CodeFirst.SplitTables().InitTables(entityType);
+            }
+        }, maxRetry: 3, retryIntervalMs: 1000);
     }
 
     /// <summary>
@@ -654,6 +663,34 @@ public static class SqlSugarSetup
                 db.CodeFirst.InitTables(entityType);
             else
                 db.CodeFirst.SplitTables().InitTables(entityType);
+        }
+    }
+
+    /// <summary>
+    /// 简单的重试机制
+    /// </summary>
+    /// <param name="action"></param>
+    /// <param name="maxRetry"></param>
+    /// <param name="retryIntervalMs"></param>
+    private static void Retry(Action action, int maxRetry, int retryIntervalMs)
+    {
+        int attempt = 0;
+        while (true)
+        {
+            try
+            {
+                action();
+                return;
+            }
+            catch (SqliteException ex) when (ex.SqliteErrorCode == 5) // SQLITE_BUSY
+            {
+                if (++attempt >= maxRetry)
+                {
+                    Log.Error($"简单的重试机制:{ex.Message}"); throw;
+                }
+                Log.Information($"数据库忙，正在重试... (尝试 {attempt}/{maxRetry})");
+                Thread.Sleep(retryIntervalMs);
+            }
         }
     }
 }
