@@ -292,6 +292,7 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
         }
     @:}
     @:
+    @:private static readonly object _@(Model.LowerClassName)ImportLock = new object();
     @:/// <summary>
     @:/// 导入@(Model.BusName)记录 💾
     @:/// </summary>
@@ -300,7 +301,7 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
     @:[ApiDescriptionSettings(Name = "Import"), HttpPost, NonUnify, UnitOfWork]
     @:public IActionResult ImportData([Required] IFormFile file)
     @:{
-        @:lock (this)
+        @:lock (_@(Model.LowerClassName)ImportLock)
         @:{
             var dictTableField = Model.TableField.Where(x => x.WhetherImport == "Y" && x.EffectType == "DictSelector") ?? default;
             foreach (var column in dictTableField){
@@ -368,8 +369,8 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
                         @:.ToStorage();
 
                     @:
-                    @:storageable.BulkCopy();
-                    @:storageable.BulkUpdate();
+                    @:storageable.AsInsertable.ExecuteCommand();// 不存在插入
+                    @:storageable.AsUpdateable.ExecuteCommand();// 存在更新
                     @:
                     @:// 标记错误信息
                     @:markerErrorAction.Invoke(storageable, pageItems, rows);
