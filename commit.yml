@@ -3,24 +3,30 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '356d0b60c69a0f2aea4d27b558f1c2bc9d86729b'
-    oldFile: !uuid 'e0d3dcbcadca75dffa013eee8062c63e5ba49083'
+    newFile: !uuid '5b53019141de39331753f186e93f8d629146ede1'
+    oldFile: !uuid '356d0b60c69a0f2aea4d27b558f1c2bc9d86729b'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'b9723f5ffb0bedb4264e83aec9b0a92d47ff1053'
-    oldFile: !uuid '313dfbf726e120199c0e18ca3b02e830c93bd674'
-  /Admin.NET/Admin.NET.Core/Attribute:
-    newFile: !uuid '632a8583c14988ef555b651c218199ad8109f93a'
-    oldFile: !uuid '416c1c835b529e9f6ef82a3e5ea0787c165591a9'
-  /Admin.NET/Admin.NET.Core/Attribute/CustomJsonPropertyAttribute.cs:
-    newFile: !uuid '82d668db8f7fc964ae98bc24a588236239adaf5f'
-    oldFile: null
-  /Admin.NET/Admin.NET.Core/Utils:
-    newFile: !uuid 'e2354cf4b96ebab6eb42fcbc550e5c061e258897'
-    oldFile: !uuid '61d55c90534c4fa900e11a86f8bf84aa5a1674c8'
-  /Admin.NET/Admin.NET.Core/Utils/CustomJsonPropertyConverter.cs:
-    newFile: !uuid '75d56c631353e646103e02498b21a7f146799f7c'
-    oldFile: null
-gitCommitId: !uuid 'd4daf013617f7c41fc8e3504aa9f9bd33a97f08d'
+    newFile: !uuid '62550844df58d4af33c6359a0a38e49df8e97486'
+    oldFile: !uuid 'b9723f5ffb0bedb4264e83aec9b0a92d47ff1053'
+  /Admin.NET/Admin.NET.Core/SqlSugar:
+    newFile: !uuid '6e4307b2e8c77bc916439da3d72853c5f32d14a5'
+    oldFile: !uuid '899298defe1971aa62ebb27b8f22c38c9615889d'
+  /Admin.NET/Admin.NET.Core/SqlSugar/SqlSugarSetup.cs:
+    newFile: !uuid '95b9381e2413e5c1351058d91f8c8dbeb7fc9e1a'
+    oldFile: !uuid '92f7ef43e23c83b69f3a7c7307332efdffe14e4d'
+  /Admin.NET/Admin.NET.Web.Entry:
+    newFile: !uuid '94a61cd278b192789802d9312f2f592293927035'
+    oldFile: !uuid '91980eb375f23295c20c7f4d3c031f02ac65a6b7'
+  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
+    newFile: !uuid '31bf5388083f35ef08f767c4173ec7984fb5200a'
+    oldFile: !uuid '25473af6de6377a369fee72090bd8d89b777f5ed'
+  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
+    newFile: !uuid '0fbe35c3ec066e9dfee69b20afb137e3b578ccca'
+    oldFile: !uuid '9c763044f8680e9ed6ba07419c17d5799c819829'
+  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Service.cs.vm:
+    newFile: !uuid '11db3e957ecac1bd83d420502e8c4ee7b3b65597'
+    oldFile: !uuid 'b853d8a6ed528e782e3c8cf3e6cf609312147fbb'
+gitCommitId: !uuid 'c6aa0a19065c17b3a22b08feaa6d8805658960af'
 renames: {
   }
-revisionId: 2881
+revisionId: 2882
