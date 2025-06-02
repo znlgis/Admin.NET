@@ -3,15 +3,24 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'e0d3dcbcadca75dffa013eee8062c63e5ba49083'
-    oldFile: !uuid '6d5cfd733f76da9d0df36d2a42e50a2f10d33cb9'
+    newFile: !uuid '356d0b60c69a0f2aea4d27b558f1c2bc9d86729b'
+    oldFile: !uuid 'e0d3dcbcadca75dffa013eee8062c63e5ba49083'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '313dfbf726e120199c0e18ca3b02e830c93bd674'
-    oldFile: !uuid '6cc0384de7269bb3271552584edb3b1504063697'
-  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
-    newFile: !uuid 'f879f1c90fbf1e3082f591066bb9ed905ca9b7c7'
-    oldFile: !uuid '15ee29054a9c9db2dc3e2fd10170a8b82aa3fad7'
-gitCommitId: !uuid 'd2b85fe8b980ef8de9ee2e5c939a1ba6dd6ab6bb'
+    newFile: !uuid 'b9723f5ffb0bedb4264e83aec9b0a92d47ff1053'
+    oldFile: !uuid '313dfbf726e120199c0e18ca3b02e830c93bd674'
+  /Admin.NET/Admin.NET.Core/Attribute:
+    newFile: !uuid '632a8583c14988ef555b651c218199ad8109f93a'
+    oldFile: !uuid '416c1c835b529e9f6ef82a3e5ea0787c165591a9'
+  /Admin.NET/Admin.NET.Core/Attribute/CustomJsonPropertyAttribute.cs:
+    newFile: !uuid '82d668db8f7fc964ae98bc24a588236239adaf5f'
+    oldFile: null
+  /Admin.NET/Admin.NET.Core/Utils:
+    newFile: !uuid 'e2354cf4b96ebab6eb42fcbc550e5c061e258897'
+    oldFile: !uuid '61d55c90534c4fa900e11a86f8bf84aa5a1674c8'
+  /Admin.NET/Admin.NET.Core/Utils/CustomJsonPropertyConverter.cs:
+    newFile: !uuid '75d56c631353e646103e02498b21a7f146799f7c'
+    oldFile: null
+gitCommitId: !uuid 'd4daf013617f7c41fc8e3504aa9f9bd33a97f08d'
 renames: {
   }
-revisionId: 2880
+revisionId: 2881
