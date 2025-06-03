@@ -15,7 +15,7 @@ namespace @(Model.NameSpace);
 /// </summary>
 [Tenant("@(Model.ConfigId)")]
 [SugarTable("@(Model.TableName)", "@(Model.Description)")]
-public class @(Model.EntityName) @Model.BaseClassName
+public partial class @(Model.EntityName) @Model.BaseClassName
 {
 @foreach (var column in Model.TableField) {
     var propSuffix = "";
