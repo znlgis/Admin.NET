@@ -6,7 +6,6 @@
 
 using Admin.NET.Core.Service;
 using Microsoft.AspNetCore.Http;
-using Admin.NET.Application.Entity;
 using Furion.DatabaseAccessor;
 using Furion.FriendlyException;
 using Mapster;
@@ -349,10 +348,14 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
                         }
                         @:return true;
                     @:}).Adapt<List<@(Model.ClassName)>>();
-
+                                   
+                    @{var updateFields = new List<string>();}  
                     @:
                     @:var storageable = _@(Model.LowerClassName)Rep.Context.Storageable(rows)
                         foreach (var column in Model.ImportFieldList){
+                        if (column.WhetherImport == "Y"){
+                        updateFields.Add(column.PropertyName);
+                        }
                         if (column.WhetherRequired == "Y"){
                         if(column.NetType.TrimEnd('?') == "string"){
                         @:.SplitError(it => string.IsNullOrWhiteSpace(it.Item.@(column.PropertyName)), "@(column.ColumnComment)不能为空")
@@ -362,15 +365,25 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
                         if (column.NetType?.TrimEnd('?') == "string" && column.ColumnLength > 0){
                         @:.SplitError(it => it.Item.@(column.PropertyName)?.Length > @(column.ColumnLength), "@(column.ColumnComment)长度不能超过@(column.ColumnLength)个字符")
                         }}
+                        if(Model.TableUniqueConfigList.Count>0){
                         foreach (var config in Model.TableUniqueConfigList) {
-                        @:.WhereColumns(it => new { @config.Format(", ", "it.{0}") }).SplitError(it => it.Any(), "@(config.Message)已存在")
+                        @:.WhereColumns(it => new { @config.Format(", ", "it.{0}") })
                         }
-                        @:.SplitInsert(_ => true)
+                        @:.SplitInsert(it=> !it.Any())
+                        @:.SplitUpdate(it=> it.Any())
+                        }else{                        
+                        @:.SplitInsert(_=> true) // 没有设置唯一键代表插入所有数据
+                        }
                         @:.ToStorage();
-
                     @:
                     @:storageable.AsInsertable.ExecuteCommand();// 不存在插入
-                    @:storageable.AsUpdateable.ExecuteCommand();// 存在更新
+                    @:storageable.AsUpdateable.UpdateColumns(it => new
+                    @:{
+                    @foreach (var field in updateFields)
+                    {
+                    @:    it.@(field),
+                    }
+                    @:}).ExecuteCommand();// 存在更新
                     @:
                     @:// 标记错误信息
                     @:markerErrorAction.Invoke(storageable, pageItems, rows);
