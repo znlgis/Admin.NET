@@ -492,9 +492,9 @@ public static partial class ObjectExtension
         if (obj == null) return null;
 
         var type = typeof(T);
-    
+
         // 获取或缓存属性集合
-        var properties = PropertyCache.GetOrAdd(type, t => 
+        var properties = PropertyCache.GetOrAdd(type, t =>
             t.GetProperties(BindingFlags.Public | BindingFlags.Instance)
                 .Where(p => p.PropertyType == typeof(string) && p.GetCustomAttribute<DataMaskAttribute>() != null)
                 .ToArray());
@@ -503,10 +503,10 @@ public static partial class ObjectExtension
         Parallel.ForEach(properties, prop =>
         {
             if (!prop.CanWrite) return;
-        
+
             // 获取或缓存特性
             var maskAttr = AttributeCache.GetOrAdd(prop, p => p.GetCustomAttribute<DataMaskAttribute>());
-            
+
             if (maskAttr == null) return;
 
             // 处理非空字符串

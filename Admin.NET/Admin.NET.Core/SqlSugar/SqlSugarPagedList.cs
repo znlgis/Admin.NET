@@ -127,7 +127,7 @@ public static class SqlSugarPagedExtensions
         items.ForEach(x => x.MaskSensitiveData());
         return CreateSqlSugarPagedList(items, total, pageIndex, pageSize);
     }
-    
+
     /// <summary>
     /// 脱敏分页拓展
     /// </summary>

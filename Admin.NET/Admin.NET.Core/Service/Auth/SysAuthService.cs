@@ -7,7 +7,6 @@
 using Furion.SpecificationDocument;
 using Lazy.Captcha.Core;
 using NewLife.Reflection;
-using System.Threading.Tasks;
 
 namespace Admin.NET.Core.Service;
 

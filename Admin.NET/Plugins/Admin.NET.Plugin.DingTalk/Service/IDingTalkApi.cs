@@ -83,6 +83,7 @@ public interface IDingTalkApi : IHttpDeclarative
     [Post("https://oapi.dingtalk.com/topapi/role/simplelist")]
     Task<DingTalkBaseResponse<DingTalkRoleSimplelistOutput>> GetDingTalkRoleSimplelist([Query] string access_token,
         [Body(ContentType = "application/json", UseStringContent = true), Required] GetDingTalkCurrentRoleSimplelistInput input);
+
     /// <summary>
     /// 创建并投放钉钉消息卡片
     /// </summary>

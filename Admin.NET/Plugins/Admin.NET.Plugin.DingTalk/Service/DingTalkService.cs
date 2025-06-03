@@ -72,6 +72,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     {
         return await _dingTalkApi.DingTalkSendInteractiveCards(token, input);
     }
+
     /// <summary>
     /// 创建并投放钉钉消息卡片 🔖
     /// </summary>

@@ -291,7 +291,7 @@ public static class SqlSugarExtension
 
         return Expression.Call(selectorExpr, method, constant);
     }
-    
+
     #region 视图操作
 
     /// <summary>
