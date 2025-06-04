@@ -2,22 +2,70 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid '26a1bcc6cad9f7ef1a246a3fde6eee819355e602'
-    oldFile: !uuid '8087398bb887146266d3e784a54692370e86bd4f'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '6fa93ecfc592e977ea34c922deaa449665962c84'
-    oldFile: !uuid '3a6c16d151ecbf42483b86458e68acb5aea57737'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '0649e3ce31a6bfab648144b0a383369282168026'
-    oldFile: !uuid 'f102f18586c9025d2816ca9841b6ce288f7c1a54'
-  /Admin.NET/Admin.NET.Core/Service/Region:
-    newFile: !uuid '25ac633b0a849ee9e8948e2c52eedd54c5e702ab'
-    oldFile: !uuid '6fa641cb88bc6307ce579e36ee279d5b89ac0ff1'
-  /Admin.NET/Admin.NET.Core/Service/Region/SysRegionService.cs:
-    newFile: !uuid '2ea167d354bba53584fbee513d363eb811269f2e'
-    oldFile: !uuid 'c1c6aff1e86c5ee5236bc153c32ee1ea64aa665a'
-gitCommitId: !uuid 'b8e39d47c52d1364dada6990adafc7f1fcd2dc50'
+  /Web:
+    newFile: !uuid '8c7568c65dd74435de91167abb46267b58287713'
+    oldFile: !uuid '9cfc8fd52f43877d4ab3b88603e596bb7e7a3a0e'
+  /Web/src:
+    newFile: !uuid '6c6bf68dae79d96362fed5caac5d96ded6cba8d0'
+    oldFile: !uuid 'cfed97d0bc0014329b1b0c0ddd874b3b9b2d88ad'
+  /Web/src/api-services:
+    newFile: !uuid 'd75890e43d4d24d0c55ac0ff3597f8820a14901f'
+    oldFile: !uuid 'aa6e01634d11f8e16d5e5461cdc3756371b029b5'
+  /Web/src/api-services/apis:
+    newFile: !uuid 'cec70c9421e11c5034554063767ddc1c720def2a'
+    oldFile: !uuid 'd43e961ec9816213dda7b4b90e537ad520524b74'
+  /Web/src/api-services/apis/sys-auth-api.ts:
+    newFile: !uuid '99ab7c4278c289b99d5a6409f2dd94aaaf3c2ae9'
+    oldFile: !uuid '549e99a3d92067784da91597b7c2fda3e24b9e09'
+  /Web/src/api-services/apis/sys-database-api.ts:
+    newFile: !uuid 'f901371f36789263d9da86204458f67a2f90fb11'
+    oldFile: !uuid '754b93af4f4cc5d890faa95ae993cafab7ce6c8b'
+  /Web/src/api-services/apis/sys-region-api.ts:
+    newFile: !uuid '048bc4ff2542958e7cf95da198d9a446b6146042'
+    oldFile: !uuid '23a876e77b7b93eddef2634cdac2f115bf5570cb'
+  /Web/src/api-services/apis/sys-tenant-config-api.ts:
+    newFile: !uuid '93b70225b02f97f884c3fb8240c23a64a6d44ff1'
+    oldFile: !uuid 'efb06d7a92515d9ab461e70b318b207a76d954c6'
+  /Web/src/api-services/apis/sys-user-config-api.ts:
+    newFile: !uuid 'e5e0d6791377131a3039b162be82fe3b55b1f816'
+    oldFile: !uuid '625a30284638b24568ad9550e7f2315179db6591'
+  /Web/src/api-services/models:
+    newFile: !uuid '6f70d27dba0ac34f43452152f4e26a6492702aa5'
+    oldFile: !uuid '1168fbc083123d327aa5fd3a8812fcb71c82c661'
+  /Web/src/api-services/models/add-tenant-input.ts:
+    newFile: !uuid '3e88eec27e84432ddc7138d09714e259c8410db0'
+    oldFile: !uuid '2142d633a3a49487cd8929625c398f12ae77eabf'
+  /Web/src/api-services/models/admin-result-list-visual-db.ts:
+    newFile: !uuid 'b37506602f67f458ef87df5f584f042055e32732'
+    oldFile: null
+  /Web/src/api-services/models/database-output.ts:
+    newFile: !uuid '84d2594ca26fff439c1eaf3cd440e4636db810f6'
+    oldFile: !uuid 'f13db68db3a4df9ed1efba60eadd9a3b4b46b873'
+  /Web/src/api-services/models/db-type.ts:
+    newFile: !uuid '6367f5cb09aa11b4f07624424c877c25699f5e0d'
+    oldFile: !uuid '91580e7804dbf635026f590d8e9d746706abc0eb'
+  /Web/src/api-services/models/generate-qrimage-un-limit-input.ts:
+    newFile: !uuid '44b3f01537f2b0df1241f988f3270124051a3946'
+    oldFile: !uuid '77c2a27e7a545a95615a4cc969bfd5d7b586bfcc'
+  /Web/src/api-services/models/index.ts:
+    newFile: !uuid '61ba8a71599bcd17fac92c4cd4a9609e07e159ca'
+    oldFile: !uuid 'd5635e1d1db052de9140eba649dfd27c8c2c8e39'
+  /Web/src/api-services/models/page-dict-data-input.ts:
+    newFile: !uuid '6b40bf4f802bee3230e64fce8c3128c81c636d6a'
+    oldFile: !uuid '00081a308b3e8fad80a8169e88ca49f82f7858db'
+  /Web/src/api-services/models/sys-code-gen.ts:
+    newFile: !uuid 'de94ff829c9dfa55e98fde8ed445dcd20f878cc2'
+    oldFile: !uuid 'ef5db23d71db0612384bae5eb14a002211677f48'
+  /Web/src/api-services/models/tenant-output.ts:
+    newFile: !uuid '49ece9fba823f4147fba44f6edb55d7bc314abea'
+    oldFile: !uuid '7b49c4c27a4cb1f248c0c01a8c9db42d78110715'
+  /Web/src/api-services/models/update-tenant-input.ts:
+    newFile: !uuid '6a2ea2d5c0175683d3ead90e4bb1eccfc376e4ae'
+    oldFile: !uuid 'c6601ac040dcd25c6eb45a60fe6d8d0000b89ff2'
+  /Web/src/api-services/models/visual-db.ts:
+    newFile: !uuid 'e704b9a314fe848182ca5d64809169a3e6585743'
+    oldFile: null
+gitCommitId: !uuid 'f5b06a7611496f14bef060c903beb62a311347d0'
 renames: {
   }
-revisionId: 2888
+revisionId: 2889
