@@ -116,18 +116,21 @@ public class SysTenantService : IDynamicApiController, ITransient
     }
 
     /// <summary>
-    /// 获取当前租户
+    /// 获取当前租户系统信息
     /// </summary>
     /// <returns></returns>
     [NonAction]
-    public async Task<SysTenant> GetCurrentTenant()
+    public async Task<SysTenant> GetCurrentTenantSysInfo()
     {
         var tenantId = long.Parse(App.User?.FindFirst(ClaimConst.TenantId)?.Value ?? "0");
         var host = App.HttpContext.Request.Host.Host.ToLower();
-        return await _sysTenantRep.AsQueryable()
-            .WhereIF(tenantId > 0, u => u.Id == tenantId)
+        var tenant = await _sysTenantRep.AsQueryable()
+            .WhereIF(tenantId > 0, u => u.Id == tenantId && SqlFunc.ToLower(u.Host).Equals(host))
             .WhereIF(!(tenantId > 0), u => SqlFunc.ToLower(u.Host).Equals(host))
             .FirstAsync();
+        tenant ??= await _sysTenantRep.GetFirstAsync(u => u.Id == SqlSugarConst.DefaultTenantId);
+        _ = tenant ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        return tenant;
     }
 
     /// <summary>

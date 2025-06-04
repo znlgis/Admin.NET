@@ -251,10 +251,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     [DisplayName("获取系统信息")]
     public async Task<dynamic> GetSysInfo()
     {
-        var tenant = await SysTenantService.GetCurrentTenant();
-        tenant ??= await _sysTenantRep.GetFirstAsync(u => u.Id == SqlSugarConst.DefaultTenantId);
-        _ = tenant ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-
+        var tenant = await SysTenantService.GetCurrentTenantSysInfo();
         var wayList = await _sysConfigRep.Context.Queryable<SysUserRegWay>()
             .Where(u => u.TenantId == tenant.Id)
             .Select(u => new { Label = u.Name, Value = u.Id })
@@ -290,7 +287,7 @@ public class SysConfigService : IDynamicApiController, ITransient
     [DisplayName("保存系统信息")]
     public async Task SaveSysInfo(InfoSaveInput input)
     {
-        var tenant = await SysTenantService.GetCurrentTenant() ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        var tenant = await _sysTenantRep.GetFirstAsync(u => u.Id == _userManager.TenantId) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
         if (!string.IsNullOrEmpty(input.LogoBase64)) SysTenantService.SetLogoUrl(tenant, input.LogoBase64, input.LogoFileName);
         // await UpdateConfigValue(ConfigConst.SysCaptcha, (input.Captcha == YesNoEnum.Y).ToString());
         // await UpdateConfigValue(ConfigConst.SysSecondVer, (input.SecondVer == YesNoEnum.Y).ToString());
