@@ -3,27 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '8087398bb887146266d3e784a54692370e86bd4f'
-    oldFile: !uuid 'fc2e0618d5f27f750b85e9466b63f4d6459eca9c'
+    newFile: !uuid '26a1bcc6cad9f7ef1a246a3fde6eee819355e602'
+    oldFile: !uuid '8087398bb887146266d3e784a54692370e86bd4f'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '3a6c16d151ecbf42483b86458e68acb5aea57737'
-    oldFile: !uuid '87a7794b73ead2b825c050376fa0c48d7e786401'
-  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
-    newFile: !uuid '24294dcbaf55f6c3d60fb6d3464d80d95b15dd7f'
-    oldFile: !uuid '409292f36e4f40d23a8c7ac3b8b7f694ad4448ff'
-  /Admin.NET/Admin.NET.Test:
-    newFile: !uuid 'c2cb764f86698509ebfeb3af1895454b045aabc9'
-    oldFile: !uuid 'ef61e715230bd9f7eafed5bc4d0fafafc350d170'
-  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
-    newFile: !uuid 'df371ea207c060651eadbc6def1cf6fe716f3892'
-    oldFile: !uuid 'a1620123979bacfc2841c952f70aeca7040eaa00'
-  /Web:
-    newFile: !uuid '9cfc8fd52f43877d4ab3b88603e596bb7e7a3a0e'
-    oldFile: !uuid '817d610cbb20e715747067024206997c964b5343'
-  /Web/package.json:
-    newFile: !uuid 'd95892d6beb7a89aeb996aabb47a98915f9cedbd'
-    oldFile: !uuid '350fae1049d2c72dddb2c054655b6eb99dd34e9e'
-gitCommitId: !uuid '58de60d22f8c05c6de69811a5777e7bc19f5b604'
+    newFile: !uuid '6fa93ecfc592e977ea34c922deaa449665962c84'
+    oldFile: !uuid '3a6c16d151ecbf42483b86458e68acb5aea57737'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid '0649e3ce31a6bfab648144b0a383369282168026'
+    oldFile: !uuid 'f102f18586c9025d2816ca9841b6ce288f7c1a54'
+  /Admin.NET/Admin.NET.Core/Service/Region:
+    newFile: !uuid '25ac633b0a849ee9e8948e2c52eedd54c5e702ab'
+    oldFile: !uuid '6fa641cb88bc6307ce579e36ee279d5b89ac0ff1'
+  /Admin.NET/Admin.NET.Core/Service/Region/SysRegionService.cs:
+    newFile: !uuid '2ea167d354bba53584fbee513d363eb811269f2e'
+    oldFile: !uuid 'c1c6aff1e86c5ee5236bc153c32ee1ea64aa665a'
+gitCommitId: !uuid 'b8e39d47c52d1364dada6990adafc7f1fcd2dc50'
 renames: {
   }
-revisionId: 2887
+revisionId: 2888
