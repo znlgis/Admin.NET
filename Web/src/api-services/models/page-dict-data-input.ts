@@ -96,7 +96,7 @@ export interface PageDictDataInput {
      * @type {string}
      * @memberof PageDictDataInput
      */
-    lable?: string | null;
+    label?: string | null;
 
     /**
      * 编码

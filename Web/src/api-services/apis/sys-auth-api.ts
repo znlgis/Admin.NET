@@ -21,7 +21,6 @@ import { AdminResultBoolean } from '../models';
 import { AdminResultLoginOutput } from '../models';
 import { AdminResultLoginUserOutput } from '../models';
 import { AdminResultObject } from '../models';
-import { AdminResultString } from '../models';
 import { LoginInput } from '../models';
 import { LoginPhoneInput } from '../models';
 import { UserRegistrationInput } from '../models';
@@ -324,7 +323,7 @@ export const SysAuthApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary 获取刷新Token 🔖
-         * @param {string} [accessToken] 
+         * @param {string} [accessToken] 旧的AccessToken
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -606,11 +605,11 @@ export const SysAuthApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 获取刷新Token 🔖
-         * @param {string} [accessToken] 
+         * @param {string} [accessToken] 旧的AccessToken
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
+        async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultLoginOutput>>> {
             const localVarAxiosArgs = await SysAuthApiAxiosParamCreator(configuration).apiSysAuthRefreshTokenGet(accessToken, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -728,11 +727,11 @@ export const SysAuthApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary 获取刷新Token 🔖
-         * @param {string} [accessToken] 
+         * @param {string} [accessToken] 旧的AccessToken
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
+        async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultLoginOutput>> {
             return SysAuthApiFp(configuration).apiSysAuthRefreshTokenGet(accessToken, options).then((request) => request(axios, basePath));
         },
         /**
@@ -841,12 +840,12 @@ export class SysAuthApi extends BaseAPI {
     /**
      * 
      * @summary 获取刷新Token 🔖
-     * @param {string} [accessToken] 
+     * @param {string} [accessToken] 旧的AccessToken
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysAuthApi
      */
-    public async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
+    public async apiSysAuthRefreshTokenGet(accessToken?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultLoginOutput>> {
         return SysAuthApiFp(this.configuration).apiSysAuthRefreshTokenGet(accessToken, options).then((request) => request(this.axios, this.basePath));
     }
     /**

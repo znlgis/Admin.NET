@@ -160,7 +160,7 @@ export interface TenantOutput {
      * @type {string}
      * @memberof TenantOutput
      */
-    logo: string;
+    logo?: string | null;
 
     /**
      * 标题

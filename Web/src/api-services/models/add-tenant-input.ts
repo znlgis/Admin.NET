@@ -160,7 +160,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    logo: string;
+    logo?: string | null;
 
     /**
      * 水印
@@ -230,7 +230,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    title: string;
+    title?: string | null;
 
     /**
      * 系统副标题
@@ -238,7 +238,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    viceTitle: string;
+    viceTitle?: string | null;
 
     /**
      * 系统描述
@@ -246,7 +246,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    viceDesc: string;
+    viceDesc?: string | null;
 
     /**
      * 版权说明
@@ -254,7 +254,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    copyright: string;
+    copyright?: string | null;
 
     /**
      * ICP备案号
@@ -262,7 +262,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    icp: string;
+    icp?: string | null;
 
     /**
      * ICP地址
@@ -270,7 +270,7 @@ export interface AddTenantInput {
      * @type {string}
      * @memberof AddTenantInput
      */
-    icpUrl: string;
+    icpUrl?: string | null;
 
     /**
      * Logo图片Base64码

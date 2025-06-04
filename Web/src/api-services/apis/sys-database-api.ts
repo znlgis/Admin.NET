@@ -20,6 +20,7 @@ import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } fr
 import { AdminResultListDbColumnOutput } from '../models';
 import { AdminResultListDbTableInfo } from '../models';
 import { AdminResultListString } from '../models';
+import { AdminResultListVisualDb } from '../models';
 import { AdminResultVisualDbTable } from '../models';
 import { CreateEntityInput } from '../models';
 import { CreateSeedDataInput } from '../models';
@@ -842,7 +843,7 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysDatabaseListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListString>>> {
+        async apiSysDatabaseListGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListVisualDb>>> {
             const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseListGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -1009,7 +1010,7 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysDatabaseListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListString>> {
+        async apiSysDatabaseListGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListVisualDb>> {
             return SysDatabaseApiFp(configuration).apiSysDatabaseListGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1167,7 +1168,7 @@ export class SysDatabaseApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysDatabaseApi
      */
-    public async apiSysDatabaseListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListString>> {
+    public async apiSysDatabaseListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListVisualDb>> {
         return SysDatabaseApiFp(this.configuration).apiSysDatabaseListGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**
