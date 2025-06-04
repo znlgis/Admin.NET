@@ -110,6 +110,14 @@ export interface SysCodeGen {
     configId?: string | null;
 
     /**
+     * 库名
+     *
+     * @type {string}
+     * @memberof SysCodeGen
+     */
+    dbNickName?: string | null;
+
+    /**
      * 数据库名(保留字段)
      *
      * @type {string}

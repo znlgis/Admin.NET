@@ -180,7 +180,7 @@ export const SysUserConfigApiAxiosParamCreator = function (configuration?: Confi
         /**
          * 
          * @summary 根据Code获取配置参数值 🔖
-         * @param {string} code 
+         * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -567,7 +567,7 @@ export const SysUserConfigApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 根据Code获取配置参数值 🔖
-         * @param {string} code 
+         * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -703,7 +703,7 @@ export const SysUserConfigApiFactory = function (configuration?: Configuration, 
         /**
          * 
          * @summary 根据Code获取配置参数值 🔖
-         * @param {string} code 
+         * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -815,7 +815,7 @@ export class SysUserConfigApi extends BaseAPI {
     /**
      * 
      * @summary 根据Code获取配置参数值 🔖
-     * @param {string} code 
+     * @param {string} code 编码
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysUserConfigApi

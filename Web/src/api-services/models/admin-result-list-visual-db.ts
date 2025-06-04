@@ -12,43 +12,60 @@
  * Do not edit the class manually.
  */
 
+import { VisualDb } from './visual-db';
  /**
- * 生成带参数小程序二维码(获取不受限制的小程序码)
+ * 全局返回结果
  *
  * @export
- * @interface GenerateQRImageUnLimitInput
+ * @interface AdminResultListVisualDb
  */
-export interface GenerateQRImageUnLimitInput {
+export interface AdminResultListVisualDb {
 
     /**
-     * 扫码进入的小程序页面路径，最大长度 128 个字符，不能为空； eg: pages/index?id=0001
-     *
-     * @type {string}
-     * @memberof GenerateQRImageUnLimitInput
-     */
-    pagePath?: string | null;
-
-    /**
-     * 文件保存的名称
-     *
-     * @type {string}
-     * @memberof GenerateQRImageUnLimitInput
-     */
-    imageName?: string | null;
-
-    /**
-     * 图片宽度 默认430
+     * 状态码
      *
      * @type {number}
-     * @memberof GenerateQRImageUnLimitInput
+     * @memberof AdminResultListVisualDb
      */
-    width?: number;
+    code?: number;
 
     /**
-     * 二维码携带的参数 eg:a=1（最大32个可见字符，只支持数字，大小写英文以及部分特殊字符：<!-- !#$&'()*+,/:;=?@-._~ -->）
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof GenerateQRImageUnLimitInput
+     * @memberof AdminResultListVisualDb
      */
-    scene?: string | null;
+    type?: string | null;
+
+    /**
+     * 错误信息
+     *
+     * @type {string}
+     * @memberof AdminResultListVisualDb
+     */
+    message?: string | null;
+
+    /**
+     * 数据
+     *
+     * @type {Array<VisualDb>}
+     * @memberof AdminResultListVisualDb
+     */
+    result?: Array<VisualDb> | null;
+
+    /**
+     * 附加数据
+     *
+     * @type {any}
+     * @memberof AdminResultListVisualDb
+     */
+    extras?: any | null;
+
+    /**
+     * 时间
+     *
+     * @type {Date}
+     * @memberof AdminResultListVisualDb
+     */
+    time?: Date;
 }
