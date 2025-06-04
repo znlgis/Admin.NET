@@ -180,7 +180,7 @@ export const SysTenantConfigApiAxiosParamCreator = function (configuration?: Con
         /**
          * 
          * @summary 根据Code获取配置参数值 🔖
-         * @param {string} code 
+         * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -567,7 +567,7 @@ export const SysTenantConfigApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 根据Code获取配置参数值 🔖
-         * @param {string} code 
+         * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -703,7 +703,7 @@ export const SysTenantConfigApiFactory = function (configuration?: Configuration
         /**
          * 
          * @summary 根据Code获取配置参数值 🔖
-         * @param {string} code 
+         * @param {string} code 编码
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
@@ -815,7 +815,7 @@ export class SysTenantConfigApi extends BaseAPI {
     /**
      * 
      * @summary 根据Code获取配置参数值 🔖
-     * @param {string} code 
+     * @param {string} code 编码
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysTenantConfigApi

@@ -30,6 +30,14 @@ export interface DatabaseOutput {
     configId?: string | null;
 
     /**
+     * 库名
+     *
+     * @type {string}
+     * @memberof DatabaseOutput
+     */
+    dbNickName?: string | null;
+
+    /**
      * @type {DbType}
      * @memberof DatabaseOutput
      */
