@@ -51,6 +51,16 @@ public class SysRegionService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 获取行政区域树 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取行政区域树")]
+    public async Task<List<SysRegion>> GetTree()
+    {
+        return await _sysRegionRep.AsQueryable().ToTreeAsync(u => u.Children, u => u.Pid, null);
+    }
+
+    /// <summary>
     /// 增加行政区域 🔖
     /// </summary>
     /// <param name="input"></param>
