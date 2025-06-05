@@ -32,15 +32,16 @@ public class SysSmsService : IDynamicApiController, ITransient
     /// 发送短信 📨
     /// </summary>
     /// <param name="phoneNumber"></param>
+    /// <param name="templateId">短信模板id</param>
     /// <returns></returns>
     [AllowAnonymous]
     [DisplayName("发送短信")]
-    public async Task SendSms([Required] string phoneNumber)
+    public async Task SendSms([Required] string phoneNumber, string templateId = "0")
     {
         if (!string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeyId) && !string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeySecret))
-            await AliyunSendSms(phoneNumber);
+            await AliyunSendSms(phoneNumber, templateId);
         else
-            await TencentSendSms(phoneNumber);
+            await TencentSendSms(phoneNumber, templateId);
     }
 
     /// <summary>
@@ -64,11 +65,12 @@ public class SysSmsService : IDynamicApiController, ITransient
     /// <summary>
     /// 阿里云发送短信 📨
     /// </summary>
-    /// <param name="phoneNumber"></param>
+    /// <param name="phoneNumber">手机号</param>
+    /// <param name="templateId">短信模板id</param>
     /// <returns></returns>
     [AllowAnonymous]
     [DisplayName("阿里云发送短信")]
-    public async Task AliyunSendSms([Required] string phoneNumber)
+    public async Task AliyunSendSms([Required] string phoneNumber, string templateId = "0")
     {
         if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid) throw Oops.Oh("请正确填写手机号码");
 
@@ -82,7 +84,7 @@ public class SysSmsService : IDynamicApiController, ITransient
         };
 
         var client = CreateAliyunClient();
-        var template = _smsOptions.Aliyun.GetTemplate();
+        var template = _smsOptions.Aliyun.GetTemplate(templateId);
         var sendSmsRequest = new SendSmsRequest
         {
             PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
@@ -108,19 +110,20 @@ public class SysSmsService : IDynamicApiController, ITransient
     /// <summary>
     /// 发送短信模板
     /// </summary>
-    /// <param name="phoneNumber"></param>
-    /// <param name="templateParam"></param>
+    /// <param name="phoneNumber">手机号</param>
+    /// <param name="templateParam">短信内容</param>
+    /// <param name="templateId">短信模板id</param>
     /// <returns></returns>
     [AllowAnonymous]
     [DisplayName("发送短信模板")]
-    public async Task AliyunSendSmsTemplate([Required] string phoneNumber, [Required] dynamic templateParam)
+    public async Task AliyunSendSmsTemplate([Required] string phoneNumber, [Required] dynamic templateParam, string templateId)
     {
         if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid) throw Oops.Oh("请正确填写手机号码");
 
         if (string.IsNullOrWhiteSpace(templateParam.ToString())) throw Oops.Oh("短信内容不能为空");
 
         var client = CreateAliyunClient();
-        var template = _smsOptions.Aliyun.GetTemplate();
+        var template = _smsOptions.Aliyun.GetTemplate(templateId);
         var sendSmsRequest = new SendSmsRequest
         {
             PhoneNumbers = phoneNumber, // 待发送手机号, 多个以逗号分隔
@@ -145,10 +148,11 @@ public class SysSmsService : IDynamicApiController, ITransient
     /// 腾讯云发送短信 📨
     /// </summary>
     /// <param name="phoneNumber"></param>
+    /// <param name="templateId">短信模板id</param>
     /// <returns></returns>
     [AllowAnonymous]
     [DisplayName("腾讯云发送短信")]
-    public async Task TencentSendSms([Required] string phoneNumber)
+    public async Task TencentSendSms([Required] string phoneNumber, string templateId = "0")
     {
         if (!phoneNumber.TryValidate(ValidationTypes.PhoneNumber).IsValid) throw Oops.Oh("请正确填写手机号码");
 
@@ -158,7 +162,7 @@ public class SysSmsService : IDynamicApiController, ITransient
 
         // 实例化要请求产品的client对象，clientProfile是可选的
         var client = new SmsClient(CreateTencentClient(), "ap-guangzhou", new ClientProfile() { HttpProfile = new HttpProfile() { Endpoint = ("sms.tencentcloudapi.com") } });
-        var template = _smsOptions.Tencentyun.GetTemplate();
+        var template = _smsOptions.Tencentyun.GetTemplate(templateId);
         // 实例化一个请求对象,每个接口都会对应一个request对象
         var req = new TencentCloud.Sms.V20190711.Models.SendSmsRequest
         {
