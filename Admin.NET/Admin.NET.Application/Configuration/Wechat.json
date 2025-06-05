@@ -20,7 +20,7 @@
     "MerchantId": "", // 商户平台的商户号
     "MerchantV3Secret": "", // 商户平台的APIv3密钥
     "MerchantCertificateSerialNumber": "", // 商户平台的证书序列号
-    "MerchantCertificatePrivateKey": "\\WxPayCert\\apiclient_key.pem" // 商户平台的API证书私钥(apiclient_key.pem文件内容)
+    "MerchantCertificatePrivateKey": "WxPayCert/apiclient_key.pem" // 商户平台的API证书私钥(apiclient_key.pem文件内容)
   },
   // 支付回调
   "PayCallBack": {
