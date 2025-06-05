@@ -134,7 +134,7 @@ public static class AutoVersionUpdate
     /// <returns></returns>
     private static string GetEntryAssemblyCurrentVersion()
     {
-        var entryAssemblyVersion = AssemblyHelper.GetEntryAssemblyVersion();
+        var entryAssemblyVersion = ReflectionHelper.GetEntryAssemblyVersion();
         return entryAssemblyVersion.ToString(3);
     }
 
