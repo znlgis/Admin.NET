@@ -42,7 +42,7 @@ public class SysWechatPayService : IDynamicApiController, ITransient
     /// <returns></returns>
     private WechatTenpayClient CreateTenpayClient()
     {
-        var cerFilePath = App.WebHostEnvironment.ContentRootPath + _wechatPayOptions.MerchantCertificatePrivateKey;
+        var cerFilePath = Path.Combine(App.WebHostEnvironment.ContentRootPath, _wechatPayOptions.MerchantCertificatePrivateKey.Replace("/", Path.DirectorySeparatorChar.ToString()));
 
         var tenpayClientOptions = new WechatTenpayClientOptions()
         {
