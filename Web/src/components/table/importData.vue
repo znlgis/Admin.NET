@@ -163,6 +163,9 @@ const submitImport = async () => {
       state.isCompleted = true;
       state.hasError = true;
       
+	  //刷新列表显示
+	  emit('refresh');
+
       ElMessage.warning('导入完成，存在部分错误');
     }
   } catch (error) {
