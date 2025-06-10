@@ -3,36 +3,18 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '749f0862dca1a69fc2f056745c80c8a66632557c'
-    oldFile: !uuid '11889a8f7c30333c4a65cfe3b19193672c09d09b'
+    newFile: !uuid 'cb1f327e2fd7a7d67ccf009fc945c9509e587742'
+    oldFile: !uuid '749f0862dca1a69fc2f056745c80c8a66632557c'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'e80e5bf9692c1515fe166d0454701c51013953ea'
-    oldFile: !uuid '7905045bfd2529a22c1d405dde64e41dfeb571ee'
-  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
-    newFile: !uuid '21723d167fb5177d218d39902c54dbff3847567b'
-    oldFile: !uuid '51f4f71051035845c0fbb3c73db4686490614569'
-  /Admin.NET/Admin.NET.Test:
-    newFile: !uuid 'e878541b4e0e26f38131c7732a577f3eb81b5e15'
-    oldFile: !uuid 'c2cb764f86698509ebfeb3af1895454b045aabc9'
-  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
-    newFile: !uuid '1fb862d8d4c74032dfcda4ad3f282c408bd497af'
-    oldFile: !uuid 'df371ea207c060651eadbc6def1cf6fe716f3892'
-  /Admin.NET/Plugins:
-    newFile: !uuid '788155f38fbd73cab3fd7596ff022ee0c921de38'
-    oldFile: !uuid '612855abf84ead8497f4c1dc2c252d78af2f0106'
-  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero:
-    newFile: !uuid '736f51a9d054e6707021bd0ce2f0e6d525d87485'
-    oldFile: !uuid 'caeb84dab79d1b5fb2ae250b52f2069fc53d6c29'
-  /Admin.NET/Plugins/Admin.NET.Plugin.ReZero/Admin.NET.Plugin.ReZero.csproj:
-    newFile: !uuid '609a12c32a3ab72408f9ce2f528cae7380841eb9'
-    oldFile: !uuid 'b0912b6e61c66590ad6803b3c170ec8069f5aac6'
-  /Web:
-    newFile: !uuid '0d37425ef5d25f19f3f0fcfc993228a82189c446'
-    oldFile: !uuid '8c7568c65dd74435de91167abb46267b58287713'
-  /Web/package.json:
-    newFile: !uuid '2b8e812c42818e5b18129cfd057114c71052ff1b'
-    oldFile: !uuid 'd95892d6beb7a89aeb996aabb47a98915f9cedbd'
-gitCommitId: !uuid '6c098e2ef233f82a702a3a39acba0fd98ad827a9'
+    newFile: !uuid 'a18e796e9dfc6b9f98c21dadf7b9449500260b35'
+    oldFile: !uuid 'e80e5bf9692c1515fe166d0454701c51013953ea'
+  /Admin.NET/Admin.NET.Core/Attribute:
+    newFile: !uuid '4fb5192346e7275a821c3532ffe5b402a38c7024'
+    oldFile: !uuid '1e6d66a5574094b7486d0272c4edcce6a83d0564'
+  /Admin.NET/Admin.NET.Core/Attribute/DictAttribute.cs:
+    newFile: !uuid '2a1fae896a75b52319c0928ff259975168a4aa22'
+    oldFile: !uuid '019ce5953960494a0571612a7b1ca230a4fd14d7'
+gitCommitId: !uuid 'accb3d16ab5985ae6ff63b129dbf8028c22ca7cd'
 renames: {
   }
-revisionId: 2894
+revisionId: 2895
