@@ -54,6 +54,8 @@ public class DictAttribute : ValidationAttribute, ITransient
         var property = validationContext.ObjectType.GetProperty(validationContext.MemberName!);
         if (property == null) return new ValidationResult($"未知属性: {validationContext.MemberName}");
 
+        string importHeaderName = GetImporterHeaderName(property, validationContext.MemberName);
+
         var propertyType = Nullable.GetUnderlyingType(property.PropertyType) ?? property.PropertyType;
 
         // 先尝试从 ValidationContext 的依赖注入容器中拿服务，拿不到或类型不匹配时，再从全局的 App 容器中获取
@@ -88,7 +90,7 @@ public class DictAttribute : ValidationAttribute, ITransient
                     if (item == null && AllowNullValue) continue;
 
                     if (!Enum.IsDefined(underlyingElementType, item!))
-                        return new ValidationResult($"提示：{ErrorMessage}|枚举值【{item}】不是有效的【{underlyingElementType.Name}】枚举类型值！");
+                        return new ValidationResult($"提示：{ErrorMessage}|枚举值【{item}】不是有效的【{underlyingElementType.Name}】枚举类型值！", [importHeaderName]);
                 }
                 return ValidationResult.Success;
             }
@@ -99,7 +101,7 @@ public class DictAttribute : ValidationAttribute, ITransient
 
                 var itemString = item?.ToString();
                 if (!dictHash.Contains(itemString))
-                    return new ValidationResult($"提示：{ErrorMessage}|字典【{DictTypeCode}】不包含【{itemString}】！");
+                    return new ValidationResult($"提示：{ErrorMessage}|字典【{DictTypeCode}】不包含【{itemString}】！", [importHeaderName]);
             }
 
             return ValidationResult.Success;
@@ -113,12 +115,24 @@ public class DictAttribute : ValidationAttribute, ITransient
         // 枚举类型验证
         if (propertyType.IsEnum)
         {
-            if (!Enum.IsDefined(propertyType, value!)) return new ValidationResult($"提示：{ErrorMessage}|枚举值【{value}】不是有效的【{propertyType.Name}】枚举类型值！");
+            if (!Enum.IsDefined(propertyType, value!)) return new ValidationResult($"提示：{ErrorMessage}|枚举值【{value}】不是有效的【{propertyType.Name}】枚举类型值！", [importHeaderName]);
             return ValidationResult.Success;
         }
 
-        if (!dictHash.Contains(valueAsString)) return new ValidationResult($"提示：{ErrorMessage}|字典【{DictTypeCode}】不包含【{valueAsString}】！");
+        if (!dictHash.Contains(valueAsString))
+            return new ValidationResult($"提示：{ErrorMessage}|字典【{DictTypeCode}】不包含【{valueAsString}】！", [importHeaderName]);
 
         return ValidationResult.Success;
+    }
+
+    /// <summary>
+    /// 获取本字段上 [ImporterHeader(Name = "xxx")] 里的Name，如果没有则使用defaultName.
+    /// 用于在从excel导入数据时，能让调用者知道是哪个字段验证失败，而不是抛异常
+    /// </summary>
+    private static string GetImporterHeaderName(PropertyInfo property, string defaultName)
+    {
+        var importerHeader = property.GetCustomAttribute<ImporterHeaderAttribute>();
+        string importerHeaderName = importerHeader?.Name ?? defaultName;
+        return importerHeaderName;
     }
 }
