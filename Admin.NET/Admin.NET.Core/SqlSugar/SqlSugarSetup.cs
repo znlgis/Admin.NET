@@ -575,7 +575,7 @@ public static class SqlSugarSetup
         foreach (var data in seedData)
         {
             var idProperty = data.GetType().GetProperty(nameof(EntityBaseId.Id));
-            if (idProperty == null) continue;
+            if (idProperty == null || idProperty.PropertyType != typeof(Int64)) continue;
 
             var idValue = idProperty.GetValue(data);
             if (idValue == null || idValue.ToString() == "0" || string.IsNullOrWhiteSpace(idValue.ToString()))
