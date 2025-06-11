@@ -35,7 +35,11 @@ public partial class @(Model.EntityName) @Model.BaseClassName
     if(!column.IsNullable){
     @:[Required]
     }
-    @:[SugarColumn(ColumnName = "@column.DbColumnName", ColumnDescription = "@column.ColumnDescription"@propSuffix)]
+    var DefaultValue="";
+    if(!string.IsNullOrWhiteSpace(column.DefaultValue)){
+    DefaultValue=$", DefaultValue = \"{column.DefaultValue}\"";
+    }
+    @:[SugarColumn(ColumnName = "@column.DbColumnName", ColumnDescription = "@column.ColumnDescription"@DefaultValue@propSuffix)]
     @:public virtual @column.DataType @column.PropertyName { get; set; }
     @:
 }
