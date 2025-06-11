@@ -9,7 +9,24 @@ declare interface UserInfos<T = any> {
 	roles: string[];
 	time: number;
 	userName: string;
+	
+	id:string;
+	account:string;
+	realName:string;
+	phone:string;
+	idCardNum:string;
+	email:string;
+	accountType:number;
+	avatar:string;
+	address:string;
+	signature:string;
+	orgId:string;
+	orgName:string;
+	tenantId:string;
+	currentTenantId:string;
+
 	[key: string]: T;
+
 }
 declare interface UserInfosState {
 	userInfos: UserInfos;

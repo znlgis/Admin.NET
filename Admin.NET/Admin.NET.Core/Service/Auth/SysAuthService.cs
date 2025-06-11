@@ -304,7 +304,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 获取水印文字（若系统水印为空则全局为空）
         var watermarkText = (await _sysUserRep.Context.Queryable<SysTenant>().FirstAsync(u => u.Id == user.TenantId))?.Watermark;
         if (!string.IsNullOrWhiteSpace(watermarkText)) watermarkText += $"-{user.RealName}";
-        return new LoginUserOutput
+        var loginUser = new LoginUserOutput
         {
             Id = user.Id,
             Account = user.Account,
@@ -325,6 +325,13 @@ public class SysAuthService : IDynamicApiController, ITransient
             TenantId = user.TenantId,
             WatermarkText = watermarkText
         };
+
+        //将登录信息中的当前租户id，更新为当前所切换到的租户
+        long? currentTenantId = App.User.FindFirst(ClaimConst.TenantId)?.Value?.ToLong(0);
+        loginUser.CurrentTenantId = currentTenantId > 0 ? currentTenantId : user.TenantId;
+
+        return loginUser;
+
     }
 
     /// <summary>
