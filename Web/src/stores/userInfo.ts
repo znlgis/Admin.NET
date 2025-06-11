@@ -81,6 +81,7 @@ export const useUserInfo = defineStore('userInfo', {
 							roles: d.roleIds,
 							authBtnList: d.buttons,
 							tenantId: d.tenantId,
+							currentTenantId: d.currentTenantId,
 							time: new Date().getTime(),
 						};
 

@@ -105,4 +105,9 @@ public class LoginUserOutput
     /// 租户Id
     /// </summary>
     public long? TenantId { get; set; }
+
+    /// <summary>
+    /// 当前切换到的租户Id
+    /// </summary>
+    public long? CurrentTenantId { get; set; }
 }
