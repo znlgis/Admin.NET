@@ -66,7 +66,7 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         // 是否开启单用户登录
         if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysSingleLogin))
         {
-            _sysCacheService.HashAdd(CacheConst.KeyUserOnline, "" + user.UserId, user);
+            _sysCacheService.HashAddOrUpdate(CacheConst.KeyUserOnline, "" + user.UserId, user);
         }
         else  // 非单用户登录则绑定用户连接Id
         {
