@@ -87,13 +87,18 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         var isExist = await _db.Queryable<SysCodeGen>().AnyAsync(u => u.TableName == input.TableName && u.Id != input.Id);
         if (isExist) throw Oops.Oh(ErrorCodeEnum.D1400);
 
+        var oldRecord = await _db.Queryable<SysCodeGen>().FirstAsync(u => u.Id == input.Id);
+
         if (input.TableUniqueList?.Count > 0) input.TableUniqueConfig = JSON.Serialize(input.TableUniqueList);
         var codeGen = input.Adapt<SysCodeGen>();
         await _db.Updateable(codeGen).ExecuteCommandAsync();
 
-        // 更新配置表
-        await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
-        _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
+        // 仅当数据表名称发生了变化，才更新配置表
+        if (oldRecord.TableName != input.TableName)
+        {
+            await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
+            _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
+        }
     }
 
     /// <summary>
