@@ -240,6 +240,7 @@ const openEditColumn = (row: any) => {
 		columnName: row.dbColumnName,
 		oldColumnName: row.dbColumnName,
 		description: row.columnDescription,
+		defaultValue: row.defaultValue,
 	};
 	editColumnRef.value?.openDialog(column);
 };

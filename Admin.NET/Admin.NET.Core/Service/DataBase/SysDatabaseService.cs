@@ -141,7 +141,8 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             IsPrimarykey = input.IsPrimarykey == 1,
             Length = input.Length,
             DecimalDigits = input.DecimalDigits,
-            DataType = input.DataType
+            DataType = input.DataType,
+            DefaultValue = input.DefaultValue
         };
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
         db.DbMaintenance.AddColumn(input.TableName, column);
@@ -171,6 +172,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
         db.DbMaintenance.RenameColumn(input.TableName, input.OldColumnName, input.ColumnName);
+        db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
         if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
             db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
         db.DbMaintenance.AddColumnRemark(input.ColumnName, input.TableName, string.IsNullOrWhiteSpace(input.Description) ? input.ColumnName : input.Description);
@@ -218,6 +220,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                 IsNullable = u.IsNullable == 1,
                 DecimalDigits = u.DecimalDigits,
                 ColumnDescription = u.ColumnDescription,
+                DefaultValue = u.DefaultValue,
             });
         });
         db.CodeFirst.InitTables(typeBuilder.BuilderType());

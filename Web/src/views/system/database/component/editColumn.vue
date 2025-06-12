@@ -19,6 +19,11 @@
 							<el-input v-model="state.ruleForm.description" placeholder="描述" clearable type="textarea" />
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+						<el-form-item label="默认值" prop="defaultValue">
+							<el-input v-model="state.ruleForm.defaultValue" placeholder="默认值" clearable />
+						</el-form-item>
+					</el-col>
 				</el-row>
 			</el-form>
 			<template #footer>
