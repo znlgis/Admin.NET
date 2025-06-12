@@ -149,7 +149,7 @@ public class SysWxOpenService : IDynamicApiController, ITransient
         if (wxUser == null)
             throw Oops.Oh("未找到用户上传失败");
 
-        var res = await _sysFileService.UploadFile(new UploadFileInput { File = input.File, FileType = input.FileType, Path = input.Path });
+        var res = await _sysFileService.UploadFile(new UploadFileInput { File = input.File, FileType = input.FileType }, "upload/wechatAvatar");
         wxUser.Avatar = res.Url;
         await _sysWechatUserRep.AsUpdateable(wxUser).IgnoreColumns(true).ExecuteCommandAsync();
 

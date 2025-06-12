@@ -5,6 +5,8 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using Aliyun.OSS.Util;
+using Furion.AspNetCore;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Admin.NET.Core.Service;
 
@@ -167,7 +169,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <returns></returns>
     [ApiDescriptionSettings(Name = "Delete"), HttpPost]
     [DisplayName("删除文件")]
-    public async Task DeleteFile(DeleteFileInput input)
+    public async Task DeleteFile(BaseIdInput input)
     {
         var file = await _sysFileRep.GetByIdAsync(input.Id) ?? throw Oops.Oh($"文件不存在");
         await _sysFileRep.DeleteAsync(file);
@@ -207,7 +209,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="ids"></param>
     /// <returns></returns>
     [DisplayName("根据文件Id集合获取文件")]
-    public async Task<List<SysFile>> GetFileByIds([FromQuery] List<long> ids)
+    public async Task<List<SysFile>> GetFileByIds([FromQuery][FlexibleArray<long>] List<long> ids)
     {
         return await _sysFileRep.AsQueryable().Where(u => ids.Contains(u.Id)).ToListAsync();
     }
@@ -231,11 +233,14 @@ public class SysFileService : IDynamicApiController, ITransient
     /// 上传文件 🔖
     /// </summary>
     /// <param name="input"></param>
+    /// <param name="targetPath">存储目标路径</param>
     /// <returns></returns>
     [DisplayName("上传文件")]
-    public async Task<SysFile> UploadFile([FromForm] UploadFileInput input)
+    public async Task<SysFile> UploadFile([FromForm] UploadFileInput input, [BindNever] string targetPath = "")
     {
-        if (input.File == null) throw Oops.Oh(ErrorCodeEnum.D8000);
+        if (input.File == null || input.File.Length <= 0) throw Oops.Oh(ErrorCodeEnum.D8000);
+
+        if (input.File.FileName.IndexOfAny(Path.GetInvalidFileNameChars()) >= 0) throw Oops.Oh(ErrorCodeEnum.D8005);
 
         // 判断是否重复上传的文件
         var sizeKb = input.File.Length / 1024; // 大小KB
@@ -277,7 +282,7 @@ public class SysFileService : IDynamicApiController, ITransient
         //if (!VerifyFileExtensionName.IsSameType(file.OpenReadStream(), suffix)) throw Oops.Oh(ErrorCodeEnum.D8001);
 
         // 文件存储位置
-        var path = string.IsNullOrWhiteSpace(input.SavePath) ? _uploadOptions.Path : input.SavePath;
+        var path = string.IsNullOrWhiteSpace(targetPath) ? _uploadOptions.Path : targetPath;
         path = path.ParseToDateTimeForRep();
 
         var newFile = input.Adapt<SysFile>();
@@ -304,7 +309,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传头像")]
     public async Task<SysFile> UploadAvatar([Required] IFormFile file)
     {
-        var sysFile = await UploadFile(new UploadFileInput { File = file, AllowSuffix = _imageType, SavePath = "upload/avatar" });
+        var sysFile = await UploadFile(new UploadFileInput { File = file, AllowSuffix = _imageType }, "upload/avatar");
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = await sysUserRep.GetByIdAsync(_userManager.UserId);
@@ -313,7 +318,7 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!string.IsNullOrWhiteSpace(user.Avatar))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Avatar);
-            await DeleteFile(new DeleteFileInput { Id = long.Parse(fileId) });
+            await DeleteFile(new BaseIdInput { Id = long.Parse(fileId) });
         }
 
         return sysFile;
@@ -327,7 +332,7 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("上传电子签名")]
     public async Task<SysFile> UploadSignature([Required] IFormFile file)
     {
-        var sysFile = await UploadFile(new UploadFileInput { File = file, AllowSuffix = _imageType, SavePath = "upload/signature" });
+        var sysFile = await UploadFile(new UploadFileInput { File = file, AllowSuffix = _imageType }, "upload/signature");
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
         var user = await sysUserRep.GetByIdAsync(_userManager.UserId);
@@ -335,51 +340,49 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!string.IsNullOrWhiteSpace(user.Signature) && user.Signature.EndsWith(".png"))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Signature);
-            await DeleteFile(new DeleteFileInput { Id = long.Parse(fileId) });
+            await DeleteFile(new BaseIdInput { Id = long.Parse(fileId) });
         }
         await sysUserRep.UpdateAsync(u => new SysUser() { Signature = sysFile.Url }, u => u.Id == user.Id);
         return sysFile;
     }
 
+    #region 统一实体与文件关联时，业务应用实体只需要定义一个SysFile集合导航属性，业务增加和更新、删除分别调用即可
+
     /// <summary>
-    /// 修改附件关联对象 🔖
+    /// 更新文件的业务数据Id
     /// </summary>
-    /// <param name="ids"></param>
-    /// <param name="relationName"></param>
-    /// <param name="relationId"></param>
-    /// <param name="belongId"></param>
+    /// <param name="dataId"></param>
+    /// <param name="sysFiles"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task<int> UpdateRelation(List<long> ids, string relationName, long relationId, long belongId = 0)
+    public async Task UpdateFileByDataId(long dataId, List<SysFile> sysFiles)
     {
-        if (ids == null || ids.Count == 0)
-            return 0;
-        return await _sysFileRep.AsUpdateable()
-            .SetColumns(u => u.RelationName == relationName)
-            .SetColumns(u => u.RelationId == relationId)
-            .SetColumns(u => u.BelongId == belongId)
-            .Where(u => ids.Contains(u.Id))
-            .ExecuteCommandAsync();
+        var newFileIds = sysFiles.Select(u => u.Id).ToList();
+
+        // 求文件Id差集并删除（无效文件）
+        var tmpFiles = await _sysFileRep.GetListAsync(u => u.DataId == dataId);
+        var tmpFileIds = tmpFiles.Select(u => u.Id).ToList();
+        var deleteFileIds = tmpFileIds.Except(newFileIds);
+        foreach (var fileId in deleteFileIds)
+            await DeleteFile(new BaseIdInput() { Id = fileId });
+
+        await _sysFileRep.UpdateAsync(u => new SysFile() { DataId = dataId }, u => newFileIds.Contains(u.Id));
     }
 
     /// <summary>
-    /// 根据关联查询附件 🔖
+    /// 删除业务数据对应的文件
     /// </summary>
-    /// <param name="input"></param>
+    /// <param name="dataId"></param>
     /// <returns></returns>
-    /// <exception cref="ArgumentNullException"></exception>
-    [DisplayName("根据关联查询附件")]
-    public async Task<List<SysFile>> GetRelationFiles([FromQuery] RelationQueryInput input)
+    [NonAction]
+    public async Task DeteleFileByDataId(long dataId)
     {
-        return await _sysFileRep.AsQueryable()
-            .WhereIF(input.RelationId is > 0, u => u.RelationId == input.RelationId)
-            .WhereIF(input.BelongId is > 0, u => u.BelongId == input.BelongId.Value)
-            .WhereIF(!string.IsNullOrWhiteSpace(input.RelationName), u => u.RelationName == input.RelationName)
-            .WhereIF(!string.IsNullOrWhiteSpace(input.FileTypes), u => input.GetFileTypeBS().Contains(u.FileType))
-            .Select(u => new SysFile
-            {
-                Url = SqlFunc.MergeString("/api/sysFile/Preview/", u.Id.ToString()),
-            }, true)
-           .ToListAsync();
+        // 删除冗余无效的物理文件
+        var tmpFiles = await _sysFileRep.GetListAsync(u => u.DataId == dataId);
+        foreach (var file in tmpFiles)
+            await _customFileProvider.DeleteFileAsync(file);
+        await _sysFileRep.AsDeleteable().Where(u => u.DataId == dataId).ExecuteCommandAsync();
     }
+
+    #endregion 统一实体与文件关联时，业务应用实体只需要定义一个SysFile集合导航属性，业务增加和更新、删除分别调用即可
 }

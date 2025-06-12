@@ -590,6 +590,12 @@ public enum ErrorCodeEnum
     D8004,
 
     /// <summary>
+    /// 无效的文件名
+    /// </summary>
+    [ErrorCodeItemMetadata("无效的文件名")]
+    D8005,
+
+    /// <summary>
     /// 已存在同名或同编码参数配置
     /// </summary>
     [ErrorCodeItemMetadata("已存在同名或同编码参数配置")]

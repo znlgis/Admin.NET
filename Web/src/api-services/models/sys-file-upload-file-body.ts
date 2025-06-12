@@ -45,22 +45,6 @@ export interface SysFileUploadFileBody {
     isPublic?: boolean;
 
     /**
-     * 文件路径
-     *
-     * @type {string}
-     * @memberof SysFileUploadFileBody
-     */
-    path?: string;
-
-    /**
-     * 文件保存路径
-     *
-     * @type {string}
-     * @memberof SysFileUploadFileBody
-     */
-    savePath?: string;
-
-    /**
      * 允许格式：.jpeg.jpg.png.bmp.gif.tif
      *
      * @type {string}

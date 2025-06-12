@@ -23,7 +23,7 @@ import { AdminResultListTreeNode } from '../models';
 import { AdminResultSqlSugarPagedListSysFile } from '../models';
 import { AdminResultString } from '../models';
 import { AdminResultSysFile } from '../models';
-import { DeleteFileInput } from '../models';
+import { BaseIdInput } from '../models';
 import { PageFileInput } from '../models';
 import { SysFile } from '../models';
 import { UploadFileFromBase64Input } from '../models';
@@ -36,11 +36,11 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         /**
          * 
          * @summary 删除文件 🔖
-         * @param {DeleteFileInput} [body] 
+         * @param {BaseIdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysFileDeletePost: async (body?: DeleteFileInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysFileDeletePost: async (body?: BaseIdInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysFile/delete`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -415,69 +415,6 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
         },
         /**
          * 
-         * @summary 根据关联查询附件 🔖
-         * @param {string} [relationName] 关联对象名称
-         * @param {number} [relationId] 关联对象Id
-         * @param {string} [fileTypes] 文件类型：多个以\&quot;,\&quot;分割
-         * @param {number} [belongId] 所属Id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        apiSysFileRelationFilesGet: async (relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            const localVarPath = `/api/sysFile/relationFiles`;
-            // use dummy base URL string because the URL constructor only accepts absolute URLs.
-            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
-            let baseOptions;
-            if (configuration) {
-                baseOptions = configuration.baseOptions;
-            }
-            const localVarRequestOptions :AxiosRequestConfig = { method: 'GET', ...baseOptions, ...options};
-            const localVarHeaderParameter = {} as any;
-            const localVarQueryParameter = {} as any;
-
-            // authentication Bearer required
-            // http bearer authentication required
-            if (configuration && configuration.accessToken) {
-                const accessToken = typeof configuration.accessToken === 'function'
-                    ? await configuration.accessToken()
-                    : await configuration.accessToken;
-                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
-            }
-
-            if (relationName !== undefined) {
-                localVarQueryParameter['RelationName'] = relationName;
-            }
-
-            if (relationId !== undefined) {
-                localVarQueryParameter['RelationId'] = relationId;
-            }
-
-            if (fileTypes !== undefined) {
-                localVarQueryParameter['FileTypes'] = fileTypes;
-            }
-
-            if (belongId !== undefined) {
-                localVarQueryParameter['BelongId'] = belongId;
-            }
-
-            const query = new URLSearchParams(localVarUrlObj.search);
-            for (const key in localVarQueryParameter) {
-                query.set(key, localVarQueryParameter[key]);
-            }
-            for (const key in options.params) {
-                query.set(key, options.params[key]);
-            }
-            localVarUrlObj.search = (new URLSearchParams(query)).toString();
-            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
-            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
-
-            return {
-                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
-                options: localVarRequestOptions,
-            };
-        },
-        /**
-         * 
          * @summary 更新文件 🔖
          * @param {SysFile} [body] 
          * @param {*} [options] Override http request option.
@@ -630,13 +567,11 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
          * @param {Blob} [file] 
          * @param {string} [fileType] 
          * @param {boolean} [isPublic] 
-         * @param {string} [path] 
-         * @param {string} [savePath] 
          * @param {string} [allowSuffix] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysFileUploadFilePostForm: async (file?: Blob, fileType?: string, isPublic?: boolean, path?: string, savePath?: string, allowSuffix?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysFileUploadFilePostForm: async (file?: Blob, fileType?: string, isPublic?: boolean, allowSuffix?: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysFile/uploadFile`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
@@ -669,14 +604,6 @@ export const SysFileApiAxiosParamCreator = function (configuration?: Configurati
 
             if (isPublic !== undefined) { 
                 localVarFormParams.append('IsPublic', isPublic as any);
-            }
-
-            if (path !== undefined) { 
-                localVarFormParams.append('Path', path as any);
-            }
-
-            if (savePath !== undefined) { 
-                localVarFormParams.append('SavePath', savePath as any);
             }
 
             if (allowSuffix !== undefined) { 
@@ -818,11 +745,11 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 删除文件 🔖
-         * @param {DeleteFileInput} [body] 
+         * @param {BaseIdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileDeletePost(body?: DeleteFileInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+        async apiSysFileDeletePost(body?: BaseIdInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
             const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileDeletePost(body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -928,23 +855,6 @@ export const SysFileApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
-         * @summary 根据关联查询附件 🔖
-         * @param {string} [relationName] 关联对象名称
-         * @param {number} [relationId] 关联对象Id
-         * @param {string} [fileTypes] 文件类型：多个以\&quot;,\&quot;分割
-         * @param {number} [belongId] 所属Id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysFile>>> {
-            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options);
-            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
-                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
-                return axios.request(axiosRequestArgs);
-            };
-        },
-        /**
-         * 
          * @summary 更新文件 🔖
          * @param {SysFile} [body] 
          * @param {*} [options] Override http request option.
@@ -991,14 +901,12 @@ export const SysFileApiFp = function(configuration?: Configuration) {
          * @param {Blob} [file] 
          * @param {string} [fileType] 
          * @param {boolean} [isPublic] 
-         * @param {string} [path] 
-         * @param {string} [savePath] 
          * @param {string} [allowSuffix] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, savePath?: string, allowSuffix?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
-            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, savePath, allowSuffix, options);
+        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, allowSuffix?: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultSysFile>>> {
+            const localVarAxiosArgs = await SysFileApiAxiosParamCreator(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, allowSuffix, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -1044,11 +952,11 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
         /**
          * 
          * @summary 删除文件 🔖
-         * @param {DeleteFileInput} [body] 
+         * @param {BaseIdInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileDeletePost(body?: DeleteFileInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+        async apiSysFileDeletePost(body?: BaseIdInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
             return SysFileApiFp(configuration).apiSysFileDeletePost(body, options).then((request) => request(axios, basePath));
         },
         /**
@@ -1122,19 +1030,6 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
         },
         /**
          * 
-         * @summary 根据关联查询附件 🔖
-         * @param {string} [relationName] 关联对象名称
-         * @param {number} [relationId] 关联对象Id
-         * @param {string} [fileTypes] 文件类型：多个以\&quot;,\&quot;分割
-         * @param {number} [belongId] 所属Id
-         * @param {*} [options] Override http request option.
-         * @throws {RequiredError}
-         */
-        async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysFile>> {
-            return SysFileApiFp(configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options).then((request) => request(axios, basePath));
-        },
-        /**
-         * 
          * @summary 更新文件 🔖
          * @param {SysFile} [body] 
          * @param {*} [options] Override http request option.
@@ -1169,14 +1064,12 @@ export const SysFileApiFactory = function (configuration?: Configuration, basePa
          * @param {Blob} [file] 
          * @param {string} [fileType] 
          * @param {boolean} [isPublic] 
-         * @param {string} [path] 
-         * @param {string} [savePath] 
          * @param {string} [allowSuffix] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, savePath?: string, allowSuffix?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
-            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, savePath, allowSuffix, options).then((request) => request(axios, basePath));
+        async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, allowSuffix?: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultSysFile>> {
+            return SysFileApiFp(configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, allowSuffix, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -1211,12 +1104,12 @@ export class SysFileApi extends BaseAPI {
     /**
      * 
      * @summary 删除文件 🔖
-     * @param {DeleteFileInput} [body] 
+     * @param {BaseIdInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileDeletePost(body?: DeleteFileInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+    public async apiSysFileDeletePost(body?: BaseIdInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
         return SysFileApiFp(this.configuration).apiSysFileDeletePost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
@@ -1297,20 +1190,6 @@ export class SysFileApi extends BaseAPI {
     }
     /**
      * 
-     * @summary 根据关联查询附件 🔖
-     * @param {string} [relationName] 关联对象名称
-     * @param {number} [relationId] 关联对象Id
-     * @param {string} [fileTypes] 文件类型：多个以\&quot;,\&quot;分割
-     * @param {number} [belongId] 所属Id
-     * @param {*} [options] Override http request option.
-     * @throws {RequiredError}
-     * @memberof SysFileApi
-     */
-    public async apiSysFileRelationFilesGet(relationName?: string, relationId?: number, fileTypes?: string, belongId?: number, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysFile>> {
-        return SysFileApiFp(this.configuration).apiSysFileRelationFilesGet(relationName, relationId, fileTypes, belongId, options).then((request) => request(this.axios, this.basePath));
-    }
-    /**
-     * 
      * @summary 更新文件 🔖
      * @param {SysFile} [body] 
      * @param {*} [options] Override http request option.
@@ -1348,15 +1227,13 @@ export class SysFileApi extends BaseAPI {
      * @param {Blob} [file] 
      * @param {string} [fileType] 
      * @param {boolean} [isPublic] 
-     * @param {string} [path] 
-     * @param {string} [savePath] 
      * @param {string} [allowSuffix] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysFileApi
      */
-    public async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, path?: string, savePath?: string, allowSuffix?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
-        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, path, savePath, allowSuffix, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysFileUploadFilePostForm(file?: Blob, fileType?: string, isPublic?: boolean, allowSuffix?: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultSysFile>> {
+        return SysFileApiFp(this.configuration).apiSysFileUploadFilePostForm(file, fileType, isPublic, allowSuffix, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

@@ -77,35 +77,28 @@ public partial class SysFile : EntityBaseTenantOrg
     public string? FileMd5 { get; set; }
 
     /// <summary>
-    /// 关联对象名称（如子对象）
-    /// </summary>
-    [SugarColumn(ColumnDescription = "关联对象名称", Length = 128)]
-    [MaxLength(128)]
-    public string? RelationName { get; set; }
-
-    /// <summary>
-    /// 关联对象Id
-    /// </summary>
-    [SugarColumn(ColumnDescription = "关联对象Id")]
-    public long? RelationId { get; set; }
-
-    /// <summary>
-    /// 所属Id（如主对象）
-    /// </summary>
-    [SugarColumn(ColumnDescription = "所属Id")]
-    public long? BelongId { get; set; }
-
-    /// <summary>
     /// 文件类别
     /// </summary>
     [SugarColumn(ColumnDescription = "文件类别", Length = 128)]
     [MaxLength(128)]
-    public string? FileType { get; set; }
+    public virtual string? FileType { get; set; }
+
+    /// <summary>
+    /// 文件别名
+    /// </summary>
+    [SugarColumn(ColumnDescription = "文件别名", Length = 128)]
+    [MaxLength(128)]
+    public string? FileAlias { get; set; }
 
     /// <summary>
     /// 是否公开
-    /// 若为true则所有人都可以查看，默认只有自己或有权限的可以查看
     /// </summary>
     [SugarColumn(ColumnDescription = "是否公开")]
-    public bool IsPublic { get; set; } = false;
+    public virtual bool IsPublic { get; set; } = false;
+
+    /// <summary>
+    /// 业务数据Id
+    /// </summary>
+    [SugarColumn(ColumnDescription = "业务数据Id")]
+    public long? DataId { get; set; }
 }
