@@ -10,6 +10,9 @@
 						<el-form-item label="名称">
 							<el-input v-model="state.queryDictTypeParams.name" @keyup.enter.native="handleDictTypeQuery" placeholder="字典名称" clearable />
 						</el-form-item>
+						<el-form-item label="编码">
+							<el-input v-model="state.queryDictTypeParams.code" @keyup.enter.native="handleDictTypeQuery" placeholder="字典编码" clearable />
+						</el-form-item>
 						<el-form-item>
 							<el-button-group>
 								<el-button type="primary" icon="ele-Search" @click="handleDictTypeQuery" v-auth="'sysDictType:page'"> 查询 </el-button>
@@ -21,26 +24,26 @@
 						</el-form-item>
 					</el-form>
 
-					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.typeLoading" @row-click="handleDictType" highlight-current-row border>
-						<el-table-column type="index" label="序号" width="55" align="center" />
-						<el-table-column prop="name" label="字典名称" min-width="120" header-align="center" show-overflow-tooltip />
-						<el-table-column prop="code" label="字典编码" min-width="140" header-align="center" show-overflow-tooltip />
-						<el-table-column prop="sysFlag" label="系统内置" min-width="70" align="center" show-overflow-tooltip v-if="userInfo.accountType === AccountTypeEnum.NUMBER_999">
+					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.typeLoading" @row-click="handleDictType" highlight-current-row @sort-change="sortChangeDityType" border>
+						<el-table-column type="index" label="序号" width="55" align="center" sortable='custom' />
+						<el-table-column prop="name" label="字典名称" min-width="120" header-align="center" sortable='custom' show-overflow-tooltip />
+						<el-table-column prop="code" label="字典编码" min-width="140" header-align="center" sortable='custom' show-overflow-tooltip />
+						<el-table-column prop="sysFlag" label="系统内置" min-width="90" align="center" sortable='custom' show-overflow-tooltip v-if="userInfo.accountType === AccountTypeEnum.NUMBER_999">
 							<template #default="scope">
                 <g-sys-dict v-model="scope.row.sysFlag" code="YesNoEnum" />
 							</template>
 						</el-table-column>
-						<el-table-column prop="isTenant" label="租户字典" min-width="70" align="center" show-overflow-tooltip v-if="userInfo.accountType === AccountTypeEnum.NUMBER_999">
+						<el-table-column prop="isTenant" label="租户字典" min-width="90" align="center"  sortable='custom'  show-overflow-tooltip v-if="userInfo.accountType === AccountTypeEnum.NUMBER_999">
 							<template #default="scope">
                 <g-sys-dict v-model="scope.row.isTenant" code="YesNoEnum" />
 							</template>
 						</el-table-column>
-						<el-table-column prop="status" label="状态" width="70" align="center" show-overflow-tooltip>
+						<el-table-column prop="status" label="状态" width="80" align="center"  sortable='custom'  show-overflow-tooltip>
 							<template #default="scope">
                 <g-sys-dict v-model="scope.row.status" code="StatusEnum" />
 							</template>
 						</el-table-column>
-						<el-table-column prop="orderNo" label="排序" width="60" align="center" show-overflow-tooltip />
+						<el-table-column prop="orderNo" label="排序" width="80" align="center"  sortable='custom'  show-overflow-tooltip />
 						<el-table-column label="修改记录" width="100" align="center" show-overflow-tooltip>
 							<template #default="scope">
 								<ModifyRecord :data="scope.row" />
@@ -181,6 +184,9 @@ const state = reactive({
 		page: 1,
 		pageSize: 50,
 		total: 0 as any,
+		field: 'orderNo',
+		order: 'ascending', // 排序方向
+		descStr: 'descending', // 降序排序的关键字符
 	},
 	queryDictDataParams: {
     label: undefined,
@@ -218,6 +224,13 @@ const handleDictDataQuery = async () => {
 	state.dictDataData = res.data.result?.items ?? [];
 	state.tableDictDataParams.total = res.data.result?.total;
 	state.loading = false;
+};
+
+// 列排序
+const sortChangeDityType = async (column: any) => {
+  state.tableDictTypeParams.field = column.prop;
+  state.tableDictTypeParams.order = column.order;
+  await handleDictTypeQuery();
 };
 
 // 点击表格
