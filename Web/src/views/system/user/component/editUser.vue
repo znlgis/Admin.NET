@@ -119,7 +119,7 @@
 										</el-col>
 									</el-row>
 								</template>
-								<el-empty :image-size="50" description="空数据" v-else></el-empty>
+								<el-empty :image-size="50" description="空数据" style="padding: 0px;" v-else></el-empty>
 							</el-col>
 						</el-row>
 					</el-form>
