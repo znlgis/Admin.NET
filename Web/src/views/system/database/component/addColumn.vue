@@ -57,6 +57,11 @@
 							<el-input-number v-model="state.ruleForm.decimalDigits" class="w100" controls-position="right" />
 						</el-form-item>
 					</el-col>
+					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+						<el-form-item label="默认值" prop="defaultValue">
+							<el-input v-model="state.ruleForm.defaultValue" placeholder="默认值" clearable />
+						</el-form-item>
+					</el-col>
 				</el-row>
 			</el-form>
 			<template #footer>

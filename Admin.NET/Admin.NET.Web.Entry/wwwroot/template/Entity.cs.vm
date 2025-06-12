@@ -29,17 +29,17 @@ public partial class @(Model.EntityName) @Model.BaseClassName
         propSuffix += $", Length = {column.Length}, DecimalDigits={column.DecimalDigits}";
     }
     
+    if(!string.IsNullOrWhiteSpace(column.DefaultValue)){
+        propSuffix +=$", DefaultValue = \"{column.DefaultValue}\"";
+    }
+
     @:/// <summary>
     @:/// @column.ColumnDescription
     @:/// </summary>
     if(!column.IsNullable){
     @:[Required]
     }
-    var DefaultValue="";
-    if(!string.IsNullOrWhiteSpace(column.DefaultValue)){
-    DefaultValue=$", DefaultValue = \"{column.DefaultValue}\"";
-    }
-    @:[SugarColumn(ColumnName = "@column.DbColumnName", ColumnDescription = "@column.ColumnDescription"@DefaultValue@propSuffix)]
+    @:[SugarColumn(ColumnName = "@column.DbColumnName", ColumnDescription = "@column.ColumnDescription"@propSuffix)]
     @:public virtual @column.DataType @column.PropertyName { get; set; }
     @:
 }

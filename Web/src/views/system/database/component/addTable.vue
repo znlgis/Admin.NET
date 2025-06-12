@@ -24,7 +24,7 @@
 			</el-form>
 			<el-divider content-position="left">数据列信息</el-divider>
 			<el-table :data="state.tableData" style="width: 100%" max-height="400">
-				<el-table-column prop="dbColumnName" label="字段名" width="220" fixed>
+				<el-table-column prop="dbColumnName" label="字段名" width="200" fixed>
 					<template #default="scope">
 						<el-input v-model="scope.row.dbColumnName" autocomplete="off" />
 					</template>
@@ -70,6 +70,11 @@
 				<el-table-column prop="decimalDigits" label="小数位" width="100">
 					<template #default="scope">
 						<el-input-number v-model="scope.row.decimalDigits" controls-position="right" class="w100" />
+					</template>
+				</el-table-column>				
+				<el-table-column prop="defaultValue" label="默认值" width="90">
+					<template #default="scope">
+						<el-input v-model="scope.row.defaultValue" autocomplete="off" />
 					</template>
 				</el-table-column>
 				<el-table-column label="操作" min-width="200" align="center" fixed="right">

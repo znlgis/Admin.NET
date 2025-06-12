@@ -27,6 +27,8 @@ public class DbColumnInput
     public int IsPrimarykey { get; set; }
 
     public int DecimalDigits { get; set; }
+
+    public string DefaultValue { get; set; }
 }
 
 public class UpdateDbColumnInput
@@ -40,6 +42,8 @@ public class UpdateDbColumnInput
     public string OldColumnName { get; set; }
 
     public string Description { get; set; }
+
+    public string DefaultValue { get; set; }
 }
 
 public class DeleteDbColumnInput
