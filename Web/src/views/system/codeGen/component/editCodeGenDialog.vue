@@ -208,7 +208,7 @@ onMounted(async () => {
 // db改变
 const dbChanged = async () => {
 	if (state.ruleForm.configId === '') return;
-  state.tableData = await getAPI(SysCodeGenApi).apiSysCodeGenTableListConfigIdGet(state.ruleForm.configId as string).then(res => res.data.result ?? []);
+    state.tableData = await getAPI(SysCodeGenApi).apiSysCodeGenTableListConfigIdGet(state.ruleForm.configId as string).then(res => res.data.result ?? []);
 
 	let db = state.dbData.filter((u: any) => u.configId == state.ruleForm.configId);
 	state.ruleForm.connectionString = db[0].connectionString;
@@ -220,7 +220,7 @@ const tableChanged = (item: any) => {
 	state.ruleForm.tableName = item.tableName;
 	state.ruleForm.entityName = item.entityName;
 	state.ruleForm.busName = item.tableComment;
-  state.ruleForm.tableUniqueList = [];
+    state.ruleForm.tableUniqueList = [];
 	getColumnInfoList();
 };
 
@@ -279,8 +279,9 @@ const cancel = () => {
 const submit = () => {
 	ruleFormRef.value.validate(async (valid: boolean) => {
 		if (!valid) return;
-    if (state.ruleForm.tableUniqueList?.length === 0) state.ruleForm.tableUniqueList = null;
-		state.ruleForm.tableName = state.ruleForm.entityName;
+    	if (state.ruleForm.tableUniqueList?.length === 0) state.ruleForm.tableUniqueList = null;
+		state.ruleForm.tableName = state.ruleForm.entityName?? state.ruleForm.tableName;
+		
 		if (state.ruleForm.id != undefined && state.ruleForm.id > 0) {
 			await getAPI(SysCodeGenApi).apiSysCodeGenUpdatePost(state.ruleForm as UpdateCodeGenInput);
 		} else {
