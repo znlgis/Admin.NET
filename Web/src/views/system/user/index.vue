@@ -21,12 +21,14 @@
 						</el-form-item>
 						<el-form-item>
 							<el-button-group>
-								<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'sysUser:page'"> 查询 </el-button>
+								<el-button type="primary" icon="ele-Search" @click="handleQuery"
+									v-auth="'sysUser:page'"> 查询 </el-button>
 								<el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
 							</el-button-group>
 						</el-form-item>
 						<el-form-item>
-							<el-button type="primary" icon="ele-Plus" @click="openAddUser" v-auth="'sysUser:add'"> 新增 </el-button>
+							<el-button type="primary" icon="ele-Plus" @click="openAddUser" v-auth="'sysUser:add'"> 新增
+							</el-button>
 						</el-form-item>
 					</el-form>
 				</el-card>
@@ -36,7 +38,8 @@
 						<el-table-column type="index" label="序号" width="55" align="center" fixed />
 						<el-table-column label="头像" width="80" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-avatar :src="scope.row.avatar" size="small">{{ scope.row.nickName?.slice(0, 1) ?? scope.row.realName?.slice(0, 1) }} </el-avatar>
+								<el-avatar :src="scope.row.avatar" size="small">{{ scope.row.nickName?.slice(0, 1) ??
+									scope.row.realName?.slice(0, 1) }} </el-avatar>
 							</template>
 						</el-table-column>
 						<el-table-column prop="account" label="账号" width="120" align="center" show-overflow-tooltip />
@@ -58,15 +61,19 @@
 						</el-table-column> -->
 						<el-table-column label="账号类型" width="110" align="center" show-overflow-tooltip>
 							<template #default="scope">
-                <g-sys-dict v-model="scope.row.accountType" code="AccountTypeEnum" />
+								<g-sys-dict v-model="scope.row.accountType" code="AccountTypeEnum" />
 							</template>
 						</el-table-column>
-						<el-table-column prop="roleName" label="角色集合" min-width="150" align="center" show-overflow-tooltip />
-						<el-table-column prop="orgName" label="所属机构" min-width="120" align="center" show-overflow-tooltip />
-						<el-table-column prop="posName" label="职位名称" min-width="120" align="center" show-overflow-tooltip />
+						<el-table-column prop="roleName" label="角色集合" min-width="150" align="center"
+							show-overflow-tooltip />
+						<el-table-column prop="orgName" label="所属机构" min-width="120" align="center"
+							show-overflow-tooltip />
+						<el-table-column prop="posName" label="职位名称" min-width="120" align="center"
+							show-overflow-tooltip />
 						<el-table-column label="状态" width="70" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small" @change="changeStatus(scope.row)" v-auth="'sysUser:setStatus'" />
+								<el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small"
+									@change="changeStatus(scope.row)" v-auth="'sysUser:setStatus'" />
 							</template>
 						</el-table-column>
 						<el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
@@ -75,38 +82,46 @@
 								<ModifyRecord :data="scope.row" />
 							</template>
 						</el-table-column>
-						<el-table-column label="操作" width="300" align="center" fixed="right" show-overflow-tooltip>
+						<el-table-column label="操作" width="120" align="center" fixed="right" show-overflow-tooltip>
 							<template #default="scope">
 								<el-tooltip content="编辑" placement="top">
-									<el-button icon="ele-Edit" text type="primary" v-auth="'sysUser:update'" @click="openEditUser(scope.row)"> </el-button>
+									<el-button icon="ele-Edit" text type="primary" v-auth="'sysUser:update'"
+										@click="openEditUser(scope.row)"> </el-button>
 								</el-tooltip>
 								<el-tooltip content="删除" placement="top">
-									<el-button icon="ele-Delete" text type="danger" v-auth="'sysUser:delete'" @click="delUser(scope.row)"> </el-button>
+									<el-button icon="ele-Delete" text type="danger" v-auth="'sysUser:delete'"
+										@click="delUser(scope.row)"> </el-button>
 								</el-tooltip>
-								<el-tooltip content="复制" placement="top">
-									<el-button icon="ele-CopyDocument" text type="primary" v-auth="'sysUser:add'" @click="openCopyMenu(scope.row)"> </el-button>
-								</el-tooltip>
-								<el-button icon="ele-RefreshLeft" text type="danger" v-auth="'sysUser:resetPwd'" @click="resetUserPwd(scope.row)">重置密码</el-button>
-								<el-button icon="ele-Unlock" text type="primary" v-auth="'sysUser:unlockLogin'" @click="unlockLogin(scope.row)">解除锁定</el-button>
+								<el-dropdown>
+									<el-button icon="ele-MoreFilled" size="small" text type="primary"
+										style="padding-left: 12px" />
+									<template #dropdown>
+										<el-dropdown-menu>
+											<el-dropdown-item icon="ele-CopyDocument" text type="primary"
+												v-auth="'sysUser:add'"
+												@click="openCopyMenu(scope.row)">复制</el-dropdown-item>
+											<el-dropdown-item icon="ele-RefreshLeft" text type="danger"
+												v-auth="'sysUser:resetPwd'" @click="resetUserPwd(scope.row)">重置密码
+											</el-dropdown-item>
+											<el-dropdown-item icon="ele-Unlock" text type="primary"
+												v-auth="'sysUser:unlockLogin'" @click="unlockLogin(scope.row)">解除锁定
+											</el-dropdown-item>
+										</el-dropdown-menu>
+									</template>
+								</el-dropdown>
 							</template>
 						</el-table-column>
 					</el-table>
-					<el-pagination
-						v-model:currentPage="state.tableParams.page"
-						v-model:page-size="state.tableParams.pageSize"
-						:total="state.tableParams.total"
-						:page-sizes="[10, 20, 50, 100]"
-						size="small"
-						background
-						@size-change="handleSizeChange"
-						@current-change="handleCurrentChange"
-						layout="total, sizes, prev, pager, next, jumper"
-					/>
+					<el-pagination v-model:currentPage="state.tableParams.page"
+						v-model:page-size="state.tableParams.pageSize" :total="state.tableParams.total"
+						:page-sizes="[10, 20, 50, 100]" size="small" background @size-change="handleSizeChange"
+						@current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" />
 				</el-card>
 			</pane>
 		</splitpanes>
 
-		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
+		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData"
+			@handleQuery="handleQuery" />
 	</div>
 </template>
 
@@ -212,7 +227,7 @@ const delUser = (row: any) => {
 			await handleQuery();
 			ElMessage.success('删除成功');
 		})
-		.catch(() => {});
+		.catch(() => { });
 };
 
 // 改变页面容量
@@ -253,7 +268,7 @@ const resetUserPwd = async (row: any) => {
 					ElMessage.success(`密码重置成功为：${res.data.result}`);
 				});
 		})
-		.catch(() => {});
+		.catch(() => { });
 };
 
 // 解除登录锁定
@@ -270,7 +285,7 @@ const unlockLogin = async (row: any) => {
 					ElMessage.success('解除登录锁定成功');
 				});
 		})
-		.catch(() => {});
+		.catch(() => { });
 };
 
 // 树组件点击
