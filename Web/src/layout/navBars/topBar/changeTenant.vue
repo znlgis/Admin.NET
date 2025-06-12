@@ -33,7 +33,9 @@ import { reactive, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysTenantApi } from "/@/api-services";
 import { reLoadLoginAccessToken } from "/@/utils/request";
+import {useUserInfo} from "/@/stores/userInfo";
 
+const userStore = useUserInfo();
 const ruleFormRef = ref();
 const state = reactive({
 	loading: false,
@@ -46,7 +48,7 @@ const state = reactive({
 // 打开弹窗
 const openDialog = async () => {
 	state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
-	state.ruleForm.id = state.tenantList[0].value;
+	state.ruleForm.id = userStore.userInfos.currentTenantId as any;
 	ruleFormRef.value?.resetFields();
 	state.isShowDialog = true;
 	state.loading = false;
