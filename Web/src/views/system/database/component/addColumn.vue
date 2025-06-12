@@ -92,6 +92,9 @@ const state = reactive({
 // 打开弹窗
 const openDialog = (addRow: DbColumnInput) => {
 	state.ruleForm = addRow;
+	if (state.ruleForm.length === 0) {
+		state.ruleForm.length = 32;
+	}
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
 };
