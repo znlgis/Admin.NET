@@ -46,6 +46,29 @@ public class UpdateDbColumnInput
     public string DefaultValue { get; set; }
 }
 
+public class MoveDbColumnInput
+{
+    /// <summary>
+    /// 数据库配置ID
+    /// </summary>
+    public string ConfigId { get; set; }
+
+    /// <summary>
+    /// 目标表名
+    /// </summary>
+    public string TableName { get; set; }
+
+    /// <summary>
+    ///要移动的列名
+    /// </summary>
+    public string ColumnName { get; set; }
+
+    /// <summary>
+    /// 移动到该列后方（为空时移动到首列）
+    /// </summary>
+    public string AfterColumnName { get; set; }
+}
+
 public class DeleteDbColumnInput
 {
     public string ConfigId { get; set; }

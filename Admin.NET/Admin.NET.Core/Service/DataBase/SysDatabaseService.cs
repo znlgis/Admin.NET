@@ -179,6 +179,74 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 移动列位置 🔖
+    /// </summary>
+    /// <param name="input"></param>
+    [ApiDescriptionSettings(Name = "MoveColumn"), HttpPost]
+    [DisplayName("移动列")]
+    public void MoveColumn(MoveDbColumnInput input)
+    {
+        var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+        var dbMaintenance = db.DbMaintenance;
+
+        var dbType = db.CurrentConnectionConfig.DbType;
+
+        var columns = dbMaintenance.GetColumnInfosByTableName(input.TableName, false);
+        var targetColumn = columns.FirstOrDefault(c =>
+            c.DbColumnName.Equals(input.ColumnName, StringComparison.OrdinalIgnoreCase));
+
+        if (targetColumn == null)
+            throw new Exception($"列 {input.ColumnName} 在表 {input.TableName} 中不存在");
+
+        switch (dbType)
+        {
+            case SqlSugar.DbType.MySql:
+                MoveColumnInMySQL(db, input.TableName, input.ColumnName, input.AfterColumnName);
+                break;
+            default:
+                throw new NotSupportedException($"暂不支持 {dbType} 数据库的列移动操作");
+        }
+    }
+
+    // MySQL 列移动实现
+    private void MoveColumnInMySQL(ISqlSugarClient db, string tableName, string columnName, string afterColumnName)
+    {
+        // 1. 获取完整的列定义（修复原方法）
+        var columnDef = db.Ado.SqlQuery<dynamic>(
+            $"SHOW FULL COLUMNS FROM `{tableName}` WHERE Field = '{columnName}'"
+        ).FirstOrDefault();
+
+        if (columnDef == null)
+            throw new Exception($"Column {columnName} not found");
+
+        // 2. 构建列定义字符串
+        var definition = new StringBuilder();
+        definition.Append($"`{columnName}` ");  // 列名
+        definition.Append($"{columnDef.Type} "); // 数据类型
+
+        // 处理约束条件
+        definition.Append(columnDef.Null == "YES" ? "NULL " : "NOT NULL ");
+        if (columnDef.Default != null)
+            definition.Append($"DEFAULT '{columnDef.Default}' ");
+        if (!string.IsNullOrEmpty(columnDef.Extra))
+            definition.Append($"{columnDef.Extra} ");
+        if (!string.IsNullOrEmpty(columnDef.Comment))
+            definition.Append($"COMMENT '{columnDef.Comment.Replace("'", "''")}'");
+
+        // 3. 构建移动SQL
+        var sql = new StringBuilder();
+        sql.Append($"ALTER TABLE `{tableName}` MODIFY COLUMN {definition}");
+
+        if (string.IsNullOrEmpty(afterColumnName))
+            sql.Append(" FIRST");
+        else
+            sql.Append($" AFTER `{afterColumnName}`");
+
+        // 4. 执行命令
+        db.Ado.ExecuteCommand(sql.ToString());
+    }
+
+    /// <summary>
     /// 获取表列表 🔖
     /// </summary>
     /// <param name="configId">ConfigId</param>
