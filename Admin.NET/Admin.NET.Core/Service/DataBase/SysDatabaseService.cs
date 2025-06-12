@@ -360,6 +360,11 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         List<DbColumnInfo> dbColumnInfos = db.DbMaintenance.GetColumnInfosByTableName(input.TableName, false);
         dbColumnInfos.ForEach(u =>
         {
+            if (u.DbColumnName.ToUpper() == u.DbColumnName)
+            {
+                //字段全是大写的， 这种情况下生成的代码会有问题（即对 DOB 这样的字段，生成的前端代码为 dOB， 而数据序列化到前端又成了 dob，导致bug），因此抛出异常，不允许。
+                throw new Exception($"错误：{u.DbColumnName} 字段全是大写字母，这样生成的代码会有bug！请更改为大写字母开头的驼峰式命名!");
+            }
             u.PropertyName = config.DbSettings.EnableUnderLine ? CodeGenUtil.CamelColumnName(u.DbColumnName, dbColumnNames) : u.DbColumnName; // 转下划线后的列名需要再转回来
             u.DataType = CodeGenUtil.ConvertDataType(u, config.DbType);
         });
