@@ -115,6 +115,7 @@ public class SysCodeGenConfigService : IDynamicApiController, ITransient
             codeGenConfig.ColumnLength = tableColumn.ColumnLength;// 长度
             codeGenConfig.ColumnComment = tableColumn.ColumnComment;
             codeGenConfig.NetType = tableColumn.NetType;
+            codeGenConfig.DefaultValue = tableColumn.DefaultValue;
             codeGenConfig.WhetherRetract = YesNoEnum.N.ToString();
 
             // 生成代码时，主键并不是必要输入项，故一定要排除主键字段
