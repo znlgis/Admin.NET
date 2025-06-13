@@ -207,7 +207,7 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
     @:[ApiDescriptionSettings(Name = "Upload@(column.PropertyName)"), HttpPost]
     @:public async Task<SysFile> Upload@(column.PropertyName)([Required] IFormFile file)
     @:{
-        @:return await _sysFileService.UploadFile(new UploadFileInput { File = file, SavePath = "upload/@(Model.ClassName)/@(column.PropertyName)" }); 
+        @:return await _sysFileService.UploadFile(new UploadFileInput { File = file },"upload/@(Model.ClassName)/@(column.PropertyName)"); 
     @:}
     }
     @if (Model.DropdownFieldList.Count > 0) {
