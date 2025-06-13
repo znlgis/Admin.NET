@@ -68,6 +68,12 @@ public partial class SysCodeGenConfig : EntityBase
     public string? NetType { get; set; }
 
     /// <summary>
+    /// 字段数据默认值
+    /// </summary>
+    [SugarColumn(ColumnDescription = "默认值")]
+    public string? DefaultValue { get; set; }
+
+    /// <summary>
     /// 作用类型（字典）
     /// </summary>
     [SugarColumn(ColumnDescription = "作用类型", Length = 64)]
