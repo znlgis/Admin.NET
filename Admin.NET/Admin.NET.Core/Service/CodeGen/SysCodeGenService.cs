@@ -94,11 +94,11 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         await _db.Updateable(codeGen).ExecuteCommandAsync();
 
         // 仅当数据表名称发生了变化，才更新配置表
-        if (oldRecord.TableName != input.TableName)
-        {
+        //if (oldRecord.TableName != input.TableName)
+        //{
             await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
             _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
-        }
+        //}
     }
 
     /// <summary>
@@ -246,7 +246,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             ColumnKey = u.IsPrimarykey.ToString(),
             NetType = CodeGenUtil.ConvertDataType(u, provider.CurrentConnectionConfig.DbType),
             DataType = CodeGenUtil.ConvertDataType(u, provider.CurrentConnectionConfig.DbType),
-            ColumnComment = string.IsNullOrWhiteSpace(u.ColumnDescription) ? u.DbColumnName : u.ColumnDescription
+            ColumnComment = string.IsNullOrWhiteSpace(u.ColumnDescription) ? u.DbColumnName : u.ColumnDescription,
+            DefaultValue = u.DefaultValue,
         }).ToList();
 
         // 获取实体的属性信息，赋值给PropertyName属性(CodeFirst模式应以PropertyName为实际使用名称)
@@ -433,6 +434,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             AddUpdateFieldList = tableFieldList.Where(u => u.WhetherAddUpdate == "Y").ToList(),
             ApiTreeFieldList = tableFieldList.Where(u => u.EffectType == "ApiTreeSelector").ToList(),
             DropdownFieldList = tableFieldList.Where(u => u.EffectType is "ForeignKey" or "ApiTreeSelector").ToList(),
+            DefaultValueList = tableFieldList.Where(u => u.DefaultValue!=null && u.DefaultValue.Length>0).ToList(),
 
             HasJoinTable = joinTableList.Count > 0,
             HasDictField = tableFieldList.Any(u => u.EffectType == "DictSelector"),

@@ -32,6 +32,11 @@ public class ColumnOuput
     public string DataType { get; set; }
 
     /// <summary>
+    /// 字段数据默认值
+    /// </summary>
+    public string DefaultValue { get; set; }
+
+    /// <summary>
     /// 是否为主键
     /// </summary>
     public bool IsPrimarykey { get; set; }
