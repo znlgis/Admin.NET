@@ -3,21 +3,27 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'b62dec8c98696d33c457712075ba6ffd7f40d3e9'
-    oldFile: !uuid '31ec473aafc0fb40f40fd74e511bac94573f0bc4'
+    newFile: !uuid '76e54c697ca3001d6ef1159bc8b9435941233b96'
+    oldFile: !uuid 'b62dec8c98696d33c457712075ba6ffd7f40d3e9'
   /Admin.NET/Admin.NET.Web.Entry:
-    newFile: !uuid 'ced5d344b706d94e84d2fd75cc3a23037f6e3291'
-    oldFile: !uuid '318d4782cdad9a9b3387bbf4f180f8833dc1de5c'
+    newFile: !uuid 'eb0bc7e787e65a0a01e950ac8aa588d2cde077bb'
+    oldFile: !uuid 'ced5d344b706d94e84d2fd75cc3a23037f6e3291'
   /Admin.NET/Admin.NET.Web.Entry/wwwroot:
-    newFile: !uuid 'a2c984ce461dd9c55b7ae489c5e27b95f9d11c39'
-    oldFile: !uuid 'a1e02dee2521a10b7d8479969fd497c79eb01a08'
+    newFile: !uuid '0e5be0cf09e6cf8f601d2a3b538ad976d1fe3ae8'
+    oldFile: !uuid 'a2c984ce461dd9c55b7ae489c5e27b95f9d11c39'
   /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
-    newFile: !uuid '3ad89cfd175222d7b11d5eb733977886b9a7f60f'
-    oldFile: !uuid '784fda78cd781879c121ca8b6fdb7621c17d4788'
+    newFile: !uuid '8bec06c7d403979f4cca833a8d84b947ab392354'
+    oldFile: !uuid '3ad89cfd175222d7b11d5eb733977886b9a7f60f'
   /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Service.cs.vm:
-    newFile: !uuid '6aec015556fc7c9e63b06ab0fc0f6c7dfbe0adcb'
-    oldFile: !uuid '3fb2e35e632dc98b30d3150b94c3c5d6446308a6'
-gitCommitId: !uuid '8280a5768d6dc68e30630b3164a7d0ae7cc8bac0'
+    newFile: !uuid '87ad3ae034330763e9bcfd5dc191ffd92925dd90'
+    oldFile: !uuid '6aec015556fc7c9e63b06ab0fc0f6c7dfbe0adcb'
+  /Web:
+    newFile: !uuid '63993a287e8542b35f14123b218b033daa535525'
+    oldFile: !uuid '259f33e814d9d91c9c9d4a48dab17499ac5fe04b'
+  /Web/vite.config.ts:
+    newFile: !uuid 'effc568e20e376c6162cafe5a61f92d63180306e'
+    oldFile: !uuid '2b92855afc4326526ead8614d725019b9b84b0db'
+gitCommitId: !uuid '9e62013fe0377534e72bae167dda616e347fe86b'
 renames: {
   }
-revisionId: 2909
+revisionId: 2910
