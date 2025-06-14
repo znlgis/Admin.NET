@@ -70,7 +70,7 @@
     <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="9.0.6" />
     <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="9.0.6" />
 	<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.1" />
-	<PackageReference Include="XiHan.Framework.Utils" Version="0.9.12" />
+	<PackageReference Include="XiHan.Framework.Utils" Version="0.9.13-preview.6" />
   </ItemGroup>
 
 </Project>
