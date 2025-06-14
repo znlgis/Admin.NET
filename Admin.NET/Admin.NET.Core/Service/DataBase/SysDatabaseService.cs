@@ -141,11 +141,15 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             IsPrimarykey = input.IsPrimarykey == 1,
             Length = input.Length,
             DecimalDigits = input.DecimalDigits,
-            DataType = input.DataType,
-            DefaultValue = input.DefaultValue
+            DataType = input.DataType
         };
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
-        db.DbMaintenance.AddColumn(input.TableName, column);
+        db.DbMaintenance.AddColumn(input.TableName, column);        
+        // 默认值直接添加报错
+        if (!string.IsNullOrWhiteSpace(input.DefaultValue))
+        {
+            db.DbMaintenance.AddDefaultValue(input.TableName, column.DbColumnName, input.DefaultValue);
+        }
         db.DbMaintenance.AddColumnRemark(input.DbColumnName, input.TableName, input.ColumnDescription);
         if (column.IsPrimarykey) db.DbMaintenance.AddPrimaryKey(input.TableName, input.DbColumnName);
     }
@@ -172,9 +176,15 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
         db.DbMaintenance.RenameColumn(input.TableName, input.OldColumnName, input.ColumnName);
-        db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
+        if (!string.IsNullOrWhiteSpace(input.DefaultValue))
+        {
+            db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
+        }
         if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
+        { 
             db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
+        }
+
         db.DbMaintenance.AddColumnRemark(input.ColumnName, input.TableName, string.IsNullOrWhiteSpace(input.Description) ? input.ColumnName : input.Description);
     }
 
@@ -208,10 +218,17 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         }
     }
 
-    // MySQL 列移动实现
-    private void MoveColumnInMySQL(ISqlSugarClient db, string tableName, string columnName, string afterColumnName)
+    /// <summary>
+    /// 获取列定义
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="tableName"></param>
+    /// <param name="columnName"></param>
+    /// <param name="noDefault"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    private string GetColumnDefinitionInMySQL(ISqlSugarClient db, string tableName, string columnName,bool noDefault = false)
     {
-        // 1. 获取完整的列定义（修复原方法）
         var columnDef = db.Ado.SqlQuery<dynamic>(
             $"SHOW FULL COLUMNS FROM `{tableName}` WHERE Field = '{columnName}'"
         ).FirstOrDefault();
@@ -219,21 +236,32 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         if (columnDef == null)
             throw new Exception($"Column {columnName} not found");
 
-        // 2. 构建列定义字符串
         var definition = new StringBuilder();
         definition.Append($"`{columnName}` ");  // 列名
         definition.Append($"{columnDef.Type} "); // 数据类型
 
         // 处理约束条件
         definition.Append(columnDef.Null == "YES" ? "NULL " : "NOT NULL ");
-        if (columnDef.Default != null)
+        if (columnDef.Default != null && !noDefault)
             definition.Append($"DEFAULT '{columnDef.Default}' ");
         if (!string.IsNullOrEmpty(columnDef.Extra))
             definition.Append($"{columnDef.Extra} ");
         if (!string.IsNullOrEmpty(columnDef.Comment))
             definition.Append($"COMMENT '{columnDef.Comment.Replace("'", "''")}'");
 
-        // 3. 构建移动SQL
+        return definition.ToString();
+
+    }
+    /// <summary>
+    /// MySQL 列移动实现
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="tableName"></param>
+    /// <param name="columnName"></param>
+    /// <param name="afterColumnName"></param>
+    private void MoveColumnInMySQL(ISqlSugarClient db, string tableName, string columnName, string afterColumnName)
+    {
+        var definition = GetColumnDefinitionInMySQL(db, tableName, columnName);
         var sql = new StringBuilder();
         sql.Append($"ALTER TABLE `{tableName}` MODIFY COLUMN {definition}");
 
@@ -242,7 +270,6 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         else
             sql.Append($" AFTER `{afterColumnName}`");
 
-        // 4. 执行命令
         db.Ado.ExecuteCommand(sql.ToString());
     }
 
