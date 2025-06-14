@@ -18,7 +18,7 @@ namespace @(Model.NameSpace);
 /// @(Model.BusName)服务 🧩
 /// </summary>
 [ApiDescriptionSettings(@(Model.ProjectLastName)Const.GroupName, Order = 100)]
-public class @(Model.ClassName)Service : IDynamicApiController, ITransient
+public partial class @(Model.ClassName)Service : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<@(Model.ClassName)> _@(Model.LowerClassName)Rep;
     @foreach(var kv in Model.InjectServiceMap) {
