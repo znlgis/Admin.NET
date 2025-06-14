@@ -2,22 +2,31 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid '92ac5188f8de3718be2d10ca2cb34108eb927c57'
-    oldFile: !uuid 'cac46186ed65d21d24e6f046cb266d1edc98653c'
-  /Admin.NET/Admin.NET.Web.Entry:
-    newFile: !uuid '11cd17508bb4341ed1f83b00439dd5106749958a'
-    oldFile: !uuid 'eb0bc7e787e65a0a01e950ac8aa588d2cde077bb'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
-    newFile: !uuid '7c0b1b114a9053fd72f5b40f61148a5cda59bd4d'
-    oldFile: !uuid '0e5be0cf09e6cf8f601d2a3b538ad976d1fe3ae8'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
-    newFile: !uuid '02d7a1bcef4bb23d8003f6c65f304dfcbc92aca2'
-    oldFile: !uuid '8bec06c7d403979f4cca833a8d84b947ab392354'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Service.cs.vm:
-    newFile: !uuid '0f67535dfa227bfae65768a9c1a72f2b0c679963'
-    oldFile: !uuid '87ad3ae034330763e9bcfd5dc191ffd92925dd90'
-gitCommitId: !uuid '581120f8cd84f94654e1e7ae8a21488c4d64a850'
+  /Web:
+    newFile: !uuid 'daf98c3bd17b0257ca9e04eeb93c67b335492f3b'
+    oldFile: !uuid '1678883506d7b12ff69e6c8ab71056f4ea662686'
+  /Web/src:
+    newFile: !uuid '84b9189c78a33188bfc186c2c8f92b745bc77c86'
+    oldFile: !uuid '8582eb9c222c4c5dafc7bab48e8312c489e9e527'
+  /Web/src/views:
+    newFile: !uuid '14208f4e525235cec9f6975bdd1adcd266bfc07e'
+    oldFile: !uuid 'b806605c57b931705b1adc88f78f6c216a005ba5'
+  /Web/src/views/system:
+    newFile: !uuid '59968dac7d8bac1f6402010388754cf76151320c'
+    oldFile: !uuid '050b9d124a1840a4d79974f4ebb751d611c15d0f'
+  /Web/src/views/system/weChatPay:
+    newFile: !uuid '15c38dc3d066acc2df724a98de63a2754f5e92ee'
+    oldFile: !uuid '914b3c976952cbb3deaa65eb4d141b0dc5c70f87'
+  /Web/src/views/system/weChatPay/index.vue:
+    newFile: !uuid '3ecc82428503f9903e5659f5285d4f311546588d'
+    oldFile: !uuid '57a61db331b8b550fbfe0188aed9ab4586e46d44'
+  /Web/src/views/system/weChatUser:
+    newFile: !uuid '308cda0bc1ce422d2fe392cd737101c786845bdc'
+    oldFile: !uuid '28e35fa7c3507e29bbacffde0a38e8502fce60e5'
+  /Web/src/views/system/weChatUser/index.vue:
+    newFile: !uuid '4434db736d806ec7a11743d47cd7cb5fc4323bdc'
+    oldFile: !uuid 'b9af02bbcbf4e0ad1ced49e8899adfc92d8bded8'
+gitCommitId: !uuid 'aed0f56a2ceb02c211e12c1d5e2dda690e1f0c02'
 renames: {
   }
-revisionId: 2914
+revisionId: 2915
