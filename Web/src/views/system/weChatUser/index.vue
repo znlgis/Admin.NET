@@ -67,7 +67,7 @@
 	</div>
 </template>
 
-<script lang="ts" setup name="weChatUser">
+<script lang="ts" setup name="sysWechatUser">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import EditWeChatUser from '/@/views/system/weChatUser/component/editWeChatUser.vue';

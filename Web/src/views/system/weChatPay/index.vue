@@ -130,7 +130,7 @@
 	</div>
 </template>
 
-<script setup lang="ts" name="weChatPay">
+<script setup lang="ts" name="sysWechatPay">
 import { ref, nextTick, onMounted, reactive } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import QRCode from 'qrcodejs2-fixes';
