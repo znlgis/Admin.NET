@@ -4,6 +4,15 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+#if NET9_0_OR_GREATER
+
+using XiHan.Framework.Utils.HardwareInfos;
+using XiHan.Framework.Utils.Reflections;
+using XiHan.Framework.Utils.Runtime;
+using ReflectionHelper = XiHan.Framework.Utils.Reflections.ReflectionHelper;
+
+#endif // NET9_0_OR_GREATER
+
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -15,6 +24,43 @@ public class SysServerService : IDynamicApiController, ITransient
     public SysServerService()
     {
     }
+
+#if NET9_0_OR_GREATER
+
+    /// <summary>
+    /// 获取服务器硬件信息
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取服务器硬件信息")]
+    public SystemHardwareInfo HardwareInfo()
+    {
+        var hardwareInfo = HardwareInfoManager.GetSystemHardwareInfo();
+        return hardwareInfo;
+    }
+
+    /// <summary>
+    /// 获取服务器运行时信息
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取服务器运行时信息")]
+    public SystemRuntimeInfo RuntimeInfo()
+    {
+        var systemRuntimeInfo = RuntimeInfoManger.GetSystemRuntimeInfo();
+        return systemRuntimeInfo;
+    }
+
+    /// <summary>
+    /// 获取框架主要程序集
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("获取框架主要程序集")]
+    public List<NuGetPackage> NuGetPackagesInfo()
+    {
+        var nuGetPackages = ReflectionHelper.GetNuGetPackages("Admin.NET");
+        return nuGetPackages;
+    }
+
+#endif // NET9_0_OR_GREATER
 
     /// <summary>
     /// 获取服务器配置信息 🔖
