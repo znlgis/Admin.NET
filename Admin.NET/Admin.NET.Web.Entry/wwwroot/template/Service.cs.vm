@@ -12,6 +12,7 @@ using Mapster;
 using SqlSugar;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using @(Model.NameSpace).Entity;
 namespace @(Model.NameSpace);
 
 /// <summary>
@@ -332,19 +333,21 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
                     @:
                     @:// 映射字典值
                     @:foreach(var item in pageItems) {
+                        @:System.Text.StringBuilder sbError = new System.Text.StringBuilder();
                         foreach (var column in dictTableField) {
-                        @:if (string.IsNullOrWhiteSpace(item.@(column.ExtendedPropertyName))) continue;
-                        @:item.@(column.PropertyName) = @(column.LowerPropertyName)DictMap.GetValueOrDefault(item.@(column.ExtendedPropertyName));
-                        @:if (item.@(column.PropertyName) == null) item.Error = "@(column.ColumnComment)字典映射失败";
+                        @:if (!string.IsNullOrWhiteSpace(item.@(column.ExtendedPropertyName))) {
+                            @:item.@(column.PropertyName) = @(column.LowerPropertyName)DictMap.GetValueOrDefault(item.@(column.ExtendedPropertyName));
+                            @:if (item.@(column.PropertyName) == null) sbError.AppendLine("@(column.ColumnComment)字典映射失败");
+                        @:}
                         }
+                        @:item.Error = sbError.ToString();
                     @:}
-                    }
 
                     @:
                     @:// 校验并过滤必填基本类型为null的字段
                     @:var rows = pageItems.Where(x => {
-                        foreach (var column in Model.ImportFieldList.Where(x => x.WhetherRequired == "Y" && Regex.IsMatch(x.NetType, "(int|long|double|float|bool|Enum[?]?)"))){
                         @:if (!string.IsNullOrWhiteSpace(x.Error)) return false;
+                        foreach (var column in Model.ImportFieldList.Where(x => x.WhetherRequired == "Y" && Regex.IsMatch(x.NetType, "(int|long|double|float|bool|Enum[?]?)"))){
                         @:if (x.@(column.PropertyName) == null){
                             @:x.Error = "@(column.ColumnComment)不能为空";
                             @:return false;
@@ -398,4 +401,5 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
         @:}
     @:}
     }
+@:}
 }
