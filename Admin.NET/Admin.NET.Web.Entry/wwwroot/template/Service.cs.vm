@@ -19,7 +19,7 @@ namespace @(Model.NameSpace);
 /// @(Model.BusName)服务 🧩
 /// </summary>
 [ApiDescriptionSettings(@(Model.ProjectLastName)Const.GroupName, Order = 100)]
-public class @(Model.ClassName)Service : IDynamicApiController, ITransient
+public partial class @(Model.ClassName)Service : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<@(Model.ClassName)> _@(Model.LowerClassName)Rep;
     @foreach(var kv in Model.InjectServiceMap) {
@@ -65,7 +65,7 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
             } else if (column.NetType.TrimEnd('?') == "int" || column.NetType.TrimEnd('?') == "long") {
             @:.WhereIF(input.@(column.PropertyName) != null, u => u.@(column.PropertyName) @(column.QueryType) input.@(column.PropertyName))
             } else if (column.NetType.TrimEnd('?').EndsWith("Enum")) {
-            @:.WhereIF(input.@(column.PropertyName).HasValue, u => u.@(column.PropertyName) == input.@(column.PropertyName))
+            @:.WhereIF(input.@(column.PropertyName).HasValue, u => u.@(column.PropertyName) == (int)input.@(column.PropertyName))
             } else if (column.NetType.TrimEnd('?') == "DateTime" && column.QueryType == "~") {
             @:.WhereIF(input.@(column.PropertyName)Range?.Length == 2, u => u.@(column.PropertyName) >= input.@(column.PropertyName)Range[0] && u.@(column.PropertyName) <= input.@(column.PropertyName)Range[1])
             }
@@ -80,7 +80,11 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
             @:.Select((@joinTableName) => new @(Model.ClassName)Output
             @:{
             foreach (var column in Model.TableField) {
+                if(column.NetType.TrimEnd('?').EndsWith("Enum")) {
+                @:@(column.PropertyName) = (@(column.NetType))u.@(column.PropertyName),
+                }else{
                 @:@(column.PropertyName) = u.@(column.PropertyName),
+                }
                 if (column.EffectType == "ForeignKey" || column.EffectType == "ApiTreeSelector") {
                 @:@(column.ExtendedPropertyName) = @column.GetDisplayColumn(column.LowerPropertyNameTrimEndId),
                 }
@@ -204,7 +208,7 @@ public class @(Model.ClassName)Service : IDynamicApiController, ITransient
     @:[ApiDescriptionSettings(Name = "Upload@(column.PropertyName)"), HttpPost]
     @:public async Task<SysFile> Upload@(column.PropertyName)([Required] IFormFile file)
     @:{
-        @:return await _sysFileService.UploadFile(new UploadFileInput { File = file, SavePath = "upload/@(Model.ClassName)/@(column.PropertyName)" }); 
+        @:return await _sysFileService.UploadFile(new UploadFileInput { File = file },"upload/@(Model.ClassName)/@(column.PropertyName)"); 
     @:}
     }
     @if (Model.DropdownFieldList.Count > 0) {

@@ -144,7 +144,12 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             DataType = input.DataType
         };
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
-        db.DbMaintenance.AddColumn(input.TableName, column);
+        db.DbMaintenance.AddColumn(input.TableName, column);        
+        // 默认值直接添加报错
+        if (!string.IsNullOrWhiteSpace(input.DefaultValue))
+        {
+            db.DbMaintenance.AddDefaultValue(input.TableName, column.DbColumnName, input.DefaultValue);
+        }
         db.DbMaintenance.AddColumnRemark(input.DbColumnName, input.TableName, input.ColumnDescription);
         if (column.IsPrimarykey) db.DbMaintenance.AddPrimaryKey(input.TableName, input.DbColumnName);
     }
@@ -171,9 +176,101 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
         db.DbMaintenance.RenameColumn(input.TableName, input.OldColumnName, input.ColumnName);
+        if (!string.IsNullOrWhiteSpace(input.DefaultValue))
+        {
+            db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
+        }
         if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
+        { 
             db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
+        }
+
         db.DbMaintenance.AddColumnRemark(input.ColumnName, input.TableName, string.IsNullOrWhiteSpace(input.Description) ? input.ColumnName : input.Description);
+    }
+
+    /// <summary>
+    /// 移动列位置 🔖
+    /// </summary>
+    /// <param name="input"></param>
+    [ApiDescriptionSettings(Name = "MoveColumn"), HttpPost]
+    [DisplayName("移动列")]
+    public void MoveColumn(MoveDbColumnInput input)
+    {
+        var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
+        var dbMaintenance = db.DbMaintenance;
+
+        var dbType = db.CurrentConnectionConfig.DbType;
+
+        var columns = dbMaintenance.GetColumnInfosByTableName(input.TableName, false);
+        var targetColumn = columns.FirstOrDefault(c =>
+            c.DbColumnName.Equals(input.ColumnName, StringComparison.OrdinalIgnoreCase));
+
+        if (targetColumn == null)
+            throw new Exception($"列 {input.ColumnName} 在表 {input.TableName} 中不存在");
+
+        switch (dbType)
+        {
+            case SqlSugar.DbType.MySql:
+                MoveColumnInMySQL(db, input.TableName, input.ColumnName, input.AfterColumnName);
+                break;
+            default:
+                throw new NotSupportedException($"暂不支持 {dbType} 数据库的列移动操作");
+        }
+    }
+
+    /// <summary>
+    /// 获取列定义
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="tableName"></param>
+    /// <param name="columnName"></param>
+    /// <param name="noDefault"></param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    private string GetColumnDefinitionInMySQL(ISqlSugarClient db, string tableName, string columnName,bool noDefault = false)
+    {
+        var columnDef = db.Ado.SqlQuery<dynamic>(
+            $"SHOW FULL COLUMNS FROM `{tableName}` WHERE Field = '{columnName}'"
+        ).FirstOrDefault();
+
+        if (columnDef == null)
+            throw new Exception($"Column {columnName} not found");
+
+        var definition = new StringBuilder();
+        definition.Append($"`{columnName}` ");  // 列名
+        definition.Append($"{columnDef.Type} "); // 数据类型
+
+        // 处理约束条件
+        definition.Append(columnDef.Null == "YES" ? "NULL " : "NOT NULL ");
+        if (columnDef.Default != null && !noDefault)
+            definition.Append($"DEFAULT '{columnDef.Default}' ");
+        if (!string.IsNullOrEmpty(columnDef.Extra))
+            definition.Append($"{columnDef.Extra} ");
+        if (!string.IsNullOrEmpty(columnDef.Comment))
+            definition.Append($"COMMENT '{columnDef.Comment.Replace("'", "''")}'");
+
+        return definition.ToString();
+
+    }
+    /// <summary>
+    /// MySQL 列移动实现
+    /// </summary>
+    /// <param name="db"></param>
+    /// <param name="tableName"></param>
+    /// <param name="columnName"></param>
+    /// <param name="afterColumnName"></param>
+    private void MoveColumnInMySQL(ISqlSugarClient db, string tableName, string columnName, string afterColumnName)
+    {
+        var definition = GetColumnDefinitionInMySQL(db, tableName, columnName);
+        var sql = new StringBuilder();
+        sql.Append($"ALTER TABLE `{tableName}` MODIFY COLUMN {definition}");
+
+        if (string.IsNullOrEmpty(afterColumnName))
+            sql.Append(" FIRST");
+        else
+            sql.Append($" AFTER `{afterColumnName}`");
+
+        db.Ado.ExecuteCommand(sql.ToString());
     }
 
     /// <summary>
@@ -218,6 +315,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                 IsNullable = u.IsNullable == 1,
                 DecimalDigits = u.DecimalDigits,
                 ColumnDescription = u.ColumnDescription,
+                DefaultValue = u.DefaultValue,
             });
         });
         db.CodeFirst.InitTables(typeBuilder.BuilderType());
@@ -289,6 +387,11 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         List<DbColumnInfo> dbColumnInfos = db.DbMaintenance.GetColumnInfosByTableName(input.TableName, false);
         dbColumnInfos.ForEach(u =>
         {
+            if (u.DbColumnName.ToUpper() == u.DbColumnName)
+            {
+                //字段全是大写的， 这种情况下生成的代码会有问题（即对 DOB 这样的字段，生成的前端代码为 dOB， 而数据序列化到前端又成了 dob，导致bug），因此抛出异常，不允许。
+                throw new Exception($"错误：{u.DbColumnName} 字段全是大写字母，这样生成的代码会有bug！请更改为大写字母开头的驼峰式命名!");
+            }
             u.PropertyName = config.DbSettings.EnableUnderLine ? CodeGenUtil.CamelColumnName(u.DbColumnName, dbColumnNames) : u.DbColumnName; // 转下划线后的列名需要再转回来
             u.DataType = CodeGenUtil.ConvertDataType(u, config.DbType);
         });

@@ -28,17 +28,23 @@ export const SysSmsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary 阿里云发送短信 📨
-         * @param {string} phoneNumber 
+         * @param {string} phoneNumber 手机号
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysSmsAliyunSendSmsPhoneNumberPost: async (phoneNumber: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost: async (phoneNumber: string, templateId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'phoneNumber' is not null or undefined
             if (phoneNumber === null || phoneNumber === undefined) {
-                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsAliyunSendSmsPhoneNumberPost.');
+                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost.');
             }
-            const localVarPath = `/api/sysSms/aliyunSendSms/{phoneNumber}`
-                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)));
+            // verify required parameter 'templateId' is not null or undefined
+            if (templateId === null || templateId === undefined) {
+                throw new RequiredError('templateId','Required parameter templateId was null or undefined when calling apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost.');
+            }
+            const localVarPath = `/api/sysSms/aliyunSendSms/{phoneNumber}/{templateId}`
+                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)))
+                .replace(`{${"templateId"}}`, encodeURIComponent(String(templateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -77,22 +83,28 @@ export const SysSmsApiAxiosParamCreator = function (configuration?: Configuratio
         /**
          * 
          * @summary 发送短信模板
-         * @param {any} body 
-         * @param {string} phoneNumber 
+         * @param {any} body 短信内容
+         * @param {string} phoneNumber 手机号
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysSmsAliyunSendSmsTemplatePhoneNumberPost: async (body: any, phoneNumber: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost: async (body: any, phoneNumber: string, templateId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'body' is not null or undefined
             if (body === null || body === undefined) {
-                throw new RequiredError('body','Required parameter body was null or undefined when calling apiSysSmsAliyunSendSmsTemplatePhoneNumberPost.');
+                throw new RequiredError('body','Required parameter body was null or undefined when calling apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost.');
             }
             // verify required parameter 'phoneNumber' is not null or undefined
             if (phoneNumber === null || phoneNumber === undefined) {
-                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsAliyunSendSmsTemplatePhoneNumberPost.');
+                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost.');
             }
-            const localVarPath = `/api/sysSms/aliyunSendSmsTemplate/{phoneNumber}`
-                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)));
+            // verify required parameter 'templateId' is not null or undefined
+            if (templateId === null || templateId === undefined) {
+                throw new RequiredError('templateId','Required parameter templateId was null or undefined when calling apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost.');
+            }
+            const localVarPath = `/api/sysSms/aliyunSendSmsTemplate/{phoneNumber}/{templateId}`
+                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)))
+                .replace(`{${"templateId"}}`, encodeURIComponent(String(templateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -136,16 +148,22 @@ export const SysSmsApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary 发送短信 📨
          * @param {string} phoneNumber 
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysSmsSendSmsPhoneNumberPost: async (phoneNumber: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysSmsSendSmsPhoneNumberTemplateIdPost: async (phoneNumber: string, templateId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'phoneNumber' is not null or undefined
             if (phoneNumber === null || phoneNumber === undefined) {
-                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsSendSmsPhoneNumberPost.');
+                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsSendSmsPhoneNumberTemplateIdPost.');
             }
-            const localVarPath = `/api/sysSms/sendSms/{phoneNumber}`
-                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)));
+            // verify required parameter 'templateId' is not null or undefined
+            if (templateId === null || templateId === undefined) {
+                throw new RequiredError('templateId','Required parameter templateId was null or undefined when calling apiSysSmsSendSmsPhoneNumberTemplateIdPost.');
+            }
+            const localVarPath = `/api/sysSms/sendSms/{phoneNumber}/{templateId}`
+                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)))
+                .replace(`{${"templateId"}}`, encodeURIComponent(String(templateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -185,16 +203,22 @@ export const SysSmsApiAxiosParamCreator = function (configuration?: Configuratio
          * 
          * @summary 腾讯云发送短信 📨
          * @param {string} phoneNumber 
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiSysSmsTencentSendSmsPhoneNumberPost: async (phoneNumber: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost: async (phoneNumber: string, templateId: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             // verify required parameter 'phoneNumber' is not null or undefined
             if (phoneNumber === null || phoneNumber === undefined) {
-                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsTencentSendSmsPhoneNumberPost.');
+                throw new RequiredError('phoneNumber','Required parameter phoneNumber was null or undefined when calling apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost.');
             }
-            const localVarPath = `/api/sysSms/tencentSendSms/{phoneNumber}`
-                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)));
+            // verify required parameter 'templateId' is not null or undefined
+            if (templateId === null || templateId === undefined) {
+                throw new RequiredError('templateId','Required parameter templateId was null or undefined when calling apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost.');
+            }
+            const localVarPath = `/api/sysSms/tencentSendSms/{phoneNumber}/{templateId}`
+                .replace(`{${"phoneNumber"}}`, encodeURIComponent(String(phoneNumber)))
+                .replace(`{${"templateId"}}`, encodeURIComponent(String(templateId)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -290,12 +314,13 @@ export const SysSmsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 阿里云发送短信 📨
-         * @param {string} phoneNumber 
+         * @param {string} phoneNumber 手机号
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsAliyunSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsAliyunSendSmsPhoneNumberPost(phoneNumber, options);
+        async apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -304,13 +329,14 @@ export const SysSmsApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 发送短信模板
-         * @param {any} body 
-         * @param {string} phoneNumber 
+         * @param {any} body 短信内容
+         * @param {string} phoneNumber 手机号
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsAliyunSendSmsTemplatePhoneNumberPost(body: any, phoneNumber: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsAliyunSendSmsTemplatePhoneNumberPost(body, phoneNumber, options);
+        async apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost(body: any, phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost(body, phoneNumber, templateId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -320,11 +346,12 @@ export const SysSmsApiFp = function(configuration?: Configuration) {
          * 
          * @summary 发送短信 📨
          * @param {string} phoneNumber 
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsSendSmsPhoneNumberPost(phoneNumber, options);
+        async apiSysSmsSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -334,11 +361,12 @@ export const SysSmsApiFp = function(configuration?: Configuration) {
          * 
          * @summary 腾讯云发送短信 📨
          * @param {string} phoneNumber 
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsTencentSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
-            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsTencentSendSmsPhoneNumberPost(phoneNumber, options);
+        async apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysSmsApiAxiosParamCreator(configuration).apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -370,43 +398,47 @@ export const SysSmsApiFactory = function (configuration?: Configuration, basePat
         /**
          * 
          * @summary 阿里云发送短信 📨
-         * @param {string} phoneNumber 
+         * @param {string} phoneNumber 手机号
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsAliyunSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysSmsApiFp(configuration).apiSysSmsAliyunSendSmsPhoneNumberPost(phoneNumber, options).then((request) => request(axios, basePath));
+        async apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysSmsApiFp(configuration).apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 发送短信模板
-         * @param {any} body 
-         * @param {string} phoneNumber 
+         * @param {any} body 短信内容
+         * @param {string} phoneNumber 手机号
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsAliyunSendSmsTemplatePhoneNumberPost(body: any, phoneNumber: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysSmsApiFp(configuration).apiSysSmsAliyunSendSmsTemplatePhoneNumberPost(body, phoneNumber, options).then((request) => request(axios, basePath));
+        async apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost(body: any, phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysSmsApiFp(configuration).apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost(body, phoneNumber, templateId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 发送短信 📨
          * @param {string} phoneNumber 
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysSmsApiFp(configuration).apiSysSmsSendSmsPhoneNumberPost(phoneNumber, options).then((request) => request(axios, basePath));
+        async apiSysSmsSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysSmsApiFp(configuration).apiSysSmsSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 腾讯云发送短信 📨
          * @param {string} phoneNumber 
+         * @param {string} templateId 短信模板id
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysSmsTencentSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
-            return SysSmsApiFp(configuration).apiSysSmsTencentSendSmsPhoneNumberPost(phoneNumber, options).then((request) => request(axios, basePath));
+        async apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysSmsApiFp(configuration).apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -431,47 +463,51 @@ export class SysSmsApi extends BaseAPI {
     /**
      * 
      * @summary 阿里云发送短信 📨
-     * @param {string} phoneNumber 
+     * @param {string} phoneNumber 手机号
+     * @param {string} templateId 短信模板id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysSmsApi
      */
-    public async apiSysSmsAliyunSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysSmsApiFp(this.configuration).apiSysSmsAliyunSendSmsPhoneNumberPost(phoneNumber, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysSmsApiFp(this.configuration).apiSysSmsAliyunSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 发送短信模板
-     * @param {any} body 
-     * @param {string} phoneNumber 
+     * @param {any} body 短信内容
+     * @param {string} phoneNumber 手机号
+     * @param {string} templateId 短信模板id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysSmsApi
      */
-    public async apiSysSmsAliyunSendSmsTemplatePhoneNumberPost(body: any, phoneNumber: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysSmsApiFp(this.configuration).apiSysSmsAliyunSendSmsTemplatePhoneNumberPost(body, phoneNumber, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost(body: any, phoneNumber: string, templateId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysSmsApiFp(this.configuration).apiSysSmsAliyunSendSmsTemplatePhoneNumberTemplateIdPost(body, phoneNumber, templateId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 发送短信 📨
      * @param {string} phoneNumber 
+     * @param {string} templateId 短信模板id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysSmsApi
      */
-    public async apiSysSmsSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysSmsApiFp(this.configuration).apiSysSmsSendSmsPhoneNumberPost(phoneNumber, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysSmsSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysSmsApiFp(this.configuration).apiSysSmsSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 腾讯云发送短信 📨
      * @param {string} phoneNumber 
+     * @param {string} templateId 短信模板id
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof SysSmsApi
      */
-    public async apiSysSmsTencentSendSmsPhoneNumberPost(phoneNumber: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
-        return SysSmsApiFp(this.configuration).apiSysSmsTencentSendSmsPhoneNumberPost(phoneNumber, options).then((request) => request(this.axios, this.basePath));
+    public async apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost(phoneNumber: string, templateId: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysSmsApiFp(this.configuration).apiSysSmsTencentSendSmsPhoneNumberTemplateIdPost(phoneNumber, templateId, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

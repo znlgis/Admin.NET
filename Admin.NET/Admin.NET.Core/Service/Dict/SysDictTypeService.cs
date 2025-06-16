@@ -35,12 +35,12 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("获取字典类型分页列表")]
     public async Task<SqlSugarPagedList<SysDictType>> Page(PageDictTypeInput input)
     {
-        return await _sysDictTypeRep.AsQueryable()
+        var query = _sysDictTypeRep.AsQueryable()
             .WhereIF(!_userManager.SuperAdmin, u => u.IsTenant == YesNoEnum.Y)
             .WhereIF(!string.IsNullOrEmpty(input.Code?.Trim()), u => u.Code.Contains(input.Code))
-            .WhereIF(!string.IsNullOrEmpty(input.Name?.Trim()), u => u.Name.Contains(input.Name))
-            .OrderBy(u => new { u.OrderNo, u.Code })
-            .ToPagedListAsync(input.Page, input.PageSize);
+            .WhereIF(!string.IsNullOrEmpty(input.Name?.Trim()), u => u.Name.Contains(input.Name));
+            //.OrderBy(u => new { u.OrderNo, u.Code })
+        return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
     }
 
     /// <summary>

@@ -62,6 +62,10 @@ public class CodeGenConfig
     public string DataType { get; set; }
 
     /// <summary>
+    /// 字段数据默认值
+    /// </summary>
+    public string DefaultValue { get; set; }
+    /// <summary>
     /// 可空.NET类型
     /// </summary>
     public string NullableNetType => Regex.IsMatch(NetType ?? "", "(.*?Enum|bool|char|int|long|double|float|decimal)[?]?") ? NetType.TrimEnd('?') + "?" : NetType;

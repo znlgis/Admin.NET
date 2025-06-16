@@ -100,6 +100,11 @@ public class CustomViewEngine : ViewEngineModel
     public string InjectServiceArgs => InjectServiceMap.Count > 0 ? ", " + string.Join(", ", InjectServiceMap.Select(kv => $"{kv.Key} {kv.Value}")) : "";
 
     /// <summary>
+    /// 默认值列表
+    /// </summary>
+    public List<CodeGenConfig> DefaultValueList { get; set; }
+    
+    /// <summary>
     /// 判断字段是否为状态字段
     /// </summary>
     /// <param name="column"></param>
@@ -144,6 +149,24 @@ public class CustomViewEngine : ViewEngineModel
         var orderNo = TableField.FirstOrDefault(c => c.NetType.TrimEnd('?') == "int" && c.PropertyName == nameof(SysUser.OrderNo));
         if (status != null) content += $"{status.LowerPropertyName}: {(int)StatusEnum.Enable},";
         if (orderNo != null) content += $"{orderNo.LowerPropertyName}: 100,";
+                foreach (var item in DefaultValueList)
+        {
+            if (!string.IsNullOrWhiteSpace(item.DefaultValue))
+            {
+                switch (item.EffectType)
+                {
+                    case "InputNumber":
+                        content += $"{item.LowerPropertyName}: {item.DefaultValue},";
+                        break;
+                    case "Switch":
+                        content += $"{item.LowerPropertyName}: {(item.DefaultValue=="1"?true.ToString().ToLower():false.ToString().ToLower())},";
+                        break;
+                    default:
+                        content += $"{item.LowerPropertyName}: '{item.DefaultValue}',";
+                        break;
+                }
+            }
+        }
         return content;
     }
 }

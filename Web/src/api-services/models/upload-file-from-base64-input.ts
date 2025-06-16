@@ -43,12 +43,4 @@ export interface UploadFileFromBase64Input {
      * @memberof UploadFileFromBase64Input
      */
     contentType?: string | null;
-
-    /**
-     * 保存路径
-     *
-     * @type {string}
-     * @memberof UploadFileFromBase64Input
-     */
-    path?: string | null;
 }

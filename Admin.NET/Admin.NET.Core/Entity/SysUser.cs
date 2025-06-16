@@ -126,7 +126,7 @@ public partial class SysUser : EntityBaseTenantOrg
 
     /// <summary>
     /// 毕业院校
-    /// </summary>COLLEGE
+    /// </summary>
     [SugarColumn(ColumnDescription = "毕业院校", Length = 128)]
     [MaxLength(128)]
     public string? College { get; set; }

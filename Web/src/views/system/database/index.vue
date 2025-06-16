@@ -59,10 +59,12 @@
 				<el-table-column prop="decimalDigits" label="精度" width="70" align="center" show-overflow-tooltip />
 				<el-table-column prop="defaultValue" label="默认值" align="center" show-overflow-tooltip />
 				<el-table-column prop="columnDescription" label="描述" header-align="center" show-overflow-tooltip />
-				<el-table-column label="操作" width="145" fixed="right" align="center" show-overflow-tooltip>
+				<el-table-column label="操作" width="195" fixed="right" align="center" show-overflow-tooltip>
 					<template #default="scope">
-						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditColumn(scope.row)"> 编辑 </el-button>
-						<el-button icon="ele-Delete" size="small" text type="danger" @click="delColumn(scope.row)"> 删除 </el-button>
+						<el-button icon="ele-Top" size="small" text type="primary" @click="moveColumn(scope.row, 'up')" :disabled="scope.$index === 0" title="上移"></el-button>
+						<el-button icon="ele-Bottom" size="small" text type="primary" @click="moveColumn(scope.row, 'down')" :disabled="scope.$index === state.columnData.length - 1" title="下移"></el-button>
+						<el-button icon="ele-Edit" size="small" text type="primary" @click="openEditColumn(scope.row)">编辑</el-button>
+						<el-button icon="ele-Delete" size="small" text type="danger" @click="delColumn(scope.row)">删除</el-button>
 					</template>
 				</el-table-column>
 			</el-table>
@@ -90,7 +92,7 @@ import GenSeedData from '/@/views/system/database/component/genSeedData.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import { SysDatabaseApi, SysCodeGenApi } from '/@/api-services/api';
-import { DbColumnOutput, DbTableInfo, DbColumnInput, DeleteDbTableInput, DeleteDbColumnInput } from '/@/api-services/models';
+import { DbColumnOutput, DbTableInfo, DbColumnInput, DeleteDbTableInput, DeleteDbColumnInput, MoveDbColumnInput } from '/@/api-services/models';
 
 const editTableRef = ref<InstanceType<typeof EditTable>>();
 const editColumnRef = ref<InstanceType<typeof EditColumn>>();
@@ -240,6 +242,7 @@ const openEditColumn = (row: any) => {
 		columnName: row.dbColumnName,
 		oldColumnName: row.dbColumnName,
 		description: row.columnDescription,
+		defaultValue: row.defaultValue,
 	};
 	editColumnRef.value?.openDialog(column);
 };
@@ -311,8 +314,53 @@ const delColumn = (row: any) => {
 				dbColumnName: row.dbColumnName,
 			};
 			await getAPI(SysDatabaseApi).apiSysDatabaseDeleteColumnPost(eleteDbColumnInput);
-			handleQueryTable();
+			handleQueryColumn();
 			ElMessage.success('列删除成功');
+		})
+		.catch(() => {});
+};
+
+const moveColumn = (row: any, direction: 'up' | 'down') => {
+	const { columnData, tableName, configId } = state;
+	const currentIndex = columnData.findIndex((item) => item.dbColumnName === row.dbColumnName);
+
+	// 边界检查与反馈
+	if (direction === 'up' && currentIndex === 0) {
+		ElMessage.warning('已处于首位，无法上移');
+		return;
+	}
+	if (direction === 'down' && currentIndex === columnData.length - 1) {
+		ElMessage.warning('已处于末位，无法下移');
+		return;
+	}
+
+	// 计算目标位置
+	const targetIndex = direction === 'up' ? currentIndex - 1 : currentIndex + 1;
+	const targetColumn = columnData[targetIndex];
+	const columnName = direction === 'up' ? targetColumn.dbColumnName : row.dbColumnName;
+	const afterColumnName = direction === 'up' ? row.dbColumnName : targetColumn.dbColumnName;
+
+	ElMessageBox.confirm(`确定将列【${row.dbColumnName}】${direction === 'up' ? '上移' : '下移'}?`, '操作确认', {
+		confirmButtonText: '确定',
+		cancelButtonText: '取消',
+		type: 'warning',
+	}).then(async () => {
+			try {
+				const moveParams: MoveDbColumnInput = {
+					configId,
+					tableName,
+					columnName,
+					afterColumnName,
+				};
+
+				// 调用API
+				await getAPI(SysDatabaseApi).apiSysDatabaseMoveColumnPost(moveParams);
+
+				handleQueryColumn();
+				ElMessage.success('列位置已更新');
+			} catch (error: any) {
+				ElMessage.error(`操作失败: ${error.message || '未知错误'}`);
+			}
 		})
 		.catch(() => {});
 };

@@ -170,4 +170,12 @@ export interface LoginUserOutput {
      * @memberof LoginUserOutput
      */
     tenantId?: number | null;
+
+    /**
+     * 当前切换到的租户Id
+     *
+     * @type {number}
+     * @memberof LoginUserOutput
+     */
+    currentTenantId?: number | null;
 }

@@ -165,30 +165,6 @@ export interface SysFile {
     fileMd5?: string | null;
 
     /**
-     * 关联对象名称（如子对象）
-     *
-     * @type {string}
-     * @memberof SysFile
-     */
-    relationName?: string | null;
-
-    /**
-     * 关联对象Id
-     *
-     * @type {number}
-     * @memberof SysFile
-     */
-    relationId?: number | null;
-
-    /**
-     * 所属Id（如主对象）
-     *
-     * @type {number}
-     * @memberof SysFile
-     */
-    belongId?: number | null;
-
-    /**
      * 文件类别
      *
      * @type {string}
@@ -197,10 +173,26 @@ export interface SysFile {
     fileType?: string | null;
 
     /**
-     * 是否公开  若为true则所有人都可以查看，默认只有自己或有权限的可以查看
+     * 文件别名
+     *
+     * @type {string}
+     * @memberof SysFile
+     */
+    fileAlias?: string | null;
+
+    /**
+     * 是否公开
      *
      * @type {boolean}
      * @memberof SysFile
      */
     isPublic?: boolean;
+
+    /**
+     * 业务数据Id
+     *
+     * @type {number}
+     * @memberof SysFile
+     */
+    dataId?: number | null;
 }

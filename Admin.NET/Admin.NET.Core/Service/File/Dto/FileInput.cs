@@ -37,14 +37,6 @@ public class PageFileInput : BasePageInput
     public DateTime? EndTime { get; set; }
 }
 
-public class FileInput : BaseIdInput
-{
-}
-
-public class DeleteFileInput : BaseIdInput
-{
-}
-
 /// <summary>
 /// 上传文件
 /// </summary>
@@ -65,16 +57,6 @@ public class UploadFileInput
     /// 是否公开
     /// </summary>
     public bool IsPublic { get; set; } = false;
-
-    /// <summary>
-    /// 文件路径
-    /// </summary>
-    public string Path { get; set; }
-
-    /// <summary>
-    /// 文件保存路径
-    /// </summary>
-    public string SavePath { get; set; }
 
     /// <summary>
     /// 允许格式：.jpeg.jpg.png.bmp.gif.tif
@@ -101,11 +83,6 @@ public class UploadFileFromBase64Input
     /// 文件类型( "image/jpeg",)
     /// </summary>
     public string ContentType { get; set; }
-
-    /// <summary>
-    /// 保存路径
-    /// </summary>
-    public string Path { get; set; }
 }
 
 /// <summary>

@@ -171,7 +171,6 @@ export * from './delete-db-column-input';
 export * from './delete-db-table-input';
 export * from './delete-dict-data-input';
 export * from './delete-dict-type-input';
-export * from './delete-file-input';
 export * from './delete-job-detail-input';
 export * from './delete-job-trigger-input';
 export * from './delete-menu-input';
