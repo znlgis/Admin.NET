@@ -63,6 +63,7 @@ body:
     options:
         - .NET 6.0
         - .NET 8.0
+        - .NET 9.0
   validations:
     required: true
 - type: dropdown
@@ -71,6 +72,7 @@ body:
     label: 版本/分支
     description: 你当前正在使用的版本/分支？
     options:
-        - next (默认)
+        - v2 (默认)
+        - next
   validations:
     required: true
