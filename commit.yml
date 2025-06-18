@@ -3,18 +3,75 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'bc4cca7226f6063a9833a6e616df94d4e88cc475'
-    oldFile: !uuid 'a05421c19d4106bcbfb985d90578d52bb9596192'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'deecee5a3d53d8e382920d21df9a2ffdd77baa2f'
-    oldFile: !uuid '5d28a4876a4a488aad76e82b499cdfffb45da5ca'
-  /Admin.NET/Admin.NET.Core/Utils:
-    newFile: !uuid 'f49060b3254d5bc54e563223f84c67c79d4cba46'
-    oldFile: !uuid '1898b54a317e7d8fa436afb42ff5d85924c45de3'
-  /Admin.NET/Admin.NET.Core/Utils/CodeGenUtil.cs:
-    newFile: !uuid '2e626247b67e672aaf3d2afdea21f5744de70708'
-    oldFile: !uuid '08ebd1d117668d6c6176a6f1bef2b154b6d61f5d'
-gitCommitId: !uuid 'ce70f1b24006453c732c7455ad7722ee2efd010e'
+    newFile: !uuid '5f1ba32d34816b801c8ddc8754a929bdd7d75b88'
+    oldFile: !uuid 'bc4cca7226f6063a9833a6e616df94d4e88cc475'
+  /Admin.NET/Plugins:
+    newFile: !uuid '03b07b4e284263ca80cd7d70adea9dceb4b6d5d8'
+    oldFile: !uuid '788155f38fbd73cab3fd7596ff022ee0c921de38'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow:
+    newFile: !uuid '9ecedc0b8562bf87e0ad7294e1bcb33ed5a16b16'
+    oldFile: !uuid 'f03fbeb80b1f55df0dc0ece045fb7b2663885386'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Configuration:
+    newFile: !uuid '831a5b65eda375d1519df3b90b37f4fe3b13621d'
+    oldFile: !uuid '567377fb99d394ad8f71686502506ab022e2e931'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Configuration/ApprovalFlow.json:
+    newFile: !uuid '1453fe682f7733971dcc9f3830ce1fb1aaea286e'
+    oldFile: !uuid '85b0512828b386947d71df8e9204b7d7d0b904e9'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Const:
+    newFile: !uuid '945890b7ed5c57526c8bad0fdb85af5152e9b43c'
+    oldFile: !uuid 'd33ef0d4f0ceeffda199dd5823b20dd57821987d'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Const/ApprovalFlowConst.cs:
+    newFile: !uuid '52952acb4cea281fb147529ab7cf203030169615'
+    oldFile: !uuid 'de78db031677ec3ae61d9e6316086cfeede8425f'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Service:
+    newFile: !uuid 'ddcc4163bdace1efebad31a04173c07c7843cfc0'
+    oldFile: !uuid 'ec2787401b45c11706303e7a5e51839d9e72e8ad'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Service/ApprovalFlow:
+    newFile: !uuid '521a73e44fd92049737f9b609023d9b6e4afeeae'
+    oldFile: !uuid 'e22c349acbe4cc449e5041fe5cab823ccff3a171'
+  /Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Service/ApprovalFlow/ApprovalFlowService.cs:
+    newFile: !uuid 'd720384e39e917b03378c7233956e4e1ce0d6a69'
+    oldFile: !uuid '0a9a55a73caf830af51d0a660c356cf413dee475'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk:
+    newFile: !uuid 'b1871016d12dae705222a9079e36eb784fb89301'
+    oldFile: !uuid 'f32196afcb7ccb639c5909359910b084631031e5'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Configuration:
+    newFile: !uuid '88289b72ec76b5040fa12fb5d1ea5ebadae50043'
+    oldFile: !uuid '39090c6d87c9ff66c282b8e8cf35dd83d9bbfb97'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Configuration/DingTalk.json:
+    newFile: !uuid '4efc809c80a503bba49a1ddb2b47f576aedd76a5'
+    oldFile: !uuid 'ff0428f24978dd2f587a9ed3d2f441314f60f774'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service:
+    newFile: !uuid 'a1f064cdcf10fb9c685af36b5bfc45872c274646'
+    oldFile: !uuid '18cbc2ce926fc95622e3abfbef37ee961e844e62'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/DingTalkService.cs:
+    newFile: !uuid '2d362f38b11603fd97bb5c72a68cf031d50fd8c7'
+    oldFile: !uuid '7c0847fe1ebca160375bff463fa7c88a43b79d50'
+  /Admin.NET/Plugins/Admin.NET.Plugin.GoView:
+    newFile: !uuid 'f6fcc721778204d12a58c127d14789529fac138d'
+    oldFile: !uuid '23fec135c41ef730084697a88988bd3e81a965ba'
+  /Admin.NET/Plugins/Admin.NET.Plugin.GoView/Configuration:
+    newFile: !uuid '7dba25a296d30cd86c5624fe440ec9c393e58b07'
+    oldFile: !uuid 'aead3acce8a1877782548422ffd2fcb54c230ee8'
+  /Admin.NET/Plugins/Admin.NET.Plugin.GoView/Configuration/GoView.json:
+    newFile: !uuid '325f5985ee2c93782afc0dce5dec2e871fad7195'
+    oldFile: !uuid '76e03c70b30903f1ac048b3ee25be7869d9e0793'
+  /Admin.NET/Plugins/Admin.NET.Plugin.GoView/Const:
+    newFile: !uuid '03b2f3650fe3fc9627172c66e096f8347b4481c6'
+    oldFile: !uuid '5cb9ea217019be7564d5e912e911dd9f7fce72f1'
+  /Admin.NET/Plugins/Admin.NET.Plugin.GoView/Const/GoViewConst.cs:
+    newFile: !uuid '9964df06f02b02a70db5b18e2c8535315ee4484a'
+    oldFile: !uuid 'f61daed25a82e4e0a04fb0f111b4f5a780f676eb'
+  /Web:
+    newFile: !uuid '0f00805c8415b6a45d0e239ae8550c8d67d8927f'
+    oldFile: !uuid '3ea92e1bbda9f32c123ef6cfee0758a1e1c55191'
+  /Web/api_build:
+    newFile: !uuid '7d0ddecb1fe7ea89dc75397eaafcb2473efad096'
+    oldFile: !uuid '0ba27720dea60f21d7903e8edd4685dc34bc323f'
+  /Web/api_build/build.bat:
+    newFile: !uuid 'c2d3a5962cdb7ac4a262438d8b2d3ec50b26b5d8'
+    oldFile: !uuid '840d59f61672ad449ed603678e4d996a6aa77a5e'
+gitCommitId: !uuid 'b5904c63c7b54133e82dbdb391ae267917ca752f'
 renames: {
   }
-revisionId: 2920
+revisionId: 2921
