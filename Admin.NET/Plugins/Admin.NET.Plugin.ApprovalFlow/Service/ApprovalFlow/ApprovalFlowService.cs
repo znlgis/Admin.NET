@@ -11,7 +11,7 @@ namespace Admin.NET.Plugin.ApprovalFlow.Service;
 /// <summary>
 /// 审批流程服务
 /// </summary>
-[ApiDescriptionSettings(ApprovalFlowConst.GroupName, Order = 100, Description = "审批流程")]
+[ApiDescriptionSettings(ApprovalFlowConst.GroupName, Order = 100)]
 public class ApprovalFlowService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<ApprovalFlow> _approvalFlowRep;
