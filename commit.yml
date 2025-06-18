@@ -2,16 +2,19 @@
 branches: {
   }
 fileChange:
-  /.gitee:
-    newFile: !uuid 'cefa7f88daff70b8b78045d38ab98ae3658e8b40'
-    oldFile: !uuid '91cdf55f22bd36fd0f6125e9831ff5268bedfd1b'
-  /.gitee/ISSUE_TEMPLATE:
-    newFile: !uuid 'f1e6ea32c4763152e195e4316ad57f320713345e'
-    oldFile: !uuid '2d6f85587a95fe1f5fb6db1238d69bff673846f0'
-  /.gitee/ISSUE_TEMPLATE/bug.yml:
-    newFile: !uuid 'e2d4c750462500775eeec5e7be2b5d62dbf705fd'
-    oldFile: !uuid 'b213862d341cc073968c78d1521d9344c09bcd3a'
-gitCommitId: !uuid '8fa9badcb072a7f22b14eb22ecd652545ecd2c13'
+  /Admin.NET:
+    newFile: !uuid 'bc4cca7226f6063a9833a6e616df94d4e88cc475'
+    oldFile: !uuid 'a05421c19d4106bcbfb985d90578d52bb9596192'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid 'deecee5a3d53d8e382920d21df9a2ffdd77baa2f'
+    oldFile: !uuid '5d28a4876a4a488aad76e82b499cdfffb45da5ca'
+  /Admin.NET/Admin.NET.Core/Utils:
+    newFile: !uuid 'f49060b3254d5bc54e563223f84c67c79d4cba46'
+    oldFile: !uuid '1898b54a317e7d8fa436afb42ff5d85924c45de3'
+  /Admin.NET/Admin.NET.Core/Utils/CodeGenUtil.cs:
+    newFile: !uuid '2e626247b67e672aaf3d2afdea21f5744de70708'
+    oldFile: !uuid '08ebd1d117668d6c6176a6f1bef2b154b6d61f5d'
+gitCommitId: !uuid 'ce70f1b24006453c732c7455ad7722ee2efd010e'
 renames: {
   }
-revisionId: 2919
+revisionId: 2920
