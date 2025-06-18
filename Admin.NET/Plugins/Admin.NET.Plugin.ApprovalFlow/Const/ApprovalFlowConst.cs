@@ -15,5 +15,5 @@ public class ApprovalFlowConst
     /// <summary>
     /// API分组名称
     /// </summary>
-    public const string GroupName = "审批流程";
+    public const string GroupName = "ApprovalFlow";
 }

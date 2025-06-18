@@ -9,7 +9,7 @@ namespace Admin.NET.Plugin.DingTalk.Service;
 /// <summary>
 /// 钉钉服务 🧩
 /// </summary>
-[ApiDescriptionSettings(DingTalkConst.GroupName, Order = 100, Description = "钉钉服务")]
+[ApiDescriptionSettings(DingTalkConst.GroupName, Order = 100)]
 public class DingTalkService : IDynamicApiController, IScoped
 {
     private readonly IDingTalkApi _dingTalkApi;

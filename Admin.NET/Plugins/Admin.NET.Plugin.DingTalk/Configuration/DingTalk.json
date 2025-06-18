@@ -3,7 +3,7 @@
 
   "[openapi:DingTalk]": {
     "Group": "DingTalk",
-    "Title": "DingTalk",
+    "Title": "钉钉开放平台",
     "Description": "集成钉钉开放平台",
     "Version": "1.0.0",
     "Order": 90
