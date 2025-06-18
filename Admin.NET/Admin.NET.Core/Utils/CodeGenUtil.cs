@@ -211,13 +211,13 @@ public static class CodeGenUtil
     {
         return dataType.ToLower() switch
         {
-            "tinytext" or "mediumtext" or "longtext" or "mid" or "text" or "varchar" or "char" or "nvarchar" or "nchar" or "timestamp" => "string",
-            "int" or "integer" => "int",
+            "tinytext" or "mediumtext" or "longtext" or "mid" or "text" or "varchar" or "char" or "nvarchar" or "nchar" or "string" or "timestamp" => "string",
+            "int" or "integer" or "int32" => "int",
             "smallint" => "Int16",
             //"tinyint" => "byte",
             "tinyint" => "bool",    // MYSQL
-            "bigint" => "long",
-            "bit" => "bool",
+            "bigint" or "int64" => "long",
+            "bit" or "boolean" => "bool",
             "money" or "smallmoney" or "numeric" or "decimal" => "decimal",
             "real" => "Single",
             "datetime" or "datetime2" or "smalldatetime" => "DateTime",
