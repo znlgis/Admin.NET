@@ -22,15 +22,15 @@ if "%1"=="approvalFlow" (
 )
 
 if exist %apiServicesPath% (
-    echo ================================ ???? %moduleName% ================================
+    echo "================================ 删除目录 %apiServicesPath% ================================"
     rd /s /q %apiServicesPath%
 )
 
-echo ================================ ???? %moduleName% ================================
+echo "================================ 开始生成 %moduleName% ================================"
 
 java -jar %dir%swagger-codegen-cli.jar generate -i %apiUrl% -l typescript-axios -o %apiServicesPath%
 
-@rem ????????????
+@rem 删除不必要的文件和文件夹
 rd /s /q %apiServicesPath%.swagger-codegen
 del /q %apiServicesPath%.gitignore
 del /q %apiServicesPath%.npmignore
@@ -40,4 +40,4 @@ del /q %apiServicesPath%package.json
 del /q %apiServicesPath%README.md
 del /q %apiServicesPath%tsconfig.json
 
-echo ================================ ???? ================================
+echo "================================ 生成结束 ================================"
