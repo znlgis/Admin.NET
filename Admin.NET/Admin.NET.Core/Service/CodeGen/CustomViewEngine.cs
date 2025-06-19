@@ -145,25 +145,31 @@ public class CustomViewEngine : ViewEngineModel
     public string GetAddDefaultValue()
     {
         var content = "";
-        var status = TableField.FirstOrDefault(IsStatus);
-        var orderNo = TableField.FirstOrDefault(c => c.NetType.TrimEnd('?') == "int" && c.PropertyName == nameof(SysUser.OrderNo));
-        if (status != null) content += $"{status.LowerPropertyName}: {(int)StatusEnum.Enable},";
-        if (orderNo != null) content += $"{orderNo.LowerPropertyName}: 100,";
-                foreach (var item in DefaultValueList)
+        if (DefaultValueList.Count == 0)
         {
-            if (!string.IsNullOrWhiteSpace(item.DefaultValue))
+            var status = TableField.FirstOrDefault(IsStatus);
+            var orderNo = TableField.FirstOrDefault(c => c.NetType.TrimEnd('?') == "int" && c.PropertyName == nameof(SysUser.OrderNo));
+            if (status != null) content += $"{status.LowerPropertyName}: {(int)StatusEnum.Enable},";
+            if (orderNo != null) content += $"{orderNo.LowerPropertyName}: 100,";
+        }
+        else
+        {
+            foreach (var item in DefaultValueList)
             {
-                switch (item.EffectType)
+                if (!string.IsNullOrWhiteSpace(item.DefaultValue))
                 {
-                    case "InputNumber":
-                        content += $"{item.LowerPropertyName}: {item.DefaultValue},";
-                        break;
-                    case "Switch":
-                        content += $"{item.LowerPropertyName}: {(item.DefaultValue=="1"?true.ToString().ToLower():false.ToString().ToLower())},";
-                        break;
-                    default:
-                        content += $"{item.LowerPropertyName}: '{item.DefaultValue}',";
-                        break;
+                    switch (item.EffectType)
+                    {
+                        case "InputNumber":
+                            content += $"{item.LowerPropertyName}: {item.DefaultValue},";
+                            break;
+                        case "Switch":
+                            content += $"{item.LowerPropertyName}: {(item.DefaultValue == "1" ? true.ToString().ToLower() : false.ToString().ToLower())},";
+                            break;
+                        default:
+                            content += $"{item.LowerPropertyName}: '{item.DefaultValue}',";
+                            break;
+                    }
                 }
             }
         }
