@@ -342,6 +342,7 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
                         }
                         @:item.Error = sbError.ToString();
                     @:}
+                    }
 
                     @:
                     @:// 校验并过滤必填基本类型为null的字段
@@ -401,5 +402,4 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
         @:}
     @:}
     }
-@:}
 }
