@@ -2,49 +2,25 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid 'cec224709625b3eeb42259d44f540b03ce777562'
-    oldFile: !uuid '5f1ba32d34816b801c8ddc8754a929bdd7d75b88'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '6417a9fbd148a935034750a1609c182916aac67d'
-    oldFile: !uuid 'deecee5a3d53d8e382920d21df9a2ffdd77baa2f'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid 'a222688f78b6a60ca814154c480d0ef9c85a8a2d'
-    oldFile: !uuid '4dcb39483e08f104e0d67f3c735585834f09568a'
-  /Admin.NET/Admin.NET.Core/Service/CodeGen:
-    newFile: !uuid '6e79e594f48a798d2e7ad1899a762b401e2aab07'
-    oldFile: !uuid 'fa591dab1795712a400df21209927dde628fd497'
-  /Admin.NET/Admin.NET.Core/Service/CodeGen/CustomViewEngine.cs:
-    newFile: !uuid '26af1c3b5ce89388dbefcdc58cb9a20bb4161b26'
-    oldFile: !uuid '9f22055f9b26d9bcf73ea3fb1ee8d7b9230fff54'
-  /Admin.NET/Admin.NET.Web.Entry:
-    newFile: !uuid '5bd89fafe198cdc550983ad4f48c2cb3d5c45a54'
-    oldFile: !uuid 'cbaf862c6290367941e001f6f985210a560f659b'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
-    newFile: !uuid 'cf24e6bcec3d07e01210645af83b1bc9d08e9c1c'
-    oldFile: !uuid 'e07aeea4ad646fbaa42be46585dd55c438451313'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
-    newFile: !uuid 'b823e23159ce19b13fab5c286cfb4e6889cf634e'
-    oldFile: !uuid '629e3114e0cb038733a687fe4a14f44eb8e5ff9a'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Service.cs.vm:
-    newFile: !uuid 'd06956dd64d5e089cf0d641ceeab4160ca6ba403'
-    oldFile: !uuid '33d9378a383088dcc0995c39331b3ef6421b065a'
   /Web:
-    newFile: !uuid 'f32bc341119c7b09f77bbb55dec58a48cbf39836'
-    oldFile: !uuid '0f00805c8415b6a45d0e239ae8550c8d67d8927f'
-  /Web/api_build:
-    newFile: !uuid '752e902dd295f7e779ef9d4b77204d231c8cdf97'
-    oldFile: !uuid '7d0ddecb1fe7ea89dc75397eaafcb2473efad096'
-  /Web/api_build/build.bat:
-    newFile: !uuid '8b3fabe3a6fd2df24b870444a18c8e8ca18d4179'
-    oldFile: !uuid 'c2d3a5962cdb7ac4a262438d8b2d3ec50b26b5d8'
-  /Web/api_build/build.sh:
-    newFile: !uuid '4b3c61f16941759b9b5df13b7d66261c9d392a89'
-    oldFile: !uuid '3ba077a217544bea9e943cc1f61e26eb71521b6a'
-  /Web/package.json:
-    newFile: !uuid '9d2d2845db6c321a57069589d7e01ba1df5878ef'
-    oldFile: !uuid 'd71f0562b507cb4e6bd09b3cb32e7008c474b59e'
-gitCommitId: !uuid '28b1268ef92f4504d68b0a25dd43b92e6c4a0ab1'
+    newFile: !uuid '5fd8696e99bb795ebee0ae9c2539f8c259618fff'
+    oldFile: !uuid 'f32bc341119c7b09f77bbb55dec58a48cbf39836'
+  /Web/src:
+    newFile: !uuid '54c7d8d4bc5dace24228549a64e7f8b2deed4d55'
+    oldFile: !uuid 'e7f57481abed1aa0da29977dfacbc75221e4aaab'
+  /Web/src/views:
+    newFile: !uuid 'c384dd8ef1b058f5ed076a73ef265c14243286db'
+    oldFile: !uuid '18e61894629de04b74d9c2a12f033edbc2bdd0de'
+  /Web/src/views/system:
+    newFile: !uuid 'f0c06dda2a78338f5909681b65928aa5b976bc2c'
+    oldFile: !uuid 'e42c5706c593b208bb169a9e93e641e526f9d2cc'
+  /Web/src/views/system/stressTest:
+    newFile: !uuid '9d678c538584b92e6848a65a60ddd3914e5b7be7'
+    oldFile: !uuid '9fc84f9d95a2c515710ded16deb7c54e22d433ab'
+  /Web/src/views/system/stressTest/index.vue:
+    newFile: !uuid '3c783a958d6d6e674d8681a6c96a53fd190a4abb'
+    oldFile: !uuid 'eb818b6d7c79da6d69a5aa69f01f12c04f64ae31'
+gitCommitId: !uuid 'a7f1a1fbfd0170ec138a3247b0ee172282f24388'
 renames: {
   }
-revisionId: 2922
+revisionId: 2923
