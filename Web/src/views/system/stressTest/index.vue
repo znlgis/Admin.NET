@@ -8,7 +8,7 @@
 				<el-card class="vh80" shadow="hover" header="接口列表" v-loading="state.loading">
 					<el-row :gutter="35">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb10">
-							<el-select v-model="state.swaggerUrl" placeholder="接口分组" size="small">
+							<el-select v-model="state.swaggerUrl" @change="queryTreeNode" placeholder="接口分组" size="small">
 								<el-option :label="item.name" :value="item.url" v-for="(item, index) in state.groupList" :key="index" />
 							</el-select>
 						</el-col>
@@ -153,10 +153,22 @@ onMounted(async () => {
 // 获取分组列表
 const getGroupList = async () => {
 	try {
-		const html = await request(`/index.html`,{ method: 'get' }).then(({ data }) => data)
-		const prefixText = 'var configObject = JSON.parse(\'';
-		const jsonStr = html.substring(html.indexOf(prefixText) + prefixText.length, html.indexOf('var oauthConfigObject = JSON.parse('))?.trim().replace('\');', '');
-		return JSON.parse(jsonStr).urls;
+		const response = await request('/swagger-resources', { method: 'get' });
+        return response.data
+        .filter((resource: { name: string; url: string }) => !resource.url.toLowerCase().includes('all%20groups'))
+        .map((resource: { name: string; url: string }) => {
+            const rawUrl = resource.url || '';
+            let fixedUrl = rawUrl.startsWith('//') ? 
+                rawUrl.substring(1) : 
+                rawUrl;
+            if (!fixedUrl.startsWith('/') && !fixedUrl.includes('://')) {
+                fixedUrl = '/' + fixedUrl;
+            }            
+            return {
+                name: decodeURIComponent(resource.name || ''),
+                url: fixedUrl
+            };
+        });
 	} catch {
 		return [];
 	}
@@ -208,26 +220,28 @@ const refreshData = (data: StressTestOutput) => {
 }
 
 const getApiList = (keywords: string | undefined) => {
-	const emojiPattern = /[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
-	return request(state.swaggerUrl,{ method: 'get' }).then(({ data }) => {
+	const emojiPattern = /[\u{2139}\u{2B05}-\u{2B07}\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
+	return request(state.swaggerUrl, { method: 'get' }).then(({ data }) => {
 		const pathMap = data.paths;
-		const result = data.tags.map((e: any) => ({ path: e.name, summary: e.description.replaceAll(emojiPattern, ''), children: [] }));
-		Object.keys(pathMap).map(path => {
+		const result = data.tags.map((e: any) => ({ path: e.name, summary: e.description?.replaceAll(emojiPattern, '') || e.name, children: [] }));
+		Object.keys(pathMap).map((path) => {
 			const method = Object.keys(pathMap[path])[0];
 			const apiInfo = pathMap[path][method];
 			if (keywords && apiInfo.summary?.indexOf(keywords) === -1) return;
-			result.find((u: any) => u.path === apiInfo.tags[0]).children.push({
-				path: path,
-				method: method,
-				summary: apiInfo.summary?.replaceAll(emojiPattern, '') ?? path,
-				parameters: apiInfo.parameters,
-				requestBody: apiInfo.requestBody,
-				data: apiInfo,
-			});
+			result
+				.find((u: any) => u.path === apiInfo.tags[0])
+				.children.push({
+					path: path,
+					method: method,
+					summary: apiInfo.summary?.replaceAll(emojiPattern, '') ?? path,
+					parameters: apiInfo.parameters,
+					requestBody: apiInfo.requestBody,
+					data: apiInfo,
+				});
 		});
-		return result.filter(u => u.children.length > 0);
+		return result.filter((u) => u.children.length > 0);
 	});
-}
+};
 
 // 查询树节点
 const queryTreeNode = async () => {
