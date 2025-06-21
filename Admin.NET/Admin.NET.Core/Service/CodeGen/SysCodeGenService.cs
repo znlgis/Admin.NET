@@ -88,17 +88,40 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         if (isExist) throw Oops.Oh(ErrorCodeEnum.D1400);
 
         var oldRecord = await _db.Queryable<SysCodeGen>().FirstAsync(u => u.Id == input.Id);
+        try
+        {
+            // 开启事务
+            _db.AsTenant().BeginTran();
+            if (input.GenerateMenu)
+            {
+                var oldTitle = $"{oldRecord.BusName}管理";
+                var newTitle = $"{input.BusName}管理";
+                var updateObj = await _db.Queryable<SysMenu>().FirstAsync(u => u.Title == oldTitle);
+                if (updateObj != null)
+                {
+                    updateObj.Title = newTitle;
+                    var result = _db.Updateable(updateObj).UpdateColumns(it => new { it.Title }).ExecuteCommand();
+                    _sysMenuService.DeleteMenuCache();
+                }
+            }
+            if (input.TableUniqueList?.Count > 0) input.TableUniqueConfig = JSON.Serialize(input.TableUniqueList);
+            var codeGen = input.Adapt<SysCodeGen>();
+            await _db.Updateable(codeGen).ExecuteCommandAsync();
 
-        if (input.TableUniqueList?.Count > 0) input.TableUniqueConfig = JSON.Serialize(input.TableUniqueList);
-        var codeGen = input.Adapt<SysCodeGen>();
-        await _db.Updateable(codeGen).ExecuteCommandAsync();
-
-        // 仅当数据表名称发生了变化，才更新配置表
-        //if (oldRecord.TableName != input.TableName)
-        //{
+            // 仅当数据表名称发生了变化，才更新配置表
+            //if (oldRecord.TableName != input.TableName)
+            //{
             await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
             _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
-        //}
+            //}
+            _db.AsTenant().CommitTran();
+
+        }
+        catch (Exception ex)
+        {
+            _db.AsTenant().RollbackTran();
+            throw ex;
+        }
     }
 
     /// <summary>
@@ -377,7 +400,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             _ = File.WriteAllTextAsync(targetPathList[i], content, Encoding.UTF8);
         }
 
-        if (input.GenerateMenu) await AddMenu(input.TableName, input.BusName, input.MenuPid ?? 0, input.MenuIcon, input.PagePath, tableFieldList);
+        if (input.GenerateMenu) await AddOrUpdateMenu(input.TableName, input.BusName, input.MenuPid ?? 0, input.MenuIcon, input.PagePath, tableFieldList);
 
         // 非ZIP压缩返回空
         if (!input.GenerateType.StartsWith('1')) return null;
@@ -434,7 +457,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             AddUpdateFieldList = tableFieldList.Where(u => u.WhetherAddUpdate == "Y").ToList(),
             ApiTreeFieldList = tableFieldList.Where(u => u.EffectType == "ApiTreeSelector").ToList(),
             DropdownFieldList = tableFieldList.Where(u => u.EffectType is "ForeignKey" or "ApiTreeSelector").ToList(),
-            DefaultValueList = tableFieldList.Where(u => u.DefaultValue!=null && u.DefaultValue.Length>0).ToList(),
+            DefaultValueList = tableFieldList.Where(u => u.DefaultValue != null && u.DefaultValue.Length>0).ToList(),
 
             HasJoinTable = joinTableList.Count > 0,
             HasDictField = tableFieldList.Any(u => u.EffectType == "DictSelector"),
@@ -466,6 +489,127 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             result.Add(path?.TrimEnd(".vm"), tResult);
         }
         return (tableFieldList, result);
+    }
+    
+    /// <summary>
+    /// 添加或更新菜单
+    /// </summary>
+    /// <param name="className"></param>
+    /// <param name="busName"></param>
+    /// <param name="pid"></param>
+    /// <param name="menuIcon"></param>
+    /// <param name="pagePath"></param>
+    /// <param name="tableFieldList"></param>
+    /// <returns></returns>
+    private async Task AddOrUpdateMenu(string className, string busName, long pid, string menuIcon, string pagePath, List<CodeGenConfig> tableFieldList)
+    {
+        var title = $"{busName}管理";
+        var lowerClassName = className.ToFirstLetterLowerCase();
+        var menuType = pid == 0 ? MenuTypeEnum.Dir : MenuTypeEnum.Menu;
+
+        // 查询是否已有主菜单
+        var existingMenu = await _db.Queryable<SysMenu>()
+            .Where(m => m.Title == title && m.Type == menuType && m.Pid == pid)
+            .FirstAsync();
+
+        string parentPath = "";
+        if (pid != 0)
+        {
+            var parent = await _db.Queryable<SysMenu>().FirstAsync(m => m.Id == pid) ?? throw Oops.Oh(ErrorCodeEnum.D1505);
+            parentPath = parent.Path;
+        }
+
+        long menuId;
+        if (existingMenu == null)
+        {
+            // 不存在则新增
+            var newMenu = new SysMenu
+            {
+                Pid = pid,
+                Title = title,
+                Type = menuType,
+                Icon = menuIcon ?? "menu",
+                Path = (pid == 0 ? "/" : parentPath + "/") + className.ToLower(),
+                Component = pid == 0 ? "Layout" : $"/{pagePath}/{lowerClassName}/index"
+            };
+            menuId = await _sysMenuService.AddMenu(newMenu.Adapt<AddMenuInput>());
+        }
+        else
+        {
+            // 存在则更新
+            existingMenu.Icon = menuIcon;
+            existingMenu.Path = (pid == 0 ? "/" : parentPath + "/") + className.ToLower();
+            existingMenu.Component = pid == 0 ? "Layout" : $"/{pagePath}/{lowerClassName}/index";
+            await _sysMenuService.UpdateMenu(existingMenu.Adapt<UpdateMenuInput>());
+            menuId = existingMenu.Id;
+        }
+
+        // 定义应有的按钮
+        var orderNo = 100;
+        var newButtons = new List<SysMenu>
+    {
+        new() { Title = "查询", Permission = $"{lowerClassName}:page", OrderNo = orderNo += 10 },
+        new() { Title = "详情", Permission = $"{lowerClassName}:detail", OrderNo = orderNo += 10 },
+        new() { Title = "增加", Permission = $"{lowerClassName}:add", OrderNo = orderNo += 10 },
+        new() { Title = "编辑", Permission = $"{lowerClassName}:update", OrderNo = orderNo += 10 },
+        new() { Title = "删除", Permission = $"{lowerClassName}:delete", OrderNo = orderNo += 10 },
+        new() { Title = "批量删除", Permission = $"{lowerClassName}:batchDelete", OrderNo = orderNo += 10 },
+        new() { Title = "设置状态", Permission = $"{lowerClassName}:setStatus", OrderNo = orderNo += 10 },
+        new() { Title = "打印", Permission = $"{lowerClassName}:print", OrderNo = orderNo += 10 },
+        new() { Title = "导入", Permission = $"{lowerClassName}:import", OrderNo = orderNo += 10 },
+        new() { Title = "导出", Permission = $"{lowerClassName}:export", OrderNo = orderNo += 10 }
+    };
+
+        if (tableFieldList.Any(u => u.EffectType is "ForeignKey" or "ApiTreeSelector" && (u.WhetherAddUpdate == "Y" || u.WhetherQuery == "Y")))
+        {
+            newButtons.Add(new SysMenu
+            {
+                Title = "下拉列表数据",
+                Permission = $"{lowerClassName}:dropdownData",
+                OrderNo = orderNo += 10
+            });
+        }
+
+        foreach (var column in tableFieldList.Where(u => u.EffectType == "Upload"))
+        {
+            newButtons.Add(new SysMenu
+            {
+                Title = $"上传{column.ColumnComment}",
+                Permission = $"{lowerClassName}:upload{column.PropertyName}",
+                OrderNo = orderNo += 10
+            });
+        }
+
+        // 获取当前菜单下的按钮
+        var existingButtons = await _db.Queryable<SysMenu>()
+            .Where(m => m.Pid == menuId && m.Type == MenuTypeEnum.Btn)
+            .ToListAsync();
+
+        var newPermissions = newButtons.Select(b => b.Permission).ToHashSet();
+
+        // 添加或更新按钮
+        foreach (var btn in newButtons)
+        {
+            var match = existingButtons.FirstOrDefault(b => b.Permission == btn.Permission);
+            if (match == null)
+            {
+                btn.Type = MenuTypeEnum.Btn;
+                btn.Pid = menuId;
+                btn.Icon = "";
+                await _sysMenuService.AddMenu(btn.Adapt<AddMenuInput>());
+            }
+            else
+            {
+                match.Title = btn.Title;
+                match.OrderNo = btn.OrderNo;
+                await _sysMenuService.UpdateMenu(match.Adapt<UpdateMenuInput>());
+            }
+        }
+
+        // 删除多余的旧按钮
+        var toDelete = existingButtons.Where(b => !newPermissions.Contains(b.Permission)).ToList();
+        foreach (var del in toDelete)
+            await _sysMenuService.DeleteMenu(new DeleteMenuInput { Id = del.Id });
     }
 
     /// <summary>
