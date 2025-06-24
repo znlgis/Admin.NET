@@ -369,6 +369,31 @@ public static class SqlSugarSetup
     }
 
     /// <summary>
+    /// 等待数据库就绪
+    /// </summary>
+    /// <param name="dbProvider"></param>
+    private static void WaitForDatabaseReady(SqlSugarScopeProvider dbProvider)
+    {
+        do
+        {
+            try
+            {
+                if (dbProvider.Ado.Connection.State != ConnectionState.Open)
+                    dbProvider.Ado.Connection.Open();
+
+                // 如果连接成功，直接返回
+                Log.Information("数据库连接成功。");
+                return;
+            }
+            catch (Exception ex)
+            {
+                Log.Warning($"数据库尚未就绪，等待中... 错误：{ex.Message}");
+                Thread.Sleep(1000);
+            }
+        } while (true);
+    }
+
+    /// <summary>
     /// 初始化数据库
     /// </summary>
     /// <param name="db">SqlSugarScope 实例</param>
@@ -376,6 +401,9 @@ public static class SqlSugarSetup
     private static void InitDatabase(SqlSugarScope db, DbConnectionConfig config)
     {
         var dbProvider = db.GetConnectionScope(config.ConfigId);
+
+        // 等待数据库连接就绪
+        WaitForDatabaseReady(dbProvider);
 
         // 初始化数据库
         if (config.DbSettings.EnableInitDb)
