@@ -142,13 +142,12 @@ public static class RepositoryExtension
         typeAdapterConfig.ForType<T, BasePageInput>().IgnoreNullValues(true);
         Mapper mapper = new(typeAdapterConfig); // 务必将mapper设为单实例
         var nowPagerInput = mapper.Map<BasePageInput>(pageInput);
-        // 排序是否可用-排序字段和排序顺序都为非空才启用排序
-        if (!string.IsNullOrEmpty(nowPagerInput.Field) && !string.IsNullOrEmpty(nowPagerInput.Order))
+        // 排序是否可用-排序字段为非空才启用排序，排序顺序默认为倒序
+        if (!string.IsNullOrEmpty(nowPagerInput.Field))
         {
             nowPagerInput.Field = Regex.Replace(nowPagerInput.Field, @"[\s;()\-'@=/%]", ""); //过滤掉一些关键字符防止构造特殊SQL语句注入
-            var col = queryable.Context.EntityMaintenance.GetEntityInfo<T>().Columns.FirstOrDefault(u => u.PropertyName.Equals(nowPagerInput.Field, StringComparison.CurrentCultureIgnoreCase));
-            var dbColumnName = col != null ? col.DbColumnName : nowPagerInput.Field;
-            orderStr = $"{prefix}{iSqlBuilder.GetTranslationColumnName(dbColumnName)} {(nowPagerInput.Order == nowPagerInput.DescStr ? "Desc" : "Asc")}";
+            var orderByDbName = queryable.Context.EntityMaintenance.GetDbColumnName<T>(nowPagerInput.Field);//防止注入，类中只要不存在属性名就会报错
+            orderStr = $"{prefix}{iSqlBuilder.GetTranslationColumnName(orderByDbName)} {(string.IsNullOrEmpty(nowPagerInput.Order) || nowPagerInput.Order.Equals(nowPagerInput.DescStr, StringComparison.OrdinalIgnoreCase) ? "Desc" : "Asc")}";
         }
         return queryable.OrderByIF(!string.IsNullOrWhiteSpace(orderStr), orderStr);
     }
