@@ -145,6 +145,7 @@ public static class RepositoryExtension
         // 排序是否可用-排序字段和排序顺序都为非空才启用排序
         if (!string.IsNullOrEmpty(nowPagerInput.Field) && !string.IsNullOrEmpty(nowPagerInput.Order))
         {
+            nowPagerInput.Field = Regex.Replace(nowPagerInput.Field, @"[\s;()\-'@=/%]", ""); //过滤掉一些关键字符防止构造特殊SQL语句注入
             var col = queryable.Context.EntityMaintenance.GetEntityInfo<T>().Columns.FirstOrDefault(u => u.PropertyName.Equals(nowPagerInput.Field, StringComparison.CurrentCultureIgnoreCase));
             var dbColumnName = col != null ? col.DbColumnName : nowPagerInput.Field;
             orderStr = $"{prefix}{iSqlBuilder.GetTranslationColumnName(dbColumnName)} {(nowPagerInput.Order == nowPagerInput.DescStr ? "Desc" : "Asc")}";
