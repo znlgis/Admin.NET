@@ -79,12 +79,14 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
 
         var userList = await _sysOnlineUerRep.AsQueryable().Filter("", true)
             .Where(u => u.TenantId == user.TenantId).Take(10).ToListAsync();
-        await _onlineUserHubContext.Clients.Groups(groupName).OnlineUserList(new OnlineUserList
-        {
-            RealName = user.RealName,
-            Online = true,
-            UserList = userList
-        });
+
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysLoginOutReminder))
+            await _onlineUserHubContext.Clients.Groups(groupName).OnlineUserList(new OnlineUserList
+            {
+                RealName = user.RealName,
+                Online = true,
+                UserList = userList
+            });
     }
 
     /// <summary>
@@ -118,12 +120,14 @@ public class OnlineUserHub : Hub<IOnlineUserHub>
         // 通知当前组用户变动
         var userList = await _sysOnlineUerRep.AsQueryable().Filter("", true)
             .Where(u => u.TenantId == user.TenantId).Take(10).ToListAsync();
-        await _onlineUserHubContext.Clients.Groups($"{GROUP_ONLINE}{user.TenantId}").OnlineUserList(new OnlineUserList
-        {
-            RealName = user.RealName,
-            Online = false,
-            UserList = userList
-        });
+
+        if (await _sysConfigService.GetConfigValue<bool>(ConfigConst.SysLoginOutReminder))
+            await _onlineUserHubContext.Clients.Groups($"{GROUP_ONLINE}{user.TenantId}").OnlineUserList(new OnlineUserList
+            {
+                RealName = user.RealName,
+                Online = false,
+                UserList = userList
+            });
     }
 
     /// <summary>

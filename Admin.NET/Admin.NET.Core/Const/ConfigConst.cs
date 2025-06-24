@@ -42,6 +42,11 @@ public class ConfigConst
     public const string SysSingleLogin = "sys_single_login";
 
     /// <summary>
+    /// 登入登出提醒
+    /// </summary>
+    public const string SysLoginOutReminder = "sys_login_out_reminder";
+
+    /// <summary>
     /// 登陆时隐藏租户
     /// </summary>
     public const string SysHideTenantLogin = "sys_hide_tenant_login";
