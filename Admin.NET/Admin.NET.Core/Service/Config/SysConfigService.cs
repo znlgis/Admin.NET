@@ -9,7 +9,7 @@ using NewLife.Reflection;
 namespace Admin.NET.Core.Service;
 
 /// <summary>
-/// 系统参数配置服务 🧩
+/// 平台参数配置服务 🧩
 /// </summary>
 [ApiDescriptionSettings(Order = 440)]
 public class SysConfigService : IDynamicApiController, ITransient
