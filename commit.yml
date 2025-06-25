@@ -3,18 +3,30 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '96e90ff1677b58b2aa71cc02182b99efb20dd008'
-    oldFile: !uuid 'b71649b17a3476f3ac237b22b09c035744ba48d2'
+    newFile: !uuid '91477b02d6f9f62bde344523945109b48a17d2e3'
+    oldFile: !uuid '96e90ff1677b58b2aa71cc02182b99efb20dd008'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'f9cfff7bb2e5eedafb1570d506812355713ef529'
-    oldFile: !uuid '59f185bba1a08ac73cb1c03594b2a0b46482f748'
-  /Admin.NET/Admin.NET.Core/SeedData:
-    newFile: !uuid 'a0535a60637218c931df259b908088f9d59188f3'
-    oldFile: !uuid '301c193bd42b20fd767e2894f0cdf52bd61df06a'
-  /Admin.NET/Admin.NET.Core/SeedData/SysMenuSeedData.cs:
-    newFile: !uuid '0ea47802d48bee08af767a684c4b766380058bc9'
-    oldFile: !uuid 'f4603684b01a8c8aeb0590f5589518d3469ea449'
-gitCommitId: !uuid 'cb5ff450d931c1344f3797ea464a55611c7bd630'
+    newFile: !uuid '2f44e097d0d0a1df8f34b8f7fd0c06d4fd3bf676'
+    oldFile: !uuid 'f9cfff7bb2e5eedafb1570d506812355713ef529'
+  /Admin.NET/Admin.NET.Core/SqlSugar:
+    newFile: !uuid 'cf7abbd4976e1b71f59bc7e28b87cd7c045d044c'
+    oldFile: !uuid '2a7df7982b0341afb692501faf505419bf9f6a7c'
+  /Admin.NET/Admin.NET.Core/SqlSugar/SqlSugarSetup.cs:
+    newFile: !uuid '607e3deb28bd5f3a659115a542ae562c40d97c39'
+    oldFile: !uuid 'ee837f3441798dacf04fdcf75ae15336b0c71ec8'
+  /Admin.NET/Admin.NET.Web.Entry:
+    newFile: !uuid '3bfebf2f796a8e69054d7cdfa29d9a426b191c1d'
+    oldFile: !uuid '6013e58fc977e2a1c658bef7ea169dfc1a438dc4'
+  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
+    newFile: !uuid '9af8cf488de35dc436e47fa7f8a875962b4b3e51'
+    oldFile: !uuid 'efef8cba308a2429cd8639c0a68e9da9248165eb'
+  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
+    newFile: !uuid '48a95e2163eceb62c6e40efc40724f4ceab20b84'
+    oldFile: !uuid 'e28db78258b339e6bc8140d89aa3f18edd62ee15'
+  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/index.vue.vm:
+    newFile: !uuid 'b9b08213729e7d2272a5ecf918ddd3dad722cabe'
+    oldFile: !uuid 'c0ba439d5ead0cee7656288b8f5e8ae2b73d2b56'
+gitCommitId: !uuid 'f1232f4078accbd97176905ca81e690d200b4d94'
 renames: {
   }
-revisionId: 2933
+revisionId: 2934
