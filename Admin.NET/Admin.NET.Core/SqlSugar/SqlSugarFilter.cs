@@ -96,7 +96,7 @@ public static class SqlSugarFilter
         {
             // 获取业务实体数据表
             var entityTypes = App.EffectiveTypes.Where(u => !u.IsInterface && !u.IsAbstract && u.IsClass
-                && u.IsSubclassOf(typeof(EntityBaseOrg)));
+                && (u.IsSubclassOf(typeof(EntityBaseOrg)) || u.IsSubclassOf(typeof(EntityBaseOrgDel))));
             if (!entityTypes.Any()) return maxDataScope;
 
             dataScopeFilter = new ConcurrentDictionary<Type, LambdaExpression>();
