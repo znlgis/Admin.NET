@@ -455,7 +455,7 @@ public static class SqlSugarSetup
             case SqlSugarConst.MainConfigId:
                 return entityType.GetCustomAttributes<SysTableAttribute>().Any() ||
                        (!entityType.GetCustomAttributes<LogTableAttribute>().Any() &&
-                        !entityType.GetCustomAttributes<TenantAttribute>().Any());
+                        !entityType.GetCustomAttributes<TenantAttribute>().Any(o => o.configId.ToString() != config.ConfigId.ToString()));
 
             case SqlSugarConst.LogConfigId:
                 return entityType.GetCustomAttributes<LogTableAttribute>().Any();
