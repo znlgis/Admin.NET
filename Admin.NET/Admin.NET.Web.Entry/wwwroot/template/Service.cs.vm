@@ -321,7 +321,7 @@ public partial class @(Model.ClassName)Service : IDynamicApiController, ITransie
                     @:var @(column.LowerPropertyName)LabelList = pageItems.Where(x => x.@column.ExtendedPropertyName != null).Select(x => x.@column.ExtendedPropertyName).Distinct().ToList();
                     @:if (@(column.LowerPropertyName)LabelList.Any()) {
                         var columnList = column.FkDisplayColumnList.Select(n => $"{{u.{n}}}").ToList();
-                        @:var @(column.LowerPropertyName)LinkMap = _@(Model.LowerClassName)Rep.Context.Queryable<@(column.FkEntityName)>().Where(u => @(column.LowerPropertyName)LabelList.Contains($"@(string.Join("-", columnList))")).ToList().ToDictionary(u => $"@(string.Join("-", columnList))", u => u.@(column.FkLinkColumnName));
+                        @:var @(column.LowerPropertyName)LinkMap = _@(Model.LowerClassName)Rep.Context.Queryable<@(column.FkEntityName)>().Where(u => @(column.LowerPropertyName)LabelList.Contains($"@(string.Join("-", columnList))")).ToList().ToDictionary(u => $"@(string.Join("-", columnList))", u => u.@(column.FkLinkColumnName)  as @(column.NetType.TrimEnd('?') == "long" ? "long?": column.NetType));
                         @:pageItems.ForEach(e => {
                             @:e.@(column.PropertyName) = @(column.LowerPropertyName)LinkMap.GetValueOrDefault(e.@column.ExtendedPropertyName ?? "");
                             @:if (e.@(column.PropertyName) == null) e.Error = "@(column.ColumnComment)链接失败";
