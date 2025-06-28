@@ -18,9 +18,10 @@
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="zh-cn" :disabled="state.disabledI18n === 'zh-cn'">简体中文</el-dropdown-item>
-					<el-dropdown-item command="en" :disabled="state.disabledI18n === 'en'">English</el-dropdown-item>
-					<el-dropdown-item command="zh-tw" :disabled="state.disabledI18n === 'zh-tw'">繁體中文</el-dropdown-item>
+					<el-dropdown-item v-for="lang in state.languages" :key="lang.value" :command="lang.value"
+						:disabled="lang.value === state.disabledI18n">
+						{{ lang.label }}
+					</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
@@ -103,7 +104,7 @@ import Push from 'push.js';
 import { signalR } from '/@/views/system/onlineUser/signalR';
 import { Avatar, CircleCloseFilled, Loading, Lock, Switch } from '@element-plus/icons-vue';
 import { clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
-import { SysAuthApi, SysNoticeApi } from '/@/api-services/api';
+import { SysAuthApi, SysNoticeApi, SysLangApi } from '/@/api-services/api';
 import { auth } from '/@/utils/authFunction';
 
 // 引入组件
@@ -127,6 +128,7 @@ const state = reactive({
 	disabledI18n: 'zh-cn',
 	disabledSize: 'large',
 	noticeList: [] as any, // 站内信列表
+	languages: [] as any, // 语言列表
 });
 // 设置分割样式
 const layoutUserFlexNum = computed(() => {
@@ -198,7 +200,7 @@ const onHandleCommandClick = (path: string) => {
 			.then(async () => {
 				clearAccessAfterReload();
 			})
-			.catch(() => {});
+			.catch(() => { });
 	} else if (path === 'changeTenant') {
 		changeTenantRef.value?.openDialog();
 	} else {
@@ -252,6 +254,8 @@ onMounted(async () => {
 			Push.clear();
 		}
 	});
+	var langRes = await getAPI(SysLangApi).apiSysLangDropdownDataPost();
+	state.languages = langRes.data.result ?? [];
 	// 加载未读的站内信
 	var res = await getAPI(SysNoticeApi).apiSysNoticeUnReadListGet();
 	state.noticeList = res.data.result ?? [];
