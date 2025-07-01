@@ -31,7 +31,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, defineProps, onMounted } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useLangStore } from '/@/stores/useLangStore';
 import { Local } from '/@/utils/storage';
 import { getAPI } from '/@/utils/axios-utils';
