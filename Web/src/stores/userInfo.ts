@@ -82,6 +82,7 @@ export const useUserInfo = defineStore('userInfo', {
 							authBtnList: d.buttons,
 							tenantId: d.tenantId,
 							currentTenantId: d.currentTenantId,
+							langCode: d.langCode,
 							time: new Date().getTime(),
 						};
 

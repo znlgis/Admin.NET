@@ -23,6 +23,7 @@ declare interface UserInfos<T = any> {
 	orgId:string;
 	orgName:string;
 	tenantId:string;
+	langCode:string;
 	currentTenantId:string;
 
 	[key: string]: T;

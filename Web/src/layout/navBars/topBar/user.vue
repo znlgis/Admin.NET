@@ -6,15 +6,19 @@
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{ $t('message.user.dropdownLarge') }}</el-dropdown-item>
-					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{ $t('message.user.dropdownDefault') }}</el-dropdown-item>
-					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{ $t('message.user.dropdownSmall') }}</el-dropdown-item>
+					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{
+						$t('message.user.dropdownLarge') }}</el-dropdown-item>
+					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{
+						$t('message.user.dropdownDefault') }}</el-dropdown-item>
+					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{
+						$t('message.user.dropdownSmall') }}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i class="iconfont" :class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'" :title="$t('message.user.title1')"></i>
+				<i class="iconfont" :class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
+					:title="$t('message.user.title1')"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
@@ -46,7 +50,8 @@
 			</el-popover>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" @click="onScreenfullClick">
-			<i class="iconfont" :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')" :class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"></i>
+			<i class="iconfont" :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
+				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon mr10" @click="onOnlineUserClick">
 			<el-icon title="在线用户">
@@ -74,11 +79,16 @@
 			<template #dropdown>
 				<el-dropdown-menu>
 					<!-- <el-dropdown-item command="/dashboard/home">{{ $t('message.user.dropdown1') }}</el-dropdown-item> -->
-					<el-dropdown-item :icon="Avatar" command="/system/userCenter">{{ $t('message.user.dropdown2') }}</el-dropdown-item>
-					<el-dropdown-item :icon="Loading" command="clearCache">{{ $t('message.user.dropdown3') }}</el-dropdown-item>
-					<el-dropdown-item :icon="Switch" divided command="changeTenant" v-if="auth('sysTenant:changeTenant')">{{ $t('message.layout.changeTenant') }}</el-dropdown-item>
-					<el-dropdown-item :icon="Lock" divided command="lockScreen">{{ $t('message.layout.threeIsLockScreen') }}</el-dropdown-item>
-					<el-dropdown-item :icon="CircleCloseFilled" divided command="logOut">{{ $t('message.user.dropdown5') }}</el-dropdown-item>
+					<el-dropdown-item :icon="Avatar" command="/system/userCenter">{{ $t('message.user.dropdown2')
+					}}</el-dropdown-item>
+					<el-dropdown-item :icon="Loading" command="clearCache">{{ $t('message.user.dropdown3')
+					}}</el-dropdown-item>
+					<el-dropdown-item :icon="Switch" divided command="changeTenant"
+						v-if="auth('sysTenant:changeTenant')">{{ $t('message.layout.changeTenant') }}</el-dropdown-item>
+					<el-dropdown-item :icon="Lock" divided command="lockScreen">{{
+						$t('message.layout.threeIsLockScreen') }}</el-dropdown-item>
+					<el-dropdown-item :icon="CircleCloseFilled" divided command="logOut">{{ $t('message.user.dropdown5')
+					}}</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
@@ -103,8 +113,8 @@ import { Local, Session } from '/@/utils/storage';
 import Push from 'push.js';
 import { signalR } from '/@/views/system/onlineUser/signalR';
 import { Avatar, CircleCloseFilled, Loading, Lock, Switch } from '@element-plus/icons-vue';
-import { clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
-import { SysAuthApi, SysNoticeApi, SysLangApi } from '/@/api-services/api';
+import { accessTokenKey, clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
+import { SysAuthApi, SysNoticeApi, SysUserApi } from '/@/api-services/api';
 import { auth } from '/@/utils/authFunction';
 import { useLangStore } from '/@/stores/useLangStore';
 
@@ -226,7 +236,14 @@ const onComponentSizeChange = (size: string) => {
 	window.location.reload();
 };
 // 语言切换
-const onLanguageChange = (lang: string) => {
+const onLanguageChange = async (lang: string) => {
+	const langItem = state.languages.find((item: { value: string }) => item.value === lang);
+	if (langItem) {
+		await getAPI(SysUserApi).apiSysUserSetLangCodeLangCodePost(langItem.code);
+		const accessToken = Local.get(accessTokenKey);
+		await getAPI(SysAuthApi).apiSysAuthRefreshTokenGet(`${accessToken}`);
+		window.location.reload();
+	}
 	Local.remove('themeConfig');
 	themeConfig.value.globalI18n = lang;
 	Local.set('themeConfig', themeConfig.value);
@@ -240,9 +257,19 @@ const initI18nOrSize = (value: string, attr: string) => {
 };
 // 页面加载时
 onMounted(async () => {
+	state.languages = langStore.languages;
 	if (Local.get('themeConfig')) {
 		initI18nOrSize('globalComponentSize', 'disabledSize');
-		initI18nOrSize('globalI18n', 'disabledI18n');
+		const userLangCode = userInfos.value.langCode;
+		const langItem = state.languages.find((item: { code: string }) => item.code === userLangCode);
+		if (langItem) {
+			const themeConfig = Local.get('themeConfig');
+			themeConfig.globalI18n = langItem.value;
+			Local.set('themeConfig', themeConfig);
+			initI18nOrSize('globalI18n', 'disabledI18n');
+		} else {
+			initI18nOrSize('globalI18n', 'disabledI18n');
+		}
 	}
 	// 手动获取用户桌面通知权限
 	if (Push.Permission.GRANTED) {
@@ -256,7 +283,6 @@ onMounted(async () => {
 			Push.clear();
 		}
 	});
-	state.languages = langStore.languages;
 	// 加载未读的站内信
 	var res = await getAPI(SysNoticeApi).apiSysNoticeUnReadListGet();
 	state.noticeList = res.data.result ?? [];

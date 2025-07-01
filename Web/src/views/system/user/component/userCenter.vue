@@ -177,10 +177,11 @@ import OrgTree from '/@/views/system/user/component/orgTree.vue';
 import CropperDialog from '/@/components/cropper/index.vue';
 import VueGridLayout from 'vue-grid-layout';
 import { sm2 } from 'sm-crypto-v2';
-import { clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
-import { SysFileApi, SysUserApi } from '/@/api-services/api';
+import { accessTokenKey, clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
+import { SysAuthApi, SysFileApi, SysUserApi } from '/@/api-services/api';
 import { ChangePwdInput, SysUser, SysFile } from '/@/api-services/models';
 import { useLangStore } from '/@/stores/useLangStore';
+import { Local } from '/@/utils/storage';
 const langStore = useLangStore();
 const stores = useUserInfo();
 const { userInfos } = storeToRefs(stores);
@@ -284,6 +285,9 @@ const submitUserBase = () => {
 			type: 'warning',
 		}).then(async () => {
 			await getAPI(SysUserApi).apiSysUserBaseInfoPost(state.ruleFormBase);
+			const accessToken = Local.get(accessTokenKey);
+			await getAPI(SysAuthApi).apiSysAuthRefreshTokenGet(`${accessToken}`);
+			window.location.reload();
 		});
 	});
 };

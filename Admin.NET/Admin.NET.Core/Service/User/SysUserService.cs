@@ -209,7 +209,20 @@ public class SysUserService : IDynamicApiController, ITransient
             Input = input
         });
     }
-
+    /// <summary>
+    /// 更新当前用户语言 🔖
+    /// </summary>
+    /// <param name="langCode"></param>
+    /// <returns></returns>
+    [UnitOfWork]
+    [ApiDescriptionSettings(Name = "SetLangCode"), HttpPost]
+    [DisplayName("更新当前用户语言")]
+    public virtual async Task SetLangCode(string langCode)
+    {
+        var user = await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(u => u.Id == _userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D1011).StatusCode(401);
+        user.LangCode = langCode;
+        await _sysUserRep.AsUpdateable(user).UpdateColumns(it => it.LangCode).ExecuteCommandAsync();
+    }
     /// <summary>
     /// 更新角色和扩展机构
     /// </summary>
