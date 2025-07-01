@@ -28,6 +28,7 @@ export * from './apis/sys-enum-api';
 export * from './apis/sys-file-api';
 export * from './apis/sys-job-api';
 export * from './apis/sys-lang-api';
+export * from './apis/sys-lang-text-api';
 export * from './apis/sys-ldap-api';
 export * from './apis/sys-log-diff-api';
 export * from './apis/sys-log-ex-api';

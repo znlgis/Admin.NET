@@ -19,10 +19,12 @@ public class SysMenuService : IDynamicApiController, ITransient
     private readonly SysUserMenuService _sysUserMenuService;
     private readonly SysCacheService _sysCacheService;
     private readonly UserManager _userManager;
+    private readonly SqlSugarRepository<SysLangText> _sysLangTextRep;
 
     public SysMenuService(
         SqlSugarRepository<SysTenantMenu> sysTenantMenuRep,
         SqlSugarRepository<SysMenu> sysMenuRep,
+        SqlSugarRepository<SysLangText> sysLangTextRep,
         SysRoleMenuService sysRoleMenuService,
         SysUserRoleService sysUserRoleService,
         SysUserMenuService sysUserMenuService,
@@ -36,6 +38,7 @@ public class SysMenuService : IDynamicApiController, ITransient
         _sysUserMenuService = sysUserMenuService;
         _sysTenantMenuRep = sysTenantMenuRep;
         _sysCacheService = sysCacheService;
+        _sysLangTextRep = sysLangTextRep;
     }
 
     /// <summary>
@@ -45,18 +48,41 @@ public class SysMenuService : IDynamicApiController, ITransient
     [DisplayName("获取登录菜单树")]
     public async Task<List<MenuOutput>> GetLoginMenuTree()
     {
+        var langCode = _userManager.LangCode;
         var (query, _) = GetSugarQueryableAndTenantId(_userManager.TenantId);
-        if (_userManager.SuperAdmin || _userManager.SysAdmin)
+
+        // 先把菜单表作为主表
+        var menuQuery = query.Where(u => u.Type != MenuTypeEnum.Btn && u.Status == StatusEnum.Enable);
+
+        if (!(_userManager.SuperAdmin || _userManager.SysAdmin))
         {
-            var menuList = await query.Where(u => u.Type != MenuTypeEnum.Btn && u.Status == StatusEnum.Enable)
-                .OrderBy(u => new { u.OrderNo, u.Id })
-                .ToTreeAsync(u => u.Children, u => u.Pid, 0);
-            return menuList.Adapt<List<MenuOutput>>();
+            var menuIdList = await GetMenuIdList();
+            menuQuery = menuQuery.Where(u => menuIdList.Contains(u.Id));
         }
 
-        var menuIdList = await GetMenuIdList();
-        var menuTree = await query.Where(u => u.Type != MenuTypeEnum.Btn && u.Status == StatusEnum.Enable)
-            .OrderBy(u => new { u.OrderNo, u.Id }).ToTreeAsync(u => u.Children, u => u.Pid, 0, menuIdList.Select(d => (object)d).ToArray());
+        // 联表翻译表 LEFT JOIN （翻译表可无则保留原值）
+        var finalQuery = menuQuery
+            .OrderBy(u => new { u.OrderNo, u.Id })
+            .LeftJoin<SysLangText>((menu, lang) =>
+                lang.EntityName == "SysMenu"
+                && lang.FieldName == "Title"
+                && lang.EntityId == menu.Id
+                && lang.LangCode == langCode
+            )
+            .Select((menu, lang) => new
+            {
+                menu,
+                Title = SqlFunc.IIF(SqlFunc.IsNullOrEmpty(lang.Content), menu.Title, lang.Content),
+            }).Mapper(it =>
+            {
+                it.menu.Title = it.Title;
+            }).ToList()
+            .Select(it=>it.menu);
+
+        var menuTree = finalQuery.ToTree(
+            it => it.Children, it => it.Pid, 0
+        );
+
         return menuTree.Adapt<List<MenuOutput>>();
     }
 
@@ -67,21 +93,61 @@ public class SysMenuService : IDynamicApiController, ITransient
     [DisplayName("获取菜单列表")]
     public async Task<List<SysMenu>> GetList([FromQuery] MenuInput input)
     {
+        var langCode = _userManager.LangCode;
         var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new List<long>() : await GetMenuIdList();
         var (query, _) = GetSugarQueryableAndTenantId(input.TenantId);
 
         // 有筛选条件时返回list列表（防止构造不出树）
         if (!string.IsNullOrWhiteSpace(input.Title) || input.Type is > 0)
         {
-            return await query.WhereIF(!string.IsNullOrWhiteSpace(input.Title), u => u.Title.Contains(input.Title))
-                .WhereIF(input.Type is > 0, u => u.Type == input.Type)
-                .WhereIF(menuIdList.Count > 1, u => menuIdList.Contains(u.Id))
-                .OrderBy(u => new { u.OrderNo, u.Id }).Distinct().ToListAsync();
+            var menuQuery = query.WhereIF(!string.IsNullOrWhiteSpace(input.Title), u => u.Title.Contains(input.Title))
+                  .WhereIF(input.Type is > 0, u => u.Type == input.Type)
+                  .WhereIF(menuIdList.Count > 1, u => menuIdList.Contains(u.Id));
+            var finalQuery = menuQuery
+            .OrderBy(u => new { u.OrderNo, u.Id })
+            .LeftJoin<SysLangText>((menu, lang) =>
+                lang.EntityName == "SysMenu"
+                && lang.FieldName == "Title"
+                && lang.EntityId == menu.Id
+                && lang.LangCode == langCode
+            )
+            .Select((menu, lang) => new
+            {
+                menu,
+                Title = SqlFunc.IIF(SqlFunc.IsNullOrEmpty(lang.Content), menu.Title, lang.Content),
+            }).Mapper(it =>
+            {
+                it.menu.Title = it.Title;
+            }).ToList()
+            .Select(it => it.menu);
+            return finalQuery.Distinct().ToList();
         }
 
-        return _userManager.SuperAdmin || _userManager.SysAdmin ?
-            await query.OrderBy(u => new { u.OrderNo, u.Id }).Distinct().ToTreeAsync(u => u.Children, u => u.Pid, 0) :
-            await query.OrderBy(u => new { u.OrderNo, u.Id }).Distinct().ToTreeAsync(u => u.Children, u => u.Pid, 0, menuIdList.Select(d => (object)d).ToArray()); // 角色菜单授权时
+        if (!(_userManager.SuperAdmin || _userManager.SysAdmin))
+        {
+            query = query.Where(u => menuIdList.Contains(u.Id));
+        }
+        var final1Query = query
+            .OrderBy(u => new { u.OrderNo, u.Id })
+            .LeftJoin<SysLangText>((menu, lang) =>
+                lang.EntityName == "SysMenu"
+                && lang.FieldName == "Title"
+                && lang.EntityId == menu.Id
+                && lang.LangCode == langCode
+            )
+            .Select((menu, lang) => new
+            {
+                menu,
+                Title = SqlFunc.IIF(SqlFunc.IsNullOrEmpty(lang.Content), menu.Title, lang.Content),
+            }).Mapper(it =>
+            {
+                it.menu.Title = it.Title;
+            }).ToList()
+            .Select(it => it.menu);
+        var menuTree = final1Query.ToTree(
+            it => it.Children, it => it.Pid, 0
+        );
+        return menuTree.ToList(); // 角色菜单授权时
     }
 
     /// <summary>

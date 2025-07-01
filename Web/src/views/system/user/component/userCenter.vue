@@ -89,6 +89,13 @@
 											</el-radio-group>
 										</el-form-item>
 									</el-col>
+									<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+										<el-form-item label="语言" prop="langCode" :rules="[{ required: true, message: '语言不能为空', trigger: 'blur' }]">
+											<el-select clearable filterable v-model="state.ruleFormBase.langCode" placeholder="请选择语言">
+												<el-option v-for="(item, index) in state.languages" :key="index" :value="item.code" :label="item.label" />
+											</el-select>
+										</el-form-item>
+									</el-col>
 									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 										<el-form-item label="地址">
 											<el-input v-model="state.ruleFormBase.address" placeholder="地址" clearable type="textarea" />
@@ -173,7 +180,8 @@ import { sm2 } from 'sm-crypto-v2';
 import { clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
 import { SysFileApi, SysUserApi } from '/@/api-services/api';
 import { ChangePwdInput, SysUser, SysFile } from '/@/api-services/models';
-
+import { useLangStore } from '/@/stores/useLangStore';
+const langStore = useLangStore();
 const stores = useUserInfo();
 const { userInfos } = storeToRefs(stores);
 const uploadSignRef = ref<UploadInstance>();
@@ -198,12 +206,17 @@ const state = reactive({
 	signFileList: [] as any,
 	passwordNew2: '',
 	cropperTitle: '',
+	languages: [] as any[], // 语言数据
 });
 
 onMounted(async () => {
 	state.loading = true;
 	var res = await getAPI(SysUserApi).apiSysUserBaseInfoGet();
 	state.ruleFormBase = res.data.result ?? { account: '' };
+	if (langStore.languages.length === 0) {
+        await langStore.loadLanguages();
+    }
+	state.languages = langStore.languages;
 	state.loading = false;
 });
 

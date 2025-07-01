@@ -95,6 +95,7 @@ public partial class SysLangService : IDynamicApiController, ITransient
     /// 获取下拉列表数据 🔖
     /// </summary>
     /// <returns></returns>
+    [AllowAnonymous]
     [DisplayName("获取下拉列表数据")]
     [ApiDescriptionSettings(Name = "DropdownData"), HttpPost]
     public async Task<dynamic> DropdownData()
@@ -103,6 +104,7 @@ public partial class SysLangService : IDynamicApiController, ITransient
             .Where(m => m.Active == true)
             .Select(u => new
             {
+                Code = u.Code,
                 Value = u.UrlCode,
                 Label = $"{u.Name}"
             }).ToListAsync();

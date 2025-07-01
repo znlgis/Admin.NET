@@ -106,7 +106,9 @@ import { Avatar, CircleCloseFilled, Loading, Lock, Switch } from '@element-plus/
 import { clearAccessAfterReload, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi, SysNoticeApi, SysLangApi } from '/@/api-services/api';
 import { auth } from '/@/utils/authFunction';
+import { useLangStore } from '/@/stores/useLangStore';
 
+const langStore = useLangStore();
 // 引入组件
 const UserNews = defineAsyncComponent(() => import('/@/layout/navBars/topBar/userNews.vue'));
 const Search = defineAsyncComponent(() => import('/@/layout/navBars/topBar/search.vue'));
@@ -254,8 +256,7 @@ onMounted(async () => {
 			Push.clear();
 		}
 	});
-	var langRes = await getAPI(SysLangApi).apiSysLangDropdownDataPost();
-	state.languages = langRes.data.result ?? [];
+	state.languages = langStore.languages;
 	// 加载未读的站内信
 	var res = await getAPI(SysNoticeApi).apiSysNoticeUnReadListGet();
 	state.noticeList = res.data.result ?? [];

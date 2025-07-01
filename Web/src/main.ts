@@ -22,6 +22,7 @@ import 'vform3-builds/dist/designer.style.css';
 // 关闭自动打印
 import { disAutoConnect } from 'vue-plugin-hiprint';
 import sysDict from "/src/components/sysDict/sysDict.vue";
+import multiLangInput from "/src/components/multiLangInput/index.vue";
 disAutoConnect();
 
 const app = createApp(App);
@@ -31,5 +32,7 @@ other.elSvg(app);
 
 // 注册全局字典组件
 app.component('GSysDict', sysDict);
+// 注册全局多语言组件
+app.component('GMultiLangInput', multiLangInput);
 
 app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');

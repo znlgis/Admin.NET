@@ -23,6 +23,7 @@ import setIntroduction from '/@/utils/setIconfont';
 // import Watermark from '/@/utils/watermark';
 import { SysConfigApi } from '/@/api-services';
 import { getAPI } from '/@/utils/axios-utils';
+import { useLangStore } from '/@/stores/useLangStore';
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'));
@@ -168,7 +169,8 @@ const updateFavicon = (url: string): void => {
 
 // 加载系统信息
 loadSysInfo();
-
+const langStore = useLangStore();
+langStore.loadLanguages();
 // 阻止火狐浏览器在拖动时打开新窗口
 document.body.ondrop = function (event) {
 	event.preventDefault();
