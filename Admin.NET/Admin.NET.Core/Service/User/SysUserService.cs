@@ -276,7 +276,7 @@ public class SysUserService : IDynamicApiController, ITransient
     [DisplayName("查看用户基本信息")]
     public virtual async Task<SysUser> GetBaseInfo()
     {
-        return await _sysUserRep.GetByIdAsync(_userManager.UserId);
+        return await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(c => c.Id == _userManager.UserId);
     }
 
     /// <summary>
@@ -367,7 +367,7 @@ public class SysUserService : IDynamicApiController, ITransient
         input.PasswordOld = CryptogramUtil.SM2Decrypt(input.PasswordOld);
         input.PasswordNew = CryptogramUtil.SM2Decrypt(input.PasswordNew);
 
-        var user = await _sysUserRep.GetByIdAsync(_userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        var user = await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(c => c.Id == _userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D0009);
         if (CryptogramUtil.CryptoType == CryptogramEnum.MD5.ToString())
         {
             if (user.Password != MD5Encryption.Encrypt(input.PasswordOld))
