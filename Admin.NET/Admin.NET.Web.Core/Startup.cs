@@ -331,19 +331,21 @@ public class Startup : AppStartup
         app.UseScheduleUI(options =>
         {
             options.RequestPath = "/schedule"; // 必须以 / 开头且不以 / 结尾
-            options.DisableOnProduction = true; // 是否在生产环境中关闭
+            options.DisableOnProduction = false; // 是否在生产环境中关闭
             options.DisplayEmptyTriggerJobs = true; // 是否显示空作业触发器的作业
             options.DisplayHead = false; // 是否显示页头
             options.DefaultExpandAllJobs = false; // 是否默认展开所有作业
             options.EnableDirectoryBrowsing = false; // 是否启用目录浏览
             options.Title = "定时任务看板"; // 自定义看板标题
 
-            options.LoginHandle = async (username, password, httpContext) =>
+            options.LoginConfig.OnLoging = async (username, password, httpContext) =>
             {
                 var res = await httpContext.RequestServices.GetRequiredService<SysAuthService>().SwaggerSubmitUrl(new SpecificationAuth { UserName = username, Password = password });
                 return res == 200;
             };
-            options.LoginSessionKey = "schedule_session_key"; // 登录客户端存储的 Session 键
+            options.LoginConfig.DefaultUsername = "";
+            options.LoginConfig.DefaultPassword = "";
+            options.LoginConfig.SessionKey = "schedule_session_key"; // 登录客户端存储的 Session 键
         });
 
         // 配置Swagger-Knife4UI（路由前缀一致代表独立，不同则代表共存）
