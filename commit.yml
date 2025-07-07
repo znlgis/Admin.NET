@@ -3,21 +3,27 @@ branches: {
   }
 fileChange:
   /Web:
-    newFile: !uuid '779e765f7611d604f28656cbab78793af71a8266'
-    oldFile: !uuid 'd218109576658c26e8b48e4d21e5a68309ed593b'
+    newFile: !uuid '2e6835f94d1861de886bc4e68ca18e0f618fd4b4'
+    oldFile: !uuid '779e765f7611d604f28656cbab78793af71a8266'
   /Web/src:
-    newFile: !uuid 'e375eee16e2d0587ba6934fd7f6d12fe01d7e721'
-    oldFile: !uuid '54c7d8d4bc5dace24228549a64e7f8b2deed4d55'
-  /Web/src/api-services:
-    newFile: !uuid 'bfdeaf144bd12d2ea1451aaeb27126fd05a93c44'
-    oldFile: !uuid '474f435f5560910aa7f40282b841fe3c63e6f626'
-  /Web/src/api-services/apis:
-    newFile: !uuid 'cf57f4a4a2e371208226d18979d18915d688230c'
-    oldFile: !uuid '9b3b3f59d5b8f054d0465820c8afec83fc76cd10'
-  /Web/src/api-services/apis/sys-user-api.ts:
-    newFile: !uuid '67ef097a8e0b22c7acc93da775b3f69f26ea6f10'
-    oldFile: !uuid 'a9903c30314e498782238026f9aae102d199b300'
-gitCommitId: !uuid '4075865d357143501b55bf9f4872138914efac79'
+    newFile: !uuid '6e95934ccc294598407bf000aeef0f574045cda4'
+    oldFile: !uuid 'e375eee16e2d0587ba6934fd7f6d12fe01d7e721'
+  /Web/src/views:
+    newFile: !uuid '8703e9ede6e2ec53b540afdd782c5b7e3c64d4c4'
+    oldFile: !uuid 'c384dd8ef1b058f5ed076a73ef265c14243286db'
+  /Web/src/views/system:
+    newFile: !uuid '80c266748e23909d29dc57085674da28e5c40144'
+    oldFile: !uuid 'f0c06dda2a78338f5909681b65928aa5b976bc2c'
+  /Web/src/views/system/user:
+    newFile: !uuid 'aa2c03f30dcb2a2646e3ce429a156e3f1eaccb0e'
+    oldFile: !uuid '541d3e94736b84a30bd6775f76d712c509795f67'
+  /Web/src/views/system/user/component:
+    newFile: !uuid '5933547edc4c7711dacd75a4647ba726e53bf66e'
+    oldFile: !uuid '9e29d0d27fa574aa16b73b34a2c6d86f4edac263'
+  /Web/src/views/system/user/component/orgTree.vue:
+    newFile: !uuid 'a5b104ab2e5d73f68ba0a6935b2b4573ed6a911b'
+    oldFile: !uuid 'd6c7b529c72ce9b89f2fe157bc025b4129e23f6a'
+gitCommitId: !uuid '03f4b559f9a7eefba46501d4dd1b4510692d5f76'
 renames: {
   }
-revisionId: 2937
+revisionId: 2938
