@@ -278,7 +278,15 @@ public class SysUserService : IDynamicApiController, ITransient
     {
         return await _sysUserRep.GetByIdAsync(_userManager.UserId);
     }
-
+    /// <summary>
+    /// 查询用户组织机构信息 🔖
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("查询用户组织机构信息")] 
+    public virtual async Task<List<SysOrg>> GetOrgInfo()
+    {
+        return await _sysOrgService.GetList(new OrgInput { Id = 0 });
+    }
     /// <summary>
     /// 更新用户基本信息 🔖
     /// </summary>
