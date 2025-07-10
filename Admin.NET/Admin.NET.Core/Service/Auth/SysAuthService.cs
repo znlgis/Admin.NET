@@ -354,7 +354,7 @@ public class SysAuthService : IDynamicApiController, ITransient
 
         // 解析Token
         var (isValid, tokenData, validationResult) = JWTEncryption.Validate(accessToken);
-        if (isValid) throw Oops.Oh(ErrorCodeEnum.D1016);
+        if (!isValid) throw Oops.Oh(ErrorCodeEnum.D1016);
 
         // 获取用户Id
         var user = await _sysUserRep.AsQueryable().ClearFilter().FirstAsync(u => u.Id == _userManager.UserId) ?? throw Oops.Oh(ErrorCodeEnum.D1011).StatusCode(401);
