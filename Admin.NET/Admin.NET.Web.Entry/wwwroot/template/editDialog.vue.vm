@@ -6,7 +6,7 @@ import type { FormRules } from "element-plus";
 @:import { formatDate } from '/@@/utils/formatTime';
 }
 @if(Model.UploadFieldList.Count > 0) {
-@:import { Plus } from "@@element-plus/icons-vue";
+@:import { Plus,Document } from "@@element-plus/icons-vue";
 @:import { UploadRequestOptions } from "element-plus";
 }
 @if(Model.HasConstField) {
@@ -143,7 +143,22 @@ defineExpose({ openDialog });
 									@:style="width: 100%; height: 100%; object-fit: contain"/>
 									@:<el-icon v-else><Plus /></el-icon>
 							@:</el-upload>
-						} else if (column.EffectType == "InputNumber") {
+						}else if (column.EffectType == "Upload_SingleFile") {
+							@:<el-upload 
+							  @::show-file-list="false"
+							  @::http-request="upload@(column.PropertyName)Handle">
+								@:<template #trigger="">
+									@:<el-button class="mr10" type="primary" icon="ele-MostlyCloudy">选择文件</el-button> 
+									@:</template>
+								@:</el-upload>
+							@:<a
+							  @::href="state.ruleForm.@(column.LowerPropertyName)" target="_blank"
+							  @:v-if="state.ruleForm.@(column.LowerPropertyName)">
+								@:<el-icon class="mr5"><Document /></el-icon>
+								@:<span>{{ state.ruleForm.@(column.LowerPropertyName).split('/').pop() }}</span>
+								@:</a>
+							}
+                             else if (column.EffectType == "InputNumber") {
 							@:<el-input-number v-model="state.ruleForm.@(column.LowerPropertyName)" placeholder="请输入@(column.ColumnComment)" clearable />
 						} else if (column.EffectType == "Switch") {
 							@:<el-switch v-model="state.ruleForm.@(column.LowerPropertyName)" active-text="是" inactive-text="否" />
