@@ -1,7 +1,7 @@
 import { h } from 'vue';
 import { BasicColumn, FormSchema } from '/@@/components/Table';
 @foreach (var column in Model.TableField){
-if(column.EffectType == "Upload"){
+if(column.EffectType == "Upload" || column.EffectType == "Upload_SingleFile"){
 @:import { uploadFile } from '/@@/api/sys/admin';
 }else if(column.EffectType == "ForeignKey"){
 @:import { get@(column.FkEntityName)Dropdown } from '/@@/api/main/@(Model.ClassName)';
@@ -22,7 +22,7 @@ export const columns: BasicColumn[] = [
     @:title: '@column.ColumnComment',
     @:dataIndex: '@column.LowerPropertyName',    
     @:sorter: true,
-if(column.EffectType == "Upload"){
+if(column.EffectType == "Upload" || column.EffectType == "Upload_SingleFile"){
     @:slots: { customRender: '@(column.LowerPropertyName)' },
 }else if(column.EffectType == "ForeignKey"){
     @:customRender: ({ record }) => {
@@ -144,7 +144,7 @@ if(column.EffectType == "ForeignKey"){
     }else{
     @:required: false,
     }
-    if(column.EffectType == "Upload"){
+    if(column.EffectType == "Upload" || column.EffectType == "Upload_SingleFile"){
     @:componentProps: {
       @:maxNumber: 1,
       @:api: uploadFile,
