@@ -570,7 +570,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             });
         }
 
-        foreach (var column in tableFieldList.Where(u => u.EffectType == "Upload"))
+        foreach (var column in tableFieldList.Where(u => u.EffectType == "Upload" || u.EffectType == "Upload_SingleFile"))
         {
             newButtons.Add(new SysMenu
             {

@@ -32,7 +32,7 @@
             ...data.record,
           });
 @foreach (var column in Model.TableField){
-if(column.EffectType == "Upload"){
+if(column.EffectType == "Upload"  || column.EffectType == "Upload_SingleFile"){
           @:if (data.record.@(column.LowerPropertyName)) {
             @:setFieldsValue({
               @:@(column.LowerPropertyName): [data.record.@(column.LowerPropertyName)Attachment],
@@ -47,7 +47,7 @@ if(column.EffectType == "Upload"){
         try {
           var values = await validate();
 @foreach (var column in Model.TableField){
-if(column.EffectType == "Upload"){
+if(column.EffectType == "Upload"  || column.EffectType == "Upload_SingleFile"){
           @:if (values.@(column.LowerPropertyName)) {
             @:values = { ...values, @(column.LowerPropertyName): values.@(column.LowerPropertyName)[0].id };
           @:}
