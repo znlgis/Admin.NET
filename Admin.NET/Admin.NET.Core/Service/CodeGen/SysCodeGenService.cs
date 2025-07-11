@@ -452,7 +452,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             TableField = tableFieldList,
             QueryWhetherList = tableFieldList.Where(u => u.WhetherQuery == "Y").ToList(),
             ImportFieldList = tableFieldList.Where(u => u.WhetherImport == "Y").ToList(),
-            UploadFieldList = tableFieldList.Where(u => u.EffectType == "Upload").ToList(),
+            UploadFieldList = tableFieldList.Where(u => u.EffectType == "Upload"|| u.EffectType == "Upload_SingleFile").ToList(),
             PrimaryKeyFieldList = tableFieldList.Where(c => c.ColumnKey == "True").ToList(),
             AddUpdateFieldList = tableFieldList.Where(u => u.WhetherAddUpdate == "Y").ToList(),
             ApiTreeFieldList = tableFieldList.Where(u => u.EffectType == "ApiTreeSelector").ToList(),
