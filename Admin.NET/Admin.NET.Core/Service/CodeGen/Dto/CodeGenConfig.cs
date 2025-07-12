@@ -65,6 +65,7 @@ public class CodeGenConfig
     /// 字段数据默认值
     /// </summary>
     public string DefaultValue { get; set; }
+
     /// <summary>
     /// 可空.NET类型
     /// </summary>

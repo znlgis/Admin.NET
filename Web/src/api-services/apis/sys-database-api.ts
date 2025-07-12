@@ -28,6 +28,7 @@ import { DbColumnInput } from '../models';
 import { DbTableInput } from '../models';
 import { DeleteDbColumnInput } from '../models';
 import { DeleteDbTableInput } from '../models';
+import { MoveDbColumnInput } from '../models';
 import { UpdateDbColumnInput } from '../models';
 import { UpdateDbTableInput } from '../models';
 /**
@@ -516,6 +517,54 @@ export const SysDatabaseApiAxiosParamCreator = function (configuration?: Configu
         },
         /**
          * 
+         * @summary 移动列位置 🔖
+         * @param {MoveDbColumnInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysDatabaseMoveColumnPost: async (body?: MoveDbColumnInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysDatabase/moveColumn`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
          * @summary 获取表列表 🔖
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
@@ -852,6 +901,20 @@ export const SysDatabaseApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary 移动列位置 🔖
+         * @param {MoveDbColumnInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysDatabaseMoveColumnPost(body?: MoveDbColumnInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<void>>> {
+            const localVarAxiosArgs = await SysDatabaseApiAxiosParamCreator(configuration).apiSysDatabaseMoveColumnPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 获取表列表 🔖
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
@@ -1015,6 +1078,16 @@ export const SysDatabaseApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
+         * @summary 移动列位置 🔖
+         * @param {MoveDbColumnInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysDatabaseMoveColumnPost(body?: MoveDbColumnInput, options?: AxiosRequestConfig): Promise<AxiosResponse<void>> {
+            return SysDatabaseApiFp(configuration).apiSysDatabaseMoveColumnPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 获取表列表 🔖
          * @param {string} configId ConfigId
          * @param {*} [options] Override http request option.
@@ -1170,6 +1243,17 @@ export class SysDatabaseApi extends BaseAPI {
      */
     public async apiSysDatabaseListGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListVisualDb>> {
         return SysDatabaseApiFp(this.configuration).apiSysDatabaseListGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 移动列位置 🔖
+     * @param {MoveDbColumnInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysDatabaseApi
+     */
+    public async apiSysDatabaseMoveColumnPost(body?: MoveDbColumnInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<void>> {
+        return SysDatabaseApiFp(this.configuration).apiSysDatabaseMoveColumnPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

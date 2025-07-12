@@ -252,6 +252,7 @@ export * from './method-impl-attributes';
 export * from './method-info';
 export * from './module';
 export * from './module-handle';
+export * from './move-db-column-input';
 export * from './notice-input';
 export * from './notice-status-enum';
 export * from './notice-type-enum';

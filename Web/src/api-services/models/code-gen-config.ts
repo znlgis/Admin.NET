@@ -101,6 +101,14 @@ export interface CodeGenConfig {
     dataType?: string | null;
 
     /**
+     * 字段数据默认值
+     *
+     * @type {string}
+     * @memberof CodeGenConfig
+     */
+    defaultValue?: string | null;
+
+    /**
      * 可空.NET类型
      *
      * @type {string}

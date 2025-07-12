@@ -19,9 +19,9 @@
     <PackageReference Include="AspectCore.Extensions.Reflection" Version="2.4.0" />
     <PackageReference Include="AspNetCoreRateLimit" Version="5.0.0" />
     <PackageReference Include="Elastic.Clients.Elasticsearch" Version="9.0.7" />
-    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.7.93" />
-    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.7.93" />
-    <PackageReference Include="Furion.Pure" Version="4.9.7.93" />
+    <PackageReference Include="Furion.Extras.Authentication.JwtBearer" Version="4.9.7.96" />
+    <PackageReference Include="Furion.Extras.ObjectMapper.Mapster" Version="4.9.7.96" />
+    <PackageReference Include="Furion.Pure" Version="4.9.7.96" />
 	<PackageReference Include="Hardware.Info" Version="101.0.1.1" />
     <PackageReference Include="Hashids.net" Version="1.7.0" />
     <PackageReference Include="IPTools.China" Version="1.6.0" />
@@ -66,11 +66,11 @@
     <PackageReference Include="AspNet.Security.OAuth.Gitee" Version="9.4.0" />
     <PackageReference Include="AspNet.Security.OAuth.Weixin" Version="9.4.0" />
     <PackageReference Include="Lazy.Captcha.Core" Version="2.1.0" />
-    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="9.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="9.0.6" />
-    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="9.0.6" />
+    <PackageReference Include="Microsoft.AspNetCore.DataProtection.StackExchangeRedis" Version="9.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.Protocols.NewtonsoftJson" Version="9.0.7" />
+    <PackageReference Include="Microsoft.AspNetCore.SignalR.StackExchangeRedis" Version="9.0.7" />
 	<PackageReference Include="Microsoft.PowerShell.SDK" Version="7.5.2" />
-	<PackageReference Include="XiHan.Framework.Utils" Version="0.11.3" />
+	<PackageReference Include="XiHan.Framework.Utils" Version="0.11.5" />
   </ItemGroup>
 
 </Project>

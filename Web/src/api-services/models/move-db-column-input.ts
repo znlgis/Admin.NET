@@ -16,73 +16,39 @@
  * 
  *
  * @export
- * @interface DbColumnInput
+ * @interface MoveDbColumnInput
  */
-export interface DbColumnInput {
+export interface MoveDbColumnInput {
 
     /**
+     * 数据库配置ID
+     *
      * @type {string}
-     * @memberof DbColumnInput
+     * @memberof MoveDbColumnInput
      */
     configId?: string | null;
 
     /**
+     * 目标表名
+     *
      * @type {string}
-     * @memberof DbColumnInput
+     * @memberof MoveDbColumnInput
      */
     tableName?: string | null;
 
     /**
+     * 要移动的列名
+     *
      * @type {string}
-     * @memberof DbColumnInput
+     * @memberof MoveDbColumnInput
      */
-    dbColumnName?: string | null;
+    columnName?: string | null;
 
     /**
+     * 移动到该列后方（为空时移动到首列）
+     *
      * @type {string}
-     * @memberof DbColumnInput
+     * @memberof MoveDbColumnInput
      */
-    dataType?: string | null;
-
-    /**
-     * @type {number}
-     * @memberof DbColumnInput
-     */
-    length?: number;
-
-    /**
-     * @type {string}
-     * @memberof DbColumnInput
-     */
-    columnDescription?: string | null;
-
-    /**
-     * @type {number}
-     * @memberof DbColumnInput
-     */
-    isNullable?: number;
-
-    /**
-     * @type {number}
-     * @memberof DbColumnInput
-     */
-    isIdentity?: number;
-
-    /**
-     * @type {number}
-     * @memberof DbColumnInput
-     */
-    isPrimarykey?: number;
-
-    /**
-     * @type {number}
-     * @memberof DbColumnInput
-     */
-    decimalDigits?: number;
-
-    /**
-     * @type {string}
-     * @memberof DbColumnInput
-     */
-    defaultValue?: string | null;
+    afterColumnName?: string | null;
 }

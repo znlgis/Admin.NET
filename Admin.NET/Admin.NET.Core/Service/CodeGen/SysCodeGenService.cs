@@ -115,7 +115,6 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
             //}
             _db.AsTenant().CommitTran();
-
         }
         catch (Exception ex)
         {
@@ -452,12 +451,12 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             TableField = tableFieldList,
             QueryWhetherList = tableFieldList.Where(u => u.WhetherQuery == "Y").ToList(),
             ImportFieldList = tableFieldList.Where(u => u.WhetherImport == "Y").ToList(),
-            UploadFieldList = tableFieldList.Where(u => u.EffectType == "Upload"|| u.EffectType == "Upload_SingleFile").ToList(),
+            UploadFieldList = tableFieldList.Where(u => u.EffectType == "Upload" || u.EffectType == "Upload_SingleFile").ToList(),
             PrimaryKeyFieldList = tableFieldList.Where(c => c.ColumnKey == "True").ToList(),
             AddUpdateFieldList = tableFieldList.Where(u => u.WhetherAddUpdate == "Y").ToList(),
             ApiTreeFieldList = tableFieldList.Where(u => u.EffectType == "ApiTreeSelector").ToList(),
             DropdownFieldList = tableFieldList.Where(u => u.EffectType is "ForeignKey" or "ApiTreeSelector").ToList(),
-            DefaultValueList = tableFieldList.Where(u => u.DefaultValue != null && u.DefaultValue.Length>0).ToList(),
+            DefaultValueList = tableFieldList.Where(u => u.DefaultValue != null && u.DefaultValue.Length > 0).ToList(),
 
             HasJoinTable = joinTableList.Count > 0,
             HasDictField = tableFieldList.Any(u => u.EffectType == "DictSelector"),
@@ -490,7 +489,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         }
         return (tableFieldList, result);
     }
-    
+
     /// <summary>
     /// 添加或更新菜单
     /// </summary>
