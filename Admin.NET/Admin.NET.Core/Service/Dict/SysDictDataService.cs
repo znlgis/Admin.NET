@@ -16,14 +16,17 @@ public class SysDictDataService : IDynamicApiController, ITransient
     public readonly ISugarQueryable<SysDictData> VSysDictData;
     private readonly SysCacheService _sysCacheService;
     private readonly UserManager _userManager;
+    private readonly SysLangTextCacheService _sysLangTextCacheService;
 
     public SysDictDataService(SqlSugarRepository<SysDictData> sysDictDataRep,
         SysCacheService sysCacheService,
-        UserManager userManager)
+        UserManager userManager,
+        SysLangTextCacheService sysLangTextCacheService)
     {
         _userManager = userManager;
         _sysDictDataRep = sysDictDataRep;
         _sysCacheService = sysCacheService;
+        _sysLangTextCacheService = sysLangTextCacheService;
         VSysDictData = _sysDictDataRep.Context.UnionAll(
             _sysDictDataRep.AsQueryable(),
             _sysDictDataRep.Change<SysDictDataTenant>().AsQueryable().WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId).Select<SysDictData>());
@@ -37,12 +40,29 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("获取字典值分页列表")]
     public async Task<SqlSugarPagedList<SysDictData>> Page(PageDictDataInput input)
     {
-        return await VSysDictData
+        var langCode = _userManager.LangCode;
+        var baseQuery = VSysDictData
             .Where(u => u.DictTypeId == input.DictTypeId)
             .WhereIF(!string.IsNullOrEmpty(input.Code?.Trim()), u => u.Code.Contains(input.Code))
             .WhereIF(!string.IsNullOrEmpty(input.Label?.Trim()), u => u.Label.Contains(input.Label))
-            .OrderBy(u => new { u.OrderNo, u.Code })
-            .ToPagedListAsync(input.Page, input.PageSize);
+            .OrderBy(u => new { u.OrderNo, u.Code });
+        var pageList = await baseQuery.ToPagedListAsync(input.Page, input.PageSize);
+        var list = pageList.Items;
+        var ids = list.Select(d => d.Id).Distinct().ToList();
+        var translations = await _sysLangTextCacheService.GetTranslations(
+                               "SysDictData",
+                               "Label",
+                               ids,
+                               langCode);
+        foreach (var item in list)
+        {
+            if (translations.TryGetValue(item.Id, out var translatedLabel) && !string.IsNullOrEmpty(translatedLabel))
+            {
+                item.Label = translatedLabel;
+            }
+        }
+        pageList.Items = list;
+        return pageList;
     }
 
     /// <summary>
@@ -52,6 +72,21 @@ public class SysDictDataService : IDynamicApiController, ITransient
     [DisplayName("获取字典值列表")]
     public async Task<List<SysDictData>> GetList([FromQuery] GetDataDictDataInput input)
     {
+        var langCode = _userManager.LangCode;
+        var list =await GetDictDataListByDictTypeId(input.DictTypeId);
+        var ids = list.Select(d => d.Id).Distinct().ToList();
+        var translations = await _sysLangTextCacheService.GetTranslations(
+                               "SysDictData",
+                               "Label",
+                               ids,
+                               langCode);
+        foreach (var item in list)
+        {
+            if (translations.TryGetValue(item.Id, out var translatedLabel) && !string.IsNullOrEmpty(translatedLabel))
+            {
+                item.Label = translatedLabel;
+            }
+        }
         return await GetDictDataListByDictTypeId(input.DictTypeId);
     }
 

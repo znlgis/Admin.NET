@@ -4,6 +4,8 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Aop.Api.Domain;
+
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -16,16 +18,19 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     private readonly SysDictDataService _sysDictDataService;
     private readonly SysCacheService _sysCacheService;
     private readonly UserManager _userManager;
+    private readonly SysLangTextCacheService _sysLangTextCacheService;
 
     public SysDictTypeService(SqlSugarRepository<SysDictType> sysDictTypeRep,
         SysDictDataService sysDictDataService,
         SysCacheService sysCacheService,
-        UserManager userManager)
+        UserManager userManager,
+        SysLangTextCacheService sysLangTextCacheService)
     {
         _sysDictTypeRep = sysDictTypeRep;
         _sysDictDataService = sysDictDataService;
         _sysCacheService = sysCacheService;
         _userManager = userManager;
+        _sysLangTextCacheService = sysLangTextCacheService;
     }
 
     /// <summary>
@@ -35,12 +40,29 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("获取字典类型分页列表")]
     public async Task<SqlSugarPagedList<SysDictType>> Page(PageDictTypeInput input)
     {
-        var query = _sysDictTypeRep.AsQueryable()
+        var langCode = _userManager.LangCode;
+        var baseQuery = _sysDictTypeRep.AsQueryable()
             .WhereIF(!_userManager.SuperAdmin, u => u.IsTenant == YesNoEnum.Y)
             .WhereIF(!string.IsNullOrEmpty(input.Code?.Trim()), u => u.Code.Contains(input.Code))
             .WhereIF(!string.IsNullOrEmpty(input.Name?.Trim()), u => u.Name.Contains(input.Name));
         //.OrderBy(u => new { u.OrderNo, u.Code })
-        return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
+        var pageList = await baseQuery.ToPagedListAsync(input.Page, input.PageSize);
+        var list = pageList.Items;
+        var ids = list.Select(d => d.Id).Distinct().ToList();
+        var translations = await _sysLangTextCacheService.GetTranslations(
+                               "SysDictType",
+                               "Name",
+                               ids,
+                               langCode);
+        foreach (var item in list)
+        {
+            if (translations.TryGetValue(item.Id, out var translatedName) && !string.IsNullOrEmpty(translatedName))
+            {
+                item.Name = translatedName;
+            }
+        }
+        pageList.Items = list;
+        return pageList;
     }
 
     /// <summary>
@@ -50,7 +72,22 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("获取字典类型列表")]
     public async Task<List<SysDictType>> GetList()
     {
-        return await _sysDictTypeRep.AsQueryable().OrderBy(u => new { u.OrderNo, u.Code }).ToListAsync();
+        var langCode = _userManager.LangCode;
+        var list = await _sysDictTypeRep.AsQueryable().OrderBy(u => new { u.OrderNo, u.Code }).ToListAsync();
+        var ids = list.Select(d => d.Id).Distinct().ToList();
+        var translations = await _sysLangTextCacheService.GetTranslations(
+                               "SysDictType",
+                               "Name",
+                               ids,
+                               langCode);
+        foreach (var item in list)
+        {
+            if (translations.TryGetValue(item.Id, out var translatedName) && !string.IsNullOrEmpty(translatedName))
+            {
+                item.Name = translatedName;
+            }
+        }
+        return list;
     }
 
     /// <summary>
@@ -62,7 +99,22 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     public async Task<List<SysDictData>> GetDataList([FromQuery] GetDataDictTypeInput input)
     {
         var dictType = await _sysDictTypeRep.GetFirstAsync(u => u.Code == input.Code) ?? throw Oops.Oh(ErrorCodeEnum.D3000);
-        return await _sysDictDataService.GetDictDataListByDictTypeId(dictType.Id);
+        var langCode = _userManager.LangCode;
+        var list = await _sysDictDataService.GetDictDataListByDictTypeId(dictType.Id);
+        var ids = list.Select(d => d.Id).Distinct().ToList();
+        var translations = await _sysLangTextCacheService.GetTranslations(
+                               "SysDictType",
+                               "Name",
+                               ids,
+                               langCode);
+        foreach (var item in list)
+        {
+            if (translations.TryGetValue(item.Id, out var translatedName) && !string.IsNullOrEmpty(translatedName))
+            {
+                item.Name = translatedName;
+            }
+        }
+        return list;
     }
 
     /// <summary>
@@ -161,23 +213,50 @@ public class SysDictTypeService : IDynamicApiController, ITransient
     [DisplayName("获取所有字典集合")]
     public async Task<dynamic> GetAllDictList()
     {
+        var langCode = _userManager.LangCode;
         var ds = await _sysDictTypeRep.AsQueryable()
             .InnerJoin(_sysDictDataService.VSysDictData, (u, w) => u.Id == w.DictTypeId)
-            .Select((u, w) => new
+            .Select((u, w) => new DictDataOutput
             {
+                DictDataId = w.Id, // 给翻译用
                 TypeCode = u.Code,
-                w.Label,
-                w.Value,
-                w.Code,
-                w.TagType,
-                w.StyleSetting,
-                w.ClassSetting,
-                w.ExtData,
-                w.Remark,
-                w.OrderNo,
+                Label = w.Label,
+                Value = w.Value,
+                Code = w.Code,
+                TagType = w.TagType,
+                StyleSetting = w.StyleSetting,
+                ClassSetting = w.ClassSetting,
+                ExtData = w.ExtData,
+                Remark = w.Remark,
+                OrderNo = w.OrderNo,
                 Status = w.Status == StatusEnum.Enable && u.Status == StatusEnum.Enable ? StatusEnum.Enable : StatusEnum.Disable
             })
             .ToListAsync();
-        return ds.OrderBy(u => u.OrderNo).GroupBy(u => u.TypeCode).ToDictionary(u => u.Key, u => u);
+        var ids = ds.Select(x => x.DictDataId).Distinct().ToList();
+
+        Dictionary<long, string> translations = new();
+        if (ids.Any())
+        {
+            translations = await _sysLangTextCacheService.GetTranslations(
+                "SysDictData",
+                "Label",
+                ids,
+                langCode
+            );
+        }
+        foreach (var item in ds)
+        {
+            if (translations.TryGetValue(item.DictDataId, out var translated) && !string.IsNullOrEmpty(translated))
+            {
+                item.Label = translated;
+            }
+        }
+
+        var result = ds
+            .OrderBy(u => u.OrderNo)
+            .GroupBy(u => u.TypeCode)
+            .ToDictionary(u => u.Key, u => u.ToList());
+
+        return result;
     }
 }
