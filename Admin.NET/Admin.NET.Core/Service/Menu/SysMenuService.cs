@@ -19,17 +19,16 @@ public class SysMenuService : IDynamicApiController, ITransient
     private readonly SysUserMenuService _sysUserMenuService;
     private readonly SysCacheService _sysCacheService;
     private readonly UserManager _userManager;
-    private readonly SqlSugarRepository<SysLangText> _sysLangTextRep;
-
+    private readonly SysLangTextCacheService _sysLangTextCacheService;
     public SysMenuService(
         SqlSugarRepository<SysTenantMenu> sysTenantMenuRep,
         SqlSugarRepository<SysMenu> sysMenuRep,
-        SqlSugarRepository<SysLangText> sysLangTextRep,
         SysRoleMenuService sysRoleMenuService,
         SysUserRoleService sysUserRoleService,
         SysUserMenuService sysUserMenuService,
         SysCacheService sysCacheService,
-        UserManager userManager)
+        UserManager userManager,
+        SysLangTextCacheService sysLangTextCacheService)
     {
         _userManager = userManager;
         _sysMenuRep = sysMenuRep;
@@ -38,7 +37,7 @@ public class SysMenuService : IDynamicApiController, ITransient
         _sysUserMenuService = sysUserMenuService;
         _sysTenantMenuRep = sysTenantMenuRep;
         _sysCacheService = sysCacheService;
-        _sysLangTextRep = sysLangTextRep;
+        _sysLangTextCacheService = sysLangTextCacheService;
     }
 
     /// <summary>
@@ -51,7 +50,7 @@ public class SysMenuService : IDynamicApiController, ITransient
         var langCode = _userManager.LangCode;
         var (query, _) = GetSugarQueryableAndTenantId(_userManager.TenantId);
 
-        // 先把菜单表作为主表
+        // 查询菜单主表（过滤非按钮和禁用）
         var menuQuery = query.Where(u => u.Type != MenuTypeEnum.Btn && u.Status == StatusEnum.Enable);
 
         if (!(_userManager.SuperAdmin || _userManager.SysAdmin))
@@ -60,30 +59,32 @@ public class SysMenuService : IDynamicApiController, ITransient
             menuQuery = menuQuery.Where(u => menuIdList.Contains(u.Id));
         }
 
-        // 联表翻译表 LEFT JOIN （翻译表可无则保留原值）
-        var finalQuery = menuQuery
+        // 查询主表（不再 LEFT JOIN）
+        var menuList = await menuQuery
             .OrderBy(u => new { u.OrderNo, u.Id })
-            .LeftJoin<SysLangText>((menu, lang) =>
-                lang.EntityName == "SysMenu"
-                && lang.FieldName == "Title"
-                && lang.EntityId == menu.Id
-                && lang.LangCode == langCode
-            )
-            .Select((menu, lang) => new
-            {
-                menu,
-                Title = SqlFunc.IIF(SqlFunc.IsNullOrEmpty(lang.Content), menu.Title, lang.Content),
-            }).Mapper(it =>
-            {
-                it.menu.Title = it.Title;
-            }).ToList()
-            .Select(it=>it.menu);
+            .ToListAsync();
 
-        var menuTree = finalQuery.ToTree(
+        // 调用缓存翻译：翻译 Title 字段
+        var fields = new List<LangFieldMap<SysMenu>>
+        {
+            new LangFieldMap<SysMenu>
+            {
+                EntityName = "SysMenu",
+                FieldName = "Title",
+                IdSelector = m => m.Id,
+                SetTranslatedValue = (m, val) => m.Title = val
+            }
+        };
+        await _sysLangTextCacheService.TranslateMultiFields(menuList, fields, langCode);
+
+        // 构造树
+        var menuTree = menuList.ToTree(
             it => it.Children, it => it.Pid, 0
         );
 
+        // 转换为输出 DTO
         return menuTree.Adapt<List<MenuOutput>>();
+
     }
 
     /// <summary>
@@ -97,57 +98,58 @@ public class SysMenuService : IDynamicApiController, ITransient
         var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new List<long>() : await GetMenuIdList();
         var (query, _) = GetSugarQueryableAndTenantId(input.TenantId);
 
-        // 有筛选条件时返回list列表（防止构造不出树）
+        // 有条件直接查询菜单列表（带 Title、Type 过滤）
         if (!string.IsNullOrWhiteSpace(input.Title) || input.Type is > 0)
         {
-            var menuQuery = query.WhereIF(!string.IsNullOrWhiteSpace(input.Title), u => u.Title.Contains(input.Title))
-                  .WhereIF(input.Type is > 0, u => u.Type == input.Type)
-                  .WhereIF(menuIdList.Count > 1, u => menuIdList.Contains(u.Id));
-            var finalQuery = menuQuery
-            .OrderBy(u => new { u.OrderNo, u.Id })
-            .LeftJoin<SysLangText>((menu, lang) =>
-                lang.EntityName == "SysMenu"
-                && lang.FieldName == "Title"
-                && lang.EntityId == menu.Id
-                && lang.LangCode == langCode
-            )
-            .Select((menu, lang) => new
+            var menuList = await query
+                .WhereIF(!string.IsNullOrWhiteSpace(input.Title), u => u.Title.Contains(input.Title))
+                .WhereIF(input.Type is > 0, u => u.Type == input.Type)
+                .WhereIF(menuIdList.Count > 0, u => menuIdList.Contains(u.Id))
+                .OrderBy(u => new { u.OrderNo, u.Id })
+                .ToListAsync();
+
+            // 走缓存批量翻译
+            var fields = new List<LangFieldMap<SysMenu>>
             {
-                menu,
-                Title = SqlFunc.IIF(SqlFunc.IsNullOrEmpty(lang.Content), menu.Title, lang.Content),
-            }).Mapper(it =>
-            {
-                it.menu.Title = it.Title;
-            }).ToList()
-            .Select(it => it.menu);
-            return finalQuery.Distinct().ToList();
+                new LangFieldMap<SysMenu>
+                {
+                    EntityName = "SysMenu",
+                    FieldName = "Title",
+                    IdSelector = m => m.Id,
+                    SetTranslatedValue = (m, val) => m.Title = val
+                }
+            };
+            await _sysLangTextCacheService.TranslateMultiFields(menuList, fields, langCode);
+
+            return menuList.Distinct().ToList();
         }
 
+        // 无筛选条件则走全量树形结构（带权限）
         if (!(_userManager.SuperAdmin || _userManager.SysAdmin))
         {
             query = query.Where(u => menuIdList.Contains(u.Id));
         }
-        var final1Query = query
+
+        var menuFullList = await query
             .OrderBy(u => new { u.OrderNo, u.Id })
-            .LeftJoin<SysLangText>((menu, lang) =>
-                lang.EntityName == "SysMenu"
-                && lang.FieldName == "Title"
-                && lang.EntityId == menu.Id
-                && lang.LangCode == langCode
-            )
-            .Select((menu, lang) => new
+            .ToListAsync();
+
+        // 走缓存批量翻译
+        var treeFields = new List<LangFieldMap<SysMenu>>
+        {
+            new LangFieldMap<SysMenu>
             {
-                menu,
-                Title = SqlFunc.IIF(SqlFunc.IsNullOrEmpty(lang.Content), menu.Title, lang.Content),
-            }).Mapper(it =>
-            {
-                it.menu.Title = it.Title;
-            }).ToList()
-            .Select(it => it.menu);
-        var menuTree = final1Query.ToTree(
-            it => it.Children, it => it.Pid, 0
-        );
-        return menuTree.ToList(); // 角色菜单授权时
+                    EntityName = "SysMenu",
+                    FieldName = "Title",
+                    IdSelector = m => m.Id,
+                    SetTranslatedValue = (m, val) => m.Title = val
+            }
+        };
+        await _sysLangTextCacheService.TranslateMultiFields(menuFullList, treeFields, langCode);
+
+        // 组装树
+        var menuTree = menuFullList.ToTree(it => it.Children, it => it.Pid, 0);
+        return menuTree.ToList();
     }
 
     /// <summary>

@@ -5,6 +5,8 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 
+using AngleSharp.Dom;
+
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -15,11 +17,16 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
 {
     private readonly SqlSugarRepository<SysLangText> _sysLangTextRep;
     private readonly ISqlSugarClient _sqlSugarClient;
+    private readonly SysLangTextCacheService _sysLangTextCacheService;
 
-    public SysLangTextService(SqlSugarRepository<SysLangText> sysLangTextRep, ISqlSugarClient sqlSugarClient)
+    public SysLangTextService(
+        SqlSugarRepository<SysLangText> sysLangTextRep,
+        SysLangTextCacheService sysLangTextCacheService,
+        ISqlSugarClient sqlSugarClient)
     {
         _sysLangTextRep = sysLangTextRep;
         _sqlSugarClient = sqlSugarClient;
+        _sysLangTextCacheService = sysLangTextCacheService;
     }
 
     /// <summary>
@@ -89,6 +96,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
         var entity = input.Adapt<SysLangText>();
         await _sysLangTextRep.AsUpdateable(entity)
         .ExecuteCommandAsync();
+        _sysLangTextCacheService.UpdateCache(entity.EntityName,entity.FieldName,entity.EntityId,entity.LangCode,entity.Content);
     }
 
     /// <summary>
@@ -101,7 +109,9 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     public async Task Delete(DeleteSysLangTextInput input)
     {
         var entity = await _sysLangTextRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        
         await _sysLangTextRep.DeleteAsync(entity);   //真删除
+        _sysLangTextCacheService.DeleteCache(entity.EntityName, entity.FieldName, entity.EntityId, entity.LangCode);
     }
 
     /// <summary>
@@ -118,6 +128,10 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
         var list = await _sysLangTextRep.AsQueryable().Where(exp.ToExpression()).ToListAsync();
 
         await _sysLangTextRep.DeleteAsync(list);   //真删除
+        foreach (var item in list)
+        {
+            _sysLangTextCacheService.DeleteCache(item.EntityName, item.FieldName, item.EntityId, item.LangCode);
+        }
     }
 
     private static readonly object _sysLangTextBatchSaveLock = new object();
@@ -166,6 +180,10 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
                 it.LangCode,
                 it.Content,
             }).ExecuteCommand();// 存在更新
+            foreach (var item in rows)
+            {
+                _sysLangTextCacheService.DeleteCache(item.EntityName, item.FieldName, item.EntityId, item.LangCode);
+            }
             if (storageable.ErrorList.Any())
             {
                 throw Oops.Oh($"处理过程中出现以下错误：{string.Join("；", storageable.ErrorList.Distinct())}");
@@ -250,6 +268,10 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
                         it.Content,
                     }).ExecuteCommand();// 存在更新
 
+                    foreach (var item in rows)
+                    {
+                        _sysLangTextCacheService.DeleteCache(item.EntityName, item.FieldName, item.EntityId, item.LangCode);
+                    }
                     // 标记错误信息
                     markerErrorAction.Invoke(storageable, pageItems, rows);
                 });
