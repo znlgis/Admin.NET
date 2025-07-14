@@ -173,7 +173,7 @@ const onReset = (formEl: FormInstance | undefined) => {
 const userStore = useUserInfo();
 const getSelectOptions = (val: TableSearchType) => {
 	if (val.options) return val.options;
-	if (val.dictCode) return userStore.getDictDataByCode('TemplateTypeEnum');
+	if (val.dictCode) return userStore.getDictDataByCode(val.dictCode);
 	return [];
 };
 

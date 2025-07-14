@@ -103,7 +103,7 @@ public class CustomViewEngine : ViewEngineModel
     /// 默认值列表
     /// </summary>
     public List<CodeGenConfig> DefaultValueList { get; set; }
-    
+
     /// <summary>
     /// 判断字段是否为状态字段
     /// </summary>
@@ -163,9 +163,11 @@ public class CustomViewEngine : ViewEngineModel
                         case "InputNumber":
                             content += $"{item.LowerPropertyName}: {item.DefaultValue},";
                             break;
+
                         case "Switch":
                             content += $"{item.LowerPropertyName}: {(item.DefaultValue == "1" ? true.ToString().ToLower() : false.ToString().ToLower())},";
                             break;
+
                         default:
                             content += $"{item.LowerPropertyName}: '{item.DefaultValue}',";
                             break;

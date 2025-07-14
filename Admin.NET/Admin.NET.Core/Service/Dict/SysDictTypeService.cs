@@ -39,7 +39,7 @@ public class SysDictTypeService : IDynamicApiController, ITransient
             .WhereIF(!_userManager.SuperAdmin, u => u.IsTenant == YesNoEnum.Y)
             .WhereIF(!string.IsNullOrEmpty(input.Code?.Trim()), u => u.Code.Contains(input.Code))
             .WhereIF(!string.IsNullOrEmpty(input.Name?.Trim()), u => u.Name.Contains(input.Name));
-            //.OrderBy(u => new { u.OrderNo, u.Code })
+        //.OrderBy(u => new { u.OrderNo, u.Code })
         return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
     }
 

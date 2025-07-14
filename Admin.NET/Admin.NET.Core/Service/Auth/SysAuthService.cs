@@ -333,7 +333,6 @@ public class SysAuthService : IDynamicApiController, ITransient
         loginUser.CurrentTenantId = currentTenantId > 0 ? currentTenantId : user.TenantId;
 
         return loginUser;
-
     }
 
     /// <summary>

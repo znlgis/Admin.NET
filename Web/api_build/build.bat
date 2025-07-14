@@ -18,15 +18,15 @@ if "%1"=="approvalFlow" (
 ) else if "%1"=="goView" (
   set moduleName=goView
   set apiServicesPath=%dir%..\src\api-plugins\goView\
-  set apiUrl=http://localhost:5005/swagger/GoView/swagger.json
+  set apiUrl=http://localhost:5005/swagger/GoView%%20%%E5%%A4%%A7%%E5%%B1%%8F%%E5%%8F%%AF%%E8%%A7%%86%%E5%%8C%%96/swagger.json
 )
 
 if exist %apiServicesPath% (
-    echo "================================ 删除目录 %apiServicesPath% ================================"
+    echo ================================ 删除目录 %moduleName% ================================
     rd /s /q %apiServicesPath%
 )
 
-echo "================================ 开始生成 %moduleName% ================================"
+echo ================================ 开始生成 %moduleName% ================================
 
 java -jar %dir%swagger-codegen-cli.jar generate -i %apiUrl% -l typescript-axios -o %apiServicesPath%
 
@@ -40,4 +40,4 @@ del /q %apiServicesPath%package.json
 del /q %apiServicesPath%README.md
 del /q %apiServicesPath%tsconfig.json
 
-echo "================================ 生成结束 ================================"
+echo ================================ 生成结束 ================================

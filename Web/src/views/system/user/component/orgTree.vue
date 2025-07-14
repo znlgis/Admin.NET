@@ -36,7 +36,7 @@ import { storeToRefs } from 'pinia';
 import { useUserInfo } from '/@/stores/userInfo';
 
 import { getAPI } from '/@/utils/axios-utils';
-import { SysOrgApi } from '/@/api-services/api';
+import { SysUserApi } from '/@/api-services/api';
 
 const stores = useUserInfo();
 const { userInfos } = storeToRefs(stores);
@@ -57,7 +57,7 @@ const state = reactive({
 
 onMounted(async () => {
 	state.loading = true;
-	var res = await getAPI(SysOrgApi).apiSysOrgListGet(0);
+	var res = await getAPI(SysUserApi).apiSysUserOrgInfoGet();
 	var d = res.data.result ?? [];
 	state.orgData = d[0] ?? []; // 默认第一个树分支
 	if (state.orgData.id == userInfos.value.orgId) state.orgData.style = currentNodeStyle;

@@ -141,6 +141,14 @@ export interface SysCodeGenConfig {
     netType?: string | null;
 
     /**
+     * 字段数据默认值
+     *
+     * @type {string}
+     * @memberof SysCodeGenConfig
+     */
+    defaultValue?: string | null;
+
+    /**
      * 作用类型（字典）
      *
      * @type {string}

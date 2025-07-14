@@ -53,6 +53,14 @@ export interface ColumnOuput {
     dataType?: string | null;
 
     /**
+     * 字段数据默认值
+     *
+     * @type {string}
+     * @memberof ColumnOuput
+     */
+    defaultValue?: string | null;
+
+    /**
      * 是否为主键
      *
      * @type {boolean}
