@@ -115,7 +115,10 @@
 			"esbuild",
 			"json-editor-vue",
 			"vue-demi"
-		]
+		],
+        "overrides": {
+      "rollup": "4.43.0"
+    }
 	},
 	"browserslist": [
 		"> 1%",
