@@ -319,15 +319,9 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         var types = new List<Type>();
         if (_codeGenOptions.EntityAssemblyNames != null)
         {
-            var assemblies = AppDomain.CurrentDomain.GetAssemblies();
-            foreach (var assembly in assemblies)
-            {
-                var assemblyName = assembly.GetName().Name;
-                if (!_codeGenOptions.EntityAssemblyNames.Contains(assemblyName) && !_codeGenOptions.EntityAssemblyNames.Any(name => assemblyName!.Contains(name))) continue;
-
-                Assembly asm = Assembly.Load(assemblyName!);
-                types.AddRange(asm.GetExportedTypes().ToList());
-            }
+            types = App.EffectiveTypes.Where(c => c.IsClass)
+                .Where(c => _codeGenOptions.EntityAssemblyNames.Contains(c.Assembly.GetName().Name) || _codeGenOptions.EntityAssemblyNames.Any(name => c.Assembly.GetName().Name!.Contains(name)))
+                .ToList();
         }
 
         Type[] cosType = types.Where(o => IsMyAttribute(Attribute.GetCustomAttributes(o, true))).ToArray();
