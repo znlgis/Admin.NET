@@ -2,16 +2,22 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid 'c496b37cd98d424469bba7ee22913444039c5637'
-    oldFile: !uuid '9742ac644c47c86d48e9078c2026fe6c24cb1f34'
-  /Web/package.json:
-    newFile: !uuid '6c6878ed7bc64496a5faa5fef0180315cb4ff046'
-    oldFile: !uuid '29234127badad52e9dfc45c5a810649495919794'
-  /Web/pnpm-workspace.yaml:
-    newFile: !uuid '2aeebb66a238615a3984e84fa49f5dc2b14211ac'
-    oldFile: !uuid 'bad3b7ebfea7b55aebac3cf006d662b1316a7739'
-gitCommitId: !uuid 'f5961b28100043607b0aa547b43ec0c3943607ab'
+  /Admin.NET:
+    newFile: !uuid '5059b718524d5d9aaf5376cdbde78acb6e9e5870'
+    oldFile: !uuid 'af44d39b3b4451c9740c802a2ea9c1ebd4a02051'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid 'fb7e7bb75f4f211d06b8116a0fb743a044a59e73'
+    oldFile: !uuid 'ca03c104b23b79848b0a5a62444eba023eba02aa'
+  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
+    newFile: !uuid '6e8e6a875c5841ced422bbc1e32c8eeb6617a261'
+    oldFile: !uuid '3ae7f7dff85a6c8a871426bbe996810cb4262ca7'
+  /Admin.NET/Admin.NET.Core/SqlSugar:
+    newFile: !uuid '743200c7d7dca9510b882876ecab721a8d923d07'
+    oldFile: !uuid 'cf7abbd4976e1b71f59bc7e28b87cd7c045d044c'
+  /Admin.NET/Admin.NET.Core/SqlSugar/SqlSugarSetup.cs:
+    newFile: !uuid '8c0626f057a5e8f5a23ee42fb1585ff16092d1db'
+    oldFile: !uuid '607e3deb28bd5f3a659115a542ae562c40d97c39'
+gitCommitId: !uuid 'b979a023b22d41f30cd242ae6db7d671f3206c91'
 renames: {
   }
-revisionId: 2947
+revisionId: 2948
