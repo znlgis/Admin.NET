@@ -43,6 +43,11 @@ public static class SqlSugarSetup
         var dbOptions = App.GetConfig<DbConnectionOptions>("DbConnection", true);
         dbOptions.ConnectionConfigs.ForEach(SetDbConfig);
 
+        //注册DLL防止找不到DLL（扔在程序启动时）
+        InstanceFactory.CustomAssemblies = new System.Reflection.Assembly[] {
+            typeof(SqlSugar.MongoDb.MongoDbProvider).Assembly
+        };
+
         SqlSugarScope sqlSugar = new(dbOptions.ConnectionConfigs.Adapt<List<ConnectionConfig>>(), db =>
         {
             dbOptions.ConnectionConfigs.ForEach(config =>
