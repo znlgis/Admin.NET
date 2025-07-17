@@ -41,7 +41,8 @@
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="3.1.5" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.Api" Version="3.10.0" />
     <PackageReference Include="SKIT.FlurlHttpClient.Wechat.TenpayV3" Version="3.12.0" />
-    <PackageReference Include="SqlSugarCore" Version="5.1.4.197" />
+    <PackageReference Include="SqlSugar.MongoDbCore" Version="5.1.4.220" />
+    <PackageReference Include="SqlSugarCore" Version="5.1.4.198" />
     <PackageReference Include="SSH.NET" Version="2025.0.0" />
     <PackageReference Include="System.Linq.Dynamic.Core" Version="1.6.6" />
     <PackageReference Include="System.Net.Http" Version="4.3.4" />
