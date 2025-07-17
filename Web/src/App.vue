@@ -1,5 +1,5 @@
 <template>
-	<el-config-provider :size="getGlobalComponentSize" :locale="getGlobalI18n">
+	<el-config-provider :size="getGlobalComponentSize">
 		<router-view v-show="setLockScreen" />
 		<LockScreen v-if="themeConfig.isLockScreen" />
 		<Settings ref="settingsRef" v-show="setLockScreen" />
@@ -12,7 +12,6 @@
 <script setup lang="ts" name="app">
 import { defineAsyncComponent, computed, ref, onBeforeMount, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { useThemeConfig } from '/@/stores/themeConfig';
@@ -33,7 +32,6 @@ const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/cl
 // const Sponsors = defineAsyncComponent(() => import('/@/layout/sponsors/index.vue'));
 
 // 定义变量内容
-const { messages, locale } = useI18n();
 const settingsRef = ref();
 const route = useRoute();
 const stores = useTagsViewRoutes();
@@ -67,9 +65,9 @@ const getGlobalComponentSize = computed(() => {
 	return other.globalComponentSize();
 });
 // 获取全局 i18n
-const getGlobalI18n = computed(() => {
-	return messages.value[locale.value];
-});
+// const getGlobalI18n = computed(() => {
+	//return messages.value[locale.value];
+// });
 // 设置初始化，防止刷新时恢复默认
 onBeforeMount(() => {
 	// 设置批量第三方 icon 图标

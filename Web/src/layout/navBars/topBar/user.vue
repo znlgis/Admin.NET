@@ -2,23 +2,20 @@
 	<div class="layout-navbars-breadcrumb-user pr15" :style="{ flex: layoutUserFlexNum }">
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onComponentSizeChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
-				<i class="iconfont icon-ziti" :title="$t('message.user.title0')"></i>
+				<i class="iconfont icon-ziti" title="组件大小"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">{{
-						$t('message.user.dropdownLarge') }}</el-dropdown-item>
-					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">{{
-						$t('message.user.dropdownDefault') }}</el-dropdown-item>
-					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">{{
-						$t('message.user.dropdownSmall') }}</el-dropdown-item>
+					<el-dropdown-item command="large" :disabled="state.disabledSize === 'large'">大型</el-dropdown-item>
+					<el-dropdown-item command="default" :disabled="state.disabledSize === 'default'">默认</el-dropdown-item>
+					<el-dropdown-item command="small" :disabled="state.disabledSize === 'small'">小型</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
 		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" @command="onLanguageChange">
 			<div class="layout-navbars-breadcrumb-user-icon">
 				<i class="iconfont" :class="state.disabledI18n === 'en' ? 'icon-fuhao-yingwen' : 'icon-fuhao-zhongwen'"
-					:title="$t('message.user.title1')"></i>
+					title="语言切换"></i>
 			</div>
 			<template #dropdown>
 				<el-dropdown-menu>
@@ -30,18 +27,18 @@
 			</template>
 		</el-dropdown>
 		<div class="layout-navbars-breadcrumb-user-icon" @click="onSearchClick">
-			<el-icon :title="$t('message.user.title2')">
+			<el-icon title="菜单搜索">
 				<ele-Search />
 			</el-icon>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" @click="onLayoutSetingClick">
-			<i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
+			<i class="icon-skin iconfont" title="布局配置"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon">
 			<el-popover placement="bottom" trigger="hover" transition="el-zoom-in-top" :width="300" :persistent="false">
 				<template #reference>
 					<el-badge :is-dot="hasUnreadNotice">
-						<el-icon :title="$t('message.user.title4')">
+						<el-icon title="消息">
 							<ele-Bell />
 						</el-icon>
 					</el-badge>
@@ -50,7 +47,7 @@
 			</el-popover>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon" @click="onScreenfullClick">
-			<i class="iconfont" :title="state.isScreenfull ? $t('message.user.title6') : $t('message.user.title5')"
+			<i class="iconfont" :title="state.isScreenfull ? '关全屏' : '开全屏'"
 				:class="!state.isScreenfull ? 'icon-fullscreen' : 'icon-tuichuquanping'"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon mr10" @click="onOnlineUserClick">
@@ -78,17 +75,13 @@
 			</span>
 			<template #dropdown>
 				<el-dropdown-menu>
-					<!-- <el-dropdown-item command="/dashboard/home">{{ $t('message.user.dropdown1') }}</el-dropdown-item> -->
-					<el-dropdown-item :icon="Avatar" command="/system/userCenter">{{ $t('message.user.dropdown2')
-					}}</el-dropdown-item>
-					<el-dropdown-item :icon="Loading" command="clearCache">{{ $t('message.user.dropdown3')
-					}}</el-dropdown-item>
+					<!-- <el-dropdown-item command="/dashboard/home">首页</el-dropdown-item> -->
+					<el-dropdown-item :icon="Avatar" command="/system/userCenter">个人中心</el-dropdown-item>
+					<el-dropdown-item :icon="Loading" command="clearCache">清理缓存</el-dropdown-item>
 					<el-dropdown-item :icon="Switch" divided command="changeTenant"
-						v-if="auth('sysTenant:changeTenant')">{{ $t('message.layout.changeTenant') }}</el-dropdown-item>
-					<el-dropdown-item :icon="Lock" divided command="lockScreen">{{
-						$t('message.layout.threeIsLockScreen') }}</el-dropdown-item>
-					<el-dropdown-item :icon="CircleCloseFilled" divided command="logOut">{{ $t('message.user.dropdown5')
-					}}</el-dropdown-item>
+						v-if="auth('sysTenant:changeTenant')">切换租户</el-dropdown-item>
+					<el-dropdown-item :icon="Lock" divided command="lockScreen">开启锁屏</el-dropdown-item>
+					<el-dropdown-item :icon="CircleCloseFilled" divided command="logOut">退出登录</el-dropdown-item>
 				</el-dropdown-menu>
 			</template>
 		</el-dropdown>
@@ -103,7 +96,6 @@ import { defineAsyncComponent, ref, computed, reactive, onMounted } from 'vue';
 import { useRouter } from 'vue-router';
 import { ElMessageBox, ElMessage, ElNotification } from 'element-plus';
 import screenfull from 'screenfull';
-import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { useUserInfo } from '/@/stores/userInfo';
 import { useThemeConfig } from '/@/stores/themeConfig';
@@ -126,7 +118,6 @@ const OnlineUser = defineAsyncComponent(() => import('/@/views/system/onlineUser
 const ChangeTenant = defineAsyncComponent(() => import('./changeTenant.vue'));
 
 // 定义变量内容
-const { locale, t } = useI18n();
 const router = useRouter();
 const stores = useUserInfo();
 const storesThemeConfig = useThemeConfig();
@@ -186,17 +177,17 @@ const onHandleCommandClick = (path: string) => {
 		ElMessageBox({
 			closeOnClickModal: false,
 			closeOnPressEscape: false,
-			title: t('message.user.logOutTitle'),
-			message: t('message.user.logOutMessage'),
+			title: '提示',
+			message: '此操作将退出登录, 是否继续?',
 			type: 'warning',
 			showCancelButton: true,
-			confirmButtonText: t('message.user.logOutConfirm'),
-			cancelButtonText: t('message.user.logOutCancel'),
+			confirmButtonText: '确定',
+			cancelButtonText: '取消',
 			buttonSize: 'default',
 			beforeClose: async (action, instance, done) => {
 				if (action === 'confirm') {
 					instance.confirmButtonLoading = true;
-					instance.confirmButtonText = t('message.user.logOutExit');
+					instance.confirmButtonText = '退出中';
 					try {
 						await getAPI(SysAuthApi).apiSysAuthLogoutPost();
 					} catch (error) {
@@ -247,7 +238,7 @@ const onLanguageChange = async (lang: string) => {
 	Local.remove('themeConfig');
 	themeConfig.value.globalI18n = lang;
 	Local.set('themeConfig', themeConfig.value);
-	locale.value = lang;
+	window.$changeLang(lang)
 	other.useTitle();
 	initI18nOrSize('globalI18n', 'disabledI18n');
 };

@@ -30,7 +30,7 @@
 				<el-table-column label="菜单名称" header-align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<SvgIcon :name="scope.row.icon" />
-						<span class="ml10">{{ $t(scope.row.title) }}</span>
+						<span class="ml10">{{ scope.row.title }}</span>
 					</template>
 				</el-table-column>
 				<el-table-column label="类型" width="70" align="center" show-overflow-tooltip>

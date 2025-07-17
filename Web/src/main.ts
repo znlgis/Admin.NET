@@ -1,9 +1,9 @@
+import '../lang/index'
 import { createApp } from 'vue';
 import pinia from '/@/stores/index';
 import App from '/@/App.vue';
 import router from '/@/router';
 import { directive } from '/@/directive/index';
-import { i18n } from '/@/i18n/index';
 import other from '/@/utils/other';
 import ElementPlus from 'element-plus';
 import '/@/theme/index.scss';
@@ -35,4 +35,4 @@ app.component('GSysDict', sysDict);
 // 注册全局多语言组件
 app.component('GMultiLangInput', multiLangInput);
 
-app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');
+app.use(pinia).use(router).use(ElementPlus).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');
