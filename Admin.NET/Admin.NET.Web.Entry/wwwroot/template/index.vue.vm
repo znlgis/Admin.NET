@@ -197,6 +197,11 @@ handleQuery();
               } else {
               @:<el-date-picker placeholder="请选择@(column.ColumnComment)" value-format="YYYY/MM/DD"  v-model="state.tableQueryParams.@(column.LowerPropertyName)" />
               }
+            } else if  (column.EffectType == "Switch"){ 
+                  @:<el-select clearable filterable v-model="state.tableQueryParams.@(column.LowerPropertyName)" placeholder="请选择@(column.ColumnComment)"> 
+                    @:<el-option     value="true" label="是" /> 
+                    @:<el-option     value="false" label="否" />  
+                  @:</el-select>
             } else {
               @:<el-input v-model="state.tableQueryParams.@(column.LowerPropertyName)" clearable placeholder="请输入@(column.ColumnComment)"/>
             }
