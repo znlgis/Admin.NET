@@ -125,8 +125,8 @@ public class SysTenantService : IDynamicApiController, ITransient
         var tenantId = long.Parse(App.User?.FindFirst(ClaimConst.TenantId)?.Value ?? "0");
         var host = App.HttpContext.Request.Host.Host.ToLower();
         var tenant = await _sysTenantRep.AsQueryable()
-            .WhereIF(tenantId > 0, u => u.Id == tenantId && SqlFunc.ToLower(u.Host).Equals(host))
-            .WhereIF(!(tenantId > 0), u => SqlFunc.ToLower(u.Host).Equals(host))
+            .WhereIF(tenantId > 0, u => u.Id == tenantId && SqlFunc.ToLower(u.Host).Contains(host))
+            .WhereIF(!(tenantId > 0), u => SqlFunc.ToLower(u.Host).Contains(host))
             .FirstAsync();
         tenant ??= await _sysTenantRep.GetFirstAsync(u => u.Id == SqlSugarConst.DefaultTenantId);
         _ = tenant ?? throw Oops.Oh(ErrorCodeEnum.D1002);
