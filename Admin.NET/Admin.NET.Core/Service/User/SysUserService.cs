@@ -101,8 +101,8 @@ public class SysUserService : IDynamicApiController, ITransient
         // 禁止越权新增超级管理员和系统管理员
         if (_userManager.AccountType != AccountTypeEnum.SuperAdmin && input.AccountType is AccountTypeEnum.SuperAdmin or AccountTypeEnum.SysAdmin) throw Oops.Oh(ErrorCodeEnum.D1038);
 
-        var password = await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
-
+        // 若没有设置密码则取默认密码
+        var password = !string.IsNullOrWhiteSpace(input.Password) ? input.Password : await _sysConfigService.GetConfigValue<string>(ConfigConst.SysPassword);
         var user = input.Adapt<SysUser>();
         user.Password = CryptogramUtil.Encrypt(password);
         var newUser = await _sysUserRep.AsInsertable(user).ExecuteReturnEntityAsync();

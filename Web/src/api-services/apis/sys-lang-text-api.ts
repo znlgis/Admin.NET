@@ -20,7 +20,9 @@ import { AddSysLangTextInput } from '../models';
 import { AdminResultInt64 } from '../models';
 import { AdminResultListSysLangTextOutput } from '../models';
 import { AdminResultSqlSugarPagedListSysLangTextOutput } from '../models';
+import { AdminResultString } from '../models';
 import { AdminResultSysLangText } from '../models';
+import { AiTranslateTextInput } from '../models';
 import { DeleteSysLangTextInput } from '../models';
 import { ImportSysLangTextInput } from '../models';
 import { ListSysLangTextInput } from '../models';
@@ -41,6 +43,47 @@ export const SysLangTextApiAxiosParamCreator = function (configuration?: Configu
          */
         apiSysLangTextAddPost: async (body?: AddSysLangTextInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
             const localVarPath = `/api/sysLangText/add`;
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary DEEPSEEK 翻译接口
+         * @param {AiTranslateTextInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiSysLangTextAiTranslateTextPost: async (body?: AiTranslateTextInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            const localVarPath = `/api/sysLangText/aiTranslateText`;
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -519,6 +562,20 @@ export const SysLangTextApiFp = function(configuration?: Configuration) {
         },
         /**
          * 
+         * @summary DEEPSEEK 翻译接口
+         * @param {AiTranslateTextInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLangTextAiTranslateTextPost(body?: AiTranslateTextInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultString>>> {
+            const localVarAxiosArgs = await SysLangTextApiAxiosParamCreator(configuration).apiSysLangTextAiTranslateTextPost(body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
          * @summary 批量删除翻译表 ❌
          * @param {Array<DeleteSysLangTextInput>} body 
          * @param {*} [options] Override http request option.
@@ -677,6 +734,16 @@ export const SysLangTextApiFactory = function (configuration?: Configuration, ba
         },
         /**
          * 
+         * @summary DEEPSEEK 翻译接口
+         * @param {AiTranslateTextInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiSysLangTextAiTranslateTextPost(body?: AiTranslateTextInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultString>> {
+            return SysLangTextApiFp(configuration).apiSysLangTextAiTranslateTextPost(body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
          * @summary 批量删除翻译表 ❌
          * @param {Array<DeleteSysLangTextInput>} body 
          * @param {*} [options] Override http request option.
@@ -794,6 +861,17 @@ export class SysLangTextApi extends BaseAPI {
      */
     public async apiSysLangTextAddPost(body?: AddSysLangTextInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultInt64>> {
         return SysLangTextApiFp(this.configuration).apiSysLangTextAddPost(body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary DEEPSEEK 翻译接口
+     * @param {AiTranslateTextInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof SysLangTextApi
+     */
+    public async apiSysLangTextAiTranslateTextPost(body?: AiTranslateTextInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultString>> {
+        return SysLangTextApiFp(this.configuration).apiSysLangTextAiTranslateTextPost(body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 

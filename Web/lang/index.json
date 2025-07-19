@@ -12381,5 +12381,61 @@
     "zh-tw": "列】",
     "en": "Column】",
     "it": "Colonna】"
+  },
+  "2jq3sh5": {
+    "zh-cn": "请输入: ",
+    "zh-hk": "請輸入:",
+    "zh-tw": "請輸入:",
+    "en": "Please enter:",
+    "it": "Inserisci:"
+  },
+  "1tjku4": {
+    "zh-cn": "AI翻译",
+    "zh-hk": "AI翻譯",
+    "zh-tw": "AI翻譯",
+    "en": "AI Translation",
+    "it": "Traduzione AI"
+  },
+  "fymq3d16": {
+    "zh-cn": "作为企业软件系统专业翻译，严格遵守以下铁律：\n\n■ 核心原则\n1. 严格逐符号翻译（",
+    "zh-hk": "作為企業軟件系統專業翻譯，嚴格遵守以下鐵律：",
+    "zh-tw": "作為企業軟體系統專業翻譯，嚴格遵守以下鐵律：",
+    "en": "As a professional enterprise software system translator, strictly adhere to the following iron rules:",
+    "it": "Come traduttore professionale di sistemi software aziendali, aderisco rigorosamente ai seguenti principi:"
+  },
+  "7p37ouhk": {
+    "zh-cn": "）\n2. 禁止添加/删除/改写任何内容\n3. 保持批量翻译的编号格式\n\n■ 符号保留规则\n! 所有符号必须原样保留：\n• 编程符号：\\${ } <% %> @ # & | \n• UI占位符：{0} %s [ ] \n• 货币单位：¥100.00 kg cm²\n• 中文符号：【 】 《 》 ：\n\n■ 中文符号位置规范\n# 三级处理机制：\n1. 成对符号必须保持完整结构：\n   ✓ 正确：【Warning】Text\n   ✗ 禁止：Warning【 】Text\n   \n2. 独立符号位置：\n   • 优先句尾 → Text】?\n   • 次选句首 → 】Text?\n   • 禁止句中 → Text】Text?\n\n3. 跨字符串符号处理：\n   • 前段含【时 → 保留在段尾（\"Synchronize【\"）\n   • 后段含】时 → 保留在段首（\"】authorization data?\"）\n   • 符号后接字母时添加空格：】 Authorization\n\n■ 语法规范\n• 外文 → 被动语态（\"Item was created\"）\n• 中文 → 主动语态（\"已创建项目\"）\n• 禁止推测上下文（只翻译当前字符串内容）\n\n■ 错误预防（绝对禁止）\n✗ 将中文符号改为西式符号（】→]）\n✗ 移动非中文符号位置\n✗ 添加原文不存在的内容\n✗ 合并/拆分原始字符串\n\n■ 批量处理\n▸ 严格保持原始JSON结构\n▸ 语言键名精确匹配（zh-cn/en/it等）",
+    "zh-hk": "）",
+    "zh-tw": "）",
+    "en": ")",
+    "it": ")"
+  },
+  "qhx1eya": {
+    "zh-cn": "翻译API返回错误：",
+    "zh-hk": "翻譯API返回錯誤：",
+    "zh-tw": "翻譯API返回錯誤：",
+    "en": "Translation API returned an error:",
+    "it": "Errore API traduzione:"
+  },
+  "s7bystp": {
+    "zh-cn": "环境变量 DEEPSEEK_API_KEY 未定义",
+    "zh-hk": "環境變量 DEEPSEEK_API_KEY 未定義",
+    "zh-tw": "環境變數 DEEPSEEK_API_KEY 未定義",
+    "en": "Environment variable DEEPSEEK_API_KEY not defined",
+    "it": "Variabile d'ambiente DEEPSEEK_API_KEY non definita"
+  },
+  "k2ng5l4": {
+    "zh-cn": "验证失败",
+    "zh-hk": "驗證失敗",
+    "zh-tw": "驗證失敗",
+    "en": "Verification failed",
+    "it": "Validazione fallita"
+  },
+  "kw130t7": {
+    "zh-cn": "正在翻译...",
+    "zh-hk": "正在翻譯...",
+    "zh-tw": "正在翻譯...",
+    "en": "Translating...",
+    "it": "Traduzione in corso..."
   }
 }

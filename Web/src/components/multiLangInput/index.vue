@@ -15,7 +15,7 @@
                 <el-row :gutter="35">
                     <el-col v-for="lang in languages" :key="lang.code" :span="24">
                         <el-form-item :label="lang.label">
-                            <el-input v-model="multiLangValue[lang.code]" :placeholder="`请输入 ${lang.label}`"
+                            <el-input v-model="multiLangValue[lang.code]" :placeholder="`请输入: ${lang.label}`"
                                 clearable />
                         </el-form-item>
                     </el-col>
@@ -23,6 +23,7 @@
             </el-form>
 
             <template #footer>
+                <el-button @click="aiTranslation">AI翻译</el-button>
                 <el-button @click="closeDialog">关闭</el-button>
                 <el-button type="primary" @click="confirmDialog">确认修改</el-button>
             </template>
@@ -31,12 +32,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted } from 'vue';
+import { ref, computed, onMounted, reactive } from 'vue';
 import { useLangStore } from '/@/stores/useLangStore';
 import { Local } from '/@/utils/storage';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLangTextApi } from '/@/api-services/api';
 import { ElMessage } from 'element-plus';
+
 const ruleFormRef = ref();
 
 const fetchMultiLang = async () => {
@@ -93,29 +95,44 @@ onMounted(async () => {
         activeLang.value = languages.value[0].code;
     }
 });
-
+const aiTranslation = async () => {
+    languages.value.forEach(async (element: { code: string | number; value: string | number; }) => {
+        if (element.code == currentLang.value) {
+            return;
+        }
+        multiLangValue.value[element.code] = '正在翻译...';
+        try {
+            const text = await getAPI(SysLangTextApi).apiSysLangTextAiTranslateTextPost({ originalText: props.modelValue, targetLang: element.value }).then(res => res.data.result);
+            if (text) {
+                multiLangValue.value[element.code] = text;
+            } else {
+                multiLangValue.value[element.code] = '';
+            }
+        } catch (e: any) {
+            multiLangValue.value[element.code] = '';
+            ElMessage.warning(e.message);
+        }
+    });
+}
 
 // 打开对话框（点击按钮）
-const openDialog = async () => {    
+const openDialog = async () => {
     multiLangValue.value = {};
     const res = await fetchMultiLang();
-    languages.value.forEach(element => {
-        multiLangValue.value[element.code] = props.modelValue;
-    });
-    res.forEach(element => {
+    multiLangValue.value[currentLang.value] = props.modelValue;
+    res.forEach((element: { langCode: string | number; content: string; }) => {
         multiLangValue.value[element.langCode] = element.content;
     });
     dialogVisible.value = true;
-	ruleFormRef.value?.resetFields();
+    ruleFormRef.value?.resetFields();
 };
 
 // 关闭对话框（只是关闭）
 const closeDialog = () => {
     dialogVisible.value = false;
     multiLangValue.value = {};
-	ruleFormRef.value?.resetFields();
+    ruleFormRef.value?.resetFields();
 };
-// 提交
 
 // 确认按钮（更新 + 关闭）
 const confirmDialog = async () => {
@@ -143,7 +160,7 @@ const confirmDialog = async () => {
         ElMessage.error('保存失败！');
     }
     dialogVisible.value = false;
-	ruleFormRef.value?.resetFields();
+    ruleFormRef.value?.resetFields();
 };
 </script>
 

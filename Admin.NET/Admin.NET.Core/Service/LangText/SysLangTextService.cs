@@ -6,6 +6,8 @@
 
 
 using AngleSharp.Dom;
+using Microsoft.AspNetCore.Components.Forms;
+using Newtonsoft.Json;
 
 namespace Admin.NET.Core.Service;
 
@@ -279,5 +281,149 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
 
             return stream;
         }
+    }
+    private const string SOURCE_LANG = "zh-cn";
+    private const string API_URL = "https://api.deepseek.com/v1/chat/completions";
+    private const string DEEPSEEK_API_KEY = "你的 API KEY";
+    /// <summary>
+    /// DEEPSEEK 翻译接口
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("DEEPSEEK 翻译接口")]
+    [ApiDescriptionSettings(Name = "AiTranslateText"), HttpPost]
+    public async Task<string> AiTranslateText(AiTranslateTextInput input)
+    {
+        if (string.IsNullOrEmpty(DEEPSEEK_API_KEY))
+        {
+            throw new InvalidOperationException("环境变量 DEEPSEEK_API_KEY 未定义");
+        }
+
+        using (HttpClient client = new HttpClient())
+        {
+            // 构建请求头
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {DEEPSEEK_API_KEY}");
+
+            // 构建系统提示词
+            string systemPrompt = BuildSystemPrompt(input.TargetLang);
+
+            // 构建请求体
+            var requestBody = new
+            {
+                model = "deepseek-chat",
+                messages = new[]
+                {
+                    new { role = "system", content = systemPrompt },
+                    new { role = "user", content = input.OriginalText }
+                },
+                temperature = 0.3,
+                max_tokens = 2000
+            };
+
+            // 使用 Newtonsoft.Json 序列化
+            var json = JsonConvert.SerializeObject(requestBody);
+            var content = new StringContent(json, Encoding.UTF8, "application/json");
+
+            // 发送请求
+            HttpResponseMessage response = await client.PostAsync(API_URL, content);
+
+            // 处理响应
+            string responseBody = await response.Content.ReadAsStringAsync();
+
+            if (!response.IsSuccessStatusCode)
+            {
+                // 使用 Newtonsoft.Json 反序列化错误响应
+                var errorResponse = JsonConvert.DeserializeObject<ErrorResponse>(responseBody);
+                string errorMsg = errorResponse?.error?.message ?? $"HTTP {response.StatusCode}: {response.ReasonPhrase}";
+                throw new HttpRequestException($"翻译API返回错误：{errorMsg}");
+            }
+
+            // 解析有效响应
+            var result = JsonConvert.DeserializeObject<TranslationResponse>(responseBody);
+
+            if (result?.choices == null || result.choices.Length == 0 ||
+                result.choices[0]?.message?.content == null)
+            {
+                throw new InvalidOperationException("API返回无效的翻译结果");
+            }
+
+            return result.choices[0].message.content.Trim();
+        }
+    }
+    // JSON 响应模型
+    private class TranslationResponse
+    {
+        public Choice[] choices { get; set; }
+    }
+
+    private class Choice
+    {
+        public Message message { get; set; }
+    }
+
+    private class Message
+    {
+        public string content { get; set; }
+    }
+
+    private class ErrorResponse
+    {
+        public ErrorInfo error { get; set; }
+    }
+
+    private class ErrorInfo
+    {
+        public string message { get; set; }
+    }
+    /// <summary>
+    /// 生成提示词
+    /// </summary>
+    /// <param name="targetLang"></param>
+    /// <returns></returns>
+    private static string BuildSystemPrompt(string targetLang)
+    {
+        return $@"作为企业软件系统专业翻译，严格遵守以下铁律：
+
+■ 核心原则
+1. 严格逐符号翻译（{SOURCE_LANG}→{targetLang}）
+2. 禁止添加/删除/改写任何内容
+3. 保持批量翻译的编号格式
+
+■ 符号保留规则
+! 所有符号必须原样保留：
+• 编程符号：\${{ }} <% %> @ # & | 
+• UI占位符：{{0}} %s [ ] 
+• 货币单位：¥100.00 kg cm²
+• 中文符号：【 】 《 》 ：
+
+■ 中文符号位置规范
+# 三级处理机制：
+1. 成对符号必须保持完整结构：
+   ✓ 正确：【Warning】Text
+   ✗ 禁止：Warning【 】Text
+   
+2. 独立符号位置：
+   • 优先句尾 → Text】?
+   • 次选句首 → 】Text?
+   • 禁止句中 → Text】Text?
+
+3. 跨字符串符号处理：
+   • 前段含【时 → 保留在段尾（""Synchronize【""）
+   • 后段含】时 → 保留在段首（""】authorization data?""）
+   • 符号后接字母时添加空格：】 Authorization
+
+■ 语法规范
+• 外文 → 被动语态（""Item was created""）
+• 中文 → 主动语态（""已创建项目""）
+• 禁止推测上下文（只翻译当前字符串内容）
+
+■ 错误预防（绝对禁止）
+✗ 将中文符号改为西式符号（】→]）
+✗ 移动非中文符号位置
+✗ 添加原文不存在的内容
+✗ 合并/拆分原始字符串
+
+■ 批量处理
+▸ 严格保持原始JSON结构
+▸ 语言键名精确匹配（zh-cn/en/it等）";
     }
 }

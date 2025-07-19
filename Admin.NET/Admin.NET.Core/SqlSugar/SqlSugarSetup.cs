@@ -29,10 +29,9 @@ public static class SqlSugarSetup
 
         // 自定义 SqlSugar 雪花ID算法
         SnowFlakeSingle.WorkId = snowIdOpt.WorkerId;
-        StaticConfig.CustomSnowFlakeFunc = () =>
-        {
-            return YitIdHelper.NextId();
-        };
+        StaticConfig.CustomSnowFlakeFunc = YitIdHelper.NextId;
+        // 注册 MongoDb
+        InstanceFactory.CustomAssemblies = [typeof(SqlSugar.MongoDb.MongoDbProvider).Assembly];
         // 动态表达式 SqlFunc 支持，https://www.donet5.com/Home/Doc?typeId=2569
         StaticConfig.DynamicExpressionParserType = typeof(DynamicExpressionParser);
         StaticConfig.DynamicExpressionParsingConfig = new ParsingConfig
@@ -42,11 +41,6 @@ public static class SqlSugarSetup
 
         var dbOptions = App.GetConfig<DbConnectionOptions>("DbConnection", true);
         dbOptions.ConnectionConfigs.ForEach(SetDbConfig);
-
-        //注册DLL防止找不到DLL（扔在程序启动时）
-        InstanceFactory.CustomAssemblies = new System.Reflection.Assembly[] {
-            typeof(SqlSugar.MongoDb.MongoDbProvider).Assembly
-        };
 
         SqlSugarScope sqlSugar = new(dbOptions.ConnectionConfigs.Adapt<List<ConnectionConfig>>(), db =>
         {

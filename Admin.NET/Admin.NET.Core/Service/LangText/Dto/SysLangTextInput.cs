@@ -259,3 +259,17 @@ public class ImportSysLangTextInput : BaseImportInput
     public string Content { get; set; }
     
 }
+/// <summary>
+/// 
+/// </summary>
+public class AiTranslateTextInput
+{
+    /// <summary>
+    /// 原文
+    /// </summary>
+    public string OriginalText { get; set; }
+    /// <summary>
+    /// 目标语言
+    /// </summary>
+    public string TargetLang { get; set; }
+}
