@@ -3,24 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '669b49d4c7a00acd8dd067a3e9eae2aa41120d58'
-    oldFile: !uuid 'a12d3de4cf3bb7d52161cf5a6aef9e73fd8aacd1'
-  /Admin.NET/Admin.NET.Web.Entry:
-    newFile: !uuid '24036a6acb9445e1fb878e211ddd192c7e0d0a20'
-    oldFile: !uuid '2850c9daf15e876ed7a8ea67a52151df10f403ae'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
-    newFile: !uuid '086c04a80c1898a343a9d935e27d9a8c6a873092'
-    oldFile: !uuid 'ceeee8fe6593598a03ea4e47addf0fba4d104895'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
-    newFile: !uuid '0e74f458e5ac494bb478c7c218ee13dbb3489262'
-    oldFile: !uuid '2bffc33119cfa44468883a91e6970d13c1cfa8c9'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/Service.cs.vm:
-    newFile: !uuid 'f49f421a9291c7a6755acda66281122ed8586f0d'
-    oldFile: !uuid 'feb8cee7ec7df71159c1e8e9c0bedfb00fc9aa3b'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/index.vue.vm:
-    newFile: !uuid 'e5da3c0b55047615da3d02507e840f943db22f06'
-    oldFile: !uuid 'b9b08213729e7d2272a5ecf918ddd3dad722cabe'
-gitCommitId: !uuid '56be27b174484a2b2730feb33259665824359809'
+    newFile: !uuid '2d46bb220c1526182ffad47fed0455001eab5b2a'
+    oldFile: !uuid '669b49d4c7a00acd8dd067a3e9eae2aa41120d58'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '17fa340931d27cbe091332d1c80a7e3c8700cb4f'
+    oldFile: !uuid '00ff1459ef4bfadd7cda105ea17944ce54de1ede'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid '2cfa1c68b0c452373e03f210a0d5e4d43c7bfb09'
+    oldFile: !uuid 'ac8e4d1562f08c3323668270199274d032d6b823'
+  /Admin.NET/Admin.NET.Core/Service/Tenant:
+    newFile: !uuid 'faea2d3e2891fde835165d8df1c72b43f1fd50e6'
+    oldFile: !uuid '90ac0835b98ad4358a9b736f5a91b24801ff7afb'
+  /Admin.NET/Admin.NET.Core/Service/Tenant/SysTenantService.cs:
+    newFile: !uuid '8ee00c654082d2f60b967437c535eef0b2aa53e5'
+    oldFile: !uuid 'b29297a70b0e67e384c5398f2eb5724cd92ceb5a'
+gitCommitId: !uuid '37eb8e02b6891585c5c1251abdff4d832d477522'
 renames: {
   }
-revisionId: 2951
+revisionId: 2952
