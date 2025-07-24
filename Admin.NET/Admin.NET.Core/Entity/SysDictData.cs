@@ -32,15 +32,15 @@ public partial class SysDictData : EntityBase
     /// 显示文本
     /// </summary>
     [SugarColumn(ColumnDescription = "显示文本", Length = 256)]
-    [Required, MaxLength(256)]
-    public virtual string Label { get; set; }
+    [Required]
+    public string Label { get; set; }
 
     /// <summary>
     /// 值
     /// </summary>
     [SugarColumn(ColumnDescription = "值", Length = 256)]
-    [Required, MaxLength(256)]
-    public virtual string Value { get; set; }
+    [Required]
+    public string Value { get; set; }
 
     /// <summary>
     /// 编码
@@ -54,28 +54,24 @@ public partial class SysDictData : EntityBase
     /// 名称
     /// </summary>
     [SugarColumn(ColumnDescription = "名称", Length = 256)]
-    [MaxLength(256)]
     public virtual string? Name { get; set; }
 
     /// <summary>
     /// 显示样式-标签颜色
     /// </summary>
     [SugarColumn(ColumnDescription = "显示样式-标签颜色", Length = 16)]
-    [MaxLength(16)]
     public string? TagType { get; set; }
 
     /// <summary>
     /// 显示样式-Style(控制显示样式)
     /// </summary>
     [SugarColumn(ColumnDescription = "显示样式-Style", Length = 512)]
-    [MaxLength(512)]
     public string? StyleSetting { get; set; }
 
     /// <summary>
     /// 显示样式-Class(控制显示样式)
     /// </summary>
     [SugarColumn(ColumnDescription = "显示样式-Class", Length = 512)]
-    [MaxLength(512)]
     public string? ClassSetting { get; set; }
 
     /// <summary>
@@ -88,7 +84,6 @@ public partial class SysDictData : EntityBase
     /// 备注
     /// </summary>
     [SugarColumn(ColumnDescription = "备注", Length = 2048)]
-    [MaxLength(2048)]
     public string? Remark { get; set; }
 
     /// <summary>
