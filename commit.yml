@@ -3,18 +3,18 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'b2a807e09943fdbc9efcb0a6ba48f137fa3caa15'
-    oldFile: !uuid 'd87c9a9fc1a05b59882d0318c7648013742b8ed6'
+    newFile: !uuid '936e5c95884df40e477c54d9f60eb2759885441c'
+    oldFile: !uuid 'b2a807e09943fdbc9efcb0a6ba48f137fa3caa15'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '41f70e35688a6d8331d0be9cd35512102fd7fdfa'
-    oldFile: !uuid 'e6d7703f2b056c06c30978f09c838a1269b6535e'
-  /Admin.NET/Admin.NET.Core/Logging:
-    newFile: !uuid 'f77b5c1cb8db069c80eceb111861ab0340ebdf34'
-    oldFile: !uuid 'f961269982c5a95261650542b668e801e9628635'
-  /Admin.NET/Admin.NET.Core/Logging/LoggingSetup.cs:
-    newFile: !uuid 'fd3eb4936a19ebb95131f51ae5c0890d72346aba'
-    oldFile: !uuid '34317eb3c5a4f9f9454a1771ebfe1adb8a20ed0b'
-gitCommitId: !uuid '84b989f573489c712b8c911887198a4aeae1d4e1'
+    newFile: !uuid '70aecbc43220922c13022f18722ec85890f826f5'
+    oldFile: !uuid '41f70e35688a6d8331d0be9cd35512102fd7fdfa'
+  /Admin.NET/Admin.NET.Core/Entity:
+    newFile: !uuid 'ef145b7c25c1b41447a7062d1dd7893e3a580ea7'
+    oldFile: !uuid '19d77d27047bdd207fe5f587ee74d9a8f9667101'
+  /Admin.NET/Admin.NET.Core/Entity/SysLogVis.cs:
+    newFile: !uuid 'd4e73b7222187b46c195b90ca3564f83186daf63'
+    oldFile: !uuid '85de35d4f80fab10c57a71d40a771883d8661f57'
+gitCommitId: !uuid '6fb581b36ac4b2321ec7657a0560da900e691f2d'
 renames: {
   }
-revisionId: 2954
+revisionId: 2955
