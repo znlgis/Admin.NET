@@ -15,7 +15,12 @@
 		"build-approvalFlow-api": "cd api_build/ && build.bat approvalFlow",
 		"build-dingTalk-api": "cd api_build/ && build.bat dingTalk",
 		"build-goView-api": "cd api_build/ && build.bat goView",
-		"build-all-api": "npm run build-api && npm run build-approvalFlow-api &&  npm run build-dingTalk-api && npm run build-goView-api"
+		"build-all-api": "npm run build-api && npm run build-approvalFlow-api &&  npm run build-dingTalk-api && npm run build-goView-api",
+		"build-api-ps": "cd api_build/ && pwsh -ExecutionPolicy Bypass -File build.ps1",
+		"build-approvalFlow-api-ps": "cd api_build/ && pwsh -ExecutionPolicy Bypass -File build.ps1 approvalFlow",
+		"build-dingTalk-api-ps": "cd api_build/ && pwsh -ExecutionPolicy Bypass -File build.ps1 dingTalk",
+		"build-goView-api-ps": "cd api_build/ && pwsh -ExecutionPolicy Bypass -File build.ps1 goView",
+		"build-all-api-ps": "npm run build-api-ps && npm run build-approvalFlow-api-ps &&  npm run build-dingTalk-api-ps && npm run build-goView-api-ps"
 	},
 	"dependencies": {
 		"@element-plus/icons-vue": "^2.3.1",
