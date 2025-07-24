@@ -35,6 +35,7 @@ Swagger Codegen 读取 swagger.json 生成 typescript-axios 客户端后，直�
 
 - 启动 API 端服务，确保 http://localhost:5005/ 可以访问
 - Windows：运行 `build.bat`
+  - Windows 11 运行 `build.bat` 失败时，可改用 `.\build.ps1`
 - Linux / Mac：运行`./build.sh`
 
 > http://localhost:5005/ 为默认的 API 地址，如果要连接其他地址，请自行调整对应脚本
