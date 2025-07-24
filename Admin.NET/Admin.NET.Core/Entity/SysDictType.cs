@@ -18,16 +18,16 @@ public partial class SysDictType : EntityBase
     /// <summary>
     /// 名称
     /// </summary>
-    [SugarColumn(ColumnDescription = "名称", Length = 64)]
-    [Required, MaxLength(64)]
-    public virtual string Name { get; set; }
+    [SugarColumn(ColumnDescription = "名称", Length = 64), IsNullable = false)]
+    [Required(ErrorMessage = "名称不能为空")]
+    public string Name { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
-    [SugarColumn(ColumnDescription = "编码", Length = 64)]
-    [Required, MaxLength(64)]
-    public virtual string Code { get; set; }
+    [SugarColumn(ColumnDescription = "编码", Length = 64), IsNullable = false)]
+    [Required(ErrorMessage = "名称不能为空")]
+    public string Code { get; set; }
 
     /// <summary>
     /// 排序
@@ -38,8 +38,7 @@ public partial class SysDictType : EntityBase
     /// <summary>
     /// 备注
     /// </summary>
-    [SugarColumn(ColumnDescription = "备注", Length = 256)]
-    [MaxLength(256)]
+    [SugarColumn(ColumnDescription = "备注", Length = 256), IsNullable = true)]
     public string? Remark { get; set; }
 
     /// <summary>
@@ -63,6 +62,8 @@ public partial class SysDictType : EntityBase
     /// <summary>
     /// 字典值集合
     /// </summary>
+    [Newtonsoft.Json.JsonIgnore]  
+    [System.Text.Json.Serialization.JsonIgnore]
     [Navigate(NavigateType.OneToMany, nameof(SysDictData.DictTypeId))]
-    public List<SysDictData> Children { get; set; }
+    public virtual List<SysDictData> Children { get; set; }= new(); 
 }
