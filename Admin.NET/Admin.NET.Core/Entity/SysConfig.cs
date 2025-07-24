@@ -19,21 +19,19 @@ public partial class SysConfig : EntityBase
     /// 名称
     /// </summary>
     [SugarColumn(ColumnDescription = "名称", Length = 64)]
-    [Required, MaxLength(64)]
+    [Required]
     public virtual string Name { get; set; }
 
     /// <summary>
     /// 编码
     /// </summary>
     [SugarColumn(ColumnDescription = "编码", Length = 64)]
-    [MaxLength(64)]
     public string? Code { get; set; }
 
     /// <summary>
     /// 参数值
     /// </summary>
     [SugarColumn(ColumnDescription = "参数值", Length = 512)]
-    [MaxLength(512)]
     [IgnoreUpdateSeedColumn]
     public string? Value { get; set; }
 
@@ -47,7 +45,6 @@ public partial class SysConfig : EntityBase
     /// 分组编码
     /// </summary>
     [SugarColumn(ColumnDescription = "分组编码", Length = 64)]
-    [MaxLength(64)]
     public string? GroupCode { get; set; }
 
     /// <summary>
@@ -60,6 +57,5 @@ public partial class SysConfig : EntityBase
     /// 备注
     /// </summary>
     [SugarColumn(ColumnDescription = "备注", Length = 256)]
-    [MaxLength(256)]
     public string? Remark { get; set; }
 }
