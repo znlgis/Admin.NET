@@ -1,4 +1,4 @@
-﻿// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
+// Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。
 //
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
@@ -11,48 +11,46 @@ namespace Admin.NET.Core;
 /// </summary>
 [SugarTable(null, "系统作业触发器表")]
 [SysTable]
+[SugarIndex("index_{table}_TriggerId", nameof(TriggerId), OrderByType.Asc, IsUnique = true)]
+[SugarIndex("index_{table}_JobId", nameof(JobId), OrderByType.Asc)]
 public partial class SysJobTrigger : EntityBaseId
 {
     /// <summary>
     /// 触发器Id
     /// </summary>
-    [SugarColumn(ColumnDescription = "触发器Id", Length = 64)]
-    [Required, MaxLength(64)]
-    public virtual string TriggerId { get; set; }
+    [SugarColumn(ColumnDescription = "触发器Id", Length = 64), IsNullable = false)]
+    [Required(ErrorMessage = "触发器Id不能为空")]
+    public string TriggerId { get; set; }
 
     /// <summary>
     /// 作业Id
     /// </summary>
-    [SugarColumn(ColumnDescription = "作业Id", Length = 64)]
-    [Required, MaxLength(64)]
-    public virtual string JobId { get; set; }
+    [SugarColumn(ColumnDescription = "作业Id", Length = 64), IsNullable = false)]
+    [Required(ErrorMessage = "作业Id不能为空")]
+    public string JobId { get; set; }
 
     /// <summary>
     /// 触发器类型FullName
     /// </summary>
-    [SugarColumn(ColumnDescription = "触发器类型", Length = 128)]
-    [MaxLength(128)]
+    [SugarColumn(ColumnDescription = "触发器类型", Length = 128), IsNullable = true)]
     public string? TriggerType { get; set; }
 
     /// <summary>
     /// 程序集Name
     /// </summary>
-    [SugarColumn(ColumnDescription = "程序集", Length = 128)]
-    [MaxLength(128)]
+    [SugarColumn(ColumnDescription = "程序集", Length = 128), IsNullable = true,DefaultValue = "Furion.Pure")]
     public string? AssemblyName { get; set; } = "Furion.Pure";
 
     /// <summary>
     /// 参数
     /// </summary>
-    [SugarColumn(ColumnDescription = "参数", Length = 128)]
-    [MaxLength(128)]
+    [SugarColumn(ColumnDescription = "参数", Length = 128), IsNullable = true)]
     public string? Args { get; set; }
 
     /// <summary>
     /// 描述信息
     /// </summary>
-    [SugarColumn(ColumnDescription = "描述信息", Length = 128)]
-    [MaxLength(128)]
+    [SugarColumn(ColumnDescription = "描述信息", Length = 128), IsNullable = true)]
     public string? Description { get; set; }
 
     /// <summary>
@@ -143,5 +141,5 @@ public partial class SysJobTrigger : EntityBaseId
     /// 更新时间
     /// </summary>
     [SugarColumn(ColumnDescription = "更新时间")]
-    public DateTime? UpdatedTime { get; set; }
+    public DateTime? UpdateTime { get; set; }
 }
