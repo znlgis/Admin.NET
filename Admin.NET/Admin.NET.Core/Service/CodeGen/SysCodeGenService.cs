@@ -188,7 +188,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             if (item.Type.IsDefined(typeof(LogTableAttribute))) tbConfigId = SqlSugarConst.LogConfigId;
             if (tbConfigId != configId) continue;
 
-            var table = dbTableInfos.FirstOrDefault(u => string.Equals(u.Name, (config!.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(item.DbTableName) : item.DbTableName), StringComparison.CurrentCultureIgnoreCase));
+            var table = dbTableInfos.FirstOrDefault(u => string.Equals(u.Name, (config!.DbSettings.EnableUnderLine ? item.DbTableName.ToUnderLine() : item.DbTableName), StringComparison.CurrentCultureIgnoreCase));
             if (table == null) continue;
             tableOutputList.Add(new TableOutput
             {
@@ -211,7 +211,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 切库---多库代码生成用
         var provider = _db.AsTenant().GetConnectionScope(configId);
         var config = _dbConnectionOptions.ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == configId) ?? throw Oops.Oh(ErrorCodeEnum.D1401);
-        if (config.DbSettings.EnableUnderLine) tableName = UtilMethods.ToUnderLine(tableName);
+        if (config.DbSettings.EnableUnderLine) tableName = tableName.ToUnderLine();
         // 获取实体类型属性
         var entityType = provider.DbMaintenance.GetTableInfoList(false).FirstOrDefault(u => u.Name == tableName);
         if (entityType == null) return null;
@@ -225,7 +225,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 按原始类型的顺序获取所有实体类型属性（不包含导航属性，会返回null）
         var columnList = provider.DbMaintenance.GetColumnInfosByTableName(tableName).Select(u => new ColumnOuput
         {
-            ColumnName = config!.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(u.DbColumnName) : u.DbColumnName,
+            ColumnName = config!.DbSettings.EnableUnderLine ? u.DbColumnName.ToUnderLine() : u.DbColumnName,
             ColumnKey = u.IsPrimarykey.ToString(),
             DataType = u.DataType.ToString(),
             NetType = CodeGenUtil.ConvertDataType(u, provider.CurrentConnectionConfig.DbType),
@@ -233,7 +233,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         }).ToList();
         foreach (var column in columnList)
         {
-            var property = properties.FirstOrDefault(e => (config!.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(e.ColumnName) : e.ColumnName) == column.ColumnName);
+            var property = properties.FirstOrDefault(e => (config!.DbSettings.EnableUnderLine ? e.ColumnName.ToUnderLine() : e.ColumnName) == column.ColumnName);
             column.ColumnComment ??= property?.ColumnComment;
             column.PropertyName = property?.PropertyName;
         }
@@ -250,7 +250,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         if (entityType == null) return null;
 
         var config = _dbConnectionOptions.ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == input.ConfigId);
-        var dbTableName = config!.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(entityType.DbTableName) : entityType.DbTableName;
+        var dbTableName = config!.DbSettings.EnableUnderLine ? entityType.DbTableName.ToUnderLine() : entityType.DbTableName;
 
         // 切库---多库代码生成用
         var provider = _db.AsTenant().GetConnectionScope(!string.IsNullOrEmpty(input.ConfigId) ? input.ConfigId : SqlSugarConst.MainConfigId);
@@ -335,7 +335,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             if (des.Length > 0) description = ((DescriptionAttribute)des[0]).Description;
 
             var dbTableName = sugarAttribute == null || string.IsNullOrWhiteSpace(((SugarTable)sugarAttribute).TableName) ? ct.Name : ((SugarTable)sugarAttribute).TableName;
-            if (config.DbSettings.EnableUnderLine) dbTableName = UtilMethods.ToUnderLine(dbTableName);
+            if (config.DbSettings.EnableUnderLine) dbTableName = dbTableName.ToUnderLine();
 
             entityInfos.Add(new EntityInfo
             {
