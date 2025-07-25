@@ -2,34 +2,34 @@
 branches: {
   }
 fileChange:
-  /.gitignore:
-    newFile: !uuid '854fab79357b153ed606905839135b3066c60d1b'
-    oldFile: !uuid '80c5ec7fecb3c4152b3d60196db79b37ccd0bfc0'
   /Admin.NET:
-    newFile: !uuid '4490d2952644c18ffdb56c75177c2f03e884b4d7'
-    oldFile: !uuid '936e5c95884df40e477c54d9f60eb2759885441c'
+    newFile: !uuid 'de3bd7d2630a74401ab968a87e9c032f255bc93b'
+    oldFile: !uuid '4490d2952644c18ffdb56c75177c2f03e884b4d7'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '128ad203c7c54b8aaa2ea64afc71870d03e1b9f2'
-    oldFile: !uuid '70aecbc43220922c13022f18722ec85890f826f5'
-  /Admin.NET/Admin.NET.Core/Logging:
-    newFile: !uuid '74da7fca1439d9f264bdba1da348762f59248b31'
-    oldFile: !uuid 'f77b5c1cb8db069c80eceb111861ab0340ebdf34'
-  /Admin.NET/Admin.NET.Core/Logging/DatabaseLoggingWriter.cs:
-    newFile: !uuid '014eec073f5a7e1c07f1115c47b31e8ca5e058ce'
-    oldFile: !uuid '75134bbeb2569b65f6d8f7fdf5d68e7dc19b7f78'
-  /Admin.NET/Admin.NET.Core/Logging/ElasticSearchLoggingWriter.cs:
-    newFile: !uuid 'c8057ce9f85370df684176f40800be0ed3f2eec3'
-    oldFile: !uuid 'ad3775724f96ae236177830ef632dffbdb7a81f5'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '96dba563e239a3696efe77948e9da9daec332fcf'
-    oldFile: !uuid 'c2c60c38e2f7f2a0492d329b4e6a4e5716b7c26a'
-  /Admin.NET/Admin.NET.Core/Service/Log:
-    newFile: !uuid 'c68a34f02c2b768910182bc68b0d5e2f42737995'
-    oldFile: !uuid 'e23d3f7448402faa587ca06efe2fe84ab36f21b6'
-  /Admin.NET/Admin.NET.Core/Service/Log/SysLogVisService.cs:
-    newFile: !uuid 'c25128a2c4f3af3326f4dacc34c6e2f71094c55c'
-    oldFile: !uuid 'e9743dab8b0e5958d476ee56c16173cb72b54514'
-gitCommitId: !uuid '02fcbf4840b3100ea249f599fab543623d0264b7'
+    newFile: !uuid '5b64fdc9b69592ec7ddf3737dd3ba9af1fda1545'
+    oldFile: !uuid '128ad203c7c54b8aaa2ea64afc71870d03e1b9f2'
+  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
+    newFile: !uuid '8b59ad76d1bd066670984faa2b31fec270617d0b'
+    oldFile: !uuid 'e46296854f5d9285deeb7688dd69e469f81982f2'
+  /Admin.NET/Admin.NET.Core/Entity:
+    newFile: !uuid 'ab3d9ddd35f85011dd65de88b54541f80cb76d97'
+    oldFile: !uuid 'ef145b7c25c1b41447a7062d1dd7893e3a580ea7'
+  /Admin.NET/Admin.NET.Core/Entity/SysLogVis.cs:
+    newFile: !uuid '6f269b530ba9e45a0c1fc8eba416d3b91c3153bb'
+    oldFile: !uuid 'd4e73b7222187b46c195b90ca3564f83186daf63'
+  /Admin.NET/Admin.NET.Test:
+    newFile: !uuid '6fa0b276393739e1179d039e4b0287e5e99d1a93'
+    oldFile: !uuid 'd926834b768f1e9023237f2a14c86cd778cb2fbb'
+  /Admin.NET/Admin.NET.Test/Admin.NET.Test.csproj:
+    newFile: !uuid '0dd7a63e206fbb0e236a6ec41150e6a7c3223258'
+    oldFile: !uuid '03f50569f4a8e513ab19f6492c821afd452dc1c0'
+  /Web:
+    newFile: !uuid '5de85daddf9b6a68bc29a58f1c093af96f2012bd'
+    oldFile: !uuid 'b46b80d3793f1b779ec25facad86288520d9dfde'
+  /Web/package.json:
+    newFile: !uuid 'ebacf1c485cd30c9965f22b26c53f79b02e99f0e'
+    oldFile: !uuid '9ab9e6f78acd2606595650d403db7e2578dc23e7'
+gitCommitId: !uuid '12dec2f666353af96cdeaa661e1cb708b05079d7'
 renames: {
   }
-revisionId: 2957
+revisionId: 2958
