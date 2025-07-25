@@ -70,7 +70,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                 var visualColumn = new VisualColumn
                 {
                     TableName = columnInfo.DbTableName,
-                    ColumnName = dbOptions.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(columnInfo.DbColumnName) : columnInfo.DbColumnName,
+                    ColumnName = dbOptions.DbSettings.EnableUnderLine ? columnInfo.DbColumnName.ToUnderLine() : columnInfo.DbColumnName,
                     DataType = columnInfo.PropertyInfo.PropertyType.Name,
                     DataLength = columnInfo.Length.ToString(),
                     ColumnDescription = columnInfo.ColumnDescription,
@@ -86,10 +86,10 @@ public class SysDatabaseService : IDynamicApiController, ITransient
                     var relation = new ColumnRelation
                     {
                         SourceTableName = columnInfo.DbTableName,
-                        SourceColumnName = dbOptions.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(name1) : name1,
+                        SourceColumnName = dbOptions.DbSettings.EnableUnderLine ? name1.ToUnderLine() : name1,
                         Type = columnInfo.Navigat.GetNavigateType() == NavigateType.OneToOne ? "ONE_TO_ONE" : "ONE_TO_MANY",
-                        TargetTableName = dbOptions.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(columnInfo.DbColumnName) : columnInfo.DbColumnName,
-                        TargetColumnName = dbOptions.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(targetColumnName) : targetColumnName
+                        TargetTableName = dbOptions.DbSettings.EnableUnderLine ? columnInfo.DbColumnName.ToUnderLine() : columnInfo.DbColumnName,
+                        TargetColumnName = dbOptions.DbSettings.EnableUnderLine ? targetColumnName.ToUnderLine() : targetColumnName
                     };
                     columnRelationList.Add(relation);
                 }
@@ -304,7 +304,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         var typeBuilder = db.DynamicBuilder().CreateClass(input.TableName, new SugarTable() { TableName = input.TableName, TableDescription = input.Description });
         input.DbColumnInfoList.ForEach(u =>
         {
-            var dbColumnName = config!.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(u.DbColumnName.Trim()) : u.DbColumnName.Trim();
+            var dbColumnName = config!.DbSettings.EnableUnderLine ? u.DbColumnName.Trim().ToUnderLine() : u.DbColumnName.Trim();
             // 虚拟类都默认string类型，具体以列数据类型为准
             typeBuilder.CreateProperty(dbColumnName, typeof(string), new SugarColumn()
             {
@@ -431,7 +431,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
         Type entityType = null;
         foreach (var item in entityInfos)
         {
-            if (tableInfo.Name.ToLower() != (config.DbSettings.EnableUnderLine ? UtilMethods.ToUnderLine(item.DbTableName) : item.DbTableName).ToLower()) continue;
+            if (tableInfo.Name.ToLower() != (config.DbSettings.EnableUnderLine ? item.DbTableName.ToUnderLine() : item.DbTableName).ToLower()) continue;
             entityType = item.Type;
             break;
         }

@@ -82,7 +82,7 @@ public static class SqlSugarSetup
                 if (!type.GetCustomAttributes<SugarTable>().Any())
                     return;
                 if (config.DbSettings.EnableUnderLine && !entity.DbTableName.Contains('_'))
-                    entity.DbTableName = UtilMethods.ToUnderLine(entity.DbTableName); // 驼峰转下划线
+                    entity.DbTableName = entity.DbTableName.ToUnderLine(); // 驼峰转下划线
             },
             EntityService = (type, column) => // 处理列
             {
@@ -92,7 +92,7 @@ public static class SqlSugarSetup
                 if (new NullabilityInfoContext().Create(type).WriteState is NullabilityState.Nullable)
                     column.IsNullable = true;
                 if (config.DbSettings.EnableUnderLine && !column.IsIgnore && !column.DbColumnName.Contains('_'))
-                    column.DbColumnName = UtilMethods.ToUnderLine(column.DbColumnName); // 驼峰转下划线
+                    column.DbColumnName = column.DbColumnName.ToUnderLine(); // 驼峰转下划线
             },
             DataInfoCacheService = new SqlSugarCache(),
         };
