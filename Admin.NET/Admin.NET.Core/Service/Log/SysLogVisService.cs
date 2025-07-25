@@ -66,8 +66,8 @@ public class SysLogVisService : IDynamicApiController, ITransient
             .Select(u => new LogVisOutput
             {
                 Location = u.Location,
-                Longitude = u.Longitude,
-                Latitude = u.Latitude,
+                Longitude = (double?)u.Longitude,
+                Latitude = (double?)u.Latitude,
                 RealName = u.RealName,
                 LogDateTime = u.LogDateTime
             }).ToListAsync();
