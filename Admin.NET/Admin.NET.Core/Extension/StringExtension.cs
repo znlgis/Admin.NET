@@ -125,4 +125,48 @@ public static class StringExtension
             return paramDict.TryGetValue(key, out string value) ? value : string.Empty;
         });
     }
+
+    /// <summary>
+    /// 驼峰转下划线
+    /// </summary>
+    /// <param name="str"></param>
+    /// <param name="isToUpper"></param>
+    /// <returns></returns>
+    public static string ToUnderLine(this string str, bool isToUpper = false)
+    {
+        if (string.IsNullOrEmpty(str) || str.Contains("_"))
+        {
+            return str;
+        }
+
+        int length = str.Length;
+        var result = new System.Text.StringBuilder(length + (length / 3));
+
+        result.Append(char.ToLowerInvariant(str[0]));
+
+        int lastIndex = length - 1;
+
+        for (int i = 1; i < length; i++)
+        {
+            char current = str[i];
+            if (!char.IsUpper(current))
+            {
+                result.Append(current);
+                continue;
+            }
+
+            bool prevIsLower = char.IsLower(str[i - 1]);
+            bool nextIsLower = (i < lastIndex) && char.IsLower(str[i + 1]);
+
+            if (prevIsLower || nextIsLower)
+            {
+                result.Append('_');
+            }
+
+            result.Append((char)(current | 0x20));
+        }
+
+        string converted = result.ToString();
+        return isToUpper ? converted.ToUpperInvariant() : converted;
+    }
 }

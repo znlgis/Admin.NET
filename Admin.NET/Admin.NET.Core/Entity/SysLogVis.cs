@@ -60,13 +60,13 @@ public partial class SysLogVis : EntityBaseTenant
     /// 经度
     /// </summary>
     [SugarColumn(ColumnDescription = "经度")]
-    public double? Longitude { get; set; }
+    public decimal? Longitude { get; set; }
 
     /// <summary>
     /// 维度
     /// </summary>
     [SugarColumn(ColumnDescription = "维度")]
-    public double? Latitude { get; set; }
+    public decimal? Latitude { get; set; }
 
     /// <summary>
     /// 浏览器
