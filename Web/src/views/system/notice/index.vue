@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-notice-container">
-		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="标题">
 					<el-input v-model="state.queryParams.title" placeholder="标题" clearable />
