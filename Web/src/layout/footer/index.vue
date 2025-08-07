@@ -1,8 +1,8 @@
 <template>
-	<div class="layout-footer pb15">
+	<div class="layout-footer">
 		<div class="layout-footer-warp">
 			<!-- <div>{{ themeConfig.globalTitle }}</div> -->
-			<div class="mt5">{{ themeConfig.copyright }} {{ themeConfig.globalTitle }}</div>
+			<div>{{ themeConfig.copyright }} {{ themeConfig.globalTitle }}</div>
 		</div>
 	</div>
 </template>
@@ -19,6 +19,10 @@ const { themeConfig } = storeToRefs(storesThemeConfig);
 .layout-footer {
 	width: 100%;
 	display: flex;
+    line-height: 30px;
+    height: 30px;
+    background: #fff;
+    border-top: 1px solid var(--el-border-color-light);
 
 	&-warp {
 		margin: auto;

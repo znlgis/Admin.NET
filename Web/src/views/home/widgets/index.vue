@@ -1,5 +1,5 @@
 <template>
-	<div style="height: 100vh; overflow: hidden">
+	<div style="height: 100%; overflow: hidden">
 		<div class="noticebar" style="display: flex">
 			<NoticeBar />
 			<div class="editlayout">
@@ -255,7 +255,7 @@ const close = () => {
 	display: flex;
 	flex-direction: row;
 	flex: 1;
-	height: 100%;
+	height: calc(100% - 40px);;
 }
 .widgets-content {
 	flex: 1;
