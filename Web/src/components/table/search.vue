@@ -3,7 +3,7 @@
 		<el-form ref="tableSearchRef" :model="state.innerModelValue" label-width="100px" class="table-form">
 			<el-row :gutter="20">
 				<!-- <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="4" class="mb20"></el-col> -->
-				<el-col :xs="12" :sm="5" :md="5" :lg="6" :xl="4" class="mb20" v-for="(val, key) in search" :key="key" v-show="key < 3 || state.isToggle">
+				<el-col :xs="12" :sm="5" :md="5" :lg="6" :xl="4" v-for="(val, key) in search" :key="key" v-show="key < 3 || state.isToggle">
 					<template v-if="val.type">
 						<el-form-item
 							label-width="auto"
@@ -84,7 +84,7 @@
 						</el-form-item>
 					</template>
 				</el-col>
-				<el-col :xs="12" :sm="9" :md="9" :lg="6" :xl="4" class="mb20">
+				<el-col :xs="12" :sm="9" :md="9" :lg="6" :xl="4">
 					<el-form-item class="table-form-btn" label-width="auto">
 						<div>
 							<!-- 使用el-button-group会导致具有type属性的按钮的右边框无法显示 -->

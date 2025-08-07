@@ -4,8 +4,18 @@
 			<pane size="20">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</pane>
-			<pane size="80" style="overflow: auto;">
-				<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+			<pane size="80" style="overflow: auto; display: flex; flex-direction: column; background-color: #fff;">
+                <!-- <el-collapse :before-collapse="() => {return false}" @icon-click="(handleQuery)">
+                    <el-collapse-item>
+                        <template #title>
+                            <el-button>aDefault</el-button>
+
+                        </template>
+                        <div slot="title"><el-button>aDefault</el-button></div>
+                        <div slot="default"><el-button>Default</el-button></div>
+                    </el-collapse-item>
+                </el-collapse> -->
+				<el-card shadow="hover" :body-style="{ padding: 5 }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
 							<el-input v-model="state.queryParams.account" placeholder="账号" clearable />
@@ -120,8 +130,7 @@
 			</pane>
 		</splitpanes>
 
-		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData"
-			@handleQuery="handleQuery" />
+		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
 	</div>
 </template>
 
@@ -298,3 +307,9 @@ const nodeClick = async (node: any) => {
 	await handleQuery();
 };
 </script>
+
+<style scoped lang="scss">
+.el-form--inline .el-form-item,.el-form-item:last-of-type {
+    margin: 5px 15px;
+}
+</style>
