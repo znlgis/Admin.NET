@@ -1,6 +1,6 @@
 ﻿<template>
 	<div class="sysLdap-container">
-		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
 					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">

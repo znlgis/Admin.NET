@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-card shadow="hover" v-loading="state.isLoading">
+		<el-card shadow="hover" v-loading="state.isLoading" style="height: 100%;">
 			<el-descriptions title="系统信息配置" :column="2" :border="true">
 				<template #title>
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Setting /> </el-icon> 系统信息配置

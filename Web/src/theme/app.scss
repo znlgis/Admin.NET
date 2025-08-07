@@ -97,6 +97,8 @@ body,
 				position: relative;
 				padding: 5px; // 四周间隙
 			}
+
+            .overflow-bug { padding: 1px 0; }  // 不加会在内容未占满时上下有1px的滚动，不知道为什么
 		}
 	}
 	// 用于界面高度自适应

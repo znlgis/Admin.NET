@@ -1,6 +1,6 @@
 <template>
 	<div class="table-container">
-		<div v-if="!hideTool" class="table-header mb15">
+		<div v-if="!hideTool" class="table-header mb8">
 			<div>
 				<slot name="command"></slot>
 			</div>

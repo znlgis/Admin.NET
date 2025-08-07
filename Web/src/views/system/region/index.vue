@@ -4,7 +4,7 @@
 			<pane size="20">
 				<RegionTree ref="regionTreeRef" @node-click="nodeClick" />
 			</pane>
-			<pane size="80">
+			<pane size="80" style="overflow: auto; display: flex; flex-direction: column; background-color: #fff;">
 				<el-card class="full-table" shadow="hover">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="行政名称">
