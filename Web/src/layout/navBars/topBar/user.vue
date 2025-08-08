@@ -33,7 +33,7 @@
 			<i class="icon-skin iconfont" :title="$t('message.user.title3')"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon">
-			<el-popover placement="bottom" trigger="hover" transition="el-zoom-in-top" :width="300" :persistent="false">
+			<el-popover placement="bottom" trigger="click" transition="el-zoom-in-top" :width="300" :persistent="false">
 				<template #reference>
 					<el-badge :is-dot="hasUnreadNotice">
 						<el-icon :title="$t('message.user.title4')">
@@ -52,7 +52,7 @@
 				<ele-User />
 			</el-icon>
 		</div>
-		<el-dropdown :show-timeout="70" :hide-timeout="50" size="large" @command="onHandleCommandClick">
+		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" size="large" @command="onHandleCommandClick">
 			<span class="layout-navbars-breadcrumb-user-link">
 				<el-tooltip effect="dark" placement="left">
 					<template #content>
