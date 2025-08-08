@@ -63,7 +63,7 @@ import { Search, MoreFilled } from '@element-plus/icons-vue';
 
 import { getAPI } from '/@/utils/axios-utils';
 import {SysOrgApi, SysTenantApi} from '/@/api-services/api';
-import { SysOrg } from '/@/api-services/models';
+import { OrgOutput, SysOrg } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
 
 const props = defineProps({
@@ -76,9 +76,9 @@ const state = reactive({
 	loading: false,
 	tenantList: [] as Array<any>,
 	tenantId: props.tenantId as number,
-	orgData: [] as Array<SysOrg>,
+	orgData: [] as Array<OrgOutput>,
 	isShowCheckbox: false,
-	ownOrgData: [] as Array<SysOrg>,
+	ownOrgData: [] as Array<OrgOutput>,
 });
 
 onMounted( async () => {
@@ -94,7 +94,7 @@ watch(filterText, (val) => {
 
 const initTreeData = async () => {
 	state.loading = true;
-	const res = await getAPI(SysOrgApi).apiSysOrgListGet(0, undefined, undefined, undefined, state.tenantId);
+	const res = await getAPI(SysOrgApi).apiSysOrgTreeGet(0, undefined, undefined, undefined, state.tenantId);
 	state.orgData = res.data.result ?? [];
 	state.loading = false;
 };

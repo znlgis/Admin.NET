@@ -145,7 +145,7 @@ import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
-import { SysUser, SysOrg, UpdateUserInput } from '/@/api-services/models';
+import { SysUser, UpdateUserInput, OrgOutput } from '/@/api-services/models';
 
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
 const editUserRef = ref<InstanceType<typeof EditUser>>();
@@ -153,7 +153,7 @@ const state = reactive({
 	loading: false,
 	tenantList: [] as Array<any>,
 	userData: [] as Array<SysUser>,
-	orgTreeData: [] as Array<SysOrg>,
+	orgTreeData: [] as Array<OrgOutput>,
 	queryParams: {
 		orgId: -1,
 		account: undefined,
@@ -178,7 +178,7 @@ onMounted(async () => {
 // 查询机构数据
 const loadOrgData = async () => {
 	state.loading = true;
-	let res = await getAPI(SysOrgApi).apiSysOrgListGet(0);
+	let res = await getAPI(SysOrgApi).apiSysOrgTreeGet(0);
 	state.orgTreeData = res.data.result ?? [];
 	state.loading = false;
 };
