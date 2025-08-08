@@ -66,7 +66,7 @@
 					<img :src="userInfos.avatar" class="layout-navbars-breadcrumb-user-link-photo mr5" />
 				</el-tooltip>
 				{{ userInfos.realName == '' ? userInfos.account : userInfos.realName }}
-				<el-icon class="el-icon--right">
+				<el-icon class="dropdown-icon">
 					<ele-ArrowDown />
 				</el-icon>
 			</span>
@@ -301,12 +301,22 @@ const receiveNotice = (msg: any) => {
 		display: flex;
 		align-items: center;
 		white-space: nowrap;
+        cursor: pointer;
 
 		&-photo {
 			width: 25px;
 			height: 25px;
 			border-radius: 100%;
 		}
+
+        .dropdown-icon {
+            transition: transform 0.3s; /* 添加过渡效果 */
+        }
+        &:has(.dropdown-icon)[aria-expanded=true] {
+            .dropdown-icon {
+                transform: rotate(180deg);
+            }
+        }
 	}
 
 	&-icon {
