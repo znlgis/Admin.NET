@@ -223,9 +223,10 @@ public class SysMenuService : IDynamicApiController, ITransient
 
         var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new() : await GetMenuIdList();
 
-        permissions = await _sysMenuRep.AsQueryable().Where(u => u.Type == MenuTypeEnum.Btn)
-            .WhereIF(menuIdList.Count > 0, u => menuIdList.Contains(u.Id))
+        permissions = await _sysMenuRep.AsQueryable()
             .InnerJoinIF<SysTenantMenu>(!_userManager.SuperAdmin, (u, t) => t.TenantId == _userManager.TenantId && u.Id == t.MenuId)
+            .Where(u => u.Type == MenuTypeEnum.Btn)
+            .WhereIF(menuIdList.Count > 0, u => menuIdList.Contains(u.Id))
             .Select(u => u.Permission).ToListAsync();
 
         _sysCacheService.Set(CacheConst.KeyUserButton + userId, permissions, TimeSpan.FromDays(7));
