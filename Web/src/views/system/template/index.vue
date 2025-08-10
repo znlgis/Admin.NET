@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-config-container">
-		<el-card shadow="hover" :body-style="{ paddingBottom: '0' }">
+		<el-card shadow="hover" :body-style="{ paddingBottom: 5 }">
 			<TableSearch :search="tb.tableData.search" @search="onSearch" />
 		</el-card>
 		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
@@ -70,6 +70,13 @@ const tb = reactive<TableDemoState>({
 		},
 		// 搜索表单，动态生成（传空数组时，将不显示搜索，type有3种类型：input,date,select）
 		search: [
+            { label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
+            { label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
+            { label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
+            { label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
+            { label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
+            { label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
+            
 			{ label: '名称', prop: 'name', placeholder: '搜索模板名称', required: false, type: 'input' },
 			{ label: '编码', prop: 'code', placeholder: '搜索模板编码', required: false, type: 'input' },
 			{ label: '类型', prop: 'type', placeholder: '搜索模板类型', required: false, type: 'select', dictCode: 'TemplateTypeEnum' },
