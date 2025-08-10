@@ -5,17 +5,7 @@
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
 			</pane>
 			<pane size="80" style="overflow: auto; display: flex; flex-direction: column; background-color: #fff;">
-                <!-- <el-collapse :before-collapse="() => {return false}" @icon-click="(handleQuery)">
-                    <el-collapse-item>
-                        <template #title>
-                            <el-button>aDefault</el-button>
-
-                        </template>
-                        <div slot="title"><el-button>aDefault</el-button></div>
-                        <div slot="default"><el-button>Default</el-button></div>
-                    </el-collapse-item>
-                </el-collapse> -->
-				<el-card shadow="hover" :body-style="{ padding: 5 }">
+                <el-card shadow="hover" :body-style="{ padding: 5 }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
 							<el-input v-model="state.queryParams.account" placeholder="账号" clearable />

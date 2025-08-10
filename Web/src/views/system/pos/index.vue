@@ -35,7 +35,7 @@
 				</el-table-column>
 				<el-table-column prop="userList" label="人员明细" width="120" align="center" show-overflow-tooltip >
 					<template #default="scope">
-						<el-popover placement="bottom" width="280" trigger="hover" v-if="scope.row.userList?.length">
+						<el-popover placement="bottom" width="280" trigger="hover" :show-after="600" v-if="scope.row.userList?.length">
 							<template #reference>
 								<el-text type="primary" class="cursor-default">
 									<el-icon><ele-InfoFilled /></el-icon>人员明细
