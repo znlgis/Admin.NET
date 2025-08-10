@@ -44,10 +44,7 @@ public class SysOrgService : IDynamicApiController, ITransient
         // 获取拥有的机构Id集合
         var userOrgIdList = await GetUserOrgIdList();
 
-        var queryable = _sysOrgRep.AsQueryable()
-            .WhereIF(_userManager.SuperAdmin && input.TenantId > 0, u => u.TenantId == input.TenantId)
-            .OrderBy(u => new { u.OrderNo, u.Id });
-
+        var queryable = _sysOrgRep.AsQueryable().WhereIF(input.TenantId > 0, u => u.TenantId == input.TenantId).OrderBy(u => new { u.OrderNo, u.Id });
         // 带条件筛选时返回列表数据
         if (!string.IsNullOrWhiteSpace(input.Name) || !string.IsNullOrWhiteSpace(input.Code) || !string.IsNullOrWhiteSpace(input.Type))
         {
@@ -84,6 +81,53 @@ public class SysOrgService : IDynamicApiController, ITransient
     /// <param name="orgTree"></param>
     /// <param name="userOrgIdList"></param>
     private static void HandlerOrgTree(List<SysOrg> orgTree, List<long> userOrgIdList)
+    {
+        foreach (var org in orgTree)
+        {
+            org.Disabled = !userOrgIdList.Contains(org.Id); // 设置禁用/不可选择
+            if (org.Children != null)
+                HandlerOrgTree(org.Children, userOrgIdList);
+        }
+    }
+
+    /// <summary>
+    /// 获取机构树 🔖
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [DisplayName("获取机构树")]
+    public async Task<List<OrgTreeOutput>> GetTree([FromQuery] OrgInput input)
+    {
+        // 获取拥有的机构Id集合
+        var userOrgIdList = await GetUserOrgIdList();
+
+        var queryable = _sysOrgRep.AsQueryable().WhereIF(input.TenantId > 0, u => u.TenantId == input.TenantId).OrderBy(u => new { u.OrderNo, u.Id });
+        List<OrgTreeOutput> orgTree;
+        if (_userManager.SuperAdmin)
+        {
+            orgTree = await queryable.Select<OrgTreeOutput>().ToTreeAsync(u => u.Children, u => u.Pid, input.Id);
+        }
+        else
+        {
+            orgTree = await queryable.Select<OrgTreeOutput>().ToTreeAsync(u => u.Children, u => u.Pid, input.Id, userOrgIdList.Select(d => (object)d).ToArray());
+            // 递归禁用没权限的机构（防止用户修改或创建无权的机构和用户）
+            HandlerOrgTree(orgTree, userOrgIdList);
+        }
+
+        var sysOrg = await _sysOrgRep.AsQueryable().Select<OrgTreeOutput>().FirstAsync(u => u.Id == input.Id);
+        if (sysOrg == null) return orgTree;
+
+        sysOrg.Children = orgTree;
+        orgTree = new List<OrgTreeOutput> { sysOrg };
+        return orgTree;
+    }
+
+    /// <summary>
+    /// 递归禁用没权限的机构
+    /// </summary>
+    /// <param name="orgTree"></param>
+    /// <param name="userOrgIdList"></param>
+    private static void HandlerOrgTree(List<OrgTreeOutput> orgTree, List<long> userOrgIdList)
     {
         foreach (var org in orgTree)
         {

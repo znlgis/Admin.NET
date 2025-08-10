@@ -284,9 +284,9 @@ public class SysUserService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("查询用户组织机构信息")]
-    public virtual async Task<List<SysOrg>> GetOrgInfo()
+    public virtual async Task<List<OrgTreeOutput>> GetOrgInfo()
     {
-        return await _sysOrgService.GetList(new OrgInput { Id = 0 });
+        return await _sysOrgService.GetTree(new OrgInput { Id = 0 });
     }
 
     /// <summary>
