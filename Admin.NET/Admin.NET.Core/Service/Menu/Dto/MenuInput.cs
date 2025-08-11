@@ -45,3 +45,7 @@ public class UpdateMenuInput : AddMenuInput
 public class DeleteMenuInput : BaseIdInput
 {
 }
+
+public class MenuStatusInput : BaseStatusInput
+{
+}

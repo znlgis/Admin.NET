@@ -243,6 +243,7 @@ export * from './mapping-type';
 export * from './member-info';
 export * from './member-types';
 export * from './menu-output';
+export * from './menu-status-input';
 export * from './menu-type-enum';
 export * from './message-input';
 export * from './message-template-send-input';
