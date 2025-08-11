@@ -182,6 +182,24 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 设置菜单状态 🔖
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [UnitOfWork]
+    [DisplayName("设置菜单状态")]
+    public virtual async Task<int> SetStatus(MenuStatusInput input)
+    {
+        if (_userManager.UserId == input.Id)
+            throw Oops.Oh(ErrorCodeEnum.D1026);
+
+        var menu = await _sysMenuRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        menu.Status = input.Status;
+        var rows = await _sysMenuRep.AsUpdateable(menu).UpdateColumns(u => new { u.Status }).ExecuteCommandAsync();
+        return rows;
+    }
+
+    /// <summary>
     /// 增加和编辑时检查菜单数据
     /// </summary>
     /// <param name="menu"></param>
