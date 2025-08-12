@@ -4,8 +4,8 @@
 			<NoticeBar text="系统缓存数据管理，请慎重操作！" style="margin: 4px" />
 		</div>
 
-		<splitpanes class="default-theme">
-			<pane size="20">
+		<el-splitter class="smallbar-el-splitter">
+			<el-splitter-panel size="20%" :min="200">
 				<el-card shadow="hover" header="缓存列表" v-loading="state.loading" style="height: 100%" body-style="height:100%; overflow:auto">
 					<template #header>
 						<div class="card-header">
@@ -31,8 +31,8 @@
 						accordion
 					/>
 				</el-card>
-			</pane>
-			<pane size="80">
+			</el-splitter-panel>
+			<el-splitter-panel :min="200">
 				<el-card shadow="hover" header="缓存数据" v-loading="state.loading1" style="height: 100%" body-style="height:100%; overflow:auto">
 					<template #header>
 						<div class="card-header">
@@ -42,8 +42,8 @@
 					</template>
 					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController style="padding-bottom: 60px" />
 				</el-card>
-			</pane>
-		</splitpanes>
+			</el-splitter-panel>
+		</el-splitter>
 	</div>
 </template>
 
@@ -53,7 +53,7 @@ import { ElMessageBox, ElMessage, ElTree } from 'element-plus';
 import NoticeBar from '/@/components/noticeBar/index.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
-import { Splitpanes, Pane } from 'splitpanes';
+//import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 
 import { getAPI } from '/@/utils/axios-utils';
