@@ -3,8 +3,8 @@
 		<div>
 			<NoticeBar text="接口压测会占用服务器大量的内存资源，请慎重操作！" style="margin: 4px" />
 		</div>
-		<splitpanes class="default-theme overlay-hidden">
-			<pane size="20" class="vh100">
+		<el-splitter class="smallbar-el-splitter overlay-hidden">
+			<el-splitter-panel size="20%" :min="200">
 				<el-card class="vh80" shadow="hover" header="接口列表" v-loading="state.loading">
 					<el-row :gutter="35">
 						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb10">
@@ -37,8 +37,8 @@
 						</template>
 					</el-tree>
 				</el-card>
-			</pane>
-			<pane size="80" class="vh100">
+			</el-splitter-panel>
+			<el-splitter-panel :min="200">
 				<el-card class="main-container vh80" shadow="hover" header="缓存数据" v-loading="state.loading" body-style="height:100vh; overflow:auto">
 					<template #header>
 						<el-button type="primary" @click="showDialog(undefined)">开始测试</el-button>
@@ -105,8 +105,8 @@
 						</el-descriptions-item>
 					</el-descriptions>
 				</el-card>
-			</pane>
-		</splitpanes>
+			</el-splitter-panel>
+		</el-splitter>
 		<EditStressTest ref="editStressTestRef" @refreshData="refreshData" />
 	</div>
 </template>

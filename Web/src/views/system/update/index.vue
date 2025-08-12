@@ -187,7 +187,7 @@ onUnmounted(() => {
 .sys-update-container {
     display: flex;
     height: 100%;
-    background-color: #f0f2f5;
+    background-color: var(--next-bg-main-color);
 }
 
 .backup-list-description {
@@ -196,14 +196,14 @@ onUnmounted(() => {
 }
 
 .backup-list {
-    background-color: #ffffff;
+    background-color: var(--el-bg-color);
     padding: 20px;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     border-radius: 4px;
     transition: box-shadow 0.3s ease-in-out;
     max-height: 100%;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: var(--el-border);
 }
 
 .backup-items {
@@ -242,17 +242,17 @@ onUnmounted(() => {
     margin-left: 5px;
     display: flex;
     flex-direction: column;
-    background-color: #ffffff;
+    background-color: var(--el-bg-color);
     border-radius: 4px;
     /* box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); */
     transition: box-shadow 0.3s ease-in-out;
-    border: 1px solid rgba(0, 0, 0, 0.1);
+    border: var(--el-border);
 }
 
 .toolbar {
     /* margin-bottom: 5px; */
     padding: 5px 0;
-    background-color: #ffffff;
+    background-color: var(--el-bg-color);
     border-radius: 4px;
     /* box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1); */
     display: flex;
