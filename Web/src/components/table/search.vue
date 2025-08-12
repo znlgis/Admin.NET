@@ -1,106 +1,112 @@
 <template>
-	<div class="table-search-container" v-if="props.search.length > 0">
-		<el-form ref="tableSearchRef" :model="state.innerModelValue" label-width="100px" class="table-form">
-			<el-row :gutter="20">
-				<!-- <el-col :xs="12" :sm="8" :md="8" :lg="6" :xl="4" class="mb20"></el-col> -->
-				<el-col :xs="12" :sm="5" :md="5" :lg="6" :xl="4" v-for="(val, key) in search" :key="key" v-show="key < 3 || state.isToggle">
-					<template v-if="val.type">
-						<el-form-item
-							label-width="auto"
-							:label="val.label"
-							:prop="val.prop"
-							:rules="[{ required: val.required, message: `${val.label}不能为空`, trigger: val.type === 'input' ? 'blur' : 'change' }]"
-						>
-							<el-input
-								v-model="state.innerModelValue[val.prop]"
-								v-bind="val.comProps"
-								:placeholder="val.placeholder"
-								:clearable="!val.required"
-								v-if="val.type === 'input'"
-								@keyup.enter="onSearch(tableSearchRef)"
-								@change="val.change"
-								class="w100"
-							/>
-							<el-date-picker
-								v-model="state.innerModelValue[val.prop]"
-								v-bind="val.comProps"
-								type="date"
-								:placeholder="val.placeholder"
-								:clearable="!val.required"
-								v-else-if="val.type === 'date'"
-								@change="val.change"
-								class="w100"
-							/>
-							<el-date-picker
-								v-model="state.innerModelValue[val.prop]"
-								v-bind="val.comProps"
-								type="monthrange"
-								value-format="YYYY/MM/DD"
-								:placeholder="val.placeholder"
-								:clearable="!val.required"
-								v-else-if="val.type === 'monthrange'"
-								@change="val.change"
-								class="w100"
-							/>
-							<el-date-picker
-								v-model="state.innerModelValue[val.prop]"
-								v-bind="val.comProps"
-								type="daterange"
-								value-format="YYYY/MM/DD"
-								range-separator="至"
-								start-placeholder="开始日期"
-								end-placeholder="结束日期"
-								:clearable="!val.required"
-								:shortcuts="shortcuts"
-								:default-time="defaultTime"
-								v-else-if="val.type === 'daterange'"
-								@change="val.change"
-								class="w100"
-							/>
-							<el-select
-								v-model="state.innerModelValue[val.prop]"
-								v-bind="val.comProps"
-								:clearable="!val.required"
-								:placeholder="val.placeholder"
-								v-else-if="val.type === 'select'"
-								@change="val.change"
-								class="w100"
-							>
-								<el-option v-for="item in getSelectOptions(val)" :key="item.value" :label="item.label" :value="item.value" />
-							</el-select>
-							<el-cascader
-								v-else-if="val.type === 'cascader' && val.cascaderData"
-								:options="val.cascaderData"
-								:clearable="!val.required"
-								filterable
-								:props="val.cascaderProps ? val.cascaderProps : state.cascaderProps"
-								:placeholder="val.placeholder"
-								@change="val.change"
-								class="w100"
-								v-bind="val.comProps"
-								v-model="state.innerModelValue[val.prop]"
-							>
-							</el-cascader>
-						</el-form-item>
-					</template>
-				</el-col>
-				<el-col :xs="12" :sm="9" :md="9" :lg="6" :xl="4">
-					<el-form-item class="table-form-btn" label-width="auto">
-						<div>
-							<!-- 使用el-button-group会导致具有type属性的按钮的右边框无法显示 -->
-							<!-- <el-button-group> -->
-							<el-button plain type="primary" icon="ele-Search" @click="onSearch(tableSearchRef)"> 查询 </el-button>
-							<el-button icon="ele-Refresh" @click="onReset(tableSearchRef)" style="margin-left: 12px"> 重置 </el-button>
-							<!-- </el-button-group> -->
-						</div>
-					</el-form-item>
-				</el-col>
-			</el-row>
-			<el-divider style="margin-top: 5px" v-if="search.length > 3">
-				<el-button :icon="state.isToggle ? 'ele-ArrowUpBold' : 'ele-ArrowDownBold'" class="divider-btn" @click="state.isToggle = !state.isToggle"> </el-button>
-			</el-divider>
-		</el-form>
-	</div>
+	<div style="display: flex;">
+        <!-- <div class="table-search-container"> -->
+        <div :class="['table-search-container', { 'table-search-flex': search.length > defaultShowCount }]">
+            <el-form ref="tableSearchRef" :model="state.innerModelValue" :inline="true" label-width="100px">
+                <span v-for="(val, key) in search" :key="key" v-show="key < defaultShowCount || state.isToggle">
+                    <template v-if="val.type">
+                        <el-form-item
+                                label-width="auto"
+                                :label="val.label"
+                                :prop="val.prop"
+                                :rules="[{ required: val.required, message: `${val.label}不能为空`, trigger: val.type === 'input' ? 'blur' : 'change' }]"
+                            >
+                                <el-input
+                                    v-model="state.innerModelValue[val.prop]"
+                                    v-bind="val.comProps"
+                                    :placeholder="val.placeholder"
+                                    :clearable="!val.required"
+                                    v-if="val.type === 'input'"
+                                    @keyup.enter="onSearch(tableSearchRef)"
+                                    @change="val.change"
+                                />
+                                <el-date-picker
+                                    v-model="state.innerModelValue[val.prop]"
+                                    v-bind="val.comProps"
+                                    type="date"
+                                    :placeholder="val.placeholder"
+                                    :clearable="!val.required"
+                                    v-else-if="val.type === 'date'"
+                                    @change="val.change"
+                                />
+                                <el-date-picker
+                                    v-model="state.innerModelValue[val.prop]"
+                                    v-bind="val.comProps"
+                                    type="monthrange"
+                                    value-format="YYYY/MM/DD"
+                                    :placeholder="val.placeholder"
+                                    :clearable="!val.required"
+                                    v-else-if="val.type === 'monthrange'"
+                                    @change="val.change"
+                                />
+                                <el-date-picker
+                                    v-model="state.innerModelValue[val.prop]"
+                                    v-bind="val.comProps"
+                                    type="daterange"
+                                    value-format="YYYY/MM/DD"
+                                    range-separator="至"
+                                    start-placeholder="开始日期"
+                                    end-placeholder="结束日期"
+                                    :clearable="!val.required"
+                                    :shortcuts="shortcuts"
+                                    :default-time="defaultTime"
+                                    v-else-if="val.type === 'daterange'"
+                                    @change="val.change"
+                                />
+                                <el-select
+                                    v-model="state.innerModelValue[val.prop]"
+                                    v-bind="val.comProps"
+                                    :clearable="!val.required"
+                                    :placeholder="val.placeholder"
+                                    v-else-if="val.type === 'select'"
+                                    @change="val.change"
+                                >
+                                    <el-option v-for="item in getSelectOptions(val)" :key="item.value" :label="item.label" :value="item.value" />
+                                </el-select>
+                                <el-cascader
+                                    v-else-if="val.type === 'cascader' && val.cascaderData"
+                                    :options="val.cascaderData"
+                                    :clearable="!val.required"
+                                    filterable
+                                    :props="val.cascaderProps ? val.cascaderProps : state.cascaderProps"
+                                    :placeholder="val.placeholder"
+                                    @change="val.change"
+                                    v-bind="val.comProps"
+                                    v-model="state.innerModelValue[val.prop]"
+                                >
+                                </el-cascader>
+                        </el-form-item>
+                    </template>
+                </span>
+            </el-form>
+        </div>
+        <div v-if="search.length > defaultShowCount" class="table-search-more">
+            <el-form :inline="true">
+                <el-form-item>
+                    <el-button text @click="state.isToggle = !state.isToggle"
+                    >更多查询
+                        <el-icon class="el-icon--right">
+                            <ele-ArrowUpBold v-if="state.isToggle" />
+                            <ele-ArrowDownBold v-else />
+                        </el-icon>
+                </el-button>
+                    
+                    
+                </el-form-item>
+            </el-form>
+        </div>
+        <div class="table-search-btn">
+            <el-form :inline="true">
+                <el-form-item>
+                    <!-- 使用el-button-group会导致具有type属性的按钮的右边框无法显示 -->
+                    <!-- <el-button-group> -->
+                    <el-button plain type="primary" icon="ele-Search" @click="onSearch(tableSearchRef)"> 查询 </el-button>
+                    <el-button icon="ele-Refresh" @click="onReset(tableSearchRef)" style="margin-left: 12px"> 重置 </el-button>
+                    <!-- </el-button-group> -->
+                </el-form-item>
+            </el-form>
+        </div>
+    </div>
 </template>
 
 <script setup lang="ts" name="makeTableDemoSearch">
@@ -121,6 +127,11 @@ const props = defineProps({
 		type: Object,
 		default: () => ({}),
 	},
+    // 默认显示几个查询条件，超过则隐藏，点击更多展开
+    defaultShowCount: {
+        type: Number,
+        default: 5,
+    },
 });
 
 // 定义子组件向父组件传值/事件
@@ -209,24 +220,31 @@ const shortcuts = [
 </script>
 
 <style scoped lang="scss">
-.table-search-container {
-	display: flex;
-
-	.table-form {
-		flex: 1;
-
-		.table-form-btn-toggle {
-			white-space: nowrap;
-			user-select: none;
-			display: flex;
-			align-items: center;
-			color: var(--el-color-primary);
-		}
-	}
+.table-search-flex {
+    flex: 1;
 }
 
-.divider-btn {
-	height: 20px;
-	border-radius: 10px;
+.table-search-container {
+    //flex: 1;
+
+    :deep(.el-form-item--small .el-form-item__label) {
+        padding: 0 8px 0 0;
+    }
+}
+
+.table-search-more {
+	border-right: 1px solid var(--el-card-border-color);
+}
+
+.table-search-btn {
+    width: 184px;
+
+    // 右侧查询重置按钮随展开垂直居中
+    // .el-form--inline {
+    //     height: 100%;
+	// 	.el-form-item--small.el-form-item,.el-form-item:last-of-type {
+    //         height: calc(100% - 10px);
+    //     }
+	// }
 }
 </style>
