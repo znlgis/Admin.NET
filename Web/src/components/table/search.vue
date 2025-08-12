@@ -1,6 +1,7 @@
 <template>
 	<div style="display: flex;">
-        <div class="table-search-container">
+        <!-- <div class="table-search-container"> -->
+        <div :class="['table-search-container', { 'table-search-flex': search.length > defaultShowCount }]">
             <el-form ref="tableSearchRef" :model="state.innerModelValue" :inline="true" label-width="100px">
                 <span v-for="(val, key) in search" :key="key" v-show="key < defaultShowCount || state.isToggle">
                     <template v-if="val.type">
@@ -79,7 +80,7 @@
                 </span>
             </el-form>
         </div>
-        <div class="table-search-more">
+        <div v-if="search.length > defaultShowCount" class="table-search-more">
             <el-form :inline="true">
                 <el-form-item>
                     <el-button text @click="state.isToggle = !state.isToggle"
@@ -219,8 +220,12 @@ const shortcuts = [
 </script>
 
 <style scoped lang="scss">
-.table-search-container {
+.table-search-flex {
     flex: 1;
+}
+
+.table-search-container {
+    //flex: 1;
 
     :deep(.el-form-item--small .el-form-item__label) {
         padding: 0 8px 0 0;

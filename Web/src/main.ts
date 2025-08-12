@@ -22,7 +22,7 @@ import VForm3 from 'vform3-builds';
 import 'vform3-builds/dist/designer.style.css';
 // 关闭自动打印
 import { disAutoConnect } from 'vue-plugin-hiprint';
-import sysDict from "/src/components/sysDict/sysDict.vue";
+import sysDict from "/@/components/sysDict/sysDict.vue";
 disAutoConnect();
 
 const app = createApp(App);
