@@ -238,6 +238,7 @@ const shortcuts = [
 
 .table-search-btn {
     width: 184px;
+    flex-shrink: 0;
 
     // 右侧查询重置按钮随展开垂直居中
     // .el-form--inline {
