@@ -21,7 +21,7 @@ const { themeConfig } = storeToRefs(storesThemeConfig);
 	display: flex;
     line-height: 30px;
     height: 30px;
-    background: #fff;
+    background: var(--el-bg-color);
     border-top: 1px solid var(--el-border-color-light);
 
 	&-warp {

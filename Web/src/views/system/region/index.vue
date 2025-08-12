@@ -1,10 +1,10 @@
 <template>
 	<div class="sys-region-container">
-		<splitpanes class="default-theme">
-			<pane size="20">
+		<el-splitter class="smallbar-el-splitter">
+			<el-splitter-panel size="20%" :min="200">
 				<RegionTree ref="regionTreeRef" @node-click="nodeClick" />
-			</pane>
-			<pane size="80" style="overflow: auto; display: flex; flex-direction: column; background-color: #fff;">
+			</el-splitter-panel>
+			<el-splitter-panel :min="200" style="overflow: auto; display: flex; flex-direction: column;">
 				<el-card class="full-table" shadow="hover">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="行政名称">
@@ -49,8 +49,8 @@
 						layout="total, sizes, prev, pager, next, jumper"
 					/>
 				</el-card>
-			</pane>
-		</splitpanes>
+			</el-splitter-panel>
+		</el-splitter>
 
 		<EditRegion ref="editRegionRef" :title="state.editRegionTitle" @handleQuery="handleQuery" />
 	</div>
@@ -59,7 +59,7 @@
 <script lang="ts" setup name="sysRegion">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage, ElNotification } from 'element-plus';
-import { Splitpanes, Pane } from 'splitpanes';
+//import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 
 import RegionTree from '/@/views/system/region/component/regionTree.vue';
