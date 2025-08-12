@@ -545,3 +545,16 @@ $--el-table-text-color: #fb6d49;
 		}
 	}
 }
+
+
+/* Splitter 分隔面板
+------------------------------- */
+.smallbar-el-splitter {
+    .el-splitter-bar {
+        width: 8px !important;
+
+        .el-splitter-bar__dragger {
+            height: 100px !important;
+        }
+    }
+}

@@ -1,10 +1,10 @@
 <template>
     <div class="sys-org-container">
-        <splitpanes class="default-theme">
-            <pane size="20">
+        <el-splitter class="smallbar-el-splitter">
+            <el-splitter-panel size="20%" :min="200">
                 <OrgTree ref="orgTreeRef" @node-click="nodeClick" />
-            </pane>
-            <pane size="80" style="overflow: auto; display: flex; flex-direction: column; background-color: #fff;">
+            </el-splitter-panel>
+            <el-splitter-panel :min="200" style="overflow: auto; display: flex; flex-direction: column;">
                 <el-card shadow="hover" :body-style="{ padding: 5 }">
                     <el-form :model="state.queryParams" ref="queryForm" :inline="true">
                         <el-form-item label="机构名称">
@@ -64,8 +64,8 @@
                         </el-table-column>
                     </el-table>
                 </el-card>
-            </pane>
-        </splitpanes>
+            </el-splitter-panel>
+        </el-splitter>
 
         <EditOrg ref="editOrgRef" :title="state.editOrgTitle" :orgData="state.orgTreeData" @reload="handleQuery" />
     </div>
@@ -74,7 +74,7 @@
 <script lang="ts" setup name="sysOrg">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import { Splitpanes, Pane } from 'splitpanes';
+//import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysOrgApi } from '/@/api-services/api';
