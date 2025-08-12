@@ -6,6 +6,7 @@ import router from '/@/router';
 import { directive } from '/@/directive/index';
 import other from '/@/utils/other';
 import ElementPlus from 'element-plus';
+import { ElTooltip, ElTable } from 'element-plus'
 import '/@/theme/index.scss';
 // 动画库
 import 'animate.css';
@@ -34,5 +35,8 @@ other.elSvg(app);
 app.component('GSysDict', sysDict);
 // 注册全局多语言组件
 app.component('GMultiLangInput', multiLangInput);
+
+const TooltipProps = ElTooltip.props
+TooltipProps.showAfter = { type: Number, default: 800 }; // 设置全局tooltip延时显示时间为800毫秒
 
 app.use(pinia).use(router).use(ElementPlus).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');

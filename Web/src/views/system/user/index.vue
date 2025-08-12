@@ -1,21 +1,11 @@
 <template>
 	<div class="sys-user-container">
-		<splitpanes class="default-theme">
-			<pane size="20">
+		<el-splitter class="smallbar-el-splitter">
+			<el-splitter-panel size="20%" :min="200">
 				<OrgTree ref="orgTreeRef" @node-click="nodeClick" />
-			</pane>
-			<pane size="80" style="overflow: auto; display: flex; flex-direction: column; background-color: #fff;">
-                <!-- <el-collapse :before-collapse="() => {return false}" @icon-click="(handleQuery)">
-                    <el-collapse-item>
-                        <template #title>
-                            <el-button>aDefault</el-button>
-
-                        </template>
-                        <div slot="title"><el-button>aDefault</el-button></div>
-                        <div slot="default"><el-button>Default</el-button></div>
-                    </el-collapse-item>
-                </el-collapse> -->
-				<el-card shadow="hover" :body-style="{ padding: 5 }">
+			</el-splitter-panel>
+			<el-splitter-panel :min="200" style="overflow: auto; display: flex; flex-direction: column;">
+                <el-card shadow="hover" :body-style="{ padding: 5 }">
 					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 						<el-form-item label="账号">
 							<el-input v-model="state.queryParams.account" placeholder="账号" clearable />
@@ -127,8 +117,8 @@
 						:page-sizes="[10, 20, 50, 100]" size="small" background @size-change="handleSizeChange"
 						@current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" />
 				</el-card>
-			</pane>
-		</splitpanes>
+			</el-splitter-panel>
+		</el-splitter>
 
 		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
 	</div>
@@ -141,11 +131,11 @@ import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditUser from '/@/views/system/user/component/editUser.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import CallBar from '/@/components/callTel/callBar.vue';
-import { Splitpanes, Pane } from 'splitpanes';
+//import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
-import { SysUser, SysOrg, UpdateUserInput } from '/@/api-services/models';
+import { SysUser, UpdateUserInput, OrgOutput } from '/@/api-services/models';
 
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
 const editUserRef = ref<InstanceType<typeof EditUser>>();
@@ -153,7 +143,7 @@ const state = reactive({
 	loading: false,
 	tenantList: [] as Array<any>,
 	userData: [] as Array<SysUser>,
-	orgTreeData: [] as Array<SysOrg>,
+	orgTreeData: [] as Array<OrgOutput>,
 	queryParams: {
 		orgId: -1,
 		account: undefined,
@@ -178,7 +168,7 @@ onMounted(async () => {
 // 查询机构数据
 const loadOrgData = async () => {
 	state.loading = true;
-	let res = await getAPI(SysOrgApi).apiSysOrgListGet(0);
+	let res = await getAPI(SysOrgApi).apiSysOrgTreeGet(0);
 	state.orgTreeData = res.data.result ?? [];
 	state.loading = false;
 };

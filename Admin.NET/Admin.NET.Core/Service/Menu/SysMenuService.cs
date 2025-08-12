@@ -250,6 +250,24 @@ public class SysMenuService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 设置菜单状态 🔖
+    /// </summary>
+    /// <param name="input"></param>
+    /// <returns></returns>
+    [UnitOfWork]
+    [DisplayName("设置菜单状态")]
+    public virtual async Task<int> SetStatus(MenuStatusInput input)
+    {
+        if (_userManager.UserId == input.Id)
+            throw Oops.Oh(ErrorCodeEnum.D1026);
+
+        var menu = await _sysMenuRep.GetByIdAsync(input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        menu.Status = input.Status;
+        var rows = await _sysMenuRep.AsUpdateable(menu).UpdateColumns(u => new { u.Status }).ExecuteCommandAsync();
+        return rows;
+    }
+
+    /// <summary>
     /// 增加和编辑时检查菜单数据
     /// </summary>
     /// <param name="menu"></param>
@@ -291,9 +309,10 @@ public class SysMenuService : IDynamicApiController, ITransient
 
         var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new() : await GetMenuIdList();
 
-        permissions = await _sysMenuRep.AsQueryable().Where(u => u.Type == MenuTypeEnum.Btn)
-            .WhereIF(menuIdList.Count > 0, u => menuIdList.Contains(u.Id))
+        permissions = await _sysMenuRep.AsQueryable()
             .InnerJoinIF<SysTenantMenu>(!_userManager.SuperAdmin, (u, t) => t.TenantId == _userManager.TenantId && u.Id == t.MenuId)
+            .Where(u => u.Type == MenuTypeEnum.Btn)
+            .WhereIF(menuIdList.Count > 0, u => menuIdList.Contains(u.Id))
             .Select(u => u.Permission).ToListAsync();
 
         _sysCacheService.Set(CacheConst.KeyUserButton + userId, permissions, TimeSpan.FromDays(7));

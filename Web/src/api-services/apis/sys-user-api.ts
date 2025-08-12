@@ -21,7 +21,7 @@ import { AddUserInput } from '../models';
 import { AdminResultInt32 } from '../models';
 import { AdminResultInt64 } from '../models';
 import { AdminResultListInt64 } from '../models';
-import { AdminResultListSysOrg } from '../models';
+import { AdminResultListOrgTreeOutput } from '../models';
 import { AdminResultListSysUserExtOrg } from '../models';
 import { AdminResultSqlSugarPagedListUserOutput } from '../models';
 import { AdminResultString } from '../models';
@@ -754,7 +754,7 @@ export const SysUserApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserOrgInfoGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListSysOrg>>> {
+        async apiSysUserOrgInfoGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultListOrgTreeOutput>>> {
             const localVarAxiosArgs = await SysUserApiAxiosParamCreator(configuration).apiSysUserOrgInfoGet(options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
@@ -947,7 +947,7 @@ export const SysUserApiFactory = function (configuration?: Configuration, basePa
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiSysUserOrgInfoGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListSysOrg>> {
+        async apiSysUserOrgInfoGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultListOrgTreeOutput>> {
             return SysUserApiFp(configuration).apiSysUserOrgInfoGet(options).then((request) => request(axios, basePath));
         },
         /**
@@ -1112,7 +1112,7 @@ export class SysUserApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof SysUserApi
      */
-    public async apiSysUserOrgInfoGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListSysOrg>> {
+    public async apiSysUserOrgInfoGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultListOrgTreeOutput>> {
         return SysUserApiFp(this.configuration).apiSysUserOrgInfoGet(options).then((request) => request(this.axios, this.basePath));
     }
     /**

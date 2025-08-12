@@ -53,7 +53,7 @@
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </EmbeddedResource>
   </ItemGroup>
-	
+
   <ItemGroup>
     <Content Update="wwwroot\upload\logo.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>

@@ -73,8 +73,8 @@
 <script lang="ts" setup name="sysEditTenant">
 import { onMounted, reactive, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
-import {SysOrgApi, SysPosApi, SysRoleApi, SysUserRegWayApi} from '/@/api-services/api';
-import {AccountTypeEnum, RoleOutput, SysOrg, SysPos, UpdateUserRegWayInput} from '/@/api-services/models';
+import { SysOrgApi, SysPosApi, SysRoleApi, SysUserRegWayApi } from '/@/api-services/api';
+import { OrgTreeOutput, RoleOutput, SysPos, UpdateUserRegWayInput } from '/@/api-services/models';
 
 const props = defineProps({
 	title: String,
@@ -87,7 +87,7 @@ const state = reactive({
 	isShowDialog: false,
 	file: undefined as any,
 	ruleForm: {} as UpdateUserRegWayInput,
-	orgData: [] as Array<SysOrg>,
+	orgData: [] as Array<OrgTreeOutput>,
 	posData: [] as Array<SysPos>, // 职位数据
 	roleData: [] as Array<RoleOutput>, // 角色数据
 });
@@ -96,7 +96,7 @@ onMounted(async () => {
 	state.loading = true;
 	state.posData = await getAPI(SysPosApi).apiSysPosListGet().then(res => res.data.result ?? []);
 	state.roleData = await getAPI(SysRoleApi).apiSysRoleListGet().then(res => res.data.result ?? []);
-	state.orgData = await getAPI(SysOrgApi).apiSysOrgListGet(0).then(res => res.data.result ?? []);
+	state.orgData = await getAPI(SysOrgApi).apiSysOrgTreeGet(0).then(res => res.data.result ?? []);
 	state.loading = false;
 });
 

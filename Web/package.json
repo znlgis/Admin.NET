@@ -126,7 +126,7 @@
 			"json-editor-vue",
 			"vue-demi"
 		],
-		"overrides": {
+        "overrides": {
 			"rollup": "4.43.0"
 		}
 	},

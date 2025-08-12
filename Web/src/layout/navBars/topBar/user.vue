@@ -35,7 +35,7 @@
 			<i class="icon-skin iconfont" title="布局配置"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon">
-			<el-popover placement="bottom" trigger="hover" transition="el-zoom-in-top" :width="300" :persistent="false">
+			<el-popover placement="bottom" trigger="click" transition="el-zoom-in-top" :width="300" :persistent="false">
 				<template #reference>
 					<el-badge :is-dot="hasUnreadNotice">
 						<el-icon title="消息">
@@ -55,7 +55,7 @@
 				<ele-User />
 			</el-icon>
 		</div>
-		<el-dropdown :show-timeout="70" :hide-timeout="50" size="large" @command="onHandleCommandClick">
+		<el-dropdown :show-timeout="70" :hide-timeout="50" trigger="click" size="large" @command="onHandleCommandClick">
 			<span class="layout-navbars-breadcrumb-user-link">
 				<el-tooltip effect="dark" placement="left">
 					<template #content>
@@ -69,7 +69,7 @@
 					<img :src="userInfos.avatar" class="layout-navbars-breadcrumb-user-link-photo mr5" />
 				</el-tooltip>
 				{{ userInfos.realName == '' ? userInfos.account : userInfos.realName }}
-				<el-icon class="el-icon--right">
+				<el-icon class="dropdown-icon">
 					<ele-ArrowDown />
 				</el-icon>
 			</span>
@@ -323,12 +323,22 @@ const receiveNotice = (msg: any) => {
 		display: flex;
 		align-items: center;
 		white-space: nowrap;
+        cursor: pointer;
 
 		&-photo {
 			width: 25px;
 			height: 25px;
 			border-radius: 100%;
 		}
+
+        .dropdown-icon {
+            transition: transform 0.3s; /* 添加过渡效果 */
+        }
+        &:has(.dropdown-icon)[aria-expanded=true] {
+            .dropdown-icon {
+                transform: rotate(180deg);
+            }
+        }
 	}
 
 	&-icon {

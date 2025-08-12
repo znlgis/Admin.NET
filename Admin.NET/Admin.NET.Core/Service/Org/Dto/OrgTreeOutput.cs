@@ -6,46 +6,37 @@
 
 namespace Admin.NET.Core.Service;
 
-public class MenuInput
+/// <summary>
+/// 机构树形输出
+/// </summary>
+public class OrgTreeOutput
 {
     /// <summary>
-    /// 标题
+    /// 主键Id
     /// </summary>
-    public string Title { get; set; }
-
-    /// <summary>
-    /// 菜单类型（1目录 2菜单 3按钮）
-    /// </summary>
-    public MenuTypeEnum? Type { get; set; }
-
-    /// <summary>
-    /// 租户Id
-    /// </summary>
-    public virtual long TenantId { get; set; }
-}
-
-public class AddMenuInput : SysMenu
-{
-    /// <summary>
-    /// 名称
-    /// </summary>
-    [Required(ErrorMessage = "菜单名称不能为空")]
-    public override string Title { get; set; }
-
+    [SugarColumn(IsTreeKey = true)]
+    public long Id { get; set; }
     /// <summary>
     /// 租户Id
     /// </summary>
     public long TenantId { get; set; }
-}
+    /// <summary>
+    /// 父Id
+    /// </summary>
+    public long Pid { get; set; }
 
-public class UpdateMenuInput : AddMenuInput
-{
-}
+    /// <summary>
+    /// 名称
+    /// </summary>
+    public string Name { get; set; }
 
-public class DeleteMenuInput : BaseIdInput
-{
-}
+    /// <summary>
+    /// 机构子项
+    /// </summary>
+    public List<OrgTreeOutput> Children { get; set; }
 
-public class MenuStatusInput : BaseStatusInput
-{
+    /// <summary>
+    /// 是否禁止选中
+    /// </summary>
+    public bool Disabled { get; set; }
 }
