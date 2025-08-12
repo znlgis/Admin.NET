@@ -71,8 +71,8 @@ public class SysAuthService : IDynamicApiController, ITransient
         var keyPasswordErrorTimes = $"{CacheConst.KeyPasswordErrorTimes}{input.Account}";
         var passwordErrorTimes = _sysCacheService.Get<int>(keyPasswordErrorTimes);
         var passwordMaxErrorTimes = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysPasswordMaxErrorTimes);
-        // 若未配置或误配置为0、负数, 则默认密码错误次数最大为10次
-        if (passwordMaxErrorTimes < 1) passwordMaxErrorTimes = 10;
+        // 若未配置或误配置为0、负数, 则默认密码错误次数最大为5次
+        if (passwordMaxErrorTimes < 1) passwordMaxErrorTimes = 5;
         if (passwordErrorTimes > passwordMaxErrorTimes) throw Oops.Oh(ErrorCodeEnum.D1027);
 
         // 判断是否开启验证码，其校验验证码
@@ -122,7 +122,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             .WhereIF(tenantId > 0, u => (u.AccountType == AccountTypeEnum.SuperAdmin || u.TenantId == tenantId))
             .WhereIF(!string.IsNullOrWhiteSpace(account), u => u.Account.Equals(account))
             .WhereIF(!string.IsNullOrWhiteSpace(phone), u => u.Phone.Equals(phone)).FirstAsync();
-        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D0009);
+        _ = user ?? throw Oops.Oh(ErrorCodeEnum.D1000);
 
         // 租户是否存在或已禁用
         var tenant = await _sysUserRep.ChangeRepository<SqlSugarRepository<SysTenant>>().AsQueryable()

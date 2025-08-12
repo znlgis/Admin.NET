@@ -32,9 +32,9 @@ public enum ErrorCodeEnum
     D0010,
 
     /// <summary>
-    /// 密码不正确
+    /// 账号或密码不正确
     /// </summary>
-    [ErrorCodeItemMetadata("密码不正确")]
+    [ErrorCodeItemMetadata("账号或密码不正确")]
     D1000,
 
     /// <summary>
