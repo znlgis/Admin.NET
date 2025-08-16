@@ -14,19 +14,19 @@
 						}
 					"
 					:class="{ 'layout-columns-active': state.liIndex === k, 'layout-columns-hover': state.liHoverIndex === k }"
-					:title="$t(v.meta.title)"
+					:title="v.meta.title"
 				>
 					<div :class="themeConfig.columnsAsideLayout" v-if="!v.meta.isLink || (v.meta.isLink && v.meta.isIframe)">
 						<SvgIcon :name="v.meta.icon" />
 						<div class="columns-vertical-title font12">
-							{{ $t(v.meta.title) && $t(v.meta.title).length >= 4 ? $t(v.meta.title).substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3) : $t(v.meta.title) }}
+							{{ v.meta.title && v.meta.title.length >= 4 ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3) : v.meta.title }}
 						</div>
 					</div>
 					<div :class="themeConfig.columnsAsideLayout" v-else>
 						<a :href="v.meta.isLink" target="_blank">
 							<SvgIcon :name="v.meta.icon" />
 							<div class="columns-vertical-title font12">
-								{{ $t(v.meta.title) && $t(v.meta.title).length >= 4 ? $t(v.meta.title).substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3) : $t(v.meta.title) }}
+								{{ v.meta.title && v.meta.title.length >= 4 ? v.meta.title.substr(0, themeConfig.columnsAsideLayout === 'columns-vertical' ? 4 : 3) : v.meta.title }}
 							</div>
 						</a>
 					</div>

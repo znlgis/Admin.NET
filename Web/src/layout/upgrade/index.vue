@@ -3,19 +3,19 @@
 		<el-dialog v-model="state.isUpgrade" width="300px" destroy-on-close :show-close="false" :close-on-click-modal="false" :close-on-press-escape="false">
 			<div class="upgrade-title">
 				<div class="upgrade-title-warp">
-					<span class="upgrade-title-warp-txt">{{ $t('message.upgrade.title') }}</span>
+					<span class="upgrade-title-warp-txt">新版本升级</span>
 					<span class="upgrade-title-warp-version">v{{ state.version }}</span>
 				</div>
 			</div>
 			<div class="upgrade-content">
-				{{ getThemeConfig.globalTitle }} {{ $t('message.upgrade.msg') }}
+				{{ getThemeConfig.globalTitle }} 新版本来啦，马上更新尝鲜吧！不用担心，更新很快的哦！
 				<div class="mt5">
 					<el-link type="primary" class="font12" href="https://xxx/CHANGELOG.md" target="_black"> CHANGELOG.md </el-link>
 				</div>
-				<!-- <div class="upgrade-content-desc mt5">{{ $t("message.upgrade.desc") }}</div> -->
+				<!-- <div class="upgrade-content-desc mt5">提示：更新会还原默认配置</div> -->
 			</div>
 			<div class="upgrade-btn">
-				<el-button round size="default" type="info" text @click="onCancel">{{ $t('message.upgrade.btnOne') }}</el-button>
+				<el-button round size="default" type="info" text @click="onCancel">残忍拒绝</el-button>
 				<el-button type="primary" round size="default" @click="onUpgrade" :loading="state.isLoading">{{ state.btnTxt }}</el-button>
 			</div>
 		</el-dialog>
@@ -24,12 +24,10 @@
 
 <script setup lang="ts" name="layoutUpgrade">
 import { reactive, computed, onMounted } from 'vue';
-import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 
 // 定义变量内容
-const { t } = useI18n();
 const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
 const state = reactive({
@@ -49,7 +47,7 @@ const getThemeConfig = computed(() => {
 onMounted(() => {
 	delayShow();
 	setTimeout(() => {
-		state.btnTxt = t('message.upgrade.btnTwo');
+		state.btnTxt = '马上更新';
 	}, 200);
 });
 
@@ -61,7 +59,7 @@ const onCancel = () => {
 // 马上更新
 const onUpgrade = () => {
 	state.isLoading = true;
-	state.btnTxt = t('message.upgrade.btnTwoLoading');
+	state.btnTxt = '更新中';
 	setTimeout(() => {
 		// Local.clear();
 		window.location.reload();

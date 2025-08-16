@@ -9,6 +9,7 @@ import { CodeInspectorPlugin } from 'code-inspector-plugin';
 import fs from 'fs';
 import { visualizer } from 'rollup-plugin-visualizer';
 import { webUpdateNotice } from '@plugin-web-update-notification/vite';
+import vitePluginsAutoI18n, { EmptyTranslator, YoudaoTranslator } from 'vite-auto-i18n-plugin';
 const pathResolve = (dir: string) => {
 	return resolve(__dirname, '.', dir);
 };
@@ -16,7 +17,7 @@ const pathResolve = (dir: string) => {
 const alias: Record<string, string> = {
 	'/@': pathResolve('./src/'),
 	'vue-i18n': 'vue-i18n/dist/vue-i18n.cjs.js',
-	'ezuikit-js': pathResolve('node_modules/ezuikit-js/ezuikit.js'), 
+	'ezuikit-js': pathResolve('node_modules/ezuikit-js/ezuikit.js'),
 };
 
 const viteConfig = defineConfig((mode: ConfigEnv) => {
@@ -52,6 +53,16 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 				// exclude: [/\.(br)$/, /\.(gz)$/], // 排除指定文件
 			}),
 			JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null,
+			// 使用说明 https://github.com/auto-i18n/auto-i18n-translation-plugins
+			vitePluginsAutoI18n({
+				originLang: 'zh-cn', //源语言，翻译以此语言为基础
+				targetLangList: ['zh-hk', 'zh-tw', 'en', 'it'], // 目标语言列表，支持配置多个语言
+				translator: new EmptyTranslator() // 只生成Web\lang\index.json文件
+				// translator: new YoudaoTranslator({ // 有道实时翻译
+                // appId: '你申请的appId',
+                // appKey: '你申请的appKey'
+            	// })
+			}),
 		],
 		root: process.cwd(),
 		resolve: { alias },

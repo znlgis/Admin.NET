@@ -1,6 +1,6 @@
 <template>
 	<div class="login-scan-container">
-		<el-select v-model="state.tenantId" v-if="!props.tenantInfo.id && !themeConfig.hideTenantForLogin" :placeholder="$t('message.scan.placeholder1')" clearable class="mb30" style="width: 260px; align-self: center;" filterable>
+		<el-select v-model="state.tenantId" v-if="!props.tenantInfo.id && !themeConfig.hideTenantForLogin" placeholder="请选择租户" clearable class="mb30" style="width: 260px; align-self: center;" filterable>
 			<template #prefix>
 				<i class="iconfont icon-shuxingtu el-input__icon"></i>
 			</template>
@@ -9,7 +9,7 @@
 		<div ref="qrcodeRef"></div>
 		<div class="font12 mt20 login-msg">
 			<i class="iconfont icon-saoyisao mr5"></i>
-			<span>{{ $t('message.scan.text') }}</span>
+			<span>打开手机扫一扫，快速登录/注册</span>
 		</div>
 	</div>
 </template>

@@ -11,7 +11,7 @@
 				<el-row :gutter="35">
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="显示文本" prop="label" :rules="[{ required: true, message: '显示文本不能为空', trigger: 'blur' }]">
-							<el-input v-model="state.ruleForm.label" placeholder="字典值" :disabled="state.isSysFlag" clearable />
+							<g-multi-lang-Input entityName="SysDictData" fieldName="Label" :entityId="state.ruleForm.id" v-model="state.ruleForm.label" placeholder="显示文本" clearable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
