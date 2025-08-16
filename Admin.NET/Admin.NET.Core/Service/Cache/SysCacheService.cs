@@ -108,8 +108,18 @@ public class SysCacheService : IDynamicApiController, ISingleton
         using (_cacheProvider.Cache.AcquireLock($@"lock:AdGetAsync:{cacheName}", 1000))
         {
             var value = Get<T>(key);
-            value ??= await ((dynamic)del).DynamicInvokeAsync(obs);
-            Set(key, value);
+            if (value == null)
+            {
+                value = await ((dynamic)del).DynamicInvoke(obs);
+                if (expiry == null)
+                {
+                    Set(key, value);
+                }
+                else
+                {
+                    Set(key, value, (TimeSpan)expiry);
+                }
+            }
             return value;
         }
     }
@@ -131,15 +141,19 @@ public class SysCacheService : IDynamicApiController, ISingleton
 
     private T Get<T>(String cacheName, Object[] obs)
     {
-        var key = cacheName + ":" + obs.Aggregate(string.Empty, (current, o) => current + $"<{o}>");
+        var key = Key(cacheName, obs);
         return Get<T>(key);
     }
 
     private static string Key(string cacheName, object[] obs)
     {
-        if (obs.OfType<TimeSpan>().Any()) throw new Exception("缓存参数类型不能能是:TimeSpan类型");
-        StringBuilder sb = new(cacheName + ":");
-        foreach (var a in obs) sb.Append($"<{KeySingle(a)}>");
+        if (obs.OfType<TimeSpan>().Any()) throw new Exception("缓存参数类型不能是:TimeSpan类型");
+        StringBuilder sb = new(cacheName);
+        if (obs is { Length: > 0 })
+        {
+            sb.Append(':');
+            foreach (var a in obs) sb.Append($"<{KeySingle(a)}>");
+        }
         return sb.ToString();
     }
 
