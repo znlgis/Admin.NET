@@ -21,12 +21,12 @@
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="菜单类型" prop="type" :rules="[{ required: true, message: '菜单类型不能为空', trigger: 'blur' }]">
-              <g-sys-dict v-model="state.ruleForm.type" code="MenuTypeEnum" render-as="radio" />
+							<g-sys-dict v-model="state.ruleForm.type" code="MenuTypeEnum" render-as="radio" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="菜单名称" prop="title" :rules="[{ required: true, message: '菜单名称不能为空', trigger: 'blur' }]">
-							<el-input v-model="state.ruleForm.title" placeholder="菜单名称" clearable />
+							<g-multi-lang-Input entityName="SysMenu" fieldName="Title" :entityId="state.ruleForm.id" v-model="state.ruleForm.title" placeholder="菜单名称" clearable />
 						</el-form-item>
 					</el-col>
 					<template v-if="state.ruleForm.type === 1 || state.ruleForm.type === 2">

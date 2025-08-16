@@ -13,7 +13,7 @@
 				<template v-for="(v, k) in state.dropdownList">
 					<li class="el-dropdown-menu__item" aria-disabled="false" tabindex="-1" :key="k" v-if="!v.affix" @click="onCurrentContextmenuClick(v.contextMenuClickId)">
 						<SvgIcon :name="v.icon" />
-						<span>{{ $t(v.txt) }}</span>
+						<span>{{ v.txt }}</span>
 					</li>
 				</template>
 			</ul>

@@ -5,7 +5,7 @@ import router from '/@/router/index';
 import pinia from '/@/stores/index';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
-import { i18n } from '/@/i18n/index';
+//import { i18n } from '/@/i18n/index';
 import { Local } from '/@/utils/storage';
 import { verifyUrl } from '/@/utils/toolsValidate';
 
@@ -56,17 +56,10 @@ export function setTagsViewNameI18n(item: any) {
 	// 修复tagsViewName匹配到其他含下列单词的路由
 	const pattern = /^\{("(zh-cn|en|zh-tw)":"[^,]+",?){1,3}}$/;
 	if (query?.tagsViewName || params?.tagsViewName) {
-		if (pattern.test(query?.tagsViewName) || pattern.test(params?.tagsViewName)) {
-			// 国际化
-			const urlTagsParams = (query?.tagsViewName && JSON.parse(query?.tagsViewName)) || (params?.tagsViewName && JSON.parse(params?.tagsViewName));
-			tagsViewName = urlTagsParams[i18n.global.locale.value];
-		} else {
-			// 非国际化
-			tagsViewName = query?.tagsViewName || params?.tagsViewName;
-		}
+		tagsViewName = query?.tagsViewName || params?.tagsViewName;
 	} else {
 		// 非自定义 tagsView 名称
-		tagsViewName = i18n.global.t(meta.title);
+		tagsViewName = meta.title;
 	}
 	return tagsViewName;
 }

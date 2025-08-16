@@ -1,7 +1,7 @@
 <template>
 	<el-form size="large" class="login-content-form">
 		<el-form-item class="login-animation1" v-if="!props.tenantInfo.id && !themeConfig.hideTenantForLogin">
-			<el-select v-model="state.ruleForm.tenantId" :placeholder="$t('message.mobile.placeholder1')" clearable style="width: 100%" filterable>
+			<el-select v-model="state.ruleForm.tenantId" placeholder="请选择租户" clearable style="width: 100%" filterable>
 				<template #prefix>
 					<i class="iconfont icon-shuxingtu el-input__icon"></i>
 				</template>
@@ -9,7 +9,7 @@
 			</el-select>
 		</el-form-item>
 		<el-form-item class="login-animation1">
-			<el-input text :placeholder="$t('message.mobile.placeholder2')" v-model="state.ruleForm.phone" clearable autocomplete="off">
+			<el-input text placeholder="请输入手机号" v-model="state.ruleForm.phone" clearable autocomplete="off">
 				<template #prefix>
 					<i class="iconfont icon-dianhua el-input__icon"></i>
 				</template>
@@ -17,7 +17,7 @@
 		</el-form-item>
 		<el-form-item class="login-animation2">
 			<el-col :span="15">
-				<el-input text maxlength="6" :placeholder="$t('message.mobile.placeholder3')" v-model="state.ruleForm.code" clearable autocomplete="off">
+				<el-input text maxlength="6" placeholder="请输入验证码" v-model="state.ruleForm.code" clearable autocomplete="off">
 					<template #prefix>
 						<el-icon class="el-input__icon"><ele-Position /></el-icon>
 					</template>
@@ -32,10 +32,10 @@
 		</el-form-item>
 		<el-form-item class="login-animation3">
 			<el-button round type="primary" v-waves class="login-content-submit" @click="onSignIn">
-				<span>{{ $t('message.mobile.btnText') }}</span>
+				<span>登 录</span>
 			</el-button>
 		</el-form-item>
-		<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
+		<div class="font12 mt30 login-animation4 login-msg">* 温馨提示：建议使用谷歌、Microsoft Edge，版本 79.0.1072.62 及以上浏览器，360浏览器请使用极速模式</div>
 	</el-form>
 </template>
 

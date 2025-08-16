@@ -1,9 +1,9 @@
+import '../lang/index'
 import { createApp } from 'vue';
 import pinia from '/@/stores/index';
 import App from '/@/App.vue';
 import router from '/@/router';
 import { directive } from '/@/directive/index';
-import { i18n } from '/@/i18n/index';
 import other from '/@/utils/other';
 import ElementPlus from 'element-plus';
 import { ElTooltip } from 'element-plus'
@@ -22,7 +22,8 @@ import VForm3 from 'vform3-builds';
 import 'vform3-builds/dist/designer.style.css';
 // 关闭自动打印
 import { disAutoConnect } from 'vue-plugin-hiprint';
-import sysDict from "/@/components/sysDict/sysDict.vue";
+import sysDict from "/src/components/sysDict/sysDict.vue";
+import multiLangInput from "/src/components/multiLangInput/index.vue";
 disAutoConnect();
 
 const app = createApp(App);
@@ -32,9 +33,10 @@ other.elSvg(app);
 
 // 注册全局字典组件
 app.component('GSysDict', sysDict);
+// 注册全局多语言组件
+app.component('GMultiLangInput', multiLangInput);
 
 const TooltipProps = ElTooltip.props
 TooltipProps.showAfter = { type: Number, default: 800 }; // 设置全局tooltip延时显示时间为800毫秒
 
-
-app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');
+app.use(pinia).use(router).use(ElementPlus).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');

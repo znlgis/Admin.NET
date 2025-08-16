@@ -29,13 +29,13 @@
 					<div class="login-right-warp-main-form">
 						<div v-if="!state.isScan">
 							<el-tabs v-model="state.tabsActiveName">
-								<el-tab-pane :label="$t('message.label.label1')" name="account" v-if="state.tabsActiveName != 'register'">
+								<el-tab-pane label="账号登录" name="account" v-if="state.tabsActiveName != 'register'">
 									<Account :tenant-info="tenantInfo" />
 								</el-tab-pane>
-								<el-tab-pane :label="$t('message.label.label2')" name="mobile" v-if="state.tabsActiveName != 'register'">
+								<el-tab-pane label="手机号登录" name="mobile" v-if="state.tabsActiveName != 'register'">
 									<Mobile :tenant-info="tenantInfo" />
 								</el-tab-pane>
-								<el-tab-pane :label="$t('message.label.label3')" name="register" v-if="state.tabsActiveName == 'register'">
+								<el-tab-pane label="用户注册" name="register" v-if="state.tabsActiveName == 'register'">
 									<Register :tenant-info="tenantInfo" @goLogin="() => state.tabsActiveName = 'account'" />
 								</el-tab-pane>
 							</el-tabs>
@@ -47,10 +47,10 @@
 						</div>
 						<div class="login-content-main-left" v-if="getThemeConfig.registration">
 							<template v-if="state.tabsActiveName != 'register'">
-								{{$t('message.label.label4')}}<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'register'">{{$t('message.label.label5')}}</el-link>
+								没有账号? 去<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'register'">注册账号</el-link>
 							</template>
 							<template v-else>
-								{{$t('message.label.label6')}}<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'account'">{{$t('message.label.label7')}}</el-link>
+								已有账户? 去<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'account'">登录账号</el-link>
 							</template>
 						</div>
 					</div>

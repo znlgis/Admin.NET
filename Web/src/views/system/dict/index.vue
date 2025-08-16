@@ -240,7 +240,7 @@ const handleDictType = (row: any, event: any, column: any) => {
 
 // 判断是否有权限操作
 const hasPermission = (row: any) => {
-	if (row.code?.toLowerCase().endsWith('enum')) return false;
+	//if (row.code?.toLowerCase().endsWith('enum')) return false;
 	return row?.sysFlag === 2 || userInfo.accountType === AccountTypeEnum.NUMBER_999;
 };
 
