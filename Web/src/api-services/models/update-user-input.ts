@@ -33,7 +33,7 @@ export interface UpdateUserInput {
      * @type {number}
      * @memberof UpdateUserInput
      */
-    id?: number;
+    id: number;
 
     /**
      * 创建时间

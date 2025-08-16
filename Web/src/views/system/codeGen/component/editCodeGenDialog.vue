@@ -207,7 +207,7 @@ onMounted(async () => {
 
 // db改变
 const dbChanged = async () => {
-	if (state.ruleForm.configId === '') return;
+	if (!state.ruleForm.configId) return;
     state.tableData = await getAPI(SysCodeGenApi).apiSysCodeGenTableListConfigIdGet(state.ruleForm.configId as string).then(res => res.data.result ?? []);
 
 	let db = state.dbData.filter((u: any) => u.configId == state.ruleForm.configId);
@@ -232,7 +232,7 @@ const changeTableUniqueColumn = (value: any, index: number) => {
 }
 
 const getColumnInfoList = async () => {
-	if (state.ruleForm.configId == '' || state.ruleForm.tableName == '') return;
+	if (!state.ruleForm.configId || !state.ruleForm.tableName) return;
   state.columnData = await getAPI(SysCodeGenApi)
       .apiSysCodeGenColumnListByTableNameTableNameConfigIdGet(state.ruleForm.tableName, state.ruleForm.configId)
       .then(res => res.data.result)
