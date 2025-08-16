@@ -12,7 +12,7 @@
  * Do not edit the class manually.
  */
 
-import { OrgTreeOutput } from './org-tree-output';
+//import { OrgTreeOutput } from './org-tree-output';
  /**
  * 机构树形输出
  *

@@ -6,7 +6,7 @@ import { directive } from '/@/directive/index';
 import { i18n } from '/@/i18n/index';
 import other from '/@/utils/other';
 import ElementPlus from 'element-plus';
-import { ElTooltip, ElTable } from 'element-plus'
+import { ElTooltip } from 'element-plus'
 import '/@/theme/index.scss';
 // 动画库
 import 'animate.css';
