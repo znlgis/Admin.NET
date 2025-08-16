@@ -108,7 +108,7 @@ public class SysCacheService : IDynamicApiController, ISingleton
         using (_cacheProvider.Cache.AcquireLock($@"lock:AdGetAsync:{cacheName}", 1000))
         {
             var value = Get<T>(key);
-            value ??= await ((dynamic)del).DynamicInvokeAsync(obs);
+            value ??= await ((dynamic)del).DynamicInvoke(obs);
             Set(key, value);
             return value;
         }
