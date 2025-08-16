@@ -58,6 +58,8 @@ public class UserManager : IScoped
     /// </summary>
     public string OpenId => _httpContextAccessor.HttpContext?.User.FindFirst(ClaimConst.OpenId)?.Value;
 
+    public string LangCode => _httpContextAccessor.HttpContext?.User.FindFirst(ClaimConst.LangCode)?.Value ?? "zh_CN";
+
     public UserManager(IHttpContextAccessor httpContextAccessor)
     {
         _httpContextAccessor = httpContextAccessor;

@@ -1,8 +1,8 @@
 <template>
-	<el-tooltip :visible="state.capsLockVisible" effect="light" :content="$t('message.account.placeholder5')" placement="top">
+	<el-tooltip :visible="state.capsLockVisible" effect="light" content="大写锁定已打开" placement="top">
 		<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
 			<el-form-item class="login-animation2" prop="tenantId" clearable v-if="!props.tenantInfo.id && !themeConfig.hideTenantForLogin">
-				<el-select v-model="state.ruleForm.tenantId" :placeholder="$t('message.register.placeholder1')" style="width: 100%" filterable>
+				<el-select v-model="state.ruleForm.tenantId" placeholder="请选择租户" style="width: 100%" filterable>
 					<template #prefix>
 						<i class="iconfont icon-shuxingtu el-input__icon"></i>
 					</template>
@@ -10,14 +10,14 @@
 				</el-select>
 			</el-form-item>
 			<el-form-item class="login-animation1" prop="phone" clearable>
-				<el-input text :placeholder="$t('message.register.placeholder2')" v-model="state.ruleForm.phone" clearable autocomplete="off">
+				<el-input text placeholder="请输入手机号" v-model="state.ruleForm.phone" clearable autocomplete="off">
 					<template #prefix>
 						<i class="iconfont icon-dianhua el-input__icon"></i>
 					</template>
 				</el-input>
 			</el-form-item>
 			<el-form-item class="login-animation1" prop="account" clearable>
-				<el-input ref="accountRef" text :placeholder="$t('message.register.placeholder3')" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleRegister">
+				<el-input ref="accountRef" text placeholder="请输入登录账号" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleRegister">
 					<template #prefix>
 						<el-icon>
 							<ele-User />
@@ -26,7 +26,7 @@
 				</el-input>
 			</el-form-item>
 			<el-form-item class="login-animation1" prop="realName" clearable>
-				<el-input ref="accountRef" text :placeholder="$t('message.register.placeholder4')" v-model="state.ruleForm.realName" clearable autocomplete="off" @keyup.enter.native="handleRegister">
+				<el-input ref="accountRef" text placeholder="请输入您的姓名" v-model="state.ruleForm.realName" clearable autocomplete="off" @keyup.enter.native="handleRegister">
 					<template #prefix>
 						<el-icon>
 							<ele-User />
@@ -40,7 +40,7 @@
 						ref="codeRef"
 						text
 						maxlength="4"
-						:placeholder="$t('message.register.placeholder5')"
+						placeholder="请输入验证码"
 						v-model="state.ruleForm.code"
 						clearable
 						autocomplete="off"
@@ -62,10 +62,10 @@
 			</el-form-item>
 			<el-form-item class="login-animation4">
 				<el-button type="primary" class="login-content-submit" round v-waves @click="handleRegister" :loading="state.loading.register">
-					<span>{{ $t('message.register.btnText') }}</span>
+					<span>注 册</span>
 				</el-button>
 			</el-form-item>
-			<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
+			<div class="font12 mt30 login-animation4 login-msg">* 温馨提示：建议使用谷歌、Microsoft Edge，版本 79.0.1072.62 及以上浏览器，360浏览器请使用极速模式</div>
 		</el-form>
 	</el-tooltip>
 	<div class="dialog-header">
@@ -74,8 +74,8 @@
 				ref="dragRef"
 				:imgsrc="state.rotateVerifyImg"
 				v-model:isPassing="state.isPassRotate"
-				:text="$t('message.account.placeholder6')"
-				:successText="$t('message.account.placeholder7')"
+				text="请按住滑块拖动"
+				successText="验证通过"
 				handlerIcon="fa fa-angle-double-right"
 				successIcon="fa fa-hand-peace-o"
 				@passcallback="passRotateVerify"
@@ -88,7 +88,6 @@
 import {reactive, ref, onMounted, defineAsyncComponent, onUnmounted, watch} from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage, InputInstance } from 'element-plus';
-import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { feature, getAPI } from '/@/utils/axios-utils';
 import { SysAuthApi } from '/@/api-services/api';
@@ -109,7 +108,6 @@ const DragVerifyImgRotate = defineAsyncComponent(() => import('/@/components/dra
 const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
 
-const { t } = useI18n();
 const route = useRoute();
 
 const ruleFormRef = ref();
@@ -130,10 +128,10 @@ const state = reactive({
 		codeId: 0,
 	},
 	rules: {
-		account: [{ required: true, message: t('message.register.placeholder3'), trigger: 'blur' }],
-		realName: [{ required: true, message: t('message.register.placeholder4'), trigger: 'blur' }],
-		phone: [{ required: true, message: t('message.register.placeholder2'), trigger: 'blur' }],
-		code: [{ required: true, message: t('message.register.placeholder5'), trigger: 'blur' }],
+		account: [{ required: true, message: '请输入登录账号', trigger: 'blur' }],
+		realName: [{ required: true, message: '请输入您的姓名', trigger: 'blur' }],
+		phone: [{ required: true, message: '请输入手机号', trigger: 'blur' }],
+		code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 	},
 	loading: {
 		register: false,
@@ -215,7 +213,7 @@ const onRegister = async () => {
 			const [err, res] = await feature(getAPI(SysAuthApi).apiSysAuthUserRegistrationPost({...state.ruleForm, password: password } as any));
 
 			if (res?.data?.code === 200) {
-				const registerText = t('message.registerText');
+				const registerText = '欢迎加入, 请使用默认密码登录！';
 				ElMessage.success(registerText);
 				emits('goLogin');
 				return;
@@ -225,7 +223,7 @@ const onRegister = async () => {
 				getCaptcha(); // 重新获取验证码
 			} else if (res.data.type != 'success') {
 				getCaptcha(); // 重新获取验证码
-				ElMessage.error(t('message.register.placeholder6'));
+				ElMessage.error('message.register.注册失败！');
 			}
 		} finally {
 			state.loading.register = false;

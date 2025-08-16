@@ -65,4 +65,9 @@ public class ClaimConst
     /// 登录模式PC、APP
     /// </summary>
     public const string LoginMode = "LoginMode";
+
+    /// <summary>
+    /// 语言代码
+    /// </summary>
+    public const string LangCode = "LangCode";
 }

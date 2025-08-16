@@ -46,6 +46,13 @@
 									<el-input v-model="state.ruleForm.email" placeholder="邮箱" clearable />
 								</el-form-item>
 							</el-col>
+							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+								<el-form-item label="语言" prop="langCode" :rules="[{ required: true, message: '语言不能为空', trigger: 'blur' }]">
+									<el-select clearable filterable v-model="state.ruleForm.langCode" placeholder="请选择语言">
+										<el-option v-for="(item, index) in state.languages" :key="index" :value="item.code" :label="item.label" />
+									</el-select>
+								</el-form-item>
+							</el-col>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb5">
 								<el-form-item label="排序">
 									<el-input-number v-model="state.ruleForm.orderNo" placeholder="排序" class="w100" />
@@ -226,6 +233,8 @@ import { useUserInfo } from '/@/stores/userInfo';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysPosApi, SysRoleApi, SysUserApi } from '/@/api-services/api';
 import {AccountTypeEnum, RoleOutput, OrgTreeOutput, SysPos, UpdateUserInput} from '/@/api-services/models';
+import { useLangStore } from '/@/stores/useLangStore';
+const langStore = useLangStore();
 
 const props = defineProps({
 	title: String,
@@ -243,6 +252,7 @@ const state = reactive({
 	ruleForm: {} as UpdateUserInput,
 	posData: [] as Array<SysPos>, // 职位数据
 	roleData: [] as Array<RoleOutput>, // 角色数据
+	languages: [] as any[], // 语言数据
 });
 // 级联选择器配置选项
 const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'name', expandTrigger: 'hover' };
@@ -253,6 +263,10 @@ onMounted(async () => {
 	state.posData = res.data.result ?? [];
 	var res1 = await getAPI(SysRoleApi).apiSysRoleListGet();
 	state.roleData = res1.data.result ?? [];
+	if (langStore.languages.length === 0) {
+        await langStore.loadLanguages();
+    }
+	state.languages = langStore.languages;
 	state.loading = false;
 });
 

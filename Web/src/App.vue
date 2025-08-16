@@ -1,5 +1,5 @@
 <template>
-	<el-config-provider :size="getGlobalComponentSize" :locale="getGlobalI18n">
+	<el-config-provider :size="getGlobalComponentSize">
 		<router-view v-show="setLockScreen" />
 		<LockScreen v-if="themeConfig.isLockScreen" />
 		<Settings ref="settingsRef" v-show="setLockScreen" />
@@ -12,7 +12,6 @@
 <script setup lang="ts" name="app">
 import { defineAsyncComponent, computed, ref, onBeforeMount, onMounted, onUnmounted, nextTick, watch } from 'vue';
 import { useRoute } from 'vue-router';
-import { useI18n } from 'vue-i18n';
 import { storeToRefs } from 'pinia';
 import { useTagsViewRoutes } from '/@/stores/tagsViewRoutes';
 import { useThemeConfig } from '/@/stores/themeConfig';
@@ -23,6 +22,7 @@ import setIntroduction from '/@/utils/setIconfont';
 // import Watermark from '/@/utils/watermark';
 import { SysConfigApi } from '/@/api-services';
 import { getAPI } from '/@/utils/axios-utils';
+import { useLangStore } from '/@/stores/useLangStore';
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'));
@@ -32,7 +32,6 @@ const CloseFull = defineAsyncComponent(() => import('/@/layout/navBars/topBar/cl
 // const Sponsors = defineAsyncComponent(() => import('/@/layout/sponsors/index.vue'));
 
 // 定义变量内容
-const { messages, locale } = useI18n();
 const settingsRef = ref();
 const route = useRoute();
 const stores = useTagsViewRoutes();
@@ -66,9 +65,9 @@ const getGlobalComponentSize = computed(() => {
 	return other.globalComponentSize();
 });
 // 获取全局 i18n
-const getGlobalI18n = computed(() => {
-	return messages.value[locale.value];
-});
+// const getGlobalI18n = computed(() => {
+	//return messages.value[locale.value];
+// });
 // 设置初始化，防止刷新时恢复默认
 onBeforeMount(() => {
 	// 设置批量第三方 icon 图标
@@ -168,7 +167,8 @@ const updateFavicon = (url: string): void => {
 
 // 加载系统信息
 loadSysInfo();
-
+const langStore = useLangStore();
+langStore.loadLanguages();
 // 阻止火狐浏览器在拖动时打开新窗口
 document.body.ondrop = function (event) {
 	event.preventDefault();

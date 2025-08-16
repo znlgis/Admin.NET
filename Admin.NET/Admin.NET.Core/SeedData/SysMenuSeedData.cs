@@ -172,6 +172,20 @@ public class SysMenuSeedData : ISqlSugarEntitySeedData<SysMenu>
             new SysMenu{ Id=1300200090301, Pid=1300200090101, Title="编辑", Permission="sysTenantConfig:update", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
             new SysMenu{ Id=1300200090401, Pid=1300200090101, Title="增加", Permission="sysTenantConfig:add", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
             new SysMenu{ Id=1300200090501, Pid=1300200090101, Title="删除", Permission="sysTenantConfig:delete", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            
+            // 语言管理
+            new SysMenu{ Id=1300200100101, Pid=1300200000101, Title="语言管理", Path="/system/lang", Name="sysLang", Component="/system/lang/index", Icon="iconfont icon-diqiu", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2025-06-28 00:00:00"), OrderNo=190 },
+            new SysMenu{ Id=1300200100201, Pid=1300200100101, Title="查询", Permission="sysLang:page", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1300200100301, Pid=1300200100101, Title="编辑", Permission="sysLang:update", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1300200100401, Pid=1300200100101, Title="增加", Permission="sysLang:add", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1300200100501, Pid=1300200100101, Title="删除", Permission="sysLang:delete", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+
+            // 翻译管理
+            new SysMenu{ Id=1300200200101, Pid=1300200000101, Title="翻译管理", Path="/system/langText", Name="sysLangText", Component="/system/langText/index", Icon="iconfont icon-zhongyingwen", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2025-06-28 00:00:00"), OrderNo=200 },
+            new SysMenu{ Id=1300200200201, Pid=1300200200101, Title="查询", Permission="sysLangText:page", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1300200200301, Pid=1300200200101, Title="编辑", Permission="sysLangText:update", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1300200200401, Pid=1300200200101, Title="增加", Permission="sysLangText:add", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
+            new SysMenu{ Id=1300200200501, Pid=1300200200101, Title="删除", Permission="sysLangText:delete", Type=MenuTypeEnum.Btn, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=100 },
 
             // 系统监控
             new SysMenu{ Id=1300300070101, Pid=1300300000101, Title="系统监控", Path="/platform/server", Name="sysServer", Component="/system/server/index", Icon="ele-Monitor", Type=MenuTypeEnum.Menu, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), OrderNo=150 },

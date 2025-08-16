@@ -1,11 +1,11 @@
 @echo OFF
  :begin
- REM É¾³ýÇ°¶ËÎÄ¼þ¼°ÎÄ¼þ¼Ð
+ REM åˆ é™¤å‰ç«¯æ–‡ä»¶åŠæ–‡ä»¶å¤¹
  DEL /f /s /q ".\Web\node_modules\*.*"
  RD /s /q ".\Web\node_modules"
- REM Ñ­»·É¾³ýÖ¸¶¨ÎÄ¼þ¼ÐÏÂµÄÎÄ¼þ¼Ð
+ REM å¾ªçŽ¯åˆ é™¤æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶å¤¹
  FOR /d /r ".\Admin.NET\" %%b in (bin,obj,public) do rd /s /q "%%b"
- ECHO ¡¾´¦ÀíÍê±Ï£¬°´ÈÎÒâ¼üÍË³ö¡¿
+ ECHO ã€å¤„ç†å®Œæ¯•ï¼ŒæŒ‰ä»»æ„é”®é€€å‡ºã€‘
  PAUSE>NUL
  EXIT
  GOTO BEGIN
