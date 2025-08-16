@@ -71,6 +71,8 @@ onMounted(() => {
 	animation-delay: 0.1s;
 	:deep(img) {
 		margin: auto;
+        border: 1px solid var(--el-border-color);
+        padding: 10px;
 	}
 	.login-msg {
 		display: flex;

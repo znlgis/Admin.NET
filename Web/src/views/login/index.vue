@@ -248,6 +248,7 @@ const getTenantInfo = async () => {
 			.login-right-warp-main {
 				display: flex;
 				flex-direction: column;
+                width: 100%;
 				height: 100%;
 				.login-right-warp-main-title {
 					height: 130px;
@@ -266,8 +267,8 @@ const getTenantInfo = async () => {
 					padding: 0 50px 50px;
 					.login-content-main-scan {
 						position: absolute;
-						top: 0;
-						right: 0;
+						top: 8px;
+						right: 8px;
 						width: 50px;
 						height: 50px;
 						overflow: hidden;

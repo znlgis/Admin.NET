@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-dict-container">
-		<el-row :gutter="8" style="width: 100%; height: 100%; flex: 1">
+		<el-row :gutter="5" style="width: 100%; height: 100%; flex: 1">
 			<el-col :span="12" :xs="24" style="display: flex; height: 100%; flex: 1">
 				<el-card class="full-table" shadow="hover" :body-style="{ height: 'calc(100% - 51px)' }">
 					<template #header>
@@ -362,6 +362,9 @@ const updateDictSession = async () => {
 </script>
 
 <style scoped>
+.sys-dict-container {
+    flex-direction: row !important;
+}
 :deep(.notice-bar) {
 	position: absolute;
 	display: inline-flex;
