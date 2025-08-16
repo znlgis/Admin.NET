@@ -53,7 +53,7 @@
 		// 	margin-bottom: 18px !important;
 		// }
 
-        .el-form-item--small.el-form-item,.el-form-item:last-of-type {
+        .el-form-item,.el-form-item:last-of-type {
             margin: 5px 15px !important;
         }
 	}
@@ -370,6 +370,10 @@
 }
 .el-card__body {
 	padding: 8px;
+}
+   // 由于card没有size属性，所以通过其子元素来判断,当组件大小选择为默认时
+.el-card__body:has(.el-table--default) {
+    padding: 20px;
 }
 
 /* Table 表格 element plus 2.2.0 版本

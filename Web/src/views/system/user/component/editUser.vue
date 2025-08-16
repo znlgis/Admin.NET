@@ -63,7 +63,7 @@
 							</el-divider>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="所属机构" prop="orgId" :rules="[{ required: true, message: '所属机构不能为空', trigger: 'blur' }]">
-									<el-cascader :options="state.orgData" :props="cascaderProps" placeholder="所属机构" clearable filterable class="w100" v-model="state.ruleForm.orgId">
+									<el-cascader :options="state.orgTreeData" :props="cascaderProps" placeholder="所属机构" clearable filterable class="w100" v-model="state.ruleForm.orgId">
 										<template #default="{ node, data }">
 											<span>{{ data.name }}</span>
 											<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -109,7 +109,7 @@
 													<el-button icon="ele-Delete" type="danger" circle plain size="small" @click="deleteExtOrgRow(k)" />
 													<span class="ml5">机构</span>
 												</template>
-												<el-cascader :options="props.orgData" :props="cascaderProps" placeholder="机构组织" clearable filterable class="w100" v-model="state.ruleForm.extOrgIdList[k].orgId">
+												<el-cascader :options="props.orgTreeData" :props="cascaderProps" placeholder="机构组织" clearable filterable class="w100" v-model="state.ruleForm.extOrgIdList[k].orgId">
 													<template #default="{ node, data }">
 														<span>{{ data.name }}</span>
 														<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
@@ -232,12 +232,13 @@ import { storeToRefs } from 'pinia';
 import { useUserInfo } from '/@/stores/userInfo';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysPosApi, SysRoleApi, SysUserApi } from '/@/api-services/api';
-import {AccountTypeEnum, RoleOutput, SysOrg, SysPos, UpdateUserInput} from '/@/api-services/models';
+import {AccountTypeEnum, RoleOutput, OrgTreeOutput, SysPos, UpdateUserInput} from '/@/api-services/models';
 import { useLangStore } from '/@/stores/useLangStore';
 const langStore = useLangStore();
+
 const props = defineProps({
 	title: String,
-	orgData: Array<SysOrg>,
+	orgTreeData: Array<OrgTreeOutput>,
 });
 const emits = defineEmits(['handleQuery']);
 const ruleFormRef = ref();
@@ -247,7 +248,7 @@ const state = reactive({
 	loading: false,
 	isShowDialog: false,
 	selectedTabName: '0', // 选中的 tab 页
-	orgData: [] as Array<SysOrg>,
+	orgTreeData: [] as Array<OrgTreeOutput>,
 	ruleForm: {} as UpdateUserInput,
 	posData: [] as Array<SysPos>, // 职位数据
 	roleData: [] as Array<RoleOutput>, // 角色数据
@@ -271,7 +272,7 @@ onMounted(async () => {
 
 // 打开弹窗
 const openDialog = async (row: any) => {
-	state.orgData = (row.tenantId ? props.orgData?.filter((e) => e.tenantId === row.tenantId) : props.orgData) ?? [];
+	state.orgTreeData = (row.tenantId ? props.orgTreeData?.filter((e) => e.tenantId === row.tenantId) : props.orgTreeData) ?? [];
 	state.posData = (row.tenantId ? state.posData?.filter((e) => e.tenantId === row.tenantId) : state.posData) ?? [];
 	state.roleData = (row.tenantId ? state.roleData?.filter((e) => e.tenantId === row.tenantId) : state.roleData) ?? [];
 	ruleFormRef.value?.resetFields();

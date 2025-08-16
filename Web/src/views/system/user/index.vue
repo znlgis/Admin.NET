@@ -97,30 +97,34 @@
 										style="padding-left: 12px" />
 									<template #dropdown>
 										<el-dropdown-menu>
-											<el-dropdown-item icon="ele-CopyDocument" text type="primary"
-												v-auth="'sysUser:add'"
-												@click="openCopyMenu(scope.row)">复制</el-dropdown-item>
-											<el-dropdown-item icon="ele-RefreshLeft" text type="danger"
-												v-auth="'sysUser:resetPwd'" @click="resetUserPwd(scope.row)">重置密码
-											</el-dropdown-item>
-											<el-dropdown-item icon="ele-Unlock" text type="primary"
-												v-auth="'sysUser:unlockLogin'" @click="unlockLogin(scope.row)">解除锁定
-											</el-dropdown-item>
+                                            <span v-auth="'sysUser:add'">
+                                                <el-dropdown-item icon="ele-CopyDocument" text type="primary"
+                                                    @click="openCopyMenu(scope.row)"
+                                                >复制</el-dropdown-item>
+                                            </span>
+											<span v-auth="'sysUser:resetPwd'">
+                                                <el-dropdown-item icon="ele-RefreshLeft" text type="danger"
+												    @click="resetUserPwd(scope.row)"
+                                                 >重置密码</el-dropdown-item>
+                                            </span>
+											<span v-auth="'sysUser:unlockLogin'">
+                                                <el-dropdown-item icon="ele-Unlock" text type="primary"
+												    @click="unlockLogin(scope.row)"
+                                                >解除锁定</el-dropdown-item>
+                                            </span>
+											
 										</el-dropdown-menu>
 									</template>
 								</el-dropdown>
 							</template>
 						</el-table-column>
 					</el-table>
-					<el-pagination v-model:currentPage="state.tableParams.page"
-						v-model:page-size="state.tableParams.pageSize" :total="state.tableParams.total"
-						:page-sizes="[10, 20, 50, 100]" size="small" background @size-change="handleSizeChange"
-						@current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" />
+					<el-pagination v-model:currentPage="state.tableParams.page" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" />
 				</el-card>
 			</el-splitter-panel>
 		</el-splitter>
 
-		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgData="state.orgTreeData" @handleQuery="handleQuery" />
+		<EditUser ref="editUserRef" :title="state.editUserTitle" :orgTreeData="state.orgTreeData" @handleQuery="handleQuery" />
 	</div>
 </template>
 
@@ -130,12 +134,12 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import OrgTree from '/@/views/system/org/component/orgTree.vue';
 import EditUser from '/@/views/system/user/component/editUser.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
-import CallBar from '/@/components/callTel/callBar.vue';
+//import CallBar from '/@/components/callTel/callBar.vue';
 //import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
-import { SysUser, UpdateUserInput, OrgOutput } from '/@/api-services/models';
+import { SysUser, UpdateUserInput, OrgTreeOutput } from '/@/api-services/models';
 
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
 const editUserRef = ref<InstanceType<typeof EditUser>>();
@@ -143,7 +147,7 @@ const state = reactive({
 	loading: false,
 	tenantList: [] as Array<any>,
 	userData: [] as Array<SysUser>,
-	orgTreeData: [] as Array<OrgOutput>,
+	orgTreeData: [] as Array<OrgTreeOutput>,
 	queryParams: {
 		orgId: -1,
 		account: undefined,
@@ -170,6 +174,7 @@ const loadOrgData = async () => {
 	state.loading = true;
 	let res = await getAPI(SysOrgApi).apiSysOrgTreeGet(0);
 	state.orgTreeData = res.data.result ?? [];
+	console.log('🚀 → index.vue:173 → loadOrgData → state.orgTreeData:', state.orgTreeData);
 	state.loading = false;
 };
 
