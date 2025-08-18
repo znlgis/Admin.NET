@@ -339,11 +339,13 @@
 // .el-dialog__title{
 // 	font-size: 14px;
 // 	color: #FFF;
-// 	font-weight: 700;
+// 	//font-weight: 700;
+//     line-height: normal;
 // }
 .el-dialog__header {
 	margin-right: 0;
 	padding: 8px;
+    border-radius: var(--el-dialog-border-radius) var(--el-dialog-border-radius) 0 0;
 	background: var(--el-color-primary);
 }
 .el-dialog__footer {
@@ -501,6 +503,10 @@
 	position: absolute;
 	top: 0px;
 	right: 0px;
+}
+
+.el-tree {
+    --el-tree-node-content-height: 30px;
 }
 
 $--el-table-text-color: #fb6d49;

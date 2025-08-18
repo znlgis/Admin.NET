@@ -48,7 +48,7 @@
 								icon="ele-Menu"
 								highlight-current
 								default-expand-all
-								style="height: 600px;overflow-y: auto;"
+								style="height: 450px;overflow-y: auto;"
 							/>
 						</el-form-item>
 					</el-col>
