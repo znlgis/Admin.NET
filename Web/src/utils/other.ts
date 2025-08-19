@@ -6,7 +6,7 @@ import pinia from '/@/stores/index';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { i18n } from '/@/i18n/index';
-import { Local } from '/@/utils/storage';
+//import { Local } from '/@/utils/storage';
 import { verifyUrl } from '/@/utils/toolsValidate';
 
 // 引入组件

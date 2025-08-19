@@ -23,7 +23,7 @@ export function judgementSameArr(newArr: unknown[] | string[], oldArr: string[])
  * @param b 要比较的对象二
  * @returns 相同返回 true，反之则反
  */
-export function isObjectValueEqual<T>(a: T, b: T): boolean {
+export function isObjectValueEqual<T extends Record<string, any>>(a: T, b: T): boolean {
 	if (!a || !b) return false;
 	let aProps = Object.getOwnPropertyNames(a);
 	let bProps = Object.getOwnPropertyNames(b);
@@ -43,11 +43,12 @@ export function isObjectValueEqual<T>(a: T, b: T): boolean {
 }
 
 /**
- * 数组、数组对象去重
+ * 原始实现：数组、数组对象去重
  * @param arr 数组内容
  * @param attr 需要去重的键值（数组对象）
  * @returns
  */
+/*
 export function removeDuplicate(arr: EmptyArrayType, attr?: string) {
 	if (!Object.keys(arr).length) {
 		return arr;
@@ -56,6 +57,33 @@ export function removeDuplicate(arr: EmptyArrayType, attr?: string) {
 			const obj: EmptyObjectType = {};
 			return arr.reduce((cur: EmptyArrayType[], item: EmptyArrayType) => {
 				obj[item[attr]] ? '' : (obj[item[attr]] = true && item[attr] && cur.push(item));
+				return cur;
+			}, []);
+		} else {
+			return [...new Set(arr)];
+		}
+	}
+}
+*/
+/**
+ * 优化后实现：数组、数组对象去重
+ * 支持普通数组和对象数组去重，类型安全，且兼容原有所有调用方式
+ * @param arr 数组内容
+ * @param attr 需要去重的键值（数组对象）
+ * @returns
+ */
+export function removeDuplicate<T>(arr: T[], attr?: string): T[] {
+	if (!arr.length) {
+		return arr;
+	} else {
+		if (attr) {
+			const obj: Record<string, boolean> = {};
+			return arr.reduce((cur: T[], item: T) => {
+				const key = (item as any)[attr];
+				if (key && !obj[key]) {
+					obj[key] = true;
+					cur.push(item);
+				}
 				return cur;
 			}, []);
 		} else {

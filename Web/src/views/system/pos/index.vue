@@ -30,7 +30,7 @@
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="name" label="职位名称" align="center" show-overflow-tooltip />
 				<el-table-column prop="code" label="职位编码" align="center" show-overflow-tooltip />
-				<el-table-column prop="userList" label="在职人数" width="70" align="center" show-overflow-tooltip >
+				<el-table-column prop="userList" label="在职人数" width="100" align="center" show-overflow-tooltip >
 					<template #default="scope">{{ scope.row.userList?.length}}</template>
 				</el-table-column>
 				<el-table-column prop="userList" label="人员明细" width="120" align="center" show-overflow-tooltip >
