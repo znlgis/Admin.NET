@@ -10,7 +10,7 @@
 			</template>
 			<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="auto">
 				<el-tabs v-loading="state.loading" v-model="state.selectedTabName">
-					<el-tab-pane label="基本信息" style="height: 400px; overflow-y: auto; overflow-x: hidden">
+					<el-tab-pane label="基本信息" style="height: 450px; overflow-y: auto; overflow-x: hidden">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 								<el-form-item label="租户类型"
@@ -107,7 +107,7 @@
 							</el-col>
 						</el-row>
 					</el-tab-pane>
-					<el-tab-pane label="站点信息" style="height: 400px; overflow: auto; overflow-x: hidden"
+					<el-tab-pane label="站点信息" style="height: 450px; overflow: auto; overflow-x: hidden"
 						v-if="state.ruleForm.host?.trim()">
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">

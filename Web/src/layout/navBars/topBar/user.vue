@@ -224,7 +224,7 @@ const onComponentSizeChange = (size: string) => {
 	themeConfig.value.globalComponentSize = size;
 	Local.set('themeConfig', themeConfig.value);
 	initI18nOrSize('globalComponentSize', 'disabledSize');
-	window.location.reload();
+	//window.location.reload();
 };
 // 语言切换
 const onLanguageChange = async (lang: string) => {
