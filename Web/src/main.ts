@@ -5,8 +5,7 @@ import router from '/@/router';
 import { directive } from '/@/directive/index';
 import { i18n } from '/@/i18n/index';
 import other from '/@/utils/other';
-import ElementPlus from 'element-plus';
-import { ElTooltip } from 'element-plus'
+import ElementPlus, { ElTooltip } from 'element-plus';
 import '/@/theme/index.scss';
 // 动画库
 import 'animate.css';
@@ -37,4 +36,12 @@ const TooltipProps = ElTooltip.props
 TooltipProps.showAfter = { type: Number, default: 800 }; // 设置全局tooltip延时显示时间为800毫秒
 
 
-app.use(pinia).use(router).use(ElementPlus).use(i18n).use(VueGridLayout).use(VForm3).use(VueSignaturePad).use(vue3TreeOrg).mount('#app');
+app.use(pinia)
+    .use(router)
+    .use(i18n)
+    .use(ElementPlus)
+    .use(VueGridLayout)
+    .use(VForm3)
+    .use(VueSignaturePad)
+    .use(vue3TreeOrg)
+    .mount('#app');
