@@ -98,7 +98,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
         var entity = input.Adapt<SysLangText>();
         await _sysLangTextRep.AsUpdateable(entity)
         .ExecuteCommandAsync();
-        _sysLangTextCacheService.UpdateCache(entity.EntityName,entity.FieldName,entity.EntityId,entity.LangCode,entity.Content);
+        _sysLangTextCacheService.UpdateCache(entity.EntityName, entity.FieldName, entity.EntityId, entity.LangCode, entity.Content);
     }
 
     /// <summary>
@@ -111,7 +111,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     public async Task Delete(DeleteSysLangTextInput input)
     {
         var entity = await _sysLangTextRep.GetFirstAsync(u => u.Id == input.Id) ?? throw Oops.Oh(ErrorCodeEnum.D1002);
-        
+
         await _sysLangTextRep.DeleteAsync(entity);   //真删除
         _sysLangTextCacheService.DeleteCache(entity.EntityName, entity.FieldName, entity.EntityId, entity.LangCode);
     }
@@ -282,9 +282,6 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             return stream;
         }
     }
-    private const string SOURCE_LANG = "zh-cn";
-    private const string API_URL = "https://api.deepseek.com/v1/chat/completions";
-    private const string DEEPSEEK_API_KEY = "你的 API KEY";
     /// <summary>
     /// DEEPSEEK 翻译接口
     /// </summary>
@@ -293,7 +290,13 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     [ApiDescriptionSettings(Name = "AiTranslateText"), HttpPost]
     public async Task<string> AiTranslateText(AiTranslateTextInput input)
     {
-        if (string.IsNullOrEmpty(DEEPSEEK_API_KEY))
+        // 需要先把DeepSeek.example复制改名为DeepSeek.json文件，添加你的 API KEY
+        var deepSeekOptions = App.GetConfig<DeepSeekOptions>("DeepSeekSettings", true);
+        if (deepSeekOptions == null)
+        {
+            throw new InvalidOperationException("DeepSeek.json文件 未定义");
+        }
+        if (string.IsNullOrEmpty(deepSeekOptions.ApiKey))
         {
             throw new InvalidOperationException("环境变量 DEEPSEEK_API_KEY 未定义");
         }
@@ -301,10 +304,10 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
         using (HttpClient client = new HttpClient())
         {
             // 构建请求头
-            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {DEEPSEEK_API_KEY}");
+            client.DefaultRequestHeaders.Add("Authorization", $"Bearer {deepSeekOptions.ApiKey}");
 
             // 构建系统提示词
-            string systemPrompt = BuildSystemPrompt(input.TargetLang);
+            string systemPrompt = BuildSystemPrompt(deepSeekOptions.SourceLang, input.TargetLang);
 
             // 构建请求体
             var requestBody = new
@@ -324,7 +327,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             var content = new StringContent(json, Encoding.UTF8, "application/json");
 
             // 发送请求
-            HttpResponseMessage response = await client.PostAsync(API_URL, content);
+            HttpResponseMessage response = await client.PostAsync(deepSeekOptions.ApiUrl, content);
 
             // 处理响应
             string responseBody = await response.Content.ReadAsStringAsync();
@@ -379,12 +382,12 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     /// </summary>
     /// <param name="targetLang"></param>
     /// <returns></returns>
-    private static string BuildSystemPrompt(string targetLang)
+    private static string BuildSystemPrompt(string sourceLang, string targetLang)
     {
         return $@"作为企业软件系统专业翻译，严格遵守以下铁律：
 
 ■ 核心原则
-1. 严格逐符号翻译（{SOURCE_LANG}→{targetLang}）
+1. 严格逐符号翻译（{sourceLang}→{targetLang}）
 2. 禁止添加/删除/改写任何内容
 3. 保持批量翻译的编号格式
 
