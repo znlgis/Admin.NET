@@ -12,10 +12,10 @@
 							<div class="notice-title">{{ v.type == 1 ? '【通知】' : '【公告】' }}{{ v.title }}</div>
 							<div class="notice-content">{{ removeHtmlSub(v.content) }}</div>
 							<div class="notice-time">{{ v.publicTime }}</div>
-							<el-divider border-style="dashed" style="margin: 10px 0" />
+							<!-- <el-divider border-style="dashed" style="margin: 0" /> -->
 						</div>
 					</template>
-					<el-empty description="空" v-else></el-empty>
+					<el-empty description="没有新消息" v-else style="height: 85%;"></el-empty>
 				</div>
 				<div class="notice-foot" @click="goToNotice" v-if="noticeList.length > 0">前往通知中心</div>
 			</el-tab-pane>
@@ -24,8 +24,8 @@
 					<el-icon><ele-Position /></el-icon>
 					<span style="margin-left: 5px">我的</span>
 				</template>
-				<div style="height: 400px; overflow-y: auto; padding-right: 10px">
-					<el-empty description="空"></el-empty>
+				<div class="notice-box" style="height: 435px;">
+					<el-empty description="没有新消息" style="height: 85%;"></el-empty>
 				</div>
 			</el-tab-pane>
 		</el-tabs>
@@ -86,14 +86,13 @@ const viewNoticeDetail = async (notice: any) => {
 		font-size: 12px;
 		.notice-box {
 			height: 400px;
-			padding-right: 10px;
-
-			margin-bottom: 35px;
-			&:hover {
-				overflow-y: scroll;
-			}
+			padding: 0 5px;
+            overflow-y: auto;
 		}
 		.notice-item {
+            padding: 10px 0;
+            border-bottom: 1px dashed var(--el-border-color);
+
 			&:hover {
 				background-color: rgba(#b8b8b8, 0.1);
 			}
@@ -117,12 +116,19 @@ const viewNoticeDetail = async (notice: any) => {
 		color: var(--el-color-primary);
 		font-size: 14px;
 		cursor: pointer;
-		position: absolute;
-		bottom: 0px;
 		background-color: #fff;
 		display: flex;
 		align-items: center;
 		justify-content: center;
 	}
+}
+.el-tabs {
+    :deep(.el-tabs__header) {
+        margin: 0;
+    }
+    .el-tab-pane {
+        display: flex;
+        flex-direction: column;
+    }
 }
 </style>

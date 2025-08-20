@@ -152,6 +152,17 @@ export const useThemeConfig = defineStore('themeConfig', {
 			icp: '',
 			// Icp地址
 			icpUrl: '',
+
+			// 是否开启二级验证
+			secondVer: false,
+			// 是否开启注册功能
+			registration: false,
+			// 登录时隐藏租户
+			hideTenantForLogin: false,
+			// 是否开启验证码
+			captcha: false,
+			// 是否加载完成
+			isLoaded: false,
 		},
 	}),
 	actions: {
