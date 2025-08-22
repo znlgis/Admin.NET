@@ -60,9 +60,9 @@ const setLockScreen = computed(() => {
 // 	needUpdate.value = true;
 // }, 60000);
 
-// 获取全局组件大小
+// 获取全局组件大小，直接响应 themeConfig
 const getGlobalComponentSize = computed(() => {
-	return other.globalComponentSize();
+	return themeConfig.value.globalComponentSize;
 });
 // 获取全局 i18n
 // const getGlobalI18n = computed(() => {

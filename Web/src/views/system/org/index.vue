@@ -42,7 +42,7 @@
                             </template>
                         </el-table-column>
                         <el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
-                        <el-table-column label="状态" width="70" align="center" show-overflow-tooltip>
+                        <el-table-column label="状态" width="70" align="center">
                             <template #default="scope">
                                 <g-sys-dict v-model="scope.row.status" code="StatusEnum" />
                             </template>
@@ -52,7 +52,7 @@
                                 <ModifyRecord :data="scope.row" />
                             </template>
                         </el-table-column>
-                        <el-table-column label="操作" width="210" fixed="right" align="center" show-overflow-tooltip>
+                        <el-table-column label="操作" width="210" fixed="right" align="center">
                             <template #default="scope">
                                 <el-button icon="ele-Edit" text type="primary" @click="openEditOrg(scope.row)"
                                     v-auth="'sysOrg:update'"> 编辑 </el-button>

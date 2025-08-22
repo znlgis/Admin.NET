@@ -49,7 +49,7 @@
 			<el-table :data="state.jobData" style="width: 100%" v-loading="state.loading" border>
 				<el-table-column type="expand" fixed>
 					<template #default="scope">
-						<el-table style="margin-left: 48px; width: calc(100% - 48px)" :data="(scope.row as JobDetailOutput).jobTriggers" border size="small">
+						<el-table :data="(scope.row as JobDetailOutput).jobTriggers" border size="small">
 							<el-table-column type="index" label="序号" width="55" align="center" fixed />
 							<el-table-column prop="triggerId" label="触发器编号" width="180" header-align="center" fixed show-overflow-tooltip />
 							<el-table-column prop="triggerType" label="类型" width="200" header-align="center" show-overflow-tooltip />
@@ -536,9 +536,17 @@ const handleCurrentChange2 = async (val: number) => {
 };
 </script>
 
-<style>
+<style lang="scss" scoped>
 /* 此样式不能为 scoped */
-.job-index-descriptions-label-style {
-	width: 80px;
+// .job-index-descriptions-label-style {
+// 	width: 80px;
+// }
+
+:deep(.el-table__expanded-cell) {
+    padding: 10px 45px !important;
+    .el-descriptions__body {
+        .el-descriptions__table { table-layout: fixed; }
+        .el-descriptions__label { width: 150px; }
+    }
 }
 </style>

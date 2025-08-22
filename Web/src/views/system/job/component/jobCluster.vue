@@ -1,7 +1,7 @@
 <template>
 	<div class="sys-jobCluster-container">
 		<el-drawer v-model="state.isVisible" title="作业集群" size="40%">
-			<el-table :data="state.jobClusterList" style="width: 100%; margin: 8px" v-loading="state.loading" border>
+			<el-table :data="state.jobClusterList" style="width: 100%;" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="clusterId" label="集群编号" header-align="center" show-overflow-tooltip />
 				<el-table-column prop="status" label="状态" align="center" show-overflow-tooltip>
@@ -51,3 +51,9 @@ const openDrawer = () => {
 // 导出对象
 defineExpose({ openDrawer });
 </script>
+
+<style lang="scss" scoped>
+:deep(.el-drawer__body) {
+    padding: 8px;
+}
+</style>
