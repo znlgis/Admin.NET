@@ -1,6 +1,6 @@
 <template>
     <div class="multi-lang-input">
-        <el-input v-model="props.modelValue" :placeholder="`请输入 ${currentLangLabel}`" clearable>
+        <el-input v-model="props.modelValue" :placeholder="`请输入 ${currentLangLabel}`" clearable @update:model-value="(val: string) => emit('update:modelValue', val)">
             <template #append>
                 <el-button @click="openDialog" circle>
                     <template #icon>
@@ -38,10 +38,12 @@ import { Local } from '/@/utils/storage';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLangTextApi } from '/@/api-services/api';
 import { ElMessage } from 'element-plus';
-
+const emit = defineEmits<{
+  (e: 'update:modelValue', value: string): void;
+}>();
 const ruleFormRef = ref();
 
-const fetchMultiLang = async () => {
+const fetchMultiLang = async () => {    
     const result = await getAPI(SysLangTextApi).apiSysLangTextListPost({ entityName: props.entityName, entityId: props.entityId, fieldName: props.fieldName, pageSize: 200 }).then(res => res.data.result)
     return result ?? [];
 };
@@ -117,6 +119,10 @@ const aiTranslation = async () => {
 
 // 打开对话框（点击按钮）
 const openDialog = async () => {
+    if (!props.entityId) {
+        ElMessage.warning('请先保存数据！');
+        return;
+    }
     multiLangValue.value = {};
     const res = await fetchMultiLang();
     multiLangValue.value[currentLang.value] = props.modelValue;
