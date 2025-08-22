@@ -9,10 +9,18 @@
 				<div class="notice-box">
 					<template v-if="noticeList.length > 0">
 						<div class="notice-item" v-for="(v, k) in noticeList" :key="k" @click="viewNoticeDetail(v)" v-show="v.readStatus == 1 ? false : true">
-							<div class="notice-title">{{ v.type == 1 ? '【通知】' : '【公告】' }}{{ v.title }}</div>
-							<div class="notice-content">{{ removeHtmlSub(v.content) }}</div>
-							<div class="notice-time">{{ v.publicTime }}</div>
-							<!-- <el-divider border-style="dashed" style="margin: 0" /> -->
+							<div class="notice-item-icon">
+                                <el-icon size="24" color="var(--el-color-primary)">
+                                    <ele-Notification v-if="v.type == 1" />
+                                    <ele-Message v-else />
+                                </el-icon>
+                            </div>
+                            <div>
+                                <div class="notice-title">{{ v.title }}</div>
+                                <div class="notice-content">{{ removeHtmlSub(v.content) }}</div>
+                                <div class="notice-time">{{ v.publicTime }}</div>
+                            </div>
+                            
 						</div>
 					</template>
 					<el-empty description="没有新消息" v-else style="height: 85%;"></el-empty>
@@ -90,19 +98,30 @@ const viewNoticeDetail = async (notice: any) => {
             overflow-y: auto;
 		}
 		.notice-item {
+            display: flex;
+            
             padding: 10px 0;
             border-bottom: 1px dashed var(--el-border-color);
 
+            &-icon {
+                margin: 0 15px;
+                display: inline-flex;
+                justify-content: center;
+                align-items: center;
+            }
+
 			&:hover {
-				background-color: rgba(#b8b8b8, 0.1);
+				background-color: var(--el-color-primary-light-9);
+                cursor: pointer;
 			}
-			// .notice-title {
-			// 	color: var(--el-color-primary);
-			// }
+			.notice-title {
+                font-size: 14px;
+                font-weight: 600;
+				//color: var(--el-color-primary);
+			}
 			.notice-content {
 				color: var(--el-text-color-secondary);
-				margin-top: 3px;
-				margin-bottom: 3px;
+				margin: 10px 0;
 			}
 			.notice-time {
 				color: var(--el-text-color-secondary);
@@ -120,6 +139,9 @@ const viewNoticeDetail = async (notice: any) => {
 		display: flex;
 		align-items: center;
 		justify-content: center;
+
+        border-top: 1px solid #eee;
+        padding-top: 9px;
 	}
 }
 .el-tabs {
