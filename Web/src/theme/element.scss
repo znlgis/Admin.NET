@@ -2,6 +2,9 @@
 
 /* Button 按钮
 ------------------------------- */
+.el-button {
+    font-family: var(--el-font-family);
+}
 // 第三方字体图标大小
 .el-button:not(.is-circle) i.el-icon,
 .el-button i.iconfont,
@@ -507,6 +510,38 @@
 
 .el-tree {
     --el-tree-node-content-height: 30px;
+}
+
+.el-table .el-table__cell {
+    &:has(.cell .el-button, .el-tag, .el-switch, .el-avatar) {
+        padding: 0;
+        .cell { text-overflow: clip; }
+    }
+
+    .el-button.is-text {
+        height: 20px;
+    }
+
+    .el-text--large {
+        font-size: var(--el-font-size-base);;
+    }
+    .el-button--large {
+        --el-button-size: 32px;
+    }
+    .el-tag--large {
+        height: 28px;
+    }
+    .el-button--default {
+        height: 28px;
+    }
+    .el-button [class*=el-icon]+span{
+        margin-left: 0;
+    }
+}
+.el-table [class*=el-table__row--level] .el-table__expand-icon {
+    height: 14px;
+    line-height: 14px;
+    width: 14px;
 }
 
 $--el-table-text-color: #fb6d49;

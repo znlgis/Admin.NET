@@ -35,7 +35,7 @@
 			<i class="icon-skin iconfont" title="布局配置"></i>
 		</div>
 		<div class="layout-navbars-breadcrumb-user-icon">
-			<el-popover placement="bottom" trigger="click" transition="el-zoom-in-top" :width="300" :persistent="false">
+			<el-popover placement="bottom" trigger="click" transition="el-zoom-in-top" :width="400" :persistent="false">
 				<template #reference>
 					<el-badge :is-dot="hasUnreadNotice">
 						<el-icon title="消息">

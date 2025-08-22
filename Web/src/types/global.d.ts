@@ -1,12 +1,14 @@
 // 申明外部 npm 插件模块
 declare module 'vue-grid-layout';
+declare module 'vue-signature-pad';
+declare module 'vform3-builds';
 declare module 'qrcodejs2-fixes';
 declare module 'splitpanes';
 declare module 'js-cookie';
-declare module '@wangeditor/editor-for-vue';
-declare module 'js-table2excel';
-declare module 'qs';
-declare module 'sortablejs';
+//declare module '@wangeditor/editor-for-vue';
+//declare module 'js-table2excel';
+//declare module 'qs';
+//declare module 'sortablejs';
 declare module 'vue-plugin-hiprint';
 declare module 'vcrontab-3';
 
@@ -117,7 +119,7 @@ declare interface TableType<T = any> {
 }
 
 // 字典数据结构
-export interface DictItem {
+declare interface DictItem {
 	typeCode: string;
 	label: string;
 	value: string;

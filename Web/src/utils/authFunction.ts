@@ -1,6 +1,6 @@
 import { useUserInfo } from '/@/stores/userInfo';
 import { judgementSameArr } from '/@/utils/arrayOperation';
-import { resolveDirective, withDirectives } from 'vue';
+import { resolveDirective, withDirectives, VNode } from 'vue';
 
 /**
  * 单个权限验证
