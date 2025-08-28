@@ -314,6 +314,12 @@ public partial class SysUser : EntityBaseTenantOrg
     public string? Signature { get; set; }
 
     /// <summary>
+    /// 语言代码（如 zh_CN）
+    /// </summary>
+    [SugarColumn(ColumnDescription = "语言代码")]
+    public string LangCode { get; set; } = "zh_CN";
+
+    /// <summary>
     /// 验证超级管理员类型，若账号类型为超级管理员则报错
     /// </summary>
     /// <param name="errorMsg">自定义错误消息</param>

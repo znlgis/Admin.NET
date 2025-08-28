@@ -4,41 +4,22 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-namespace Admin.NET.Core.Service;
+namespace Admin.NET.Core;
 
-/// <summary>
-/// 机构树形输出
-/// </summary>
-public class OrgTreeOutput
+public sealed class DeepSeekOptions : IConfigurableOptions
 {
     /// <summary>
-    /// 主键Id
+    /// 源语言
     /// </summary>
-    [SugarColumn(IsTreeKey = true)]
-    public long Id { get; set; }
+    public string SourceLang { get; set; }
 
     /// <summary>
-    /// 租户Id
+    /// Api地址
     /// </summary>
-    public long TenantId { get; set; }
+    public string ApiUrl { get; set; }
 
     /// <summary>
-    /// 父Id
+    /// API KEY
     /// </summary>
-    public long Pid { get; set; }
-
-    /// <summary>
-    /// 名称
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// 机构子项
-    /// </summary>
-    public List<OrgTreeOutput> Children { get; set; }
-
-    /// <summary>
-    /// 是否禁止选中
-    /// </summary>
-    public bool Disabled { get; set; }
+    public string ApiKey { get; set; }
 }

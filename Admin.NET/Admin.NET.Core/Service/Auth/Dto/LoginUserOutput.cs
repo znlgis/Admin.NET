@@ -110,4 +110,9 @@ public class LoginUserOutput
     /// 当前切换到的租户Id
     /// </summary>
     public long? CurrentTenantId { get; set; }
+
+    /// <summary>
+    /// 语言代码
+    /// </summary>
+    public string LangCode { get; internal set; }
 }

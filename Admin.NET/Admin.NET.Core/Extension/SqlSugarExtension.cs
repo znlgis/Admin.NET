@@ -324,4 +324,44 @@ public static class SqlSugarExtension
     }
 
     #endregion 视图操作
+
+    /// <summary>
+    /// 列表转换为树形结构
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
+    /// <param name="source">列表数据</param>
+    /// <param name="childrenSelector">设置子节点列表。例如：item => item.Children</param>
+    /// <param name="parentIdSelector">设置元素的父级 Id。例如：item => item.ParentId</param>
+    /// <param name="rootParentId">根节点的父级 Id，默认为 0 </param>
+    /// <returns></returns>
+    /// <exception cref="Exception"></exception>
+    public static IEnumerable<T> ToTree<T>(
+       this IEnumerable<T> source,
+       Func<T, List<T>> childrenSelector,
+       Func<T, long> parentIdSelector,
+       int rootParentId)
+       where T : class
+    {
+        var lookup = source.ToLookup(parentIdSelector);
+        List<T> BuildTree(long parentId)
+        {
+            return lookup[parentId].Select(item =>
+            {
+                var children = BuildTree(GetId(item));
+                childrenSelector(item).Clear();
+                childrenSelector(item).AddRange(children);
+                return item;
+            }).ToList();
+        }
+
+        // 需要提供获取Id的方法，可以用反射或者自己传参数
+        long GetId(T item)
+        {
+            var prop = typeof(T).GetProperty("Id");
+            if (prop == null) throw new Exception("没有找到Id属性");
+            return (long)prop.GetValue(item);
+        }
+
+        return BuildTree(rootParentId);
+    }
 }

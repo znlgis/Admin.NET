@@ -3,71 +3,80 @@
 // 本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
-
 namespace Admin.NET.Core;
 
 /// <summary>
-/// Claim相关常量
+/// 翻译表输出参数
 /// </summary>
-public class ClaimConst
+public class SysLangTextOutput
 {
     /// <summary>
-    /// 用户Id
+    /// 主键Id
     /// </summary>
-    public const string UserId = "UserId";
+    public long Id { get; set; }
 
     /// <summary>
-    /// 账号
+    /// 所属实体名
     /// </summary>
-    public const string Account = "Account";
+    public string EntityName { get; set; }
 
     /// <summary>
-    /// 真实姓名
+    /// 所属实体ID
     /// </summary>
-    public const string RealName = "RealName";
+    public long EntityId { get; set; }
 
     /// <summary>
-    /// 昵称
+    /// 字段名
     /// </summary>
-    public const string NickName = "NickName";
-
-    /// <summary>
-    /// 账号类型
-    /// </summary>
-    public const string AccountType = "AccountType";
-
-    /// <summary>
-    /// 租户Id
-    /// </summary>
-    public const string TenantId = "TenantId";
-
-    /// <summary>
-    /// 组织机构Id
-    /// </summary>
-    public const string OrgId = "OrgId";
-
-    /// <summary>
-    /// 组织机构名称
-    /// </summary>
-    public const string OrgName = "OrgName";
-
-    /// <summary>
-    /// 组织机构类型
-    /// </summary>
-    public const string OrgType = "OrgType";
-
-    /// <summary>
-    /// 微信OpenId
-    /// </summary>
-    public const string OpenId = "OpenId";
-
-    /// <summary>
-    /// 登录模式PC、APP
-    /// </summary>
-    public const string LoginMode = "LoginMode";
+    public string FieldName { get; set; }
 
     /// <summary>
     /// 语言代码
     /// </summary>
-    public const string LangCode = "LangCode";
+    public string LangCode { get; set; }
+
+    /// <summary>
+    /// 翻译内容
+    /// </summary>
+    public string Content { get; set; }
+
+    /// <summary>
+    /// 创建时间
+    /// </summary>
+    public DateTime? CreateTime { get; set; }
+
+    /// <summary>
+    /// 更新时间
+    /// </summary>
+    public DateTime? UpdateTime { get; set; }
+
+    /// <summary>
+    /// 创建者Id
+    /// </summary>
+    public long? CreateUserId { get; set; }
+
+    /// <summary>
+    /// 创建者姓名
+    /// </summary>
+    public string? CreateUserName { get; set; }
+
+    /// <summary>
+    /// 修改者Id
+    /// </summary>
+    public long? UpdateUserId { get; set; }
+
+    /// <summary>
+    /// 修改者姓名
+    /// </summary>
+    public string? UpdateUserName { get; set; }
+}
+
+/// <summary>
+/// 翻译表数据导入模板实体
+/// </summary>
+public class ExportSysLangTextOutput : ImportSysLangTextInput
+{
+    [ImporterHeader(IsIgnore = true)]
+    [ExporterHeader(IsIgnore = true)]
+    public override string Error { get; set; }
 }

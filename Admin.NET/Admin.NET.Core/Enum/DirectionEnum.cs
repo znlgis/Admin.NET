@@ -4,41 +4,23 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-namespace Admin.NET.Core.Service;
+namespace Admin.NET.Core;
 
 /// <summary>
-/// 机构树形输出
+/// 书写方向枚举
 /// </summary>
-public class OrgTreeOutput
+[Description("书写方向枚举")]
+public enum DirectionEnum
 {
     /// <summary>
-    /// 主键Id
+    /// 从左到右
     /// </summary>
-    [SugarColumn(IsTreeKey = true)]
-    public long Id { get; set; }
+    [Description("从左到右")]
+    Ltr = 1,
 
     /// <summary>
-    /// 租户Id
+    /// 从右到左
     /// </summary>
-    public long TenantId { get; set; }
-
-    /// <summary>
-    /// 父Id
-    /// </summary>
-    public long Pid { get; set; }
-
-    /// <summary>
-    /// 名称
-    /// </summary>
-    public string Name { get; set; }
-
-    /// <summary>
-    /// 机构子项
-    /// </summary>
-    public List<OrgTreeOutput> Children { get; set; }
-
-    /// <summary>
-    /// 是否禁止选中
-    /// </summary>
-    public bool Disabled { get; set; }
+    [Description("从右到左")]
+    Rtl = 2
 }

@@ -144,7 +144,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             DataType = input.DataType
         };
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
-        db.DbMaintenance.AddColumn(input.TableName, column);        
+        db.DbMaintenance.AddColumn(input.TableName, column);
         // 默认值直接添加报错
         if (!string.IsNullOrWhiteSpace(input.DefaultValue))
         {
@@ -181,7 +181,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
         }
         if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
-        { 
+        {
             db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
         }
 
@@ -213,6 +213,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             case SqlSugar.DbType.MySql:
                 MoveColumnInMySQL(db, input.TableName, input.ColumnName, input.AfterColumnName);
                 break;
+
             default:
                 throw new NotSupportedException($"暂不支持 {dbType} 数据库的列移动操作");
         }
@@ -227,7 +228,7 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     /// <param name="noDefault"></param>
     /// <returns></returns>
     /// <exception cref="Exception"></exception>
-    private string GetColumnDefinitionInMySQL(ISqlSugarClient db, string tableName, string columnName,bool noDefault = false)
+    private string GetColumnDefinitionInMySQL(ISqlSugarClient db, string tableName, string columnName, bool noDefault = false)
     {
         var columnDef = db.Ado.SqlQuery<dynamic>(
             $"SHOW FULL COLUMNS FROM `{tableName}` WHERE Field = '{columnName}'"
@@ -250,8 +251,8 @@ public class SysDatabaseService : IDynamicApiController, ITransient
             definition.Append($"COMMENT '{columnDef.Comment.Replace("'", "''")}'");
 
         return definition.ToString();
-
     }
+
     /// <summary>
     /// MySQL 列移动实现
     /// </summary>

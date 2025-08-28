@@ -4,41 +4,53 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-namespace Admin.NET.Core.Service;
+namespace Admin.NET.Core;
 
 /// <summary>
-/// 机构树形输出
+/// 周枚举
 /// </summary>
-public class OrgTreeOutput
+[Description("周枚举")]
+public enum WeekEnum
 {
     /// <summary>
-    /// 主键Id
+    /// 周一
     /// </summary>
-    [SugarColumn(IsTreeKey = true)]
-    public long Id { get; set; }
+    [Description("周一")]
+    Monday = 1,
 
     /// <summary>
-    /// 租户Id
+    /// 周二
     /// </summary>
-    public long TenantId { get; set; }
+    [Description("周二")]
+    Tuesday = 2,
 
     /// <summary>
-    /// 父Id
+    /// 周三
     /// </summary>
-    public long Pid { get; set; }
+    [Description("周三")]
+    Wednesday = 3,
 
     /// <summary>
-    /// 名称
+    /// 周四
     /// </summary>
-    public string Name { get; set; }
+    [Description("周四")]
+    Thursday = 4,
 
     /// <summary>
-    /// 机构子项
+    /// 周五
     /// </summary>
-    public List<OrgTreeOutput> Children { get; set; }
+    [Description("周五")]
+    Friday = 5,
 
     /// <summary>
-    /// 是否禁止选中
+    /// 周六
     /// </summary>
-    public bool Disabled { get; set; }
+    [Description("周六")]
+    Saturday = 6,
+
+    /// <summary>
+    /// 周日
+    /// </summary>
+    [Description("周日")]
+    Sunday = 7,
 }

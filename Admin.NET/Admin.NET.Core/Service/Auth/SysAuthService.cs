@@ -244,6 +244,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             { ClaimConst.OrgId, user.OrgId },
             { ClaimConst.OrgName, user.SysOrg?.Name },
             { ClaimConst.OrgType, user.SysOrg?.Type },
+            { ClaimConst.LangCode, user.LangCode }
         }, tokenExpire);
 
         // 生成刷新Token令牌
@@ -323,7 +324,8 @@ public class SysAuthService : IDynamicApiController, ITransient
             Buttons = buttons,
             RoleIds = roleIds,
             TenantId = user.TenantId,
-            WatermarkText = watermarkText
+            WatermarkText = watermarkText,
+            LangCode = user.LangCode,
         };
 
         //将登录信息中的当前租户id，更新为当前所切换到的租户
