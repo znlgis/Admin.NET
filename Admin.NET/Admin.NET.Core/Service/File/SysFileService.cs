@@ -312,8 +312,9 @@ public class SysFileService : IDynamicApiController, ITransient
         var sysFile = await UploadFile(new UploadFileInput { File = file, AllowSuffix = _imageType }, "upload/avatar");
 
         var sysUserRep = _sysFileRep.ChangeRepository<SqlSugarRepository<SysUser>>();
-        var user = await sysUserRep.GetByIdAsync(_userManager.UserId);
-        await sysUserRep.UpdateAsync(u => new SysUser() { Avatar = sysFile.Url }, u => u.Id == user.Id);
+        var user = await sysUserRep.Context.Ado.SqlQuerySingleAsync<SysUser>($"Select * from SysUser Where Id={_userManager.UserId}");
+
+        await sysUserRep.Context.Ado.ExecuteCommandAsync($"Update SysUser set Avatar='{sysFile.Url}' Where Id={_userManager.UserId}");
         // 删除已有头像文件
         if (!string.IsNullOrWhiteSpace(user.Avatar))
         {
