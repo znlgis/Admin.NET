@@ -1,4 +1,5 @@
-require('dotenv').config();
+require('dotenv').config({ path: ".env" });
+require('dotenv').config({ path: ".env.local" });
 const fs = require('fs');
 const path = require('path');
 const API_URL = 'https://api.deepseek.com/v1/chat/completions';
