@@ -350,6 +350,8 @@
 	padding: 8px;
     border-radius: var(--el-dialog-border-radius) var(--el-dialog-border-radius) 0 0;
 	background: var(--el-color-primary);
+    border-top-left-radius: var(--el-border-radius-base);
+    border-top-right-radius: var(--el-border-radius-base);
 }
 .el-dialog__footer {
 	padding: 15px;
