@@ -34,7 +34,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysTenantConfigApi } from '/@/api-services/api';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import EditConfig from '/@/views/system/tenantConfig/component/editConfig.vue';
-import { EmptyObjectType, RefType } from '/@/types/global';
+//import { EmptyObjectType, RefType } from '/@/types/global';
 
 // 引入组件
 const Table = defineAsyncComponent(() => import('/@/components/table/index.vue'));
@@ -122,7 +122,7 @@ const getGroupList = async () => {
 	} as TableSearchType;
 	state.groupList = res.data.result ?? [];
 	res.data.result?.forEach((item) => {
-		groupSearch.options?.push({ label: item, value: item });
+		if(item) groupSearch.options?.push({ label: item, value: item });
 	});
 	let group = tb.tableData.search.filter((item) => {
 		return item.prop == 'groupCode';

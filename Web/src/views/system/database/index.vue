@@ -9,7 +9,18 @@
 				</el-form-item>
 				<el-form-item label="表名">
 					<el-select v-model="state.tableName" placeholder="表名" filterable clearable @change="handleQueryColumn">
-						<el-option v-for="item in state.tableData" :key="item.name" :label="item.name + '[' + item.description + ']'" :value="item.name" />
+                        <template #label="{ label, value }">
+                            <div class="flex flex-items-center">
+                                <span>{{ value }}</span>
+                                <span class="desc">{{ label }}</span>
+                            </div>
+                        </template>
+						<el-option v-for="item in state.tableData" :key="item.name" :data="item" :label="item.description" :value="item.name">
+                            <div class="flex flex-items-center">
+                                <span style="flex: 1">{{ item.name }}</span>
+                                <el-tag type="info" size="small">{{ item.description }}</el-tag>
+                            </div>
+                        </el-option>
 					</el-select>
 				</el-form-item>
 				<el-form-item>
@@ -377,3 +388,14 @@ const visualTable = () => {
 	router.push(`/develop/database/visual?configId=${state.configId}`);
 };
 </script>
+
+<style lang="scss" scoped>
+.el-select__placeholder {
+    .desc {
+        color: var(--el-color-info); 
+        font-size: var(--el-font-size-extra-small);
+        //font-style: italic;
+        margin-left: 5px;
+    }
+}
+</style>
