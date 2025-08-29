@@ -27,7 +27,7 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
         _sysCacheService = sysCacheService;
         _sysConfigRep = sysConfigRep;
         _sysConfigDataRep = sysConfigDataRep;
-        VSysConfig = _sysConfigRep.AsQueryable().LeftJoin(_sysConfigDataRep.AsQueryable().WhereIF(_userManager.SuperAdmin, cv => cv.TenantId == _userManager.TenantId),
+        VSysConfig = _sysConfigRep.AsQueryable().InnerJoin(_sysConfigDataRep.AsQueryable().WhereIF(!_userManager.SuperAdmin, cv => cv.TenantId == _userManager.TenantId),
             (c, cv) => c.Id == cv.ConfigId).Select<SysConfig>().MergeTable();
     }
 
@@ -252,7 +252,7 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
     [DisplayName("获取分组列表")]
     public async Task<List<string>> GetGroupList()
     {
-        return await _sysConfigRep.AsQueryable()
+        return await VSysConfig
             .GroupBy(u => u.GroupCode)
             .Select(u => u.GroupCode).ToListAsync();
     }
