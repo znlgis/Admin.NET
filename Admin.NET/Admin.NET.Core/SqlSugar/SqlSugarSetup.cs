@@ -418,6 +418,11 @@ public static class SqlSugarSetup
             var entityTypes = GetEntityTypesForInit(config);
             InitializeTables(dbProvider, entityTypes, config);
         }
+        
+        // 使用 SqlSugar 的 Truncate 方法
+        dbProvider.DbMaintenance.TruncateTable("SysJobDetail");
+        dbProvider.DbMaintenance.TruncateTable("SysJobTrigger");
+        // Log.Information("已清空 SysJobDetail, SysJobTrigger 表");
 
         // 初始化视图
         if (config.DbSettings.EnableInitView) InitView(dbProvider);
