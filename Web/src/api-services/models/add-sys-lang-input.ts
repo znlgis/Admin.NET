@@ -11,82 +11,104 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { DirectionEnum } from './direction-enum';
 import { WeekEnum } from './week-enum';
-/**
+ /**
  * 多语言增加输入参数
+ *
  * @export
  * @interface AddSysLangInput
  */
 export interface AddSysLangInput {
+
     /**
      * 语言名称
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     name: string;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     code: string;
+
     /**
      * ISO 语言代码
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     isoCode: string;
+
     /**
      * URL 语言代码
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     urlCode: string;
+
     /**
-     * 
      * @type {DirectionEnum}
      * @memberof AddSysLangInput
      */
     direction: DirectionEnum;
+
     /**
      * 日期格式
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     dateFormat: string;
+
     /**
      * 时间格式
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     timeFormat: string;
+
     /**
-     * 
      * @type {WeekEnum}
      * @memberof AddSysLangInput
      */
     weekStart: WeekEnum;
+
     /**
      * 分组符号
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     grouping: string;
+
     /**
      * 小数点符号
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     decimalPoint: string;
+
     /**
      * 千分位分隔符
+     *
      * @type {string}
      * @memberof AddSysLangInput
      */
     thousandsSep?: string | null;
+
     /**
      * 是否启用
+     *
      * @type {boolean}
      * @memberof AddSysLangInput
      */

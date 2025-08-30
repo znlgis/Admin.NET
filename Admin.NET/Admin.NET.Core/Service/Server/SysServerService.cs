@@ -148,7 +148,6 @@ public class SysServerService : IDynamicApiController, ITransient
         var qRCodeGeneratorAssembly = typeof(QRCoder.QRCodeGenerator).Assembly.GetName();
         var alibabaSendSmsRequestAssembly = typeof(AlibabaCloud.SDK.Dysmsapi20170525.Models.SendSmsRequest).Assembly.GetName();
         var tencentSendSmsRequestAssembly = typeof(TencentCloud.Sms.V20190711.Models.SendSmsRequest).Assembly.GetName();
-        var imageAssembly = typeof(Image).Assembly.GetName();
         var rabbitMQAssembly = typeof(RabbitMQEventSourceStore).Assembly.GetName();
         var ldapConnectionAssembly = typeof(Novell.Directory.Ldap.LdapConnection).Assembly.GetName();
         var ipToolAssembly = typeof(IPTools.Core.IpTool).Assembly.GetName();
@@ -180,7 +179,6 @@ public class SysServerService : IDynamicApiController, ITransient
             new { qRCodeGeneratorAssembly.Name, qRCodeGeneratorAssembly.Version },
             new { alibabaSendSmsRequestAssembly.Name, alibabaSendSmsRequestAssembly.Version },
             new { tencentSendSmsRequestAssembly.Name, tencentSendSmsRequestAssembly.Version },
-            new { imageAssembly.Name, imageAssembly.Version },
             new { rabbitMQAssembly.Name, rabbitMQAssembly.Version },
             new { ldapConnectionAssembly.Name, ldapConnectionAssembly.Version },
             new { ipToolAssembly.Name, ipToolAssembly.Version },

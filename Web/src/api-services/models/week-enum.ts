@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 /**
  * 周枚举<br />&nbsp;周一 Monday = 1<br />&nbsp;周二 Tuesday = 2<br />&nbsp;周三 Wednesday = 3<br />&nbsp;周四 Thursday = 4<br />&nbsp;周五 Friday = 5<br />&nbsp;周六 Saturday = 6<br />&nbsp;周日 Sunday = 7<br />
  * @export

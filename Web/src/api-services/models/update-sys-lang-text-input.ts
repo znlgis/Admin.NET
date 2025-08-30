@@ -13,42 +13,58 @@
  */
 
  /**
- * 
+ * 翻译表更新输入参数
  *
  * @export
- * @interface MoveDbColumnInput
+ * @interface UpdateSysLangTextInput
  */
-export interface MoveDbColumnInput {
+export interface UpdateSysLangTextInput {
 
     /**
-     * 数据库配置ID
+     * 主键Id
      *
-     * @type {string}
-     * @memberof MoveDbColumnInput
+     * @type {number}
+     * @memberof UpdateSysLangTextInput
      */
-    configId?: string | null;
+    id: number;
 
     /**
-     * 目标表名
+     * 所属实体名
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof UpdateSysLangTextInput
      */
-    tableName?: string | null;
+    entityName: string;
 
     /**
-     * 要移动的列名
+     * 所属实体ID
      *
-     * @type {string}
-     * @memberof MoveDbColumnInput
+     * @type {number}
+     * @memberof UpdateSysLangTextInput
      */
-    columnName?: string | null;
+    entityId: number;
 
     /**
-     * 移动到该列后方（为空时移动到首列）
+     * 字段名
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof UpdateSysLangTextInput
      */
-    afterColumnName?: string | null;
+    fieldName: string;
+
+    /**
+     * 语言代码
+     *
+     * @type {string}
+     * @memberof UpdateSysLangTextInput
+     */
+    langCode: string;
+
+    /**
+     * 翻译内容
+     *
+     * @type {string}
+     * @memberof UpdateSysLangTextInput
+     */
+    content: string;
 }

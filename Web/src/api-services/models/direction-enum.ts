@@ -11,6 +11,7 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 /**
  * 书写方向枚举<br />&nbsp;从左到右 Ltr = 1<br />&nbsp;从右到左 Rtl = 2<br />
  * @export

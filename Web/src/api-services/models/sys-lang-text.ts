@@ -11,80 +11,106 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-/**
+
+ /**
  * 
+ *
  * @export
  * @interface SysLangText
  */
 export interface SysLangText {
+
     /**
      * 雪花Id
+     *
      * @type {number}
      * @memberof SysLangText
      */
     id?: number;
+
     /**
      * 创建时间
+     *
      * @type {Date}
      * @memberof SysLangText
      */
     createTime?: Date;
+
     /**
      * 更新时间
+     *
      * @type {Date}
      * @memberof SysLangText
      */
     updateTime?: Date | null;
+
     /**
      * 创建者Id
+     *
      * @type {number}
      * @memberof SysLangText
      */
     createUserId?: number | null;
+
     /**
      * 创建者姓名
+     *
      * @type {string}
      * @memberof SysLangText
      */
     createUserName?: string | null;
+
     /**
      * 修改者Id
+     *
      * @type {number}
      * @memberof SysLangText
      */
     updateUserId?: number | null;
+
     /**
      * 修改者姓名
+     *
      * @type {string}
      * @memberof SysLangText
      */
     updateUserName?: string | null;
+
     /**
      * 所属实体名
+     *
      * @type {string}
      * @memberof SysLangText
      */
     entityName?: string | null;
+
     /**
      * 语言代码（如 zh_CN）
+     *
      * @type {number}
      * @memberof SysLangText
      */
     entityId?: number;
+
     /**
      * 字段名
+     *
      * @type {string}
      * @memberof SysLangText
      */
     fieldName?: string | null;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof SysLangText
      */
     langCode?: string | null;
+
     /**
      * 多语言内容
+     *
      * @type {string}
      * @memberof SysLangText
      */

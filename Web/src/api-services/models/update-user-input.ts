@@ -33,7 +33,7 @@ export interface UpdateUserInput {
      * @type {number}
      * @memberof UpdateUserInput
      */
-    id: number;
+    id?: number;
 
     /**
      * 创建时间
@@ -390,6 +390,14 @@ export interface UpdateUserInput {
      * @memberof UpdateUserInput
      */
     signature?: string | null;
+
+    /**
+     * 语言代码（如 zh_CN）
+     *
+     * @type {string}
+     * @memberof UpdateUserInput
+     */
+    langCode?: string | null;
 
     /**
      * 账号

@@ -11,80 +11,106 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-/**
+
+ /**
  * 翻译表输出参数
+ *
  * @export
  * @interface SysLangTextOutput
  */
 export interface SysLangTextOutput {
+
     /**
      * 主键Id
+     *
      * @type {number}
      * @memberof SysLangTextOutput
      */
     id?: number;
+
     /**
      * 所属实体名
+     *
      * @type {string}
      * @memberof SysLangTextOutput
      */
     entityName?: string | null;
+
     /**
      * 所属实体ID
+     *
      * @type {number}
      * @memberof SysLangTextOutput
      */
     entityId?: number;
+
     /**
      * 字段名
+     *
      * @type {string}
      * @memberof SysLangTextOutput
      */
     fieldName?: string | null;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof SysLangTextOutput
      */
     langCode?: string | null;
+
     /**
      * 翻译内容
+     *
      * @type {string}
      * @memberof SysLangTextOutput
      */
     content?: string | null;
+
     /**
      * 创建时间
+     *
      * @type {Date}
      * @memberof SysLangTextOutput
      */
     createTime?: Date | null;
+
     /**
      * 更新时间
+     *
      * @type {Date}
      * @memberof SysLangTextOutput
      */
     updateTime?: Date | null;
+
     /**
      * 创建者Id
+     *
      * @type {number}
      * @memberof SysLangTextOutput
      */
     createUserId?: number | null;
+
     /**
      * 创建者姓名
+     *
      * @type {string}
      * @memberof SysLangTextOutput
      */
     createUserName?: string | null;
+
     /**
      * 修改者Id
+     *
      * @type {number}
      * @memberof SysLangTextOutput
      */
     updateUserId?: number | null;
+
     /**
      * 修改者姓名
+     *
      * @type {string}
      * @memberof SysLangTextOutput
      */

@@ -16,39 +16,23 @@
  * 
  *
  * @export
- * @interface MoveDbColumnInput
+ * @interface AiTranslateTextInput
  */
-export interface MoveDbColumnInput {
+export interface AiTranslateTextInput {
 
     /**
-     * 数据库配置ID
+     * 原文
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof AiTranslateTextInput
      */
-    configId?: string | null;
+    originalText?: string | null;
 
     /**
-     * 目标表名
+     * 目标语言
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof AiTranslateTextInput
      */
-    tableName?: string | null;
-
-    /**
-     * 要移动的列名
-     *
-     * @type {string}
-     * @memberof MoveDbColumnInput
-     */
-    columnName?: string | null;
-
-    /**
-     * 移动到该列后方（为空时移动到首列）
-     *
-     * @type {string}
-     * @memberof MoveDbColumnInput
-     */
-    afterColumnName?: string | null;
+    targetLang?: string | null;
 }

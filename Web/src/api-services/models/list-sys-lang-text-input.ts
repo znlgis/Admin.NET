@@ -13,42 +13,42 @@
  */
 
  /**
- * 
+ * 翻译表输入参数
  *
  * @export
- * @interface MoveDbColumnInput
+ * @interface ListSysLangTextInput
  */
-export interface MoveDbColumnInput {
+export interface ListSysLangTextInput {
 
     /**
-     * 数据库配置ID
+     * 所属实体名
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof ListSysLangTextInput
      */
-    configId?: string | null;
+    entityName: string;
 
     /**
-     * 目标表名
+     * 所属实体ID
      *
-     * @type {string}
-     * @memberof MoveDbColumnInput
+     * @type {number}
+     * @memberof ListSysLangTextInput
      */
-    tableName?: string | null;
+    entityId: number;
 
     /**
-     * 要移动的列名
+     * 字段名
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof ListSysLangTextInput
      */
-    columnName?: string | null;
+    fieldName: string;
 
     /**
-     * 移动到该列后方（为空时移动到首列）
+     * 语言代码
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof ListSysLangTextInput
      */
-    afterColumnName?: string | null;
+    langCode?: string | null;
 }

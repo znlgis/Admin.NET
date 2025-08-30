@@ -11,124 +11,160 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { DirectionEnum } from './direction-enum';
 import { WeekEnum } from './week-enum';
-/**
+ /**
  * 语言输出参数
+ *
  * @export
  * @interface SysLangOutput
  */
 export interface SysLangOutput {
+
     /**
      * 主键Id
+     *
      * @type {number}
      * @memberof SysLangOutput
      */
     id?: number;
+
     /**
      * 语言名称
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     name?: string | null;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     code?: string | null;
+
     /**
      * ISO 语言代码
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     isoCode?: string | null;
+
     /**
      * URL 语言代码
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     urlCode?: string | null;
+
     /**
-     * 
      * @type {DirectionEnum}
      * @memberof SysLangOutput
      */
     direction?: DirectionEnum;
+
     /**
      * 日期格式
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     dateFormat?: string | null;
+
     /**
      * 时间格式
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     timeFormat?: string | null;
+
     /**
-     * 
      * @type {WeekEnum}
      * @memberof SysLangOutput
      */
     weekStart?: WeekEnum;
+
     /**
      * 分组符号
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     grouping?: string | null;
+
     /**
      * 小数点符号
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     decimalPoint?: string | null;
+
     /**
      * 千分位分隔符
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     thousandsSep?: string | null;
+
     /**
      * 是否启用
+     *
      * @type {boolean}
      * @memberof SysLangOutput
      */
     active?: boolean;
+
     /**
      * 创建时间
+     *
      * @type {Date}
      * @memberof SysLangOutput
      */
     createTime?: Date | null;
+
     /**
      * 更新时间
+     *
      * @type {Date}
      * @memberof SysLangOutput
      */
     updateTime?: Date | null;
+
     /**
      * 创建者Id
+     *
      * @type {number}
      * @memberof SysLangOutput
      */
     createUserId?: number | null;
+
     /**
      * 创建者姓名
+     *
      * @type {string}
      * @memberof SysLangOutput
      */
     createUserName?: string | null;
+
     /**
      * 修改者Id
+     *
      * @type {number}
      * @memberof SysLangOutput
      */
     updateUserId?: number | null;
+
     /**
      * 修改者姓名
+     *
      * @type {string}
      * @memberof SysLangOutput
      */

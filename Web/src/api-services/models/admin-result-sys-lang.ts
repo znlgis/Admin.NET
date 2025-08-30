@@ -11,45 +11,57 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { SysLang } from './sys-lang';
-/**
+ /**
  * 全局返回结果
+ *
  * @export
  * @interface AdminResultSysLang
  */
 export interface AdminResultSysLang {
+
     /**
      * 状态码
+     *
      * @type {number}
      * @memberof AdminResultSysLang
      */
     code?: number;
+
     /**
      * 类型success、warning、error
+     *
      * @type {string}
      * @memberof AdminResultSysLang
      */
     type?: string | null;
+
     /**
      * 错误信息
+     *
      * @type {string}
      * @memberof AdminResultSysLang
      */
     message?: string | null;
+
     /**
-     * 
      * @type {SysLang}
      * @memberof AdminResultSysLang
      */
     result?: SysLang;
+
     /**
      * 附加数据
+     *
      * @type {any}
      * @memberof AdminResultSysLang
      */
     extras?: any | null;
+
     /**
      * 时间
+     *
      * @type {Date}
      * @memberof AdminResultSysLang
      */

@@ -11,14 +11,18 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-/**
+
+ /**
  * 多语言删除输入参数
+ *
  * @export
  * @interface DeleteSysLangInput
  */
 export interface DeleteSysLangInput {
+
     /**
      * 主键Id
+     *
      * @type {number}
      * @memberof DeleteSysLangInput
      */

@@ -12,20 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { SysLangTextOutput } from './sys-lang-text-output';
+import { SqlSugarPagedListSysLangTextOutput } from './sql-sugar-paged-list-sys-lang-text-output';
  /**
  * 全局返回结果
  *
  * @export
- * @interface AdminResultListSysLangTextOutput
+ * @interface AdminResultSqlSugarPagedListSysLangTextOutput
  */
-export interface AdminResultListSysLangTextOutput {
+export interface AdminResultSqlSugarPagedListSysLangTextOutput {
 
     /**
      * 状态码
      *
      * @type {number}
-     * @memberof AdminResultListSysLangTextOutput
+     * @memberof AdminResultSqlSugarPagedListSysLangTextOutput
      */
     code?: number;
 
@@ -33,7 +33,7 @@ export interface AdminResultListSysLangTextOutput {
      * 类型success、warning、error
      *
      * @type {string}
-     * @memberof AdminResultListSysLangTextOutput
+     * @memberof AdminResultSqlSugarPagedListSysLangTextOutput
      */
     type?: string | null;
 
@@ -41,23 +41,21 @@ export interface AdminResultListSysLangTextOutput {
      * 错误信息
      *
      * @type {string}
-     * @memberof AdminResultListSysLangTextOutput
+     * @memberof AdminResultSqlSugarPagedListSysLangTextOutput
      */
     message?: string | null;
 
     /**
-     * 数据
-     *
-     * @type {Array<SysLangTextOutput>}
-     * @memberof AdminResultListSysLangTextOutput
+     * @type {SqlSugarPagedListSysLangTextOutput}
+     * @memberof AdminResultSqlSugarPagedListSysLangTextOutput
      */
-    result?: Array<SysLangTextOutput> | null;
+    result?: SqlSugarPagedListSysLangTextOutput;
 
     /**
      * 附加数据
      *
      * @type {any}
-     * @memberof AdminResultListSysLangTextOutput
+     * @memberof AdminResultSqlSugarPagedListSysLangTextOutput
      */
     extras?: any | null;
 
@@ -65,7 +63,7 @@ export interface AdminResultListSysLangTextOutput {
      * 时间
      *
      * @type {Date}
-     * @memberof AdminResultListSysLangTextOutput
+     * @memberof AdminResultSqlSugarPagedListSysLangTextOutput
      */
     time?: Date;
 }

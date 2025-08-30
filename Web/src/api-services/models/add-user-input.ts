@@ -392,6 +392,14 @@ export interface AddUserInput {
     signature?: string | null;
 
     /**
+     * 语言代码（如 zh_CN）
+     *
+     * @type {string}
+     * @memberof AddUserInput
+     */
+    langCode?: string | null;
+
+    /**
      * 账号
      *
      * @type {string}

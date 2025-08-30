@@ -13,42 +13,18 @@
  */
 
  /**
- * 
+ * 翻译表删除输入参数
  *
  * @export
- * @interface MoveDbColumnInput
+ * @interface DeleteSysLangTextInput
  */
-export interface MoveDbColumnInput {
+export interface DeleteSysLangTextInput {
 
     /**
-     * 数据库配置ID
+     * 主键Id
      *
-     * @type {string}
-     * @memberof MoveDbColumnInput
+     * @type {number}
+     * @memberof DeleteSysLangTextInput
      */
-    configId?: string | null;
-
-    /**
-     * 目标表名
-     *
-     * @type {string}
-     * @memberof MoveDbColumnInput
-     */
-    tableName?: string | null;
-
-    /**
-     * 要移动的列名
-     *
-     * @type {string}
-     * @memberof MoveDbColumnInput
-     */
-    columnName?: string | null;
-
-    /**
-     * 移动到该列后方（为空时移动到首列）
-     *
-     * @type {string}
-     * @memberof MoveDbColumnInput
-     */
-    afterColumnName?: string | null;
+    id: number;
 }

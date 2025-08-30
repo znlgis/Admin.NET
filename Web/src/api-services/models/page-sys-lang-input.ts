@@ -11,94 +11,120 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { Filter } from './filter';
 import { Search } from './search';
-/**
+ /**
  * 多语言分页查询输入参数
+ *
  * @export
  * @interface PageSysLangInput
  */
 export interface PageSysLangInput {
+
     /**
-     * 
      * @type {Search}
      * @memberof PageSysLangInput
      */
     search?: Search;
+
     /**
      * 模糊查询关键字
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     keyword?: string | null;
+
     /**
-     * 
      * @type {Filter}
      * @memberof PageSysLangInput
      */
     filter?: Filter;
+
     /**
      * 当前页码
+     *
      * @type {number}
      * @memberof PageSysLangInput
      */
     page?: number;
+
     /**
      * 页码容量
+     *
      * @type {number}
      * @memberof PageSysLangInput
      */
     pageSize?: number;
+
     /**
      * 排序字段
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     field?: string | null;
+
     /**
      * 排序方向
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     order?: string | null;
+
     /**
      * 降序排序
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     descStr?: string | null;
+
     /**
      * 语言名称
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     name?: string | null;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     code?: string | null;
+
     /**
      * ISO 语言代码
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     isoCode?: string | null;
+
     /**
      * URL 语言代码
+     *
      * @type {string}
      * @memberof PageSysLangInput
      */
     urlCode?: string | null;
+
     /**
      * 是否启用
+     *
      * @type {boolean}
      * @memberof PageSysLangInput
      */
     active?: boolean | null;
+
     /**
      * 选中主键列表
+     *
      * @type {Array<number>}
      * @memberof PageSysLangInput
      */

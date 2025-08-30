@@ -11,51 +11,67 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { SysLangTextOutput } from './sys-lang-text-output';
-/**
+ /**
  * 分页泛型集合
+ *
  * @export
  * @interface SqlSugarPagedListSysLangTextOutput
  */
 export interface SqlSugarPagedListSysLangTextOutput {
+
     /**
      * 页码
+     *
      * @type {number}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */
     page?: number;
+
     /**
      * 页容量
+     *
      * @type {number}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */
     pageSize?: number;
+
     /**
      * 总条数
+     *
      * @type {number}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */
     total?: number;
+
     /**
      * 总页数
+     *
      * @type {number}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */
     totalPages?: number;
+
     /**
      * 当前页集合
+     *
      * @type {Array<SysLangTextOutput>}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */
     items?: Array<SysLangTextOutput> | null;
+
     /**
      * 是否有上一页
+     *
      * @type {boolean}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */
     hasPrevPage?: boolean;
+
     /**
      * 是否有下一页
+     *
      * @type {boolean}
      * @memberof SqlSugarPagedListSysLangTextOutput
      */

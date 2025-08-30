@@ -13,42 +13,66 @@
  */
 
  /**
- * 
+ * 翻译表数据导入实体
  *
  * @export
- * @interface MoveDbColumnInput
+ * @interface ImportSysLangTextInput
  */
-export interface MoveDbColumnInput {
+export interface ImportSysLangTextInput {
 
     /**
-     * 数据库配置ID
+     * 记录Id
      *
-     * @type {string}
-     * @memberof MoveDbColumnInput
+     * @type {number}
+     * @memberof ImportSysLangTextInput
      */
-    configId?: string | null;
+    id?: number;
 
     /**
-     * 目标表名
+     * 错误信息
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof ImportSysLangTextInput
      */
-    tableName?: string | null;
+    error?: string | null;
 
     /**
-     * 要移动的列名
+     * 所属实体名
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof ImportSysLangTextInput
      */
-    columnName?: string | null;
+    entityName?: string | null;
 
     /**
-     * 移动到该列后方（为空时移动到首列）
+     * 所属实体ID
+     *
+     * @type {number}
+     * @memberof ImportSysLangTextInput
+     */
+    entityId?: number | null;
+
+    /**
+     * 字段名
      *
      * @type {string}
-     * @memberof MoveDbColumnInput
+     * @memberof ImportSysLangTextInput
      */
-    afterColumnName?: string | null;
+    fieldName?: string | null;
+
+    /**
+     * 语言代码
+     *
+     * @type {string}
+     * @memberof ImportSysLangTextInput
+     */
+    langCode?: string | null;
+
+    /**
+     * 翻译内容
+     *
+     * @type {string}
+     * @memberof ImportSysLangTextInput
+     */
+    content?: string | null;
 }

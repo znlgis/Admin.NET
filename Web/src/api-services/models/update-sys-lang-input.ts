@@ -11,88 +11,112 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { DirectionEnum } from './direction-enum';
 import { WeekEnum } from './week-enum';
-/**
+ /**
  * 多语言更新输入参数
+ *
  * @export
  * @interface UpdateSysLangInput
  */
 export interface UpdateSysLangInput {
+
     /**
      * 主键Id
+     *
      * @type {number}
      * @memberof UpdateSysLangInput
      */
     id: number;
+
     /**
      * 语言名称
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     name: string;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     code: string;
+
     /**
      * ISO 语言代码
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     isoCode: string;
+
     /**
      * URL 语言代码
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     urlCode: string;
+
     /**
-     * 
      * @type {DirectionEnum}
      * @memberof UpdateSysLangInput
      */
     direction: DirectionEnum;
+
     /**
      * 日期格式
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     dateFormat: string;
+
     /**
      * 时间格式
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     timeFormat: string;
+
     /**
-     * 
      * @type {WeekEnum}
      * @memberof UpdateSysLangInput
      */
     weekStart: WeekEnum;
+
     /**
      * 分组符号
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     grouping: string;
+
     /**
      * 小数点符号
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     decimalPoint: string;
+
     /**
      * 千分位分隔符
+     *
      * @type {string}
      * @memberof UpdateSysLangInput
      */
     thousandsSep?: string | null;
+
     /**
      * 是否启用
+     *
      * @type {boolean}
      * @memberof UpdateSysLangInput
      */

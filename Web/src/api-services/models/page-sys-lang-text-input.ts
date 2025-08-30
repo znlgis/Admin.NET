@@ -11,94 +11,120 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import { Filter } from './filter';
 import { Search } from './search';
-/**
+ /**
  * 翻译表分页查询输入参数
+ *
  * @export
  * @interface PageSysLangTextInput
  */
 export interface PageSysLangTextInput {
+
     /**
-     * 
      * @type {Search}
      * @memberof PageSysLangTextInput
      */
     search?: Search;
+
     /**
      * 模糊查询关键字
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     keyword?: string | null;
+
     /**
-     * 
      * @type {Filter}
      * @memberof PageSysLangTextInput
      */
     filter?: Filter;
+
     /**
      * 当前页码
+     *
      * @type {number}
      * @memberof PageSysLangTextInput
      */
     page?: number;
+
     /**
      * 页码容量
+     *
      * @type {number}
      * @memberof PageSysLangTextInput
      */
     pageSize?: number;
+
     /**
      * 排序字段
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     field?: string | null;
+
     /**
      * 排序方向
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     order?: string | null;
+
     /**
      * 降序排序
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     descStr?: string | null;
+
     /**
      * 所属实体名
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     entityName?: string | null;
+
     /**
      * 所属实体ID
+     *
      * @type {number}
      * @memberof PageSysLangTextInput
      */
     entityId?: number | null;
+
     /**
      * 字段名
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     fieldName?: string | null;
+
     /**
      * 语言代码
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     langCode?: string | null;
+
     /**
      * 翻译内容
+     *
      * @type {string}
      * @memberof PageSysLangTextInput
      */
     content?: string | null;
+
     /**
      * 选中主键列表
+     *
      * @type {Array<number>}
      * @memberof PageSysLangTextInput
      */
