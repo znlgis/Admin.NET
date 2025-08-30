@@ -324,6 +324,7 @@ public static class SqlSugarExtension
     }
 
     #endregion 视图操作
+
     /// <summary>
     /// 列表转换为树形结构
     /// </summary>

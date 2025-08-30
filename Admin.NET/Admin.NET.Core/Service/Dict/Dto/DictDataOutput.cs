@@ -21,4 +21,3 @@ public class DictDataOutput
     public int OrderNo { get; set; }
     public StatusEnum Status { get; set; }
 }
-

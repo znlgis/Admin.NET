@@ -4,9 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-
-using AngleSharp.Dom;
-using Microsoft.AspNetCore.Components.Forms;
 using Newtonsoft.Json;
 
 namespace Admin.NET.Core.Service;
@@ -51,6 +48,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             .Select<SysLangTextOutput>();
         return await query.OrderBuilder(input).ToPagedListAsync(input.Page, input.PageSize);
     }
+
     [DisplayName("获取翻译表")]
     [ApiDescriptionSettings(Name = "List"), HttpPost]
     public async Task<List<SysLangTextOutput>> List(ListSysLangTextInput input)
@@ -61,6 +59,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             .Select<SysLangTextOutput>();
         return await query.ToListAsync();
     }
+
     /// <summary>
     /// 获取翻译表详情 ℹ️
     /// </summary>
@@ -137,6 +136,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     }
 
     private static readonly object _sysLangTextBatchSaveLock = new object();
+
     /// <summary>
     /// 批量保存翻译表 ✏️
     /// </summary>
@@ -219,6 +219,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     }
 
     private static readonly object _sysLangTextImportLock = new object();
+
     /// <summary>
     /// 导入翻译表记录 💾
     /// </summary>
@@ -233,7 +234,6 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             {
                 _sqlSugarClient.Utilities.PageEach(list, 2048, pageItems =>
                 {
-
                     // 校验并过滤必填基本类型为null的字段
                     var rows = pageItems.Where(x =>
                     {
@@ -282,6 +282,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             return stream;
         }
     }
+
     /// <summary>
     /// DEEPSEEK 翻译接口
     /// </summary>
@@ -352,6 +353,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
             return result.choices[0].message.content.Trim();
         }
     }
+
     // JSON 响应模型
     private class TranslationResponse
     {
@@ -377,6 +379,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
     {
         public string message { get; set; }
     }
+
     /// <summary>
     /// 生成提示词
     /// </summary>
@@ -393,8 +396,8 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
 
 ■ 符号保留规则
 ! 所有符号必须原样保留：
-• 编程符号：\${{ }} <% %> @ # & | 
-• UI占位符：{{0}} %s [ ] 
+• 编程符号：\${{ }} <% %> @ # & |
+• UI占位符：{{0}} %s [ ]
 • 货币单位：¥100.00 kg cm²
 • 中文符号：【 】 《 》 ：
 
@@ -403,7 +406,7 @@ public partial class SysLangTextService : IDynamicApiController, ITransient
 1. 成对符号必须保持完整结构：
    ✓ 正确：【Warning】Text
    ✗ 禁止：Warning【 】Text
-   
+
 2. 独立符号位置：
    • 优先句尾 → Text】?
    • 次选句首 → 】Text?

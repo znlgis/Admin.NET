@@ -13,63 +13,62 @@ public class SysLangTextOutput
     /// <summary>
     /// 主键Id
     /// </summary>
-    public long Id { get; set; }    
-    
+    public long Id { get; set; }
+
     /// <summary>
     /// 所属实体名
     /// </summary>
-    public string EntityName { get; set; }    
-    
+    public string EntityName { get; set; }
+
     /// <summary>
     /// 所属实体ID
     /// </summary>
-    public long EntityId { get; set; }    
-    
+    public long EntityId { get; set; }
+
     /// <summary>
     /// 字段名
     /// </summary>
-    public string FieldName { get; set; }    
-    
+    public string FieldName { get; set; }
+
     /// <summary>
     /// 语言代码
     /// </summary>
-    public string LangCode { get; set; }    
-    
+    public string LangCode { get; set; }
+
     /// <summary>
     /// 翻译内容
     /// </summary>
-    public string Content { get; set; }    
-    
+    public string Content { get; set; }
+
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime? CreateTime { get; set; }    
-    
+    public DateTime? CreateTime { get; set; }
+
     /// <summary>
     /// 更新时间
     /// </summary>
-    public DateTime? UpdateTime { get; set; }    
-    
+    public DateTime? UpdateTime { get; set; }
+
     /// <summary>
     /// 创建者Id
     /// </summary>
-    public long? CreateUserId { get; set; }    
-    
+    public long? CreateUserId { get; set; }
+
     /// <summary>
     /// 创建者姓名
     /// </summary>
-    public string? CreateUserName { get; set; }    
-    
+    public string? CreateUserName { get; set; }
+
     /// <summary>
     /// 修改者Id
     /// </summary>
-    public long? UpdateUserId { get; set; }    
-    
+    public long? UpdateUserId { get; set; }
+
     /// <summary>
     /// 修改者姓名
     /// </summary>
-    public string? UpdateUserName { get; set; }    
-    
+    public string? UpdateUserName { get; set; }
 }
 
 /// <summary>

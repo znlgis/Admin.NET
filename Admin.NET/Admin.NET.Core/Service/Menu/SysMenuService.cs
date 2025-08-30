@@ -20,6 +20,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     private readonly SysCacheService _sysCacheService;
     private readonly UserManager _userManager;
     private readonly SysLangTextCacheService _sysLangTextCacheService;
+
     public SysMenuService(
         SqlSugarRepository<SysTenantMenu> sysTenantMenuRep,
         SqlSugarRepository<SysMenu> sysMenuRep,
@@ -84,7 +85,6 @@ public class SysMenuService : IDynamicApiController, ITransient
 
         // 转换为输出 DTO
         return menuTree.Adapt<List<MenuOutput>>();
-
     }
 
     /// <summary>

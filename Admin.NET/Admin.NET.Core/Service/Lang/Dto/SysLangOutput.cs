@@ -13,38 +13,38 @@ public class SysLangOutput
     /// <summary>
     /// 主键Id
     /// </summary>
-    public long Id { get; set; }    
-    
+    public long Id { get; set; }
+
     /// <summary>
     /// 语言名称
     /// </summary>
-    public string Name { get; set; }    
-    
+    public string Name { get; set; }
+
     /// <summary>
     /// 语言代码
     /// </summary>
-    public string Code { get; set; }    
-    
+    public string Code { get; set; }
+
     /// <summary>
     /// ISO 语言代码
     /// </summary>
-    public string IsoCode { get; set; }    
-    
+    public string IsoCode { get; set; }
+
     /// <summary>
     /// URL 语言代码
     /// </summary>
-    public string UrlCode { get; set; }    
-    
+    public string UrlCode { get; set; }
+
     /// <summary>
     /// 书写方向
     /// </summary>
-    public DirectionEnum Direction { get; set; }    
-    
+    public DirectionEnum Direction { get; set; }
+
     /// <summary>
     /// 日期格式
     /// </summary>
-    public string DateFormat { get; set; }    
-    
+    public string DateFormat { get; set; }
+
     /// <summary>
     /// 时间格式
     /// </summary>
@@ -58,53 +58,52 @@ public class SysLangOutput
     /// <summary>
     /// 分组符号
     /// </summary>
-    public string Grouping { get; set; }    
-    
+    public string Grouping { get; set; }
+
     /// <summary>
     /// 小数点符号
     /// </summary>
-    public string DecimalPoint { get; set; }    
-    
+    public string DecimalPoint { get; set; }
+
     /// <summary>
     /// 千分位分隔符
     /// </summary>
-    public string? ThousandsSep { get; set; }    
-    
+    public string? ThousandsSep { get; set; }
+
     /// <summary>
     /// 是否启用
     /// </summary>
-    public bool Active { get; set; }    
-    
+    public bool Active { get; set; }
+
     /// <summary>
     /// 创建时间
     /// </summary>
-    public DateTime? CreateTime { get; set; }    
-    
+    public DateTime? CreateTime { get; set; }
+
     /// <summary>
     /// 更新时间
     /// </summary>
-    public DateTime? UpdateTime { get; set; }    
-    
+    public DateTime? UpdateTime { get; set; }
+
     /// <summary>
     /// 创建者Id
     /// </summary>
-    public long? CreateUserId { get; set; }    
-    
+    public long? CreateUserId { get; set; }
+
     /// <summary>
     /// 创建者姓名
     /// </summary>
-    public string? CreateUserName { get; set; }    
-    
+    public string? CreateUserName { get; set; }
+
     /// <summary>
     /// 修改者Id
     /// </summary>
-    public long? UpdateUserId { get; set; }    
-    
+    public long? UpdateUserId { get; set; }
+
     /// <summary>
     /// 修改者姓名
     /// </summary>
-    public string? UpdateUserName { get; set; }    
-    
+    public string? UpdateUserName { get; set; }
 }
 
 /// <summary>

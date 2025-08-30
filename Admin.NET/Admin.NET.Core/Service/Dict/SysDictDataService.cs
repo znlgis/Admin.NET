@@ -73,7 +73,7 @@ public class SysDictDataService : IDynamicApiController, ITransient
     public async Task<List<SysDictData>> GetList([FromQuery] GetDataDictDataInput input)
     {
         var langCode = _userManager.LangCode;
-        var list =await GetDictDataListByDictTypeId(input.DictTypeId);
+        var list = await GetDictDataListByDictTypeId(input.DictTypeId);
         var ids = list.Select(d => d.Id).Distinct().ToList();
         var translations = await _sysLangTextCacheService.GetTranslations(
                                "SysDictData",

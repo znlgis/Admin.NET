@@ -5,14 +5,18 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 namespace Admin.NET.Core.Service;
+
 public class LangFieldMap<TEntity>
 {
     /// <summary>实体名，如 Product</summary>
     public string EntityName { get; set; }
+
     /// <summary>字段名，如 Name/Description</summary>
     public string FieldName { get; set; }
+
     /// <summary>如何取主键ID</summary>
     public Func<TEntity, long> IdSelector { get; set; }
+
     /// <summary>如何写回翻译值</summary>
     public Action<TEntity, string> SetTranslatedValue { get; set; }
 }
@@ -77,7 +81,7 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
     /// 【批量翻译获取】<br/>
     /// 根据实体、字段和一批主键ID获取对应翻译内容，自动从缓存或数据库获取。<br/>
     /// 适用于：SKU、多商品、批量字典等需要高效批量获取的场景。<br/>
-    /// 
+    ///
     /// 【示例】<br/>
     /// var dict = await _sysLangTextCacheService.GetTranslations("SKU", "Name", skuIds, "en_US");
     /// </summary>
@@ -162,6 +166,7 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
 
         return list;
     }
+
     /// <summary>
     /// 【多字段批量翻译】
     /// 对列表中的实体对象，按配置的字段映射进行多字段翻译处理。<br/>
@@ -281,6 +286,7 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
 
         return list;
     }
+
     /// <summary>
     /// 删除缓存
     /// </summary>
@@ -293,6 +299,7 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
         var key = BuildKey(entityName, fieldName, entityId, langCode);
         _sysCacheService.Remove(key);
     }
+
     /// <summary>
     /// 更新缓存
     /// </summary>
@@ -306,5 +313,4 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
         var key = BuildKey(entityName, fieldName, entityId, langCode);
         _sysCacheService.Set(key, newValue, expireSeconds);
     }
-
 }

@@ -16,10 +16,12 @@ public class OrgTreeOutput
     /// </summary>
     [SugarColumn(IsTreeKey = true)]
     public long Id { get; set; }
+
     /// <summary>
     /// 租户Id
     /// </summary>
     public long TenantId { get; set; }
+
     /// <summary>
     /// 父Id
     /// </summary>

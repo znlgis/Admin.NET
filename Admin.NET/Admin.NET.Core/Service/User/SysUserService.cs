@@ -209,6 +209,7 @@ public class SysUserService : IDynamicApiController, ITransient
             Input = input
         });
     }
+
     /// <summary>
     /// 更新当前用户语言 🔖
     /// </summary>
@@ -223,6 +224,7 @@ public class SysUserService : IDynamicApiController, ITransient
         user.LangCode = langCode;
         await _sysUserRep.AsUpdateable(user).UpdateColumns(it => it.LangCode).ExecuteCommandAsync();
     }
+
     /// <summary>
     /// 更新角色和扩展机构
     /// </summary>

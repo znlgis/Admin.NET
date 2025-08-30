@@ -15,7 +15,7 @@ public class SysLangText : EntityBase
     /// <summary>
     /// 所属实体名
     /// </summary>
-    [SugarColumn( ColumnDescription = "所属实体名")]
+    [SugarColumn(ColumnDescription = "所属实体名")]
     public string EntityName { get; set; }
 
     /// <summary>

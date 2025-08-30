@@ -15,7 +15,7 @@ public class SysLang : EntityBase
     /// <summary>
     /// 语言名称
     /// </summary>
-    [SugarColumn( ColumnDescription = "语言名称")]
+    [SugarColumn(ColumnDescription = "语言名称")]
     public string Name { get; set; }
 
     /// <summary>
@@ -39,8 +39,8 @@ public class SysLang : EntityBase
     /// <summary>
     /// 书写方向（1=从左到右，2=从右到左）
     /// </summary>
-    [SugarColumn(ColumnDescription = "书写方向",DefaultValue ="1")]
-    public DirectionEnum Direction { get; set; }= DirectionEnum.Ltr;
+    [SugarColumn(ColumnDescription = "书写方向", DefaultValue = "1")]
+    public DirectionEnum Direction { get; set; } = DirectionEnum.Ltr;
 
     /// <summary>
     /// 日期格式（如 YYYY-MM-DD）
@@ -57,13 +57,13 @@ public class SysLang : EntityBase
     /// <summary>
     /// 每周起始日（如 0=星期日，1=星期一）
     /// </summary>
-    [SugarColumn(ColumnDescription = "每周起始日", DefaultValue ="7")]
-    public WeekEnum WeekStart { get; set; }= WeekEnum.Sunday;
+    [SugarColumn(ColumnDescription = "每周起始日", DefaultValue = "7")]
+    public WeekEnum WeekStart { get; set; } = WeekEnum.Sunday;
 
     /// <summary>
     /// 分组符号（如 ,）
     /// </summary>
-    [SugarColumn( ColumnDescription = "分组符号")]
+    [SugarColumn(ColumnDescription = "分组符号")]
     public string Grouping { get; set; }
 
     /// <summary>
@@ -75,12 +75,12 @@ public class SysLang : EntityBase
     /// <summary>
     /// 千分位分隔符
     /// </summary>
-    [SugarColumn( ColumnDescription = "千分位分隔符")]
+    [SugarColumn(ColumnDescription = "千分位分隔符")]
     public string? ThousandsSep { get; set; }
 
     /// <summary>
     /// 是否启用
     /// </summary>
-    [SugarColumn( ColumnDescription = "是否启用")]
+    [SugarColumn(ColumnDescription = "是否启用")]
     public bool Active { get; set; }
 }
