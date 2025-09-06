@@ -405,4 +405,12 @@ export interface SysUser {
      * @memberof SysUser
      */
     signature?: string | null;
+
+    /**
+     * 语言代码（如 zh_CN）
+     *
+     * @type {string}
+     * @memberof SysUser
+     */
+    langCode?: string | null;
 }

@@ -178,4 +178,12 @@ export interface LoginUserOutput {
      * @memberof LoginUserOutput
      */
     currentTenantId?: number | null;
+
+    /**
+     * 语言代码
+     *
+     * @type {string}
+     * @memberof LoginUserOutput
+     */
+    langCode?: string | null;
 }

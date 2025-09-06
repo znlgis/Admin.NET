@@ -1,10 +1,10 @@
 <template>
 	<div class="user-news-container">
 		<el-tabs stretch class="content-box">
-			<el-tab-pane label="站内信">
+			<el-tab-pane :label="$t('message.user.newTitle')">
 				<template #label>
 					<el-icon><ele-Bell /></el-icon>
-					<span style="margin-left: 5px">站内信</span>
+					<span style="margin-left: 5px">{{ $t('message.user.newTitle') }}</span>
 				</template>
 				<div class="notice-box">
 					<template v-if="noticeList.length > 0">
@@ -23,17 +23,17 @@
                             
 						</div>
 					</template>
-					<el-empty description="没有新消息" v-else style="height: 85%;"></el-empty>
+					<el-empty v-else style="height: 85%;"></el-empty>
 				</div>
-				<div class="notice-foot" @click="goToNotice" v-if="noticeList.length > 0">前往通知中心</div>
+				<div class="notice-foot" @click="goToNotice" v-if="noticeList.length > 0">{{ $t('message.user.newGo') }}</div>
 			</el-tab-pane>
-			<el-tab-pane label="我的">
+			<el-tab-pane :label="$t('message.user.newMy')">
 				<template #label>
 					<el-icon><ele-Position /></el-icon>
-					<span style="margin-left: 5px">我的</span>
+					<span style="margin-left: 5px">{{ $t('message.user.newMy') }}</span>
 				</template>
 				<div class="notice-box" style="height: 435px;">
-					<el-empty description="没有新消息" style="height: 85%;"></el-empty>
+					<el-empty style="height: 85%;"></el-empty>
 				</div>
 			</el-tab-pane>
 		</el-tabs>
@@ -41,7 +41,7 @@
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Bell /> </el-icon>
-					<span> 消息详情 </span>
+					<span> {{ $t('message.user.newDetails') }} </span>
 				</div>
 			</template>
 			<div class="w-e-text-container">

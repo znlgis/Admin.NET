@@ -37,6 +37,13 @@
 	}
 }
 
+.el-date-editor {
+    //--el-date-editor-width: 220px;
+    //--el-date-editor-monthrange-width: 300px;
+    --el-date-editor-daterange-width: 250px;
+    //--el-date-editor-datetimerange-width: 400px;
+}
+
 /* Form 表单
 ------------------------------- */
 .el-form {
@@ -58,6 +65,10 @@
 
         .el-form-item,.el-form-item:last-of-type {
             margin: 5px 15px !important;
+
+            .el-select,.el-input {
+                width: 200px !important;
+            }
         }
 	}
 

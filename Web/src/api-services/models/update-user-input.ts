@@ -392,6 +392,14 @@ export interface UpdateUserInput {
     signature?: string | null;
 
     /**
+     * 语言代码（如 zh_CN）
+     *
+     * @type {string}
+     * @memberof UpdateUserInput
+     */
+    langCode?: string | null;
+
+    /**
      * 账号
      *
      * @type {string}

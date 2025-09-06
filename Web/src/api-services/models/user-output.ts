@@ -407,6 +407,14 @@ export interface UserOutput {
     signature?: string | null;
 
     /**
+     * 语言代码（如 zh_CN）
+     *
+     * @type {string}
+     * @memberof UserOutput
+     */
+    langCode?: string | null;
+
+    /**
      * 机构名称
      *
      * @type {string}
