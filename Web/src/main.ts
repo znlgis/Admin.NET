@@ -22,6 +22,7 @@ import 'vform3-builds/dist/designer.style.css';
 // 关闭自动打印
 import { disAutoConnect } from 'vue-plugin-hiprint';
 import sysDict from "/@/components/sysDict/sysDict.vue";
+import multiLangInput from "/@/components/multiLangInput/index.vue";
 disAutoConnect();
 
 const app = createApp(App);
@@ -31,6 +32,8 @@ other.elSvg(app);
 
 // 注册全局字典组件
 app.component('GSysDict', sysDict);
+// 注册全局多语言组件
+app.component('GMultiLangInput', multiLangInput);
 
 const TooltipProps = ElTooltip.props
 TooltipProps.showAfter = { type: Number, default: 800 }; // 设置全局tooltip延时显示时间为800毫秒
