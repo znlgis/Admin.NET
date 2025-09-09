@@ -20,6 +20,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     private readonly SysCacheService _sysCacheService;
     private readonly UserManager _userManager;
     private readonly SysLangTextCacheService _sysLangTextCacheService;
+    private readonly SysLangTextService _sysLangTextService;
 
     public SysMenuService(
         SqlSugarRepository<SysTenantMenu> sysTenantMenuRep,
@@ -29,7 +30,8 @@ public class SysMenuService : IDynamicApiController, ITransient
         SysUserMenuService sysUserMenuService,
         SysCacheService sysCacheService,
         UserManager userManager,
-        SysLangTextCacheService sysLangTextCacheService)
+        SysLangTextCacheService sysLangTextCacheService,
+        SysLangTextService sysLangTextService)
     {
         _userManager = userManager;
         _sysMenuRep = sysMenuRep;
@@ -39,6 +41,7 @@ public class SysMenuService : IDynamicApiController, ITransient
         _sysTenantMenuRep = sysTenantMenuRep;
         _sysCacheService = sysCacheService;
         _sysLangTextCacheService = sysLangTextCacheService;
+        _sysLangTextService = sysLangTextService;
     }
 
     /// <summary>
@@ -48,6 +51,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     [DisplayName("获取登录菜单树")]
     public async Task<List<MenuOutput>> GetLoginMenuTree()
     {
+        var sysDefaultLang = App.GetOptions<LocalizationSettingsOptions>().DefaultCulture;
         var langCode = _userManager.LangCode;
         var (query, _) = GetSugarQueryableAndTenantId(_userManager.TenantId);
 
@@ -65,18 +69,22 @@ public class SysMenuService : IDynamicApiController, ITransient
             .OrderBy(u => new { u.OrderNo, u.Id })
             .ToListAsync();
 
-        // 调用缓存翻译：翻译 Title 字段
-        var fields = new List<LangFieldMap<SysMenu>>
+        // 仅当用户语言和系统默认语言不同时，才进行翻译，避免不必要的性能开销
+        if (langCode != sysDefaultLang)
         {
-            new LangFieldMap<SysMenu>
+            // 调用缓存翻译：翻译 Title 字段
+            var fields = new List<LangFieldMap<SysMenu>>
             {
-                EntityName = "SysMenu",
-                FieldName = "Title",
-                IdSelector = m => m.Id,
-                SetTranslatedValue = (m, val) => m.Title = val
-            }
-        };
-        await _sysLangTextCacheService.TranslateMultiFields(menuList, fields, langCode);
+                new LangFieldMap<SysMenu>
+                {
+                    EntityName = "SysMenu",
+                    FieldName = "Title",
+                    IdSelector = m => m.Id,
+                    SetTranslatedValue = (m, val) => m.Title = val
+                }
+            };
+            await _sysLangTextCacheService.TranslateMultiFields(menuList, fields, langCode);
+        }
 
         // 构造树
         var menuTree = menuList.ToTree(
@@ -214,6 +222,18 @@ public class SysMenuService : IDynamicApiController, ITransient
         CheckMenuParam(sysMenu);
 
         await _sysMenuRep.AsUpdateable(sysMenu).ExecuteCommandAsync();
+
+        // 同步更新翻译表
+        var menuTranslation = await _sysLangTextCacheService.GetTranslationEntity("SysMenu", "Title", sysMenu.Id, _userManager.LangCode);
+        await _sysLangTextService.Update(new UpdateSysLangTextInput
+        {
+            Id = menuTranslation.Id,
+            EntityName = "SysMenu",
+            EntityId = sysMenu.Id,
+            FieldName = "Title",
+            LangCode = _userManager.LangCode,
+            Content = sysMenu.Title
+        });
 
         // 清除缓存
         DeleteMenuCache();
