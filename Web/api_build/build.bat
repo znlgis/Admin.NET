@@ -18,7 +18,7 @@ if "%1"=="approvalFlow" (
 ) else if "%1"=="goView" (
   set moduleName=goView
   set apiServicesPath=%dir%..\src\api-plugins\goView\
-  set apiUrl=http://localhost:5005/swagger/GoView%%20%%E5%%A4%%A7%%E5%%B1%%8F%%E5%%8F%%AF%%E8%%A7%%86%%E5%%8C%%96/swagger.json
+  set apiUrl=http://localhost:5005/swagger/GoView/swagger.json
 )
 
 if exist %apiServicesPath% (
