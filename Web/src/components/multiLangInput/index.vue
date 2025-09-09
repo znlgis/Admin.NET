@@ -1,6 +1,6 @@
 <template>
     <div class="multi-lang-input">
-        <el-input v-model="props.modelValue" :placeholder="`请输入 ${currentLangLabel}`" clearable @update:model-value="(val: string) => emit('update:modelValue', val)">
+    <el-input v-model="inputModelValue" :placeholder="`请输入 ${currentLangLabel}`" clearable @update:model-value="(val: string) => { emit('update:modelValue', val); }">
             <template #append>
                 <el-button @click="openDialog" circle>
                     <template #icon>
@@ -15,8 +15,7 @@
                 <el-row :gutter="35">
                     <el-col v-for="lang in languages" :key="lang.code" :span="24">
                         <el-form-item :label="lang.label">
-                            <el-input v-model="multiLangValue[lang.code]" :placeholder="`请输入: ${lang.label}`"
-                                clearable />
+                            <el-input v-model="multiLangValue[lang.code]" :placeholder="`请输入: ${lang.label}`" clearable />
                         </el-form-item>
                     </el-col>
                 </el-row>
@@ -32,15 +31,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, computed, onMounted, reactive } from 'vue';
+import { ref, computed, onMounted } from 'vue';
 import { useLangStore } from '/@/stores/useLangStore';
 import { Local } from '/@/utils/storage';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLangTextApi } from '/@/api-services/api';
 import { ElMessage } from 'element-plus';
-const emit = defineEmits<{
-  (e: 'update:modelValue', value: string): void;
-}>();
+const emit = defineEmits<{ (e: 'update:modelValue', value: string): void; }>();
 const ruleFormRef = ref();
 
 const fetchMultiLang = async () => {    
@@ -48,11 +45,15 @@ const fetchMultiLang = async () => {
     return result ?? [];
 };
 
+const inputModelValue = computed({
+    get: () => props.modelValue,
+    set: (val) => emit('update:modelValue', val),
+});
 
 const props = defineProps<{
     modelValue: string;
     entityName: string;
-    entityId: string;
+    entityId: number;
     fieldName: string;
 }>();
 
@@ -98,7 +99,7 @@ onMounted(async () => {
     }
 });
 const aiTranslation = async () => {
-    languages.value.forEach(async (element: { code: string | number; value: string | number; }) => {
+    languages.value.forEach(async (element: { code: string; value: string | null; }) => {
         if (element.code == currentLang.value) {
             return;
         }
@@ -126,8 +127,8 @@ const openDialog = async () => {
     multiLangValue.value = {};
     const res = await fetchMultiLang();
     multiLangValue.value[currentLang.value] = props.modelValue;
-    res.forEach((element: { langCode: string | number; content: string; }) => {
-        multiLangValue.value[element.langCode] = element.content;
+    res.forEach((element: { langCode?: string | null; content?: string | null; }) => {
+        multiLangValue.value[element.langCode ?? 0] = element.content ?? '';
     });
     dialogVisible.value = true;
     ruleFormRef.value?.resetFields();
@@ -145,11 +146,11 @@ const confirmDialog = async () => {
     const langItems = Object.entries(multiLangValue.value)
         .filter(([_, content]) => content && content.trim() !== '')
         .map(([code, content]) => ({
-            EntityName: props.entityName,
-            EntityId: props.entityId,
-            FieldName: props.fieldName,
-            LangCode: code,
-            Content: content,
+            entityName: props.entityName,
+            entityId: props.entityId,
+            fieldName: props.fieldName,
+            langCode: code,
+            content: content,
         }));
 
     if (langItems.length === 0) {
@@ -160,6 +161,8 @@ const confirmDialog = async () => {
     try {
         await getAPI(SysLangTextApi).apiSysLangTextBatchSavePost(langItems);
         ElMessage.success('保存成功！');
+        // 同步当前语言内容到父组件 input
+        emit('update:modelValue', multiLangValue.value[currentLang.value]);
         dialogVisible.value = false;
     } catch (err) {
         console.error(err);
