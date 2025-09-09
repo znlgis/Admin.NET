@@ -51,4 +51,20 @@ export interface ListSysLangTextInput {
      * @memberof ListSysLangTextInput
      */
     langCode?: string | null;
+
+    /**
+     * 当前页码
+     *
+     * @type {number}
+     * @memberof PageNoticeInput
+     */
+    page?: number;
+
+    /**
+     * 页码容量
+     *
+     * @type {number}
+     * @memberof PageNoticeInput
+     */
+    pageSize?: number;
 }
