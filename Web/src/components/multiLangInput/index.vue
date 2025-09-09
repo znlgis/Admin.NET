@@ -10,10 +10,10 @@
             </template>
         </el-input>
 
-        <el-dialog v-model="dialogVisible" title="多语言设置" width="600px">
+        <el-dialog v-model="dialogVisible" title="多语言设置" draggable :close-on-click-modal="false" width="600px">
             <el-form ref="ruleFormRef" label-width="auto">
                 <el-row :gutter="35">
-                    <el-col v-for="lang in languages" :key="lang.code" :span="24">
+                    <el-col v-for="lang in languages" :key="lang.code" :span="24" class="mb10">
                         <el-form-item :label="lang.label">
                             <el-input v-model="multiLangValue[lang.code]" :placeholder="`请输入: ${lang.label}`" clearable />
                         </el-form-item>
@@ -62,8 +62,8 @@ const langStore = useLangStore();
 const languages = ref<any>([] as any);
 
 // 当前语言（可根据用户设置或浏览器设置）
-const currentLang = ref('zh_CN');
-const activeLang = ref('zh_CN');
+const currentLang = ref('zh-CN');
+const activeLang = ref('zh-CN');
 
 // 是否弹框
 const dialogVisible = ref(false);
@@ -87,7 +87,7 @@ onMounted(async () => {
     const globalI18n = themeConfig?.globalI18n;
     if (globalI18n) {
         const matched = langStore.languages.find(l => l.code === globalI18n);
-        const langCode = matched?.code || 'zh_CN';
+        const langCode = matched?.code || 'zh-CN';
         currentLang.value = langCode;
         activeLang.value = langCode;
     }
@@ -173,8 +173,9 @@ const confirmDialog = async () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .multi-lang-input {
     width: 100%;
 }
+.mb10:last-child { margin-bottom: 0 !important; }
 </style>
