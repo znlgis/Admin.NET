@@ -2,64 +2,28 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid '63e6b06a97b4747c35602334d13e0ebc8b6aca06'
-    oldFile: !uuid '12c87f45abfdc9be1230039e551620f7f776cafa'
-  /Web/eslint.config.mjs:
-    newFile: !uuid '0824bb0c645c34a75fc9cf9533af05d2a03654c2'
-    oldFile: !uuid '6f7c47ae7d6447bd838e7e2448be2ea42894e3d5'
-  /Web/src:
-    newFile: !uuid 'c5b5adb21ad900e934a3d6b97e60152dffd35ba4'
-    oldFile: !uuid '5d5cf4a89074f62df1095cca00cc89a8434414cc'
-  /Web/src/App.vue:
-    newFile: !uuid '61b44046ca28e813806aea445a340f7e0bd1be40'
-    oldFile: !uuid '3e581c70066fa107403c0a3098adc462d037da07'
-  /Web/src/api-services:
-    newFile: !uuid '3a733b1baa600b29bf55911d59b63303a878a012'
-    oldFile: !uuid '399e9505e8cfef5dca25877388fc01af7e3f5570'
-  /Web/src/api-services/models:
-    newFile: !uuid '12af097f6919e85873e3cf333469c3a0d283a8ee'
-    oldFile: !uuid 'aeea8613f7d4146ce55e65f64e04c11e2830a27c'
-  /Web/src/api-services/models/list-sys-lang-text-input.ts:
-    newFile: !uuid '07fa6812ef5bb9556bd02fe10589dd6b7c966251'
-    oldFile: !uuid '626fc48cdd98861895f1d74690679fe7f222d913'
-  /Web/src/api-services/models/update-menu-input.ts:
-    newFile: !uuid '3127a06633ab7a177ae4384a67c58db1281878e6'
-    oldFile: !uuid 'f02288c48f889a0506b8f465189e70bc0cc02a8d'
-  /Web/src/components:
-    newFile: !uuid 'bcf526fa30bc694c5b8cc0a6415bcc4dd941efca'
-    oldFile: !uuid '7e6ca58ae7f95a3447ab4309a66e7c2a5515cfdd'
-  /Web/src/components/multiLangInput:
-    newFile: !uuid '96c7d5379f77cba72e3248ab06125568328bd66b'
-    oldFile: !uuid 'fb744cb772801d80d95ab4d9ca07cb7cf4738eaa'
-  /Web/src/components/multiLangInput/index.vue:
-    newFile: !uuid 'a73706db1019b9f147347e078684d5d7dfe43b9e'
-    oldFile: !uuid '0b991af5ddbd590ed02790266971fdc42e52bb64'
-  /Web/src/main.ts:
-    newFile: !uuid 'dbf9de1bd6cf1d14095e5c27979982ea5c304a4b'
-    oldFile: !uuid 'd8651cf29fee625447d12ce82b49026231ece383'
-  /Web/src/theme:
-    newFile: !uuid '872e465d2c0fb0d5adc70aa7c5fee2480bdee641'
-    oldFile: !uuid '6ee18f6ca7e0f51f0919547cdc0053fd2f4f1f97'
-  /Web/src/theme/element.scss:
-    newFile: !uuid '6f93927d162b11c286b2d06547e82b0a60b8ca40'
-    oldFile: !uuid '80c7a1b70b269a54b219cd8502d6e1f3d00869bf'
-  /Web/src/views:
-    newFile: !uuid '48516b0f97b8d27216b660be429a5cbee24df532'
-    oldFile: !uuid '01022336087d998687ca0d05cf1442ccdf1b1a19'
-  /Web/src/views/system:
-    newFile: !uuid '68e8799e998edc1fd7e29bd7c083abb2ec47df98'
-    oldFile: !uuid '9c99635e26702b0b72a662b9342d39ec075bd1f2'
-  /Web/src/views/system/menu:
-    newFile: !uuid '173dd96fd1b2e6955c2d7173dba6bfa5adb91d1f'
-    oldFile: !uuid '08a8dff20dc5382989e37c5c65567bec72945d53'
-  /Web/src/views/system/menu/component:
-    newFile: !uuid 'd48d2bf9f100bf807be2757e620cf2237ff1ae28'
-    oldFile: !uuid '39daf3072ae2bed2c0ccc571962d9493bc93dec2'
-  /Web/src/views/system/menu/component/editMenu.vue:
-    newFile: !uuid '692190ec1568f4900d3f16e20948762c3b5e5d30'
-    oldFile: !uuid 'cda4757d2f7087ffdc0f0834e456212e509bebcf'
-gitCommitId: !uuid '8deb9f3a183d11cc8c28b2a3abcada7092f6670d'
+  /Admin.NET:
+    newFile: !uuid '75514d226a9273e2e170241d0d183acaf52d7709'
+    oldFile: !uuid '9ff4143e61ae3fdeb858f5808698cd3171566538'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid 'c8a51caa85f647a4af654fc52fa9a33499c2b567'
+    oldFile: !uuid '2da6ae7735cd15b74a07aab539ce087243668920'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid '2e369ac0d903e0359bf0861138a2fc1b31d433de'
+    oldFile: !uuid 'f9ee73180a28cd3069424eea80724416eeda4ac1'
+  /Admin.NET/Admin.NET.Core/Service/APIJSON:
+    newFile: !uuid '294c26f97ec54bab604e009e9f8953c4523cf0bd'
+    oldFile: !uuid '45ae1632412231c10475663357f5180aa6b5b2d3'
+  /Admin.NET/Admin.NET.Core/Service/APIJSON/APIJSONService.cs:
+    newFile: !uuid '32221919c2101a51cab5424ad41afc521388a1f6'
+    oldFile: !uuid '8a86418aed93cf366a48747b77800291caa7dc47'
+  /Admin.NET/Admin.NET.Web.Core:
+    newFile: !uuid 'c88bb59f1ff48b502d6cf801dd1198443f3af049'
+    oldFile: !uuid '375d67644876d395eaf2aae9aef8d7658c72e79b'
+  /Admin.NET/Admin.NET.Web.Core/Startup.cs:
+    newFile: !uuid '30c803cf3f26629b30b8aea19580b9f3a35626a4'
+    oldFile: !uuid '95301c24dac6589ab3c0cf0fe55301acf994ae25'
+gitCommitId: !uuid 'a03b7b53f064b6226a0012bf5b79227549048c3c'
 renames: {
   }
-revisionId: 2977
+revisionId: 2978
