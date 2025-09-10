@@ -6,9 +6,8 @@
 
 #if NET9_0_OR_GREATER
 
-using XiHan.Framework.Utils.HardwareInfos;
+using XiHan.Framework.Utils.Core;
 using XiHan.Framework.Utils.Reflections;
-using XiHan.Framework.Utils.Runtime;
 using ReflectionHelper = XiHan.Framework.Utils.Reflections.ReflectionHelper;
 
 #endif // NET9_0_OR_GREATER
@@ -45,7 +44,7 @@ public class SysServerService : IDynamicApiController, ITransient
     [DisplayName("获取服务器运行时信息")]
     public SystemRuntimeInfo RuntimeInfo()
     {
-        var systemRuntimeInfo = RuntimeInfoManger.GetSystemRuntimeInfo();
+        var systemRuntimeInfo = RuntimeInfoManager.GetSystemRuntimeInfo();
         return systemRuntimeInfo;
     }
 
