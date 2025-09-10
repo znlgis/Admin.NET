@@ -2,28 +2,52 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid '75514d226a9273e2e170241d0d183acaf52d7709'
-    oldFile: !uuid '9ff4143e61ae3fdeb858f5808698cd3171566538'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'c8a51caa85f647a4af654fc52fa9a33499c2b567'
-    oldFile: !uuid '2da6ae7735cd15b74a07aab539ce087243668920'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '2e369ac0d903e0359bf0861138a2fc1b31d433de'
-    oldFile: !uuid 'f9ee73180a28cd3069424eea80724416eeda4ac1'
-  /Admin.NET/Admin.NET.Core/Service/APIJSON:
-    newFile: !uuid '294c26f97ec54bab604e009e9f8953c4523cf0bd'
-    oldFile: !uuid '45ae1632412231c10475663357f5180aa6b5b2d3'
-  /Admin.NET/Admin.NET.Core/Service/APIJSON/APIJSONService.cs:
-    newFile: !uuid '32221919c2101a51cab5424ad41afc521388a1f6'
-    oldFile: !uuid '8a86418aed93cf366a48747b77800291caa7dc47'
-  /Admin.NET/Admin.NET.Web.Core:
-    newFile: !uuid 'c88bb59f1ff48b502d6cf801dd1198443f3af049'
-    oldFile: !uuid '375d67644876d395eaf2aae9aef8d7658c72e79b'
-  /Admin.NET/Admin.NET.Web.Core/Startup.cs:
-    newFile: !uuid '30c803cf3f26629b30b8aea19580b9f3a35626a4'
-    oldFile: !uuid '95301c24dac6589ab3c0cf0fe55301acf994ae25'
-gitCommitId: !uuid 'a03b7b53f064b6226a0012bf5b79227549048c3c'
+  /Web:
+    newFile: !uuid 'fdddf5bf40dc47ab7717cab1315d34a2e94f2e72'
+    oldFile: !uuid '63e6b06a97b4747c35602334d13e0ebc8b6aca06'
+  /Web/api_build:
+    newFile: !uuid 'beddc0c32c6e4a78390762f6359311209d7cb42f'
+    oldFile: !uuid 'ac0574b346b6adc54ddd9b73932e5ddc0bba7221'
+  /Web/api_build/build.bat:
+    newFile: !uuid '3f55b2e6faf0d965a3db236f35f125531f467359'
+    oldFile: !uuid '0357de19cec420eed9139a24fbc8e56ee871b7b8'
+  /Web/api_build/build.ps1:
+    newFile: !uuid '6cca794452c56c1fa45041efb9f048a05d6cd60d'
+    oldFile: !uuid '5f9326ea4aedfd2093de01019961b29e823ee593'
+  /Web/lang:
+    newFile: !uuid 'f6966a208bba412f5ebd2a6e4b4cce856ce2e181'
+    oldFile: !uuid '81ad58db0d3c9cbd1fbc997013d0e1dca52baa5d'
+  /Web/lang/elementLocales.js:
+    newFile: !uuid '8d9f11e324a873a696e551b171f70ee9b4699c36'
+    oldFile: null
+  /Web/lang/index.json:
+    newFile: !uuid 'a7efc18cce90d59c74e05b35d745a4f2c30b1828'
+    oldFile: !uuid '2dc174570a7f2be19d1b7c89544a0c47e4e81fc0'
+  /Web/package.json:
+    newFile: !uuid 'c01f9f4eaf286e2effac2b458c5ddca4f222a262'
+    oldFile: !uuid '53922e29010d9a969cdda1d26bd56208aa2f2c33'
+  /Web/src:
+    newFile: !uuid '7ce8ab706081f58f9927be44aeba96ef8f914b94'
+    oldFile: !uuid 'c5b5adb21ad900e934a3d6b97e60152dffd35ba4'
+  /Web/src/App.vue:
+    newFile: !uuid '2b5196a6619456adad239334f8ab3a4631aeb278'
+    oldFile: !uuid '61b44046ca28e813806aea445a340f7e0bd1be40'
+  /Web/src/layout:
+    newFile: !uuid 'b6d5cceeec4c45908370999efb79a58e1c78c3c0'
+    oldFile: !uuid '9d84da644ce1bda219413e48fb611a016935a559'
+  /Web/src/layout/navBars:
+    newFile: !uuid '33c5b97789b59bd7e19ed0a8ca0dbc2591e904de'
+    oldFile: !uuid '1b54030d1f861ba1fdb072079b5a1af05e602545'
+  /Web/src/layout/navBars/tagsView:
+    newFile: !uuid '811a2a64cb075a4331e0df618ad6edb79f986094'
+    oldFile: !uuid '94aa82c3f6085bffced45eb356aaedd03a464034'
+  /Web/src/layout/navBars/tagsView/contextmenu.vue:
+    newFile: !uuid 'cfba2fda60307c6f68d5fe046a64e58a06a43adf'
+    oldFile: !uuid '82a9933214c7f0a90ec48c229143c49c9f26014a'
+  /Web/tsconfig.json:
+    newFile: !uuid 'a122bfb83c383204f0c729427093a01453a31481'
+    oldFile: !uuid 'aed14010be141c0e13baa31a8b8afbb0988f28ce'
+gitCommitId: !uuid 'beed4b6261fd5f2efe932bd634a33b978eb86184'
 renames: {
   }
-revisionId: 2978
+revisionId: 2979
