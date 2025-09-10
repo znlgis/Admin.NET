@@ -223,7 +223,7 @@ public class Startup : AppStartup
                 Type = "string",
                 Format = "date-time",
                 Example = new Microsoft.OpenApi.Any.OpenApiString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) // 示例值
-            });
+            }); 
         });
 
         // 将IP地址数据库文件完全加载到内存，提升查询速度（以空间换时间，内存将会增加60-70M）
@@ -364,11 +364,12 @@ public class Startup : AppStartup
             {
                 groupInfo.Description += "<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>";
             }
+            options.ConfigureSwagger(m => { m.OpenApiVersion = Microsoft.OpenApi.OpenApiSpecVersion.OpenApi2_0; });
         });
 
 #if NET9_0_OR_GREATER
         app.UseAutoVersionUpdate();
-#endif
+#endif 
 
         app.UseEndpoints(endpoints =>
         {

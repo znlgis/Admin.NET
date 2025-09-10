@@ -22,7 +22,7 @@ if ($args[0] -eq "approvalFlow") {
     $moduleName = "goView"
     $apiServicesPath = Join-Path (Join-Path $scriptDir "..") "src\api-plugins\goView\"
     # 注意：PowerShell会自动处理URL编码，所以不需要手动添加%20等
-    $apiUrl = "http://localhost:5005/swagger/GoView 大屏可视化/swagger.json"
+    $apiUrl = "http://localhost:5005/swagger/GoView/swagger.json"
 }
 
 # 输出信息和删除现有目录
