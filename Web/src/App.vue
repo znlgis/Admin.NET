@@ -1,5 +1,5 @@
 <template>
-	<el-config-provider :size="getGlobalComponentSize">
+	<el-config-provider :size="getGlobalComponentSize" :locale="locale">
 		<router-view v-show="setLockScreen" />
 		<LockScreen v-if="themeConfig.isLockScreen" />
 		<Settings ref="settingsRef" v-show="setLockScreen" />
@@ -23,6 +23,10 @@ import setIntroduction from '/@/utils/setIconfont';
 import { SysConfigApi } from '/@/api-services';
 import { getAPI } from '/@/utils/axios-utils';
 import { useLangStore } from '/@/stores/useLangStore';
+import localeMap from '../lang/elementLocales'
+
+const currentLang = Local.get('themeConfig')['globalI18n'] || 'zh-cn'
+const locale = computed(() => localeMap[currentLang] || localeMap['zh-cn'])
 
 // 引入组件
 const LockScreen = defineAsyncComponent(() => import('/@/layout/lockScreen/index.vue'));
@@ -66,7 +70,7 @@ const getGlobalComponentSize = computed(() => {
 });
 // 获取全局 i18n
 // const getGlobalI18n = computed(() => {
-	//return messages.value[locale.value];
+//return messages.value[locale.value];
 // });
 // 设置初始化，防止刷新时恢复默认
 onBeforeMount(() => {
@@ -95,7 +99,7 @@ onMounted(() => {
 });
 // 页面销毁时，关闭监听布局配置/i18n监听
 onUnmounted(() => {
-	mittBus.off('openSettingsDrawer', () => {});
+	mittBus.off('openSettingsDrawer', () => { });
 });
 // 监听路由的变化，设置网站标题
 watch(
