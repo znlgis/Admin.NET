@@ -40,6 +40,7 @@ public static class ProjectOptions
         services.AddConfigurableOptions<AlipayOptions>();
         services.AddConfigurableOptions<CDConfigOptions>();
         services.AddConfigurableOptions<DeepSeekOptions>();
+        services.AddConfigurableOptions<LocalizationSettingsOptions>();
         services.Configure<IpRateLimitOptions>(App.Configuration.GetSection("IpRateLimiting"));
         services.Configure<IpRateLimitPolicies>(App.Configuration.GetSection("IpRateLimitPolicies"));
         services.Configure<ClientRateLimitOptions>(App.Configuration.GetSection("ClientRateLimiting"));

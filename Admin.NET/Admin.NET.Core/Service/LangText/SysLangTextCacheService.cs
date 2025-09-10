@@ -78,6 +78,33 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 根据实体类型、字段、主键ID 和语言编码获取翻译实体
+    /// </summary>
+    /// <param name="entityName">实体名称</param>
+    /// <param name="fieldName">字段名称</param>
+    /// <param name="entityId">实体主键ID</param>
+    /// <param name="langCode">语言编码</param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task<SysLangText> GetTranslationEntity(string entityName, string fieldName, long entityId, string langCode)
+    {
+        var key = BuildKey(entityName, fieldName, entityId, langCode) + "_entity";
+        var value = _sysCacheService.Get<SysLangText>(key);
+        if (!value.IsNullOrEmpty()) return value;
+
+        value = await _sysLangTextRep.AsQueryable()
+            .Where(u => u.EntityName == entityName && u.FieldName == fieldName && u.EntityId == entityId && u.LangCode == langCode)
+            .FirstAsync();
+
+        if (!value.IsNullOrEmpty())
+        {
+            _sysCacheService.Set(key, value, expireSeconds); // 设置过期
+        }
+
+        return value;
+    }
+
+    /// <summary>
     /// 【批量翻译获取】<br/>
     /// 根据实体、字段和一批主键ID获取对应翻译内容，自动从缓存或数据库获取。<br/>
     /// 适用于：SKU、多商品、批量字典等需要高效批量获取的场景。<br/>
