@@ -221,19 +221,28 @@ public class SysMenuService : IDynamicApiController, ITransient
         var sysMenu = input.Adapt<SysMenu>();
         CheckMenuParam(sysMenu);
 
-        await _sysMenuRep.AsUpdateable(sysMenu).ExecuteCommandAsync();
+        await _sysMenuRep.AsTenant().UseTranAsync(async () => {
+            // 更新菜单
+            await _sysMenuRep.AsUpdateable(sysMenu).ExecuteCommandAsync();
 
-        // 同步更新翻译表
-        var menuTranslation = await _sysLangTextCacheService.GetTranslationEntity("SysMenu", "Title", sysMenu.Id, _userManager.LangCode);
-        await _sysLangTextService.Update(new UpdateSysLangTextInput
-        {
-            Id = menuTranslation.Id,
-            EntityName = "SysMenu",
-            EntityId = sysMenu.Id,
-            FieldName = "Title",
-            LangCode = _userManager.LangCode,
-            Content = sysMenu.Title
+            // 同步更新翻译表
+            var menuTranslation = await _sysLangTextCacheService.GetTranslationEntity("SysMenu", "Title", sysMenu.Id, _userManager.LangCode);
+            if (!menuTranslation.IsNullOrEmpty())
+            {
+                await _sysLangTextService.Update(new UpdateSysLangTextInput
+                {
+                    Id = menuTranslation.Id,
+                    EntityName = "SysMenu",
+                    EntityId = sysMenu.Id,
+                    FieldName = "Title",
+                    LangCode = _userManager.LangCode,
+                    Content = sysMenu.Title
+                });
+            }
+        }, err => {
+            Oops.Oh("更新数据时发生错误", err.Message);
         });
+        
 
         // 清除缓存
         DeleteMenuCache();
