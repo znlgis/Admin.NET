@@ -19,7 +19,7 @@ public class SysLangText : EntityBase
     public string EntityName { get; set; }
 
     /// <summary>
-    /// 语言代码（如 zh_CN）
+    /// 所属实体ID
     /// </summary>
     [SugarColumn(ColumnDescription = "所属实体ID")]
     public long EntityId { get; set; }

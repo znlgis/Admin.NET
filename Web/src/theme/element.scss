@@ -357,13 +357,21 @@
 //     line-height: normal;
 // }
 .el-dialog__header {
+    --el-dialog-title-font-size: var(--el-font-size-base);
+
 	margin-right: 0;
 	padding: 8px;
     border-radius: var(--el-dialog-border-radius) var(--el-dialog-border-radius) 0 0;
 	background: var(--el-color-primary);
+    height: 37px;
+    line-height: 21px;
+
+    .el-dialog__title {
+        color: #FFF;
+    }
 }
 .el-dialog__footer {
-	padding: 15px;
+	padding: 0 15px 15px;
 	// border-top: 1px solid var(--el-color-primary-light-7);
 }
 .el-dialog__headerbtn {
