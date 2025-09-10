@@ -37,6 +37,14 @@ public class APIJSONService : IDynamicApiController, ITransient
     [DisplayName("APIJSON统一查询")]
     public JObject Query([FromBody] JObject jobject)
     {
+        var database = jobject["@database"]?.ToString();
+        if (!string.IsNullOrEmpty(database))
+        {
+            // 设置数据库 
+            var provider = _db.AsTenant().GetConnectionScope(database);
+            jobject.Remove("@database");
+            return new SelectTable(_identityService, _tableMapper, provider).Query(jobject);
+        }
         return _selectTable.Query(jobject);
     }
 
