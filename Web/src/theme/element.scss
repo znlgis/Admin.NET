@@ -470,10 +470,10 @@
 	max-height: 274px !important;
 }
 
-/*修复Cascader 级联选择器高度问题*/
-.el-cascader-menu__wrap.el-scrollbar__wrap {
-	height: 204px !important;
-}
+/*修复Cascader 级联选择器高度问题 -- Tips: 官方已修复该问题 */
+// .el-cascader-menu__wrap.el-scrollbar__wrap {
+// 	height: 204px !important;
+// }
 
 /*用于界面高度自适应（main.vue），区分 scrollbar__view，防止其它使用 scrollbar 的地方出现滚动条消失*/
 .layout-container-view .el-scrollbar__view {
@@ -508,24 +508,24 @@
 	color: var(--el-color-danger) !important;
 }
 
-// 级联选择-点击文本也生效
-.el-cascader-panel .el-radio {
-	width: 100%;
-	height: 100%;
-	z-index: 10;
-	position: absolute;
-	top: 0px;
-	right: -8px;
-}
+// 级联选择-点击文本也生效 -- Tips: 官方已支持,设置 el-cascader 的 checkOnClickNode=true 即可
+// .el-cascader-panel .el-radio {
+// 	width: 100%;
+// 	height: 100%;
+// 	z-index: 10;
+// 	position: absolute;
+// 	top: 0px;
+// 	right: -8px;
+// }
 
-.el-cascader-panel .el-checkbox {
-	width: 100%;
-	height: 100%;
-	z-index: 10;
-	position: absolute;
-	top: 0px;
-	right: 0px;
-}
+// .el-cascader-panel .el-checkbox {
+// 	width: 100%;
+// 	height: 100%;
+// 	z-index: 10;
+// 	position: absolute;
+// 	top: 0px;
+// 	right: 0px;
+// }
 
 .el-tree {
     --el-tree-node-content-height: 30px;
