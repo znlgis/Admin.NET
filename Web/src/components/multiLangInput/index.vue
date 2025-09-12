@@ -37,7 +37,7 @@ import { Local } from '/@/utils/storage';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLangTextApi } from '/@/api-services/api';
 import { ElMessage } from 'element-plus';
-const emit = defineEmits<{ (e: 'update:modelValue', value: string): void; }>();
+const emit = defineEmits<{ (e: 'update:modelValue', value?: string | null): void; }>();
 const ruleFormRef = ref();
 
 const fetchMultiLang = async () => {    
@@ -51,7 +51,7 @@ const inputModelValue = computed({
 });
 
 const props = defineProps<{
-    modelValue: string;
+    modelValue?: string | null;
     entityName: string;
     entityId: number;
     fieldName: string;
@@ -69,7 +69,7 @@ const activeLang = ref('zh-CN');
 const dialogVisible = ref(false);
 
 // 多语言对象
-const multiLangValue = ref<Record<string, string>>({});
+const multiLangValue = ref<Record<string, string | null | undefined>>({});
 
 // 当前语言显示 Label
 const currentLangLabel = computed(() => {
