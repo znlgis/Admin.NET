@@ -283,7 +283,8 @@
 <script setup lang="ts" name="mqttx">
 import { reactive, ref, onMounted, nextTick } from 'vue';
 import { Search, ChatDotSquare, TopRight, Star, Operation, Setting, Connection, Discount, Open, Delete, Position } from '@element-plus/icons-vue';
-import * as MQTT from 'mqtt/dist/mqtt.min'; // 针对4.3.7版本的引用方法。5.7.x会提示错误 (import * as MQTT from "mqtt")
+//import * as MQTT from 'mqtt/dist/mqtt.min'; // 针对4.3.7版本的引用方法。5.7.x会提示错误 (import * as MQTT from "mqtt")
+import * as MQTT from "mqtt"
 import mittBus from '/@/utils/mitt'; // 事件总线mitt 解决打包后错误Uncaught (in promise) ReferenceError: Cannot access 'oe' before initialization
 
 // vue 3 + vite use MQTT.js refer to https://github.com/mqttjs/MQTT.js/issues/1269
