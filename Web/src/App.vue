@@ -25,7 +25,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { useLangStore } from '/@/stores/useLangStore';
 import localeMap from '../lang/elementLocales'
 
-const currentLang = Local.get('themeConfig')['globalI18n'] || 'zh-cn'
+const currentLang = Local.get('themeConfig')?.globalI18n || 'zh-cn'
 const locale = computed(() => localeMap[currentLang] || localeMap['zh-cn'])
 
 // 引入组件
