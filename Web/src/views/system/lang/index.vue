@@ -6,6 +6,7 @@ import { getAPI } from '/@/utils/axios-utils';
 import { SysLangApi } from '/@/api-services/api';
 import editDialog from '/@/views/system/lang/component/editDialog.vue'
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
+import { SysLangOutput } from '/@/api-services/models/sys-lang-output';
 
 const editDialogRef = ref();
 const state = reactive({
@@ -24,7 +25,7 @@ const state = reactive({
     order: 'descending', // 排序方向
     descStr: 'descending', // 降序排序的关键字符
   },
-  tableData: [],
+  tableData: [] as SysLangOutput[],
 });
 
 // 页面加载时
@@ -36,7 +37,7 @@ const handleQuery = async (params: any = {}) => {
   state.tableLoading = true;
   state.tableParams = Object.assign(state.tableParams, params);
   const result = await  getAPI(SysLangApi).apiSysLangPagePost(Object.assign(state.tableQueryParams, state.tableParams)).then(res => res.data.result);
-  state.tableParams.total = result?.total;
+  state.tableParams.total = result?.total ?? 0;
   state.tableData = result?.items ?? [];
   state.tableLoading = false;
 };
@@ -56,6 +57,20 @@ const delSysLang = (row: any) => {
     type: "warning",
   }).then(async () => {
     await getAPI(SysLangApi).apiSysLangDeletePost({ id: row.id });
+    handleQuery();
+    ElMessage.success("删除成功");
+  }).catch(() => {});
+};
+
+const batchDelSysLang = () => {
+  ElMessageBox.confirm(`确定要删除选中的 ${state.selectData.length} 条记录吗?`, "提示", {
+    confirmButtonText: "确定",
+    cancelButtonText: "取消",
+    type: "warning",
+  }).then(async () => {
+    const ids = state.selectData.map((item) => item.id);
+    //await getAPI(SysLangApi).apiSysLangBatchDeletePost({ ids });
+    state.selectData = [];
     handleQuery();
     ElMessage.success("删除成功");
   }).catch(() => {});

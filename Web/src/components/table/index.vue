@@ -5,44 +5,46 @@
 				<slot name="command"></slot>
 			</div>
 			<div v-loading="state.exportLoading" class="table-footer-tool">
-				<SvgIcon v-if="!config.hideRefresh" name="iconfont icon-shuaxin" :size="22" title="刷新" @click="() => onRefreshTable()" class="tool-icon" />
-				<el-tooltip effect="light" :content="state.switchFixedContent" placement="bottom-start" :show-after="200" v-if="state.haveFixed" >
-					<el-icon :style="{ color: state.fixedIconColor }" @click="switchFixed" class="tool-icon"><ele-Switch /></el-icon>
-				</el-tooltip>
-				<el-dropdown v-if="!config.hideExport" trigger="click">
-					<SvgIcon name="iconfont icon-yunxiazai_o" :size="22" title="导出" class="tool-icon" />
-					<template #dropdown>
-						<el-dropdown-menu>
-							<el-dropdown-item @click="onExportTable">导出本页数据</el-dropdown-item>
-							<el-dropdown-item @click="onExportTableAll">导出全部数据</el-dropdown-item>
-						</el-dropdown-menu>
-					</template>
-				</el-dropdown>
-				<SvgIcon v-if="!config.hidePrint" name="iconfont icon-dayin" :size="19" title="打印" @click="onPrintTable" class="tool-icon" />
-				<el-popover v-if="!config.hideSet" placement="bottom-end" trigger="click" transition="el-zoom-in-top" popper-class="table-tool-popper" :width="180" :persistent="false" @show="onSetTable">
-					<template #reference>
-						<SvgIcon name="iconfont icon-quanjushezhi_o" class="tool-icon" :size="22" title="设置" />
-					</template>
-					<template #default>
-						<div class="tool-box">
-							<el-checkbox v-model="state.checkListAll" :indeterminate="state.checkListIndeterminate" class="ml10 mr1" label="列显示" @change="onCheckAllChange" />
-							<el-checkbox v-model="getConfig.isSerialNo" class="ml12 mr1" label="序号" />
-							<el-checkbox v-if="getConfig.showSelection" v-model="getConfig.isSelection" class="ml12 mr1" label="多选" />
-							<el-tooltip content="拖动进行排序" placement="top-start">
-								<SvgIcon style="float: right; margin-right: 5px; margin-top: 2px" name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
-							</el-tooltip>
-						</div>
-						<el-divider style="margin: 10px 0 10px -5px" />
-						<el-scrollbar>
-							<div ref="toolSetRef" class="tool-sortable">
-								<div class="tool-sortable-item" v-for="v in columns" :key="v.prop" v-show="!v.hideCheck" :data-key="v.prop">
-									<i class="fa fa-arrows-alt handle cursor-pointer"></i>
-									<el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.label" @change="onCheckChange" />
-								</div>
-							</div>
-						</el-scrollbar>
-					</template>
-				</el-popover>
+                <el-dropdown v-if="config.hideExport" split-button trigger="click" @click="onExportTable">
+                    <!-- <el-button icon="ele-Download"  /> -->
+                     导出
+                    <template #dropdown>
+                        <el-dropdown-menu>
+                            <el-dropdown-item @click="onExportTable">导出本页数据</el-dropdown-item>
+                            <el-dropdown-item @click="onExportTableAll">导出全部数据</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </template>
+                </el-dropdown>
+
+                <el-button-group>
+                    <el-button icon="ele-Refresh" v-if="!config.hideRefresh" title="刷新" @click="() => onRefreshTable()" />
+                    <el-button icon="ele-Switch" v-if="state.haveFixed" :title="state.switchFixedContent" :color="state.fixedIconColor" @click="switchFixed" />
+                    <el-button icon="ele-Printer" v-if="!config.hidePrint" title="打印" @click="onPrintTable"  />
+                    <el-popover v-if="!config.hideSet" placement="bottom-end" trigger="click" transition="el-zoom-in-top" popper-class="table-tool-popper" :width="180" :persistent="false" @show="onSetTable">
+                        <template #reference>
+                            <el-button icon="ele-Setting"  />
+                        </template>
+                        <template #default>
+                            <div class="tool-box">
+                                <el-checkbox v-model="state.checkListAll" :indeterminate="state.checkListIndeterminate" class="ml10 mr1" label="列显示" @change="onCheckAllChange" />
+                                <el-checkbox v-model="getConfig.isSerialNo" class="ml12 mr1" label="序号" />
+                                <el-checkbox v-if="getConfig.showSelection" v-model="getConfig.isSelection" class="ml12 mr1" label="多选" />
+                                <el-tooltip content="拖动进行排序" placement="top-start">
+                                    <SvgIcon style="float: right; margin-right: 5px; margin-top: 2px" name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
+                                </el-tooltip>
+                            </div>
+                            <el-divider style="margin: 10px 0 10px -5px" />
+                            <el-scrollbar>
+                                <div ref="toolSetRef" class="tool-sortable">
+                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" v-show="!v.hideCheck" :data-key="v.prop">
+                                        <i class="fa fa-arrows-alt handle cursor-pointer"></i>
+                                        <el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.label" @change="onCheckChange" />
+                                    </div>
+                                </div>
+                            </el-scrollbar>
+                        </template>
+                    </el-popover>
+                </el-button-group>
 			</div>
 		</div>
 		<el-table
@@ -498,6 +500,7 @@ defineExpose({
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
+            gap: 8px;
 
 			i {
 				margin-right: 5px !important;

@@ -29,7 +29,6 @@ import { onMounted, reactive, ref, defineAsyncComponent, nextTick } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysTemplateApi } from "/@/api-services";
-import { EmptyObjectType, RefType } from '/@/types/global';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import EditTemplate from './component/editTemplate.vue';
 import GSysDict from "/@/components/sysDict/sysDict.vue";
