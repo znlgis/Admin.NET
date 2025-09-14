@@ -5,21 +5,26 @@
 .el-button {
     font-family: var(--el-font-family);
 }
+.el-button.is-text {
+    .el-icon {
+        font-size: var(--el-font-size-medium);
+    }
+}
 // 第三方字体图标大小
-.el-button:not(.is-circle) i.el-icon,
-.el-button i.iconfont,
-.el-button i.fa,
-.el-button--default i.iconfont,
-.el-button--default i.fa {
-	font-size: 14px !important;
-	margin-right: 5px;
-}
+// .el-button:not(.is-circle) i.el-icon,
+// .el-button i.iconfont,
+// .el-button i.fa,
+// .el-button--default i.iconfont,
+// .el-button--default i.fa {
+// 	font-size: 14px !important;
+// 	margin-right: 5px;
+// }
 
-.el-button--small i.iconfont,
-.el-button--small i.fa {
-	font-size: 12px !important;
-	margin-right: 5px;
-}
+// .el-button--small i.iconfont,
+// .el-button--small i.fa {
+// 	font-size: 12px !important;
+// 	margin-right: 5px;
+// }
 
 /* Input 输入框、InputNumber 计数器
 ------------------------------- */
@@ -554,7 +559,7 @@
         height: 28px;
     }
     .el-button [class*=el-icon]+span{
-        margin-left: 0;
+        margin-left: 4px;
     }
 }
 .el-table [class*=el-table__row--level] .el-table__expand-icon {
