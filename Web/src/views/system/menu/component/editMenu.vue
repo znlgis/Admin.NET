@@ -154,7 +154,7 @@ const state = reactive({
 	ruleForm: {} as UpdateMenuInput,
 });
 // 级联选择器配置选项
-const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'title' };
+const cascaderProps = { checkOnClickNode: true, checkStrictly: true, emitPath: false, value: 'id', label: 'title' };
 
 // 获取全局组件大小
 const getGlobalComponentSize = computed(() => {
