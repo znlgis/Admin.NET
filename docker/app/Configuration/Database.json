@@ -23,6 +23,9 @@
           "EnableIncreSeed": false // 启用种子增量更新-特性[IncreSeed]
         }
       }
+
+
+
       //// 日志独立数据库配置
       //{
       //  "ConfigId": "1300000000002", // 日志库标识-禁止修改
@@ -61,6 +64,9 @@
       //    "EnableIncreSeed": false // 启用种子增量更新-特性[IncreSeed]
       //  }
       //}
+
+
+
     ]
   }
 }
