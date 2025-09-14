@@ -9,7 +9,7 @@ services:
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - "./nginx/dist:/usr/share/nginx/html"
+      - ../Web/dist:/usr/share/nginx/html
       - "./nginx/conf/nginx.conf:/etc/nginx/nginx.conf:ro"
       - "./nginx/key:/etc/nginx/key/"
     links:
@@ -51,16 +51,59 @@ services:
     command: ['redis-server','/usr/local/etc/redis/redis.conf']
     environment: # 设置环境变量，例如密码
       - REDIS_PASSWORD=123456
+  minio:
+    image: minio/minio:RELEASE.2025-04-22T22-12-26Z
+    container_name: minio
+    restart: always
+    environment:
+      - MINIO_ROOT_USER=admin
+      - MINIO_ROOT_PASSWORD=admin123456
+    volumes:
+      - ./minio/data:/data
+      - ./minio/config:/root/.minio
+    ports:
+      - "9104:9000"  # API端口
+      - "9105:9001"  # 控制台端口
+    command: server /data --console-address ":9001"
+  tdengine:
+    image: tdengine/tdengine:3.3.6.13
+    volumes:
+      - ./tdengine/taos/dnode/data:/var/lib/taos
+      - ./tdengine/taos/dnode/log:/var/log/taos      
+    hostname: tdengine
+    container_name: tdengine
+    privileged: true
+    environment:
+      TAOS_FQDN: "tdengine"
+      TAOS_FIRST_EP: "tdengine"  # 指向首个节点主机名
+      TAOS_SECOND_EP: "tdengine" # 可选备用节点 
+
+
+    ports:
+     - 6030:6030
+     - 6041:6041
+     - 6044-6049:6044-6049
+     - 6044-6045:6044-6045/udp
+     - 6060:6060
+
+
+
+  
+
+
   adminNet:
-    image: mcr.microsoft.com/dotnet/aspnet:6.0
+    image: mcr.microsoft.com/dotnet/aspnet:9.0
     ports:
       - "9102:5050"
     environment:
       - TZ=Asia/Shanghai
     volumes:
-      - "./app:/app"
+      - ../Admin.NET/Admin.NET.Web.Entry/bin/Release/net9.0/:/app
+      - ./app/Configuration/:/app/Configuration/
+      - ./app/wait-for-it.sh:/app/wait-for-it.sh
     working_dir: /app
-    command: ["/app/wait-for-it.sh", "mysql:3306", "-t", "120", "--","dotnet", "Admin.NET.Web.Entry.dll", "--content-root", "/app/wwwroot"]
+    command: ["/bin/bash", "-c", "/app/wait-for-it.sh mysql:3306 -t 120 && dotnet Admin.NET.Web.Entry.dll --content-root /app/wwwroot"]
+
     depends_on:
       - mysql
       - redis
