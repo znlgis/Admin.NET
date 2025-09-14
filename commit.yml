@@ -2,91 +2,52 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid 'bdd274df49d9159f6af38d59f584ace2854033a4'
-    oldFile: !uuid '67da41a8f9b42620234820ac0921a5dd3c6fffba'
-  /Web/src:
-    newFile: !uuid '6c228817d6f6ddf34d3d67e9661428fe8da39dd1'
-    oldFile: !uuid 'c8f04f91600a6a638420b5e830702da2eb1e095d'
-  /Web/src/components:
-    newFile: !uuid 'e99da4823cfa7d51666354b5573ec9d8c6fec52b'
-    oldFile: !uuid 'd8cd62496d59fa28671b071edf5e45f271835341'
-  /Web/src/components/multiLangInput:
-    newFile: !uuid '4fe9dadc7c7af020d2a9eeaa887c957a11579b41'
-    oldFile: !uuid 'abc300c36d3743b77eaf7595197fe0006c90c769'
-  /Web/src/components/multiLangInput/index.vue:
-    newFile: !uuid 'e58675d6349a494037844629bea4b46003cb5d50'
-    oldFile: !uuid '1fbc3fc2546d90ed8d41d4ddbdd09ed3e6865db9'
-  /Web/src/components/table:
-    newFile: !uuid 'dd793cdf33973bd51dd1655128e3346836725ccf'
-    oldFile: !uuid '75a588ae84df27e692edfae1ad46186345462d18'
-  /Web/src/components/table/index.vue:
-    newFile: !uuid 'd3ed89a3ae4a0d96e39ba07cbfacc60537c7a768'
-    oldFile: !uuid 'd4341d814a86ee26d956d9da1a9a3acf5868b1a0'
-  /Web/src/layout:
-    newFile: !uuid '0662b179c62b3d5ec5c9380bd24209688967b5d2'
-    oldFile: !uuid 'b6d5cceeec4c45908370999efb79a58e1c78c3c0'
-  /Web/src/layout/navMenu:
-    newFile: !uuid '7f4a0220ab68698b614384a9ac4c4eeff30774fb'
-    oldFile: !uuid '8ae8b573d417c751e9f019e790d0954eac30352b'
-  /Web/src/layout/navMenu/subItem.vue:
-    newFile: !uuid '07de0fd039bde0a14c4b7a9e8f5c225756905ed8'
-    oldFile: !uuid '6d94c361cdfeb86087a9751876478bd8df6cc241'
-  /Web/src/theme:
-    newFile: !uuid 'e6ce5fc148d64733fb92342bae2a4e4e4f01be37'
-    oldFile: !uuid 'da3388903075271dc2a92dc51ad6eeee5c40622b'
-  /Web/src/theme/element.scss:
-    newFile: !uuid 'd8e7793eb43a4b64ffe5bcede03ee410a976b9de'
-    oldFile: !uuid '2fc8c9fa4a77d41f85cdd780992b55cbafcfe7b6'
-  /Web/src/views:
-    newFile: !uuid '86366b3b0c6d1c341fa3b928f45961d561902f52'
-    oldFile: !uuid '48516b0f97b8d27216b660be429a5cbee24df532'
-  /Web/src/views/mqttx:
-    newFile: !uuid '3ba070e9bea1c005eef60a37fb595e959a007f4f'
-    oldFile: !uuid 'a9d0343bbd1f9d45117eb27d2cee38d28daf39bd'
-  /Web/src/views/mqttx/index.vue:
-    newFile: !uuid '6c36a6f53c5ca6d3a5894635cfc543cdaab1a5ac'
-    oldFile: !uuid 'b3da55e644686f7cf607930458a9a74c54a32fe3'
-  /Web/src/views/system:
-    newFile: !uuid '98393790805dc13e86eed38b63c83511fc9fecb9'
-    oldFile: !uuid '68e8799e998edc1fd7e29bd7c083abb2ec47df98'
-  /Web/src/views/system/config:
-    newFile: !uuid '14eb9ef6bb7a8a26ef6b86bcd67827081374341d'
-    oldFile: !uuid '29d3e1a785ee9a8140a8d668d8bfe32265a9a172'
-  /Web/src/views/system/config/index.vue:
-    newFile: !uuid '57305b48c20abbc40ea11c3efc11da0110b85ca0'
-    oldFile: !uuid '1e94d78756992c3886dd7494794c4bb85fcb402b'
-  /Web/src/views/system/job:
-    newFile: !uuid '7e07b29412376e1a4ac050133d413a8d60411c69'
-    oldFile: !uuid '852dd6ffeea3812f92d9d05750901f1c49a6eb2a'
-  /Web/src/views/system/job/component:
-    newFile: !uuid '259330a571441d1b4b73363e5299f6604d03fef1'
-    oldFile: !uuid '53c03e5ab183d63b76edac1840f5c1267d3c7ce4'
-  /Web/src/views/system/job/component/editJobDetail.vue:
-    newFile: !uuid 'e44515725f6b74b905aa30069c41b8f8cb8043b2'
-    oldFile: !uuid '1f60a245b337b299138b7f8839340d1e2ab067db'
-  /Web/src/views/system/lang:
-    newFile: !uuid '10375087f1bbc5c71431bf49b6d6f968e37cd957'
-    oldFile: !uuid 'ef03dcf2e629bbaad962248670e0666743344c82'
-  /Web/src/views/system/lang/index.vue:
-    newFile: !uuid 'e2857db00006d7805aa0ee3d7cce9f76fd887a2a'
-    oldFile: !uuid 'b7edfbacf670846d57bfc0eb38a7799cbaef21a7'
-  /Web/src/views/system/menu:
-    newFile: !uuid '5aeb5680a01b1ed0c1360b190e083e7ad854f299'
-    oldFile: !uuid '173dd96fd1b2e6955c2d7173dba6bfa5adb91d1f'
-  /Web/src/views/system/menu/component:
-    newFile: !uuid 'b8fc6e91507190c08827c69ab491d72392adac4f'
-    oldFile: !uuid 'd48d2bf9f100bf807be2757e620cf2237ff1ae28'
-  /Web/src/views/system/menu/component/editMenu.vue:
-    newFile: !uuid '491a33ceed281c84458d84bca3a7fd10843e790f'
-    oldFile: !uuid '692190ec1568f4900d3f16e20948762c3b5e5d30'
-  /Web/src/views/system/template:
-    newFile: !uuid '1452c8bd7ac3688edb0062593d72396663d26cd4'
-    oldFile: !uuid '4796f62d4d7daed04c7f3aebadfddb7a0eea08ed'
-  /Web/src/views/system/template/index.vue:
-    newFile: !uuid 'de6735b304101ecfe7939519819c50a8819b9f18'
-    oldFile: !uuid 'c9503fb9819b02c4c7c79607f054e24067a8c4a3'
-gitCommitId: !uuid 'f7bf4c19ca3a36bbebf17556c9b4d89da8bc2c5e'
+  /docker:
+    newFile: !uuid 'd014a7b98c69d7349a2be0f5ffb283983e38ff0e'
+    oldFile: !uuid 'f69a8f38063edb57aacadcd624acb3cd05003afc'
+  /docker/README.md:
+    newFile: !uuid '1f233649be165ec58177d87cf5e5fe3adf45afab'
+    oldFile: !uuid 'db727a9ffbc233043afcea2c8254059441b8915b'
+  /docker/app:
+    newFile: !uuid '6bb603590dca4db5dda858f67c3b1a0b7fdfd185'
+    oldFile: !uuid '82aa11c8ca620c0bd7b2a71ee93d023846a828a5'
+  /docker/app/Configuration:
+    newFile: !uuid 'f9e2870daba95e3dc32bb8f06e0144864a5fda27'
+    oldFile: !uuid '53b4eae0ea514ef46986ce63a2ac86ffcff35413'
+  /docker/app/Configuration/Database.json:
+    newFile: !uuid '1bea92a4e63478efb43a95efc77b2c4fde2434c4'
+    oldFile: !uuid 'd20489f313b863565166139fe104b9012438584f'
+  /docker/app/Configuration/EventBus.json:
+    newFile: !uuid '02b5ab2986aef8f0a4381e2e2820f01bc0ee16c4'
+    oldFile: null
+  /docker/app/Configuration/Logging.json:
+    newFile: !uuid '2f5be951d1f48ee940857b180aa38cbeec14c767'
+    oldFile: null
+  /docker/app/Configuration/OAuth.json:
+    newFile: !uuid 'f2f28aa19841d594cdf83b0ab1cc10973aefae67'
+    oldFile: null
+  /docker/app/Configuration/Upload.json:
+    newFile: !uuid '2075742177e7b69fdb36152f9da4b49479438da1'
+    oldFile: null
+  /docker/build.sh:
+    newFile: null
+    oldFile: !uuid '4c7162f892c1dbed9e55ee146cac266119ab0429'
+  /docker/docker-compose-builder.yml:
+    newFile: !uuid '1caceb15d2b1a4b5674e874354175f9f2bfb29d9'
+    oldFile: null
+  /docker/docker-compose.yml:
+    newFile: !uuid '299989bdcbc24dcc26872c1ab4a2415daad992e7'
+    oldFile: !uuid '4cca2adfa9a38045538fb805fef06e975b8f4dfc'
+  /docker/nginx:
+    newFile: !uuid '683038a124ba32bd339b15d40978cc3ac27fb045'
+    oldFile: !uuid 'cc6780f5b2a3a837f43c63a531a6dbc08d3a920c'
+  /docker/nginx/conf:
+    newFile: !uuid '69f1b462dc1d3db521b81275733626d11d720ae8'
+    oldFile: !uuid 'c9e3602850b7b0733b088f6640973d26ab75a48c'
+  /docker/nginx/conf/nginx.conf:
+    newFile: !uuid '8484324e0f2b31ede07977d961b25c09ecbbe3ce'
+    oldFile: !uuid '0d9df7ff6c6392cd84d16dcc3ed583e093de9979'
+gitCommitId: !uuid '7c5749e707348233688d831eba63abc9194c0140'
 renames: {
   }
-revisionId: 2981
+revisionId: 2982
