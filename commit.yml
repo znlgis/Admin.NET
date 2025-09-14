@@ -2,52 +2,16 @@
 branches: {
   }
 fileChange:
-  /docker:
-    newFile: !uuid 'd014a7b98c69d7349a2be0f5ffb283983e38ff0e'
-    oldFile: !uuid 'f69a8f38063edb57aacadcd624acb3cd05003afc'
-  /docker/README.md:
-    newFile: !uuid '1f233649be165ec58177d87cf5e5fe3adf45afab'
-    oldFile: !uuid 'db727a9ffbc233043afcea2c8254059441b8915b'
-  /docker/app:
-    newFile: !uuid '6bb603590dca4db5dda858f67c3b1a0b7fdfd185'
-    oldFile: !uuid '82aa11c8ca620c0bd7b2a71ee93d023846a828a5'
-  /docker/app/Configuration:
-    newFile: !uuid 'f9e2870daba95e3dc32bb8f06e0144864a5fda27'
-    oldFile: !uuid '53b4eae0ea514ef46986ce63a2ac86ffcff35413'
-  /docker/app/Configuration/Database.json:
-    newFile: !uuid '1bea92a4e63478efb43a95efc77b2c4fde2434c4'
-    oldFile: !uuid 'd20489f313b863565166139fe104b9012438584f'
-  /docker/app/Configuration/EventBus.json:
-    newFile: !uuid '02b5ab2986aef8f0a4381e2e2820f01bc0ee16c4'
-    oldFile: null
-  /docker/app/Configuration/Logging.json:
-    newFile: !uuid '2f5be951d1f48ee940857b180aa38cbeec14c767'
-    oldFile: null
-  /docker/app/Configuration/OAuth.json:
-    newFile: !uuid 'f2f28aa19841d594cdf83b0ab1cc10973aefae67'
-    oldFile: null
-  /docker/app/Configuration/Upload.json:
-    newFile: !uuid '2075742177e7b69fdb36152f9da4b49479438da1'
-    oldFile: null
-  /docker/build.sh:
-    newFile: null
-    oldFile: !uuid '4c7162f892c1dbed9e55ee146cac266119ab0429'
-  /docker/docker-compose-builder.yml:
-    newFile: !uuid '1caceb15d2b1a4b5674e874354175f9f2bfb29d9'
-    oldFile: null
-  /docker/docker-compose.yml:
-    newFile: !uuid '299989bdcbc24dcc26872c1ab4a2415daad992e7'
-    oldFile: !uuid '4cca2adfa9a38045538fb805fef06e975b8f4dfc'
-  /docker/nginx:
-    newFile: !uuid '683038a124ba32bd339b15d40978cc3ac27fb045'
-    oldFile: !uuid 'cc6780f5b2a3a837f43c63a531a6dbc08d3a920c'
-  /docker/nginx/conf:
-    newFile: !uuid '69f1b462dc1d3db521b81275733626d11d720ae8'
-    oldFile: !uuid 'c9e3602850b7b0733b088f6640973d26ab75a48c'
-  /docker/nginx/conf/nginx.conf:
-    newFile: !uuid '8484324e0f2b31ede07977d961b25c09ecbbe3ce'
-    oldFile: !uuid '0d9df7ff6c6392cd84d16dcc3ed583e093de9979'
-gitCommitId: !uuid '7c5749e707348233688d831eba63abc9194c0140'
+  /Web:
+    newFile: !uuid 'e6254c6870845724440d13b0e40d35fbd5fc303a'
+    oldFile: !uuid 'bdd274df49d9159f6af38d59f584ace2854033a4'
+  /Web/src:
+    newFile: !uuid 'ccf91f3e97fbb82bd85722316fd6a483b1fe04ae'
+    oldFile: !uuid '6c228817d6f6ddf34d3d67e9661428fe8da39dd1'
+  /Web/src/App.vue:
+    newFile: !uuid '10f55cdd5fecebc937f0036356e41255dfd60cfb'
+    oldFile: !uuid '2b5196a6619456adad239334f8ab3a4631aeb278'
+gitCommitId: !uuid '10bfb2f635e875321ca369a6eafea569622deeec'
 renames: {
   }
-revisionId: 2982
+revisionId: 2983
