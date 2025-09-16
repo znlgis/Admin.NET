@@ -3,6 +3,7 @@
 	.tool-box {
 		display: flex;
 		border-bottom: 1px solid var(--el-border-color-lighter);
+        margin-bottom: 5px;
 		box-sizing: border-box;
 		color: var(--el-text-color-primary);
 		height: 40px;
@@ -11,6 +12,7 @@
 	.tool-sortable {
 		max-height: 303px;
 		.tool-sortable-item {
+            height: var(--el-checkbox-height, 32px);;
 			display: flex;
 			box-sizing: border-box;
 			color: var(--el-text-color-primary);
@@ -23,5 +25,10 @@
 				opacity: 0.7;
 			}
 		}
+        .sortable-ghost{ 
+            background: var(--el-fill-color-lighter);
+            border: 1px dashed var(--w-e-toolbar-disabled-color) !important;
+            opacity: 0.3; /* 减淡颜色，使其半透明 */
+        }
 	}
 }

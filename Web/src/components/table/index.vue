@@ -5,7 +5,7 @@
 				<slot name="command"></slot>
 			</div>
 			<div v-loading="state.exportLoading" class="table-footer-tool">
-                <el-dropdown v-if="config.hideExport" split-button trigger="click" @click="onExportTable">
+                <el-dropdown v-if="!config.hideExport" split-button trigger="click" @click="onExportTable">
                     <!-- <el-button icon="ele-Download"  /> -->
                      导出
                     <template #dropdown>
@@ -20,7 +20,7 @@
                     <el-button icon="ele-Refresh" v-if="!config.hideRefresh" title="刷新" @click="() => onRefreshTable()" />
                     <el-button icon="ele-Switch" v-if="state.haveFixed" :title="state.switchFixedContent" :color="state.fixedIconColor" @click="switchFixed" />
                     <el-button icon="ele-Printer" v-if="!config.hidePrint" title="打印" @click="onPrintTable"  />
-                    <el-popover v-if="!config.hideSet" placement="bottom-end" trigger="click" transition="el-zoom-in-top" popper-class="table-tool-popper" :width="180" :persistent="false" @show="onSetTable">
+                    <el-popover v-if="!config.hideSet" placement="bottom-end" trigger="click" transition="el-zoom-in-top" popper-class="table-tool-popper" :width="200" :persistent="false" @show="onSetTable">
                         <template #reference>
                             <el-button icon="ele-Setting"  />
                         </template>
@@ -30,13 +30,12 @@
                                 <el-checkbox v-model="getConfig.isSerialNo" class="ml12 mr1" label="序号" />
                                 <el-checkbox v-if="getConfig.showSelection" v-model="getConfig.isSelection" class="ml12 mr1" label="多选" />
                                 <el-tooltip content="拖动进行排序" placement="top-start">
-                                    <SvgIcon style="float: right; margin-right: 5px; margin-top: 2px" name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
+                                    <SvgIcon style="position: absolute; right: 15px; line-height: 32px;" name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
                                 </el-tooltip>
                             </div>
-                            <el-divider style="margin: 10px 0 10px -5px" />
                             <el-scrollbar>
                                 <div ref="toolSetRef" class="tool-sortable">
-                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" v-show="!v.hideCheck" :data-key="v.prop">
+                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" :fixed="v.hideCheck" :data-key="v.prop">
                                         <i class="fa fa-arrows-alt handle cursor-pointer"></i>
                                         <el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.label" @change="onCheckChange" />
                                     </div>
@@ -48,18 +47,18 @@
 			</div>
 		</div>
 		<el-table
-				ref="tableRef"
-				:data="state.data"
-				:border="setBorder"
-				:stripe="setStripe"
-				v-bind="$attrs"
-				row-key="id"
-				default-expand-all
-				style="width: 100%"
-				v-loading="state.loading"
-				:default-sort="defaultSort"
-				@selection-change="onSelectionChange"
-				@sort-change="sortChange"
+            ref="tableRef"
+            :data="state.data"
+            :border="setBorder"
+            :stripe="setStripe"
+            v-bind="$attrs"
+            row-key="id"
+            default-expand-all
+            style="width: 100%"
+            v-loading="state.loading"
+            :default-sort="defaultSort"
+            @selection-change="onSelectionChange"
+            @sort-change="sortChange"
 		>
 			<el-table-column type="selection" :reserve-selection="true" :width="30" v-if="config.isSelection && config.showSelection" />
 			<el-table-column type="index" :fixed="state.currentFixed && state.serialNoFixed" label="序号" align="center" :width="60" v-if="config.isSerialNo" />
@@ -76,12 +75,12 @@
 					<formatter v-if="item.formatter" :fn="item.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
 					<template v-else-if="item.type === 'image'">
 						<el-image
-								:style="{ width: `${item.width}px`, height: `${item.height}px` }"
-								:src="scope.row[item.prop]"
-								:zoom-rate="1.2"
-								:preview-src-list="[scope.row[item.prop]]"
-								preview-teleported
-								fit="cover"
+						    :style="{ width: `${item.width}px`, height: `${item.height}px` }"
+						    :src="scope.row[item.prop]"
+						    :zoom-rate="1.2"
+						    :preview-src-list="[scope.row[item.prop]]"
+						    preview-teleported
+						    fit="cover"
 						/>
 					</template>
 					<template v-else>
@@ -98,12 +97,12 @@
 						<formatter v-if="childrenItem.formatter" :fn="childrenItem.formatter(scope.row, scope.column, scope.cellValue, scope.index)"> </formatter>
 						<template v-else-if="childrenItem.type === 'image'">
 							<el-image
-									:style="{ width: `${childrenItem.width}px`, height: `${childrenItem.height}px` }"
-									:src="scope.row[childrenItem.prop]"
-									:zoom-rate="1.2"
-									:preview-src-list="[scope.row[childrenItem.prop]]"
-									preview-teleported
-									fit="cover"
+							    :style="{ width: `${childrenItem.width}px`, height: `${childrenItem.height}px` }"
+							    :src="scope.row[childrenItem.prop]"
+							    :zoom-rate="1.2"
+							    :preview-src-list="[scope.row[childrenItem.prop]]"
+							    preview-teleported
+							    fit="cover"
 							/>
 						</template>
 						<template v-else>
@@ -112,24 +111,24 @@
 					</template>
 				</el-table-column>
 			</el-table-column>
-			<template #empty>
+			<!-- <template #empty>
 				<el-empty description="暂无数据" />
-			</template>
+			</template> -->
 		</el-table>
-		<div v-if="!config.hidePagination && state.showPagination" class="table-footer mt15">
-			<el-pagination
-					v-model:current-page="state.page.page"
-					v-model:page-size="state.page.pageSize"
-					size="small"
-					:pager-count="5"
-					:page-sizes="config.pageSizes"
-					:total="state.total"
-					layout="total, sizes, prev, pager, next, jumper"
-					background
-					@size-change="onHandleSizeChange"
-					@current-change="onHandleCurrentChange"
-			>
-			</el-pagination>
+		<div v-if="!config.hidePagination && state.showPagination" class="table-footer mt2">
+			<el-pagination 
+                v-model:current-page="state.page.page"
+                v-model:page-size="state.page.pageSize"
+                size="small"
+                :pager-count="5"
+                :page-sizes="config.pageSizes"
+                :total="state.total"
+                layout="total, sizes, prev, pager, next, jumper"
+                background
+                @size-change="onHandleSizeChange"
+                @current-change="onHandleCurrentChange"
+            >
+            </el-pagination>
 		</div>
 	</div>
 </template>
@@ -365,6 +364,14 @@ const onSetTable = () => {
 			handle: '.handle',
 			dataIdAttr: 'data-key',
 			animation: 150,
+            onMove: (evt) => {
+                // 禁止固定列拖动
+                const srcItem = evt.dragged.getAttribute('fixed');
+                const targetItem = evt.related.getAttribute('fixed');
+                if(srcItem || targetItem) {
+                    return false;
+                }
+            },
 			onEnd: () => {
 				const headerList: EmptyObjectType[] = [];
 				sortable.toArray().forEach((val: any) => {
@@ -372,8 +379,9 @@ const onSetTable = () => {
 						if (v.prop === val) headerList.push({ ...v });
 					});
 				});
-				emit('sortHeader', headerList);
-			},
+				//emit('sortHeader', headerList);
+                state.columns = headerList;
+			}
 		});
 	});
 };
@@ -478,6 +486,7 @@ defineExpose({
 </script>
 
 <style scoped lang="scss">
+@import url('/@/theme/tableTool.scss');
 .table-container {
 	display: flex !important;
 	flex-direction: column;
@@ -501,38 +510,6 @@ defineExpose({
 			align-items: center;
 			justify-content: flex-end;
             gap: 8px;
-
-			i {
-				margin-right: 5px !important;
-				cursor: pointer;
-				color: var(--el-text-color-regular);
-
-				&:last-of-type {
-					margin-right: 0;
-				}
-			}
-
-			.el-dropdown {
-				i {
-					margin-right: 10px;
-					color: var(--el-text-color-regular);
-				}
-			}
-
-			.tool-icon {
-				border: 1px solid #a7a7a7;
-				border-radius: 20%;
-				padding: 1px;
-				display: inline-flex;
-				align-items: center;
-				justify-content: center;
-			}
-
-			.el-icon.tool-icon {
-				font-size: 25px;
-				border: 1px solid #a7a7a7;
-				padding: 4px;
-			}
 		}
 	}
 }
