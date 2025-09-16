@@ -23,6 +23,7 @@ public class SysAuthService : IDynamicApiController, ITransient
     private readonly SysOnlineUserService _sysOnlineUserService;
     private readonly SysConfigService _sysConfigService;
     private readonly SysUserService _sysUserService;
+    private readonly SysTenantService _sysTenantService;
     private readonly SysSmsService _sysSmsService;
     private readonly SysLdapService _sysLdapService;
     private readonly ICaptcha _captcha;
@@ -40,6 +41,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         SysCacheService sysCacheService,
         SysMenuService sysMenuService,
         SysUserService sysUserService,
+        SysTenantService sysTenantService,
         UserManager userManager,
         ICaptcha captcha)
     {
@@ -49,6 +51,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         _sysSmsService = sysSmsService;
         _eventPublisher = eventPublisher;
         _sysUserService = sysUserService;
+        _sysTenantService = sysTenantService;
         _sysMenuService = sysMenuService;
         _sysCacheService = sysCacheService;
         _sysConfigService = sysConfigService;
@@ -419,6 +422,9 @@ public class SysAuthService : IDynamicApiController, ITransient
         // 校验验证码
         if (!_captcha.Validate(input.CodeId.ToString(), input.Code)) throw Oops.Oh(ErrorCodeEnum.D0008);
         _captcha.Generate(input.CodeId.ToString());
+
+        // 登录时隐藏租户，查找对应租户信息
+        input.TenantId = input.TenantId <= 0? (await _sysTenantService.GetCurrentTenantSysInfo()).Id : input.TenantId;
 
         // 判断租户是否有效且启用注册功能
         var tenant = await _sysUserRep.Context.Queryable<SysTenant>().FirstAsync(u => u.Id == input.TenantId && u.Status == StatusEnum.Enable);

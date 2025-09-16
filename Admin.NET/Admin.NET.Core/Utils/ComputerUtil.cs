@@ -152,11 +152,11 @@ public static class ComputerUtil
     {
         try
         {
-            var url = "https://www.ip.cn/api/index?ip&type=0";
+            var url = "https://4.ipw.cn";
             var httpRemoteService = App.GetRequiredService<IHttpRemoteService>();
-            var str = httpRemoteService.GetAsStringAsync(url).GetAwaiter().GetResult();
-            var resp = JSON.Deserialize<IpCnResp>(str);
-            return resp.Ip + " " + resp.Address;
+            var ip = httpRemoteService.GetAsString(url);
+            var (ipLocation, _, _) = CommonUtil.GetIpAddress(ip);
+            return ip + " " + ipLocation;
         }
         catch
         {
@@ -244,16 +244,6 @@ public static class ComputerUtil
         }
         return runTime;
     }
-}
-
-/// <summary>
-/// IP信息
-/// </summary>
-public class IpCnResp
-{
-    public string Ip { get; set; }
-
-    public string Address { get; set; }
 }
 
 /// <summary>
