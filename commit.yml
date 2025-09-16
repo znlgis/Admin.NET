@@ -2,10 +2,19 @@
 branches: {
   }
 fileChange:
-  /一键净化项目.bat:
-    newFile: !uuid '8b405c8683e3cea8e8b4a8c368a118ae577a3752'
-    oldFile: !uuid 'e17917441d8264fb13e01d5481d33a50ebd40645'
-gitCommitId: !uuid '2b00e1cb446614af9e2ccc551fce89bd9d036932'
+  /Admin.NET:
+    newFile: !uuid '4a979af20ab0ad2015e059ceb02c98b8f8148675'
+    oldFile: !uuid '7993bc2b951ce4a8d1c28820235c3245cc76346d'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '2a7a98a71c51d12d17d4af12466d90473841b8f0'
+    oldFile: !uuid '5a432e7f5b4947e5ebf6136edcd8b49909ab0282'
+  /Admin.NET/Admin.NET.Core/Utils:
+    newFile: !uuid 'd7bc2c7e663a8f0f1894a8228ae03caf286ad7b3'
+    oldFile: !uuid 'f49060b3254d5bc54e563223f84c67c79d4cba46'
+  /Admin.NET/Admin.NET.Core/Utils/ComputerUtil.cs:
+    newFile: !uuid '78d05ec529289a9c7be7a1c8afb7c5e15a23f9a5'
+    oldFile: !uuid 'c9fdb78de1b82a9d90ac14237cbebd883b56a792'
+gitCommitId: !uuid '2b46e54cd8614db82f0bc0236b0f42400698c49f'
 renames: {
   }
-revisionId: 2986
+revisionId: 2987
