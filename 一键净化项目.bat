@@ -1,11 +1,22 @@
 @echo OFF
- :begin
- REM åˆ é™¤å‰ç«¯æ–‡ä»¶åŠæ–‡ä»¶å¤¹
- DEL /f /s /q ".\Web\node_modules\*.*"
- RD /s /q ".\Web\node_modules"
- REM å¾ªçŽ¯åˆ é™¤æŒ‡å®šæ–‡ä»¶å¤¹ä¸‹çš„æ–‡ä»¶å¤¹
- FOR /d /r ".\Admin.NET\" %%b in (bin,obj,public) do rd /s /q "%%b"
- ECHO ã€å¤„ç†å®Œæ¯•ï¼ŒæŒ‰ä»»æ„é”®é€€å‡ºã€‘
- PAUSE>NUL
- EXIT
- GOTO BEGIN
+setlocal enabledelayedexpansion
+
+echo ÕýÔÚÇåÀíÏîÄ¿ÎÄ¼þ...
+
+REM É¾³ýÇ°¶Ënode_modules£¨¸ü¸ßÐ§µÄ·½Ê½£©
+if exist ".\Web\node_modules" (
+    echo ÕýÔÚÉ¾³ý Web node_modules...
+    rd /s /q ".\Web\node_modules" 2>nul
+)
+
+REM ÇåÀíAdmin.NETÏîÄ¿µÄbin¡¢objºÍpublicÎÄ¼þ¼Ð
+for /d /r ".\Admin.NET\" %%b in (bin obj public) do (
+    if exist "%%b" (
+        echo ÕýÔÚÉ¾³ý %%~b...
+        rd /s /q "%%b" 2>nul
+    )
+)
+
+echo ¡¾´¦ÀíÍê±Ï£¬°´ÈÎÒâ¼üÍË³ö¡¿
+pause >nul
+exit /b 0
