@@ -30,13 +30,13 @@
                                 <el-checkbox v-model="getConfig.isSerialNo" class="ml12 mr1" label="序号" />
                                 <el-checkbox v-if="getConfig.showSelection" v-model="getConfig.isSelection" class="ml12 mr1" label="多选" />
                                 <el-tooltip content="拖动进行排序" placement="top-start">
-                                    <SvgIcon style="position: absolute; right: 15px; line-height: 32px;" name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
+                                    <SvgIcon style="position: absolute; right: 15px; line-height: 32px;" name="fa fa-question-circle-o" :size="17" class="ml11 cursor-pointer" color="#909399" />
                                 </el-tooltip>
                             </div>
                             <el-scrollbar>
                                 <div ref="toolSetRef" class="tool-sortable">
-                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" :fixed="v.hideCheck" :data-key="v.prop">
-                                        <i class="fa fa-arrows-alt handle cursor-pointer"></i>
+                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" :data-key="v.prop" :data-fixed="v.hideCheck ?? false">
+                                        <i class="fa fa-arrows-alt handle"></i>
                                         <el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.label" @change="onCheckChange" />
                                     </div>
                                 </div>
@@ -361,14 +361,22 @@ const onPrintTable = () => {
 const onSetTable = () => {
 	nextTick(() => {
 		const sortable = Sortable.create(toolSetRef.value, {
-			handle: '.handle',
+			//handle: '.handle',
 			dataIdAttr: 'data-key',
 			animation: 150,
+            onStart: () => {
+                // 为了区分固定列和非固定列，拖动时给非固定列加背景色
+                toolSetRef.value.children.forEach((element: HTMLElement) => {
+                    if(element.dataset.fixed === 'false') {
+                        element.classList.add('tool-sortable-item-draggable');
+                    }
+                });
+            },
             onMove: (evt) => {
                 // 禁止固定列拖动
-                const srcItem = evt.dragged.getAttribute('fixed');
-                const targetItem = evt.related.getAttribute('fixed');
-                if(srcItem || targetItem) {
+                const srcItem = evt.dragged.dataset.fixed; // 拖动项
+                const targetItem = evt.related.dataset.fixed; // 目标位置(禁止拖动到固定列位置)
+                if(srcItem === 'true' || targetItem === 'true') {
                     return false;
                 }
             },
@@ -381,6 +389,11 @@ const onSetTable = () => {
 				});
 				//emit('sortHeader', headerList);
                 state.columns = headerList;
+
+                // 清除拖动时加的背景色
+                toolSetRef.value.children.forEach((element: HTMLElement) => {
+                    element.classList.remove('tool-sortable-item-draggable');
+                });
 			}
 		});
 	});
