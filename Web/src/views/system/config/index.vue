@@ -70,6 +70,7 @@ const tb = reactive<TableDemoState>({
 			pageSize: 50, // 每页条数
 			hideExport: false, //是否隐藏导出按钮
 			exportFileName: '系统参数', //导出报表的文件名，不填写取应用名称
+            printName: '系统参数', //打印预览的标题名称
 		},
 		// 搜索表单，动态生成（传空数组时，将不显示搜索，type有3种类型：input,date,select）
 		search: [

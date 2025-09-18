@@ -1,7 +1,7 @@
 <template>
 	<el-popover placement="bottom" width="280" trigger="hover" :show-after="600">
 		<template #reference>
-			<el-text type="primary" class="cursor-default">
+			<el-text type="primary" class="cursor-pointer">
 				<el-icon><ele-InfoFilled /></el-icon>详情
 			</el-text>
 		</template>
