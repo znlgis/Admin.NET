@@ -319,42 +319,78 @@ const exportData = (data: Array<EmptyObjectType>) => {
 };
 // 打印
 const onPrintTable = () => {
-	// https://printjs.crabbly.com/#documentation
-	// 自定义打印
-	let tableTh = '';
-	let tableTrTd = '';
-	let tableTd: any = {};
-	// 表头
-	setHeader.value.forEach((v: any) => {
-		if (v.prop === 'action') {
-			return;
-		}
-		tableTh += `<th class="table-th">${v.label}</th>`;
-	});
-	// 表格内容
-	state.data.forEach((val: any, key: any) => {
-		if (!tableTd[key]) tableTd[key] = [];
-		setHeader.value.forEach((v: any) => {
-			if (v.prop === 'action') {
-				return;
-			}
-			if (v.type === 'text') {
-				tableTd[key].push(`<td class="table-th table-center">${val[v.prop]}</td>`);
-			} else if (v.type === 'image') {
-				tableTd[key].push(`<td class="table-th table-center"><img src="${val[v.prop]}" style="width:${v.width}px;height:${v.height}px;"/></td>`);
-			} else {
-				tableTd[key].push(`<td class="table-th table-center">${val[v.prop]}</td>`);
-			}
-		});
-		tableTrTd += `<tr>${tableTd[key].join('')}</tr>`;
-	});
-	// 打印
-	printJs({
-		printable: `<div style=display:flex;flex-direction:column;text-align:center><h3>${props.printName}</h3></div><table border=1 cellspacing=0><tr>${tableTh}${tableTrTd}</table>`,
-		type: 'raw-html',
-		css: ['//at.alicdn.com/t/c/font_2298093_rnp72ifj3ba.css', '//unpkg.com/element-plus/dist/index.css'],
-		style: `@media print{.mb15{margin-bottom:15px;}.el-button--small i.iconfont{font-size: 12px !important;margin-right: 5px;}}; .table-th{word-break: break-all;white-space: pre-wrap;}.table-center{text-align: center;}`,
-	});
+    let printDiv = document.createElement('div');
+    let printTitle = document.createElement('div');
+    let printTable = document.createElement('table');
+    let printTableHeader = document.createElement('thead');
+    let printTableBody = document.createElement('tbody');
+
+    // 构建表头
+    setHeader.value.forEach((col: EmptyObjectType) => {
+        if (col.prop === 'action' || !col.isCheck) {
+            return;
+        }
+        let th = document.createElement('th');
+            th.innerText = col.label;
+            th.classList.add('print-table-th');
+            th.style.width = col.width ? col.width + 'px' : 'auto';
+            th.style.minWidth = col.minWidth ? col.minWidth + 'px' : 'auto';
+            printTableHeader.appendChild(th);
+    });
+
+    // 构建表体
+    state.data.forEach((row: EmptyObjectType) => {
+        let tr = document.createElement('tr');
+        tr.classList.add('print-table-tr');
+        setHeader.value.forEach((col: EmptyObjectType) => {
+            if (col.prop === 'action' || !col.isCheck) {
+                return;
+            }
+
+            let td = document.createElement('td');
+            td.classList.add('print-table-td');
+            if (col.type === 'image') {
+                let img = document.createElement('img');
+                img.classList.add('print-table-img');
+
+                // img.src = row[col.prop];
+                // img.style.width = col.width + 'px';
+                // img.style.height = col.height + 'px';
+                td.appendChild(img);
+                tr.appendChild(td);
+            } else {
+                td.innerText = getProperty(row, col.prop);
+                td.style.textAlign = col.align ? col.align : 'left';
+                tr.appendChild(td);
+            }
+        });
+        printTableBody.appendChild(tr);
+    });
+
+    printTable.appendChild(printTableHeader);
+    printTable.appendChild(printTableBody);
+    printTable.classList.add('print-table');
+
+    // 构建打印标题
+    if(props.config.printName) {
+        printTitle.classList.add('print-table-title');
+        printTitle.innerText = props.config.printName;
+        printDiv.appendChild(printTitle);
+    } else {
+        printTitle.style.display = 'none';
+    }
+
+    printDiv.appendChild(printTable);
+    
+    printJs({
+        printable: printDiv,
+        type: 'html',
+        //header: props.config.printName,
+        scanStyles: false,
+        css: ['/@/theme/media/printTable.css'],
+    })
+
+    printDiv.remove()
 };
 
 // 拖拽设置
