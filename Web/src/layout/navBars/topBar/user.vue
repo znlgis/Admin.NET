@@ -349,6 +349,7 @@ const receiveNotice = (msg: any) => {
 		line-height: 50px;
 		display: flex;
 		align-items: center;
+        font-size: var(--el-font-size-medium);
 
 		&:hover {
 			background: var(--next-color-user-hover);
