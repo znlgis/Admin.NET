@@ -30,13 +30,13 @@
                                 <el-checkbox v-model="getConfig.isSerialNo" class="ml12 mr1" label="序号" />
                                 <el-checkbox v-if="getConfig.showSelection" v-model="getConfig.isSelection" class="ml12 mr1" label="多选" />
                                 <el-tooltip content="拖动进行排序" placement="top-start">
-                                    <SvgIcon style="position: absolute; right: 15px; line-height: 32px;" name="fa fa-question-circle-o" :size="17" class="ml11" color="#909399" />
+                                    <SvgIcon style="position: absolute; right: 15px; line-height: 32px;" name="fa fa-question-circle-o" :size="17" class="ml11 cursor-pointer" color="#909399" />
                                 </el-tooltip>
                             </div>
                             <el-scrollbar>
                                 <div ref="toolSetRef" class="tool-sortable">
-                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" :fixed="v.hideCheck" :data-key="v.prop">
-                                        <i class="fa fa-arrows-alt handle cursor-pointer"></i>
+                                    <div class="tool-sortable-item" v-for="v in columns" :key="v.prop" :data-key="v.prop" :data-fixed="v.hideCheck ?? false">
+                                        <i class="fa fa-arrows-alt handle"></i>
                                         <el-checkbox v-model="v.isCheck" size="default" class="ml12 mr8" :label="v.label" @change="onCheckChange" />
                                     </div>
                                 </div>
@@ -319,56 +319,100 @@ const exportData = (data: Array<EmptyObjectType>) => {
 };
 // 打印
 const onPrintTable = () => {
-	// https://printjs.crabbly.com/#documentation
-	// 自定义打印
-	let tableTh = '';
-	let tableTrTd = '';
-	let tableTd: any = {};
-	// 表头
-	setHeader.value.forEach((v: any) => {
-		if (v.prop === 'action') {
-			return;
-		}
-		tableTh += `<th class="table-th">${v.label}</th>`;
-	});
-	// 表格内容
-	state.data.forEach((val: any, key: any) => {
-		if (!tableTd[key]) tableTd[key] = [];
-		setHeader.value.forEach((v: any) => {
-			if (v.prop === 'action') {
-				return;
-			}
-			if (v.type === 'text') {
-				tableTd[key].push(`<td class="table-th table-center">${val[v.prop]}</td>`);
-			} else if (v.type === 'image') {
-				tableTd[key].push(`<td class="table-th table-center"><img src="${val[v.prop]}" style="width:${v.width}px;height:${v.height}px;"/></td>`);
-			} else {
-				tableTd[key].push(`<td class="table-th table-center">${val[v.prop]}</td>`);
-			}
-		});
-		tableTrTd += `<tr>${tableTd[key].join('')}</tr>`;
-	});
-	// 打印
-	printJs({
-		printable: `<div style=display:flex;flex-direction:column;text-align:center><h3>${props.printName}</h3></div><table border=1 cellspacing=0><tr>${tableTh}${tableTrTd}</table>`,
-		type: 'raw-html',
-		css: ['//at.alicdn.com/t/c/font_2298093_rnp72ifj3ba.css', '//unpkg.com/element-plus/dist/index.css'],
-		style: `@media print{.mb15{margin-bottom:15px;}.el-button--small i.iconfont{font-size: 12px !important;margin-right: 5px;}}; .table-th{word-break: break-all;white-space: pre-wrap;}.table-center{text-align: center;}`,
-	});
+    let printDiv = document.createElement('div');
+    let printTitle = document.createElement('div');
+    let printTable = document.createElement('table');
+    let printTableHeader = document.createElement('thead');
+    let printTableBody = document.createElement('tbody');
+
+    // 构建表头
+    setHeader.value.forEach((col: EmptyObjectType) => {
+        if (col.prop === 'action' || !col.isCheck) {
+            return;
+        }
+        let th = document.createElement('th');
+            th.innerText = col.label;
+            th.classList.add('print-table-th');
+            th.style.width = col.width ? col.width + 'px' : 'auto';
+            th.style.minWidth = col.minWidth ? col.minWidth + 'px' : 'auto';
+            printTableHeader.appendChild(th);
+    });
+
+    // 构建表体
+    state.data.forEach((row: EmptyObjectType) => {
+        let tr = document.createElement('tr');
+        tr.classList.add('print-table-tr');
+        setHeader.value.forEach((col: EmptyObjectType) => {
+            if (col.prop === 'action' || !col.isCheck) {
+                return;
+            }
+
+            let td = document.createElement('td');
+            td.classList.add('print-table-td');
+            if (col.type === 'image') {
+                let img = document.createElement('img');
+                img.classList.add('print-table-img');
+
+                // img.src = row[col.prop];
+                // img.style.width = col.width + 'px';
+                // img.style.height = col.height + 'px';
+                td.appendChild(img);
+                tr.appendChild(td);
+            } else {
+                td.innerText = getProperty(row, col.prop);
+                td.style.textAlign = col.align ? col.align : 'left';
+                tr.appendChild(td);
+            }
+        });
+        printTableBody.appendChild(tr);
+    });
+
+    printTable.appendChild(printTableHeader);
+    printTable.appendChild(printTableBody);
+    printTable.classList.add('print-table');
+
+    // 构建打印标题
+    if(props.config.printName) {
+        printTitle.classList.add('print-table-title');
+        printTitle.innerText = props.config.printName;
+        printDiv.appendChild(printTitle);
+    } else {
+        printTitle.style.display = 'none';
+    }
+
+    printDiv.appendChild(printTable);
+    
+    printJs({
+        printable: printDiv,
+        type: 'html',
+        //header: props.config.printName,
+        scanStyles: false,
+        css: ['/@/theme/media/printTable.css'],
+    })
+
+    printDiv.remove()
 };
 
 // 拖拽设置
 const onSetTable = () => {
 	nextTick(() => {
 		const sortable = Sortable.create(toolSetRef.value, {
-			handle: '.handle',
+			//handle: '.handle',
 			dataIdAttr: 'data-key',
 			animation: 150,
+            onStart: () => {
+                // 为了区分固定列和非固定列，拖动时给非固定列加背景色
+                toolSetRef.value.children.forEach((element: HTMLElement) => {
+                    if(element.dataset.fixed === 'false') {
+                        element.classList.add('tool-sortable-item-draggable');
+                    }
+                });
+            },
             onMove: (evt) => {
                 // 禁止固定列拖动
-                const srcItem = evt.dragged.getAttribute('fixed');
-                const targetItem = evt.related.getAttribute('fixed');
-                if(srcItem || targetItem) {
+                const srcItem = evt.dragged.dataset.fixed; // 拖动项
+                const targetItem = evt.related.dataset.fixed; // 目标位置(禁止拖动到固定列位置)
+                if(srcItem === 'true' || targetItem === 'true') {
                     return false;
                 }
             },
@@ -381,6 +425,11 @@ const onSetTable = () => {
 				});
 				//emit('sortHeader', headerList);
                 state.columns = headerList;
+
+                // 清除拖动时加的背景色
+                toolSetRef.value.children.forEach((element: HTMLElement) => {
+                    element.classList.remove('tool-sortable-item-draggable');
+                });
 			}
 		});
 	});
