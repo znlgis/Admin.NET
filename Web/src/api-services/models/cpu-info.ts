@@ -13,42 +13,52 @@
  */
 
  /**
- * 翻译表输入参数
+ * 
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface CpuInfo
  */
-export interface ListSysLangTextInput {
+export interface CpuInfo {
 
     /**
-     * 所属实体名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof CpuInfo
      */
-    entityName: string;
+    processorName?: string | null;
 
     /**
-     * 所属实体ID
-     *
+     * @type {string}
+     * @memberof CpuInfo
+     */
+    processorArchitecture?: string | null;
+
+    /**
      * @type {number}
-     * @memberof ListSysLangTextInput
+     * @memberof CpuInfo
      */
-    entityId: number;
+    physicalCoreCount?: number;
 
     /**
-     * 字段名
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
+     * @type {number}
+     * @memberof CpuInfo
      */
-    fieldName: string;
+    logicalCoreCount?: number;
 
     /**
-     * 语言代码
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
+     * @type {number}
+     * @memberof CpuInfo
      */
-    langCode?: string | null;
+    baseClockSpeed?: number;
+
+    /**
+     * @type {number}
+     * @memberof CpuInfo
+     */
+    cacheBytes?: number;
+
+    /**
+     * @type {number}
+     * @memberof CpuInfo
+     */
+    usagePercentage?: number;
 }

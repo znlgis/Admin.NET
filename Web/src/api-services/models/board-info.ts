@@ -13,42 +13,34 @@
  */
 
  /**
- * 翻译表输入参数
+ * 
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface BoardInfo
  */
-export interface ListSysLangTextInput {
+export interface BoardInfo {
 
     /**
-     * 所属实体名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof BoardInfo
      */
-    entityName: string;
+    product?: string | null;
 
     /**
-     * 所属实体ID
-     *
-     * @type {number}
-     * @memberof ListSysLangTextInput
-     */
-    entityId: number;
-
-    /**
-     * 字段名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof BoardInfo
      */
-    fieldName: string;
+    manufacturer?: string | null;
 
     /**
-     * 语言代码
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof BoardInfo
      */
-    langCode?: string | null;
+    serialNumber?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof BoardInfo
+     */
+    version?: string | null;
 }

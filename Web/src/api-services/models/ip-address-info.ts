@@ -13,42 +13,28 @@
  */
 
  /**
- * 翻译表输入参数
+ * 
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface IpAddressInfo
  */
-export interface ListSysLangTextInput {
+export interface IpAddressInfo {
 
     /**
-     * 所属实体名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof IpAddressInfo
      */
-    entityName: string;
+    address?: string | null;
 
     /**
-     * 所属实体ID
-     *
+     * @type {string}
+     * @memberof IpAddressInfo
+     */
+    subnetMask?: string | null;
+
+    /**
      * @type {number}
-     * @memberof ListSysLangTextInput
+     * @memberof IpAddressInfo
      */
-    entityId: number;
-
-    /**
-     * 字段名
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
-     */
-    fieldName: string;
-
-    /**
-     * 语言代码
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
-     */
-    langCode?: string | null;
+    prefixLength?: number;
 }

@@ -4,6 +4,9 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+
+using XiHan.Framework.Utils.Logging;
+
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -13,15 +16,15 @@ public static class ConsoleLogoSetup
 {
     public static void AddConsoleLogo(this IServiceCollection services)
     {
-        Console.ForegroundColor = ConsoleColor.Blue;
-        Console.WriteLine(@"
+        LogHelper.SetIsDisplayHeader(false);
+        LogHelper.Rainbow(@"
               _           _         _   _ ______ _______
      /\      | |         (_)       | \ | |  ____|__   __|
     /  \   __| |_ __ ___  _ _ __   |  \| | |__     | |
    / /\ \ / _` | '_ ` _ \| | '_ \  | . ` |  __|    | |
   / ____ \ (_| | | | | | | | | | |_| |\  | |____   | |
  /_/    \_\__,_|_| |_| |_|_|_| |_(_)_| \_|______|  |_| ");
-        Console.ForegroundColor = ConsoleColor.Yellow;
-        Console.WriteLine(@"让.NET更简单、更通用、更流行！");
+        LogHelper.Info(@"让.NET更简单、更通用、更流行！");
+        LogHelper.SetIsDisplayHeader(true);
     }
 }

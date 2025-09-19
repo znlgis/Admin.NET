@@ -12,43 +12,58 @@
  * Do not edit the class manually.
  */
 
+import { SystemInfo } from './system-info';
  /**
- * 翻译表输入参数
+ * 全局返回结果
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface AdminResultSystemInfo
  */
-export interface ListSysLangTextInput {
+export interface AdminResultSystemInfo {
 
     /**
-     * 所属实体名
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
-     */
-    entityName: string;
-
-    /**
-     * 所属实体ID
+     * 状态码
      *
      * @type {number}
-     * @memberof ListSysLangTextInput
+     * @memberof AdminResultSystemInfo
      */
-    entityId: number;
+    code?: number;
 
     /**
-     * 字段名
+     * 类型success、warning、error
      *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof AdminResultSystemInfo
      */
-    fieldName: string;
+    type?: string | null;
 
     /**
-     * 语言代码
+     * 错误信息
      *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof AdminResultSystemInfo
      */
-    langCode?: string | null;
+    message?: string | null;
+
+    /**
+     * @type {SystemInfo}
+     * @memberof AdminResultSystemInfo
+     */
+    result?: SystemInfo;
+
+    /**
+     * 附加数据
+     *
+     * @type {any}
+     * @memberof AdminResultSystemInfo
+     */
+    extras?: any | null;
+
+    /**
+     * 时间
+     *
+     * @type {Date}
+     * @memberof AdminResultSystemInfo
+     */
+    time?: Date;
 }

@@ -13,42 +13,46 @@
  */
 
  /**
- * 翻译表输入参数
+ * 
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface DiskInfo
  */
-export interface ListSysLangTextInput {
+export interface DiskInfo {
 
     /**
-     * 所属实体名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof DiskInfo
      */
-    entityName: string;
+    diskName?: string | null;
 
     /**
-     * 所属实体ID
-     *
+     * @type {string}
+     * @memberof DiskInfo
+     */
+    typeName?: string | null;
+
+    /**
      * @type {number}
-     * @memberof ListSysLangTextInput
+     * @memberof DiskInfo
      */
-    entityId: number;
+    totalSpace?: number;
 
     /**
-     * 字段名
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
+     * @type {number}
+     * @memberof DiskInfo
      */
-    fieldName: string;
+    freeSpace?: number;
 
     /**
-     * 语言代码
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
+     * @type {number}
+     * @memberof DiskInfo
      */
-    langCode?: string | null;
+    usedSpace?: number;
+
+    /**
+     * @type {number}
+     * @memberof DiskInfo
+     */
+    availableRate?: number;
 }

@@ -13,42 +13,22 @@
  */
 
  /**
- * 翻译表输入参数
+ * 
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface NuGetPackage
  */
-export interface ListSysLangTextInput {
+export interface NuGetPackage {
 
     /**
-     * 所属实体名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof NuGetPackage
      */
-    entityName: string;
+    packageName?: string | null;
 
     /**
-     * 所属实体ID
-     *
-     * @type {number}
-     * @memberof ListSysLangTextInput
-     */
-    entityId: number;
-
-    /**
-     * 字段名
-     *
      * @type {string}
-     * @memberof ListSysLangTextInput
+     * @memberof NuGetPackage
      */
-    fieldName: string;
-
-    /**
-     * 语言代码
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
-     */
-    langCode?: string | null;
+    packageVersion?: string | null;
 }
