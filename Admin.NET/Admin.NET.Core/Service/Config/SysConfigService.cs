@@ -294,7 +294,7 @@ public class SysConfigService : IDynamicApiController, ITransient
 
         tenant.Copy(input);
         tenant.RegWayId = input.EnableReg == YesNoEnum.Y ? input.RegWayId : null;
-        await _sysConfigRep.Context.Updateable(tenant).ExecuteCommandAsync();
+        await _sysTenantRep.Context.Updateable(tenant).ExecuteCommandAsync();
     }
 
     private void Remove(SysConfig config)
