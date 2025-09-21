@@ -13,42 +13,52 @@
  */
 
  /**
- * 翻译表输入参数
+ * 
  *
  * @export
- * @interface ListSysLangTextInput
+ * @interface RamInfo
  */
-export interface ListSysLangTextInput {
+export interface RamInfo {
 
     /**
-     * 所属实体名
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
-     */
-    entityName: string;
-
-    /**
-     * 所属实体ID
-     *
      * @type {number}
-     * @memberof ListSysLangTextInput
+     * @memberof RamInfo
      */
-    entityId: number;
+    totalBytes?: number;
 
     /**
-     * 字段名
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
+     * @type {number}
+     * @memberof RamInfo
      */
-    fieldName: string;
+    usedBytes?: number;
 
     /**
-     * 语言代码
-     *
-     * @type {string}
-     * @memberof ListSysLangTextInput
+     * @type {number}
+     * @memberof RamInfo
      */
-    langCode?: string | null;
+    freeBytes?: number;
+
+    /**
+     * @type {number}
+     * @memberof RamInfo
+     */
+    availableBytes?: number;
+
+    /**
+     * @type {number}
+     * @memberof RamInfo
+     */
+    buffersCachedBytes?: number;
+
+    /**
+     * @type {number}
+     * @memberof RamInfo
+     */
+    usagePercentage?: number;
+
+    /**
+     * @type {number}
+     * @memberof RamInfo
+     */
+    availablePercentage?: number;
 }

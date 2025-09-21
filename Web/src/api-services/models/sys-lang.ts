@@ -87,7 +87,7 @@ export interface SysLang {
     name?: string | null;
 
     /**
-     * 语言代码（如 zh-CN）
+     * 语言代码（如 zh_CN）
      *
      * @type {string}
      * @memberof SysLang
