@@ -20,7 +20,7 @@
 					</el-button-group>
 				</el-form-item>
 				<el-form-item>
-					<el-button-group style="margin: 0px 12px">
+					<el-button-group>
 						<el-tooltip content="增加作业">
 							<el-button icon="ele-CirclePlus" @click="openAddJobDetail" v-auth="'sysJob:addJobDetail'"> </el-button>
 						</el-tooltip>
@@ -31,7 +31,7 @@
 							<el-button icon="ele-VideoPause" @click="pauseAllJob" />
 						</el-tooltip>
 					</el-button-group>
-					<el-button-group style="margin: 0px 12px 0px 0px">
+					<el-button-group>
 						<el-tooltip content="强制唤醒作业调度器">
 							<el-button icon="ele-AlarmClock" @click="cancelSleep" />
 						</el-tooltip>
@@ -151,7 +151,7 @@
 						<el-tag v-else> 否 </el-tag>
 					</template>
 				</el-table-column> -->
-				<el-table-column prop="jobDetail.updatedTime" label="更新时间" width="130" align="center" show-overflow-tooltip />
+				<el-table-column prop="jobDetail.updatedTime" label="更新时间" width="180" align="center" show-overflow-tooltip />
 				<el-table-column prop="jobDetail.properties" label="额外数据" header-align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<span v-if="(scope.row as JobDetailOutput).jobDetail?.createType != JobCreateTypeEnum.NUMBER_2"> {{ (scope.row as JobDetailOutput).jobDetail?.properties }} </span>
@@ -161,13 +161,13 @@
 									<el-tag effect="plain" type="info"> 请求参数 </el-tag>
 								</template>
 								<el-descriptions title="Http 请求参数" :column="1" size="small" :border="true">
-									<el-descriptions-item label="请求地址" label-align="right" label-class-name="job-index-descriptions-label-style">
+									<el-descriptions-item label="请求地址" label-align="right">
 										{{ getHttpJobMessage((scope.row as JobDetailOutput).jobDetail?.properties).requestUri }}
 									</el-descriptions-item>
-									<el-descriptions-item label="请求方法" label-align="right" label-class-name="job-index-descriptions-label-style">
+									<el-descriptions-item label="请求方法" label-align="right">
 										{{ getHttpMethodDesc(getHttpJobMessage((scope.row as JobDetailOutput).jobDetail?.properties).httpMethod) }}
 									</el-descriptions-item>
-									<el-descriptions-item label="请求报文体" label-align="right" label-class-name="job-index-descriptions-label-style">
+									<el-descriptions-item label="请求报文体" label-align="right">
 										{{ getHttpJobMessage((scope.row as JobDetailOutput).jobDetail?.properties).body }}
 									</el-descriptions-item>
 								</el-descriptions>
@@ -218,15 +218,15 @@
 		</el-card>
 
 		<el-drawer v-model="state.isVisibleDrawer" title="作业触发器运行记录" size="45%">
-			<el-card shadow="hover" style="margin: 8px; padding-bottom: 15px">
-				<el-table :data="state.triggerRecordData" style="width: 100%" v-loading="state.loading2" border>
+			<el-card shadow="hover" style="margin: 8px; padding-bottom: 15px; height: calc(100% - 16px); display: flex; flex-direction: column;">
+				<el-table :data="state.triggerRecordData" style="height: 100%" v-loading="state.loading2" border>
 					<el-table-column type="index" label="序号" width="55" align="center" />
 					<el-table-column prop="jobId" label="作业编号" min-width="120" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="triggerId" label="触发器编号" min-width="120" header-align="center" show-overflow-tooltip />
-					<el-table-column prop="numberOfRuns" label="当前运行次数" min-width="100" align="center" show-overflow-tooltip />
-					<el-table-column prop="lastRunTime" label="最近运行时间" min-width="130" header-align="center" show-overflow-tooltip />
-					<el-table-column prop="nextRunTime" label="下一次运行时间" min-width="130" header-align="center" show-overflow-tooltip />
-					<el-table-column prop="status" label="触发器状态" align="center" show-overflow-tooltip>
+					<el-table-column prop="numberOfRuns" label="当前运行次数" min-width="120" align="center" show-overflow-tooltip />
+					<el-table-column prop="lastRunTime" label="最近运行时间" min-width="180" header-align="center" show-overflow-tooltip />
+					<el-table-column prop="nextRunTime" label="下一次运行时间" min-width="180" header-align="center" show-overflow-tooltip />
+					<el-table-column prop="status" label="触发器状态" min-width="120" align="center" show-overflow-tooltip>
 						<template #default="scope">
 							<el-tag type="warning" effect="plain" v-if="(scope.row as SysJobTrigger).status == 0"> 积压 </el-tag>
 							<el-tag effect="plain" v-if="(scope.row as SysJobTrigger).status == 1"> 就绪 </el-tag>
@@ -243,9 +243,9 @@
 							<el-tag type="danger" effect="plain" v-if="(scope.row as SysJobTrigger).status == 12"> 未知作业处理程序 </el-tag>
 						</template>
 					</el-table-column>
-					<el-table-column prop="result" label="执行结果" header-align="center" show-overflow-tooltip />
+					<el-table-column prop="result" label="执行结果" min-width="100" header-align="center" show-overflow-tooltip />
 					<el-table-column prop="elapsedTime" label="耗时" min-width="80" align="center" show-overflow-tooltip />
-					<el-table-column prop="createdTime" label="创建时间" min-width="130" align="center" show-overflow-tooltip />
+					<el-table-column prop="createdTime" label="创建时间" min-width="180" align="center" show-overflow-tooltip />
 				</el-table>
 				<el-pagination
 					v-model:currentPage="state.tableParams2.page"
@@ -537,16 +537,20 @@ const handleCurrentChange2 = async (val: number) => {
 </script>
 
 <style lang="scss" scoped>
-/* 此样式不能为 scoped */
-// .job-index-descriptions-label-style {
-// 	width: 80px;
-// }
+:deep(.el-form-item__content) {
+    gap: 12px;
+
+    .el-button+.el-button {
+        margin-left: 0px;
+    }
+}
 
 :deep(.el-table__expanded-cell) {
     padding: 10px 45px !important;
-    .el-descriptions__body {
-        .el-descriptions__table { table-layout: fixed; }
-        .el-descriptions__label { width: 150px; }
-    }
+}
+
+:deep(.el-descriptions__body) {
+    .el-descriptions__table { table-layout: fixed; }
+    .el-descriptions__label { width: 80px; }
 }
 </style>
