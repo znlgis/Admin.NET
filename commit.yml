@@ -2,25 +2,25 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid '66c655854fe93b50f833e6d10daf707c8e63b4d8'
-    oldFile: !uuid '27408f2325277bdeb551780e0ca5c53207ceea1d'
-  /Web/src:
-    newFile: !uuid 'f8a1325267133dfbd4d1f71de841ed3604667220'
-    oldFile: !uuid '081bf8b03069b0c9109f5258b0ae4d8ba0a6a1fd'
-  /Web/src/views:
-    newFile: !uuid '47b94e6b3a235d9c1aeac0eecd7dc6342c601bf6'
-    oldFile: !uuid 'c0343364b61767878f8869a7abf3d723c8491d6f'
-  /Web/src/views/system:
-    newFile: !uuid '02e904db76347ab3b26d1921f5358b3a2cb40ff1'
-    oldFile: !uuid '3d5da1d90616c39122ac7dd527bad970496508ad'
-  /Web/src/views/system/job:
-    newFile: !uuid 'd7a7455b787c5bce624d72b219cb55091bf54f51'
-    oldFile: !uuid '7e07b29412376e1a4ac050133d413a8d60411c69'
-  /Web/src/views/system/job/index.vue:
-    newFile: !uuid 'a25b166bc83fb7ad855e20d9f0fb47ea62f48242'
-    oldFile: !uuid '8133438b190e8efd12154ec68e01ba4cbec97c6b'
-gitCommitId: !uuid '33eb8743a53d11e0c361885f50532f325919e7e6'
+  /Admin.NET:
+    newFile: !uuid '2d2906b37ceb26bf915b1292fa1e637fd3e4786a'
+    oldFile: !uuid 'a8aa2a3a8a3224d3e9ed21be1353865b7c43f7a4'
+  /Admin.NET/Plugins:
+    newFile: !uuid 'b0c1fab760c9ba6569463ab6dcea53df207d8fd5'
+    oldFile: !uuid '103ebad56b37b2f93763296fe448fd61e81ff4f2'
+  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud:
+    newFile: !uuid 'b3535b880df34dcdc40def3cfc1d26825297525f'
+    oldFile: !uuid 'd4288b0f67564fabd1f33eebb4eed1c507dd957b'
+  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Service:
+    newFile: !uuid '67d349847489334b47542adc8dd6a394615e53bd'
+    oldFile: !uuid '7e06282b99cfc396e2ea2ca3b6f8c355fe52ad5f'
+  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Service/Dto:
+    newFile: !uuid '7306c2d6108c422c9149e865e9783cef474ac16a'
+    oldFile: !uuid '5dec8cf0d540738e3a6360842c5b08859eae0a3d'
+  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Service/Dto/K3CloudLoginOutput.cs:
+    newFile: !uuid '89c2963de0576573cc2ce652706ddefbbd80e2e1'
+    oldFile: !uuid '43e0c25aa8ddb59eea9afa146665010f28fe5055'
+gitCommitId: !uuid 'eff9876173de05670311c7f0e4a44e326ff0fd64'
 renames: {
   }
-revisionId: 2990
+revisionId: 2991
