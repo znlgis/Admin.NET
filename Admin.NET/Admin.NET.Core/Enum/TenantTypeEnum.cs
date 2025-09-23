@@ -13,9 +13,9 @@ namespace Admin.NET.Core;
 public enum TenantTypeEnum
 {
     /// <summary>
-    /// Id隔离
+    /// ID隔离
     /// </summary>
-    [Description("Id隔离")]
+    [Description("ID隔离")]
     Id = 0,
 
     /// <summary>
