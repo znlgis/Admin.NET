@@ -424,7 +424,7 @@ public class SysAuthService : IDynamicApiController, ITransient
         _captcha.Generate(input.CodeId.ToString());
 
         // 登录时隐藏租户，查找对应租户信息
-        input.TenantId = input.TenantId <= 0? (await _sysTenantService.GetCurrentTenantSysInfo()).Id : input.TenantId;
+        input.TenantId = input.TenantId <= 0 ? (await _sysTenantService.GetCurrentTenantSysInfo()).Id : input.TenantId;
 
         // 判断租户是否有效且启用注册功能
         var tenant = await _sysUserRep.Context.Queryable<SysTenant>().FirstAsync(u => u.Id == input.TenantId && u.Status == StatusEnum.Enable);

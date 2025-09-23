@@ -221,7 +221,8 @@ public class SysMenuService : IDynamicApiController, ITransient
         var sysMenu = input.Adapt<SysMenu>();
         CheckMenuParam(sysMenu);
 
-        await _sysMenuRep.AsTenant().UseTranAsync(async () => {
+        await _sysMenuRep.AsTenant().UseTranAsync(async () =>
+        {
             // 更新菜单
             await _sysMenuRep.AsUpdateable(sysMenu).ExecuteCommandAsync();
 
@@ -239,10 +240,10 @@ public class SysMenuService : IDynamicApiController, ITransient
                     Content = sysMenu.Title
                 });
             }
-        }, err => {
+        }, err =>
+        {
             Oops.Oh("更新数据时发生错误", err.Message);
         });
-        
 
         // 清除缓存
         DeleteMenuCache();
