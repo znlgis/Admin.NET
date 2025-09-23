@@ -3,24 +3,42 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '2d2906b37ceb26bf915b1292fa1e637fd3e4786a'
-    oldFile: !uuid 'a8aa2a3a8a3224d3e9ed21be1353865b7c43f7a4'
-  /Admin.NET/Plugins:
-    newFile: !uuid 'b0c1fab760c9ba6569463ab6dcea53df207d8fd5'
-    oldFile: !uuid '103ebad56b37b2f93763296fe448fd61e81ff4f2'
-  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud:
-    newFile: !uuid 'b3535b880df34dcdc40def3cfc1d26825297525f'
-    oldFile: !uuid 'd4288b0f67564fabd1f33eebb4eed1c507dd957b'
-  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Service:
-    newFile: !uuid '67d349847489334b47542adc8dd6a394615e53bd'
-    oldFile: !uuid '7e06282b99cfc396e2ea2ca3b6f8c355fe52ad5f'
-  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Service/Dto:
-    newFile: !uuid '7306c2d6108c422c9149e865e9783cef474ac16a'
-    oldFile: !uuid '5dec8cf0d540738e3a6360842c5b08859eae0a3d'
-  /Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Service/Dto/K3CloudLoginOutput.cs:
-    newFile: !uuid '89c2963de0576573cc2ce652706ddefbbd80e2e1'
-    oldFile: !uuid '43e0c25aa8ddb59eea9afa146665010f28fe5055'
-gitCommitId: !uuid 'eff9876173de05670311c7f0e4a44e326ff0fd64'
+    newFile: !uuid 'f13e85a95c90a09b78beb4fe11f6f1bb438d6b66'
+    oldFile: !uuid '2d2906b37ceb26bf915b1292fa1e637fd3e4786a'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid 'bb9f773b40db35988fcd30ff95e664a83bd79a24'
+    oldFile: !uuid '7704f519a2fc5a5f476123b92246c4e52ef26dac'
+  /Admin.NET/Admin.NET.Core/Enum:
+    newFile: !uuid 'c132820a90a9c342e0977562930975f470e3c60d'
+    oldFile: !uuid 'bc32e3cd4c3b2497265f185a7f9ac8f286548c52'
+  /Admin.NET/Admin.NET.Core/Enum/TenantTypeEnum.cs:
+    newFile: !uuid 'c9eeb90d84d701e3c0582a18085baac1c3eb1370'
+    oldFile: !uuid '2873d0e4e99810800d61fe2a20ed9a9314c74fb8'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid '01a9e631212a7c6c2bb0b214a019811af9da81b9'
+    oldFile: !uuid '2ce987f4d455c4a84799190888e464dfa67ef35b'
+  /Admin.NET/Admin.NET.Core/Service/Region:
+    newFile: !uuid '37f4ca706d70c27e2c9d35f790b416eecb8271a8'
+    oldFile: !uuid '25ac633b0a849ee9e8948e2c52eedd54c5e702ab'
+  /Admin.NET/Admin.NET.Core/Service/Region/SysRegionService.cs:
+    newFile: !uuid 'd81c9617b0fa9f4bb1079c1df8a52a9ac0d6b122'
+    oldFile: !uuid '2ea167d354bba53584fbee513d363eb811269f2e'
+  /Web:
+    newFile: !uuid '35ae729f76d66449d62780364cc749f3c4dba2b1'
+    oldFile: !uuid '66c655854fe93b50f833e6d10daf707c8e63b4d8'
+  /Web/src:
+    newFile: !uuid 'ada895b835b8e1f6dfd4cc9002ebde5012071809'
+    oldFile: !uuid 'f8a1325267133dfbd4d1f71de841ed3604667220'
+  /Web/src/components:
+    newFile: !uuid 'ba41397e8803d502abf2ce616555c9f29265f511'
+    oldFile: !uuid '3ee8f893d10bff8df7394a5ed788115abc8b59cb'
+  /Web/src/components/svgIcon:
+    newFile: !uuid 'a31fc58a61a2a96bb5a9fb5240ce204692b5cc0c'
+    oldFile: !uuid '08fa2742f025005bc1b4278918a1889e30855f64'
+  /Web/src/components/svgIcon/index.vue:
+    newFile: !uuid 'badf7bc6f898edec529b96d28e0adc5e808bf2d3'
+    oldFile: !uuid 'e0140cffbbb7f9e7e142a799938571e98c7803ed'
+gitCommitId: !uuid '90ecb14cd9409cdd7eb5c6e547123c9acdf3cb3a'
 renames: {
   }
-revisionId: 2991
+revisionId: 2992
