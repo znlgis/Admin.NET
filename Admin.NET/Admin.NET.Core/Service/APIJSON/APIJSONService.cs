@@ -40,7 +40,7 @@ public class APIJSONService : IDynamicApiController, ITransient
         var database = jobject["@database"]?.ToString();
         if (!string.IsNullOrEmpty(database))
         {
-            // 设置数据库 
+            // 设置数据库
             var provider = _db.AsTenant().GetConnectionScope(database);
             jobject.Remove("@database");
             return new SelectTable(_identityService, _tableMapper, provider).Query(jobject);
