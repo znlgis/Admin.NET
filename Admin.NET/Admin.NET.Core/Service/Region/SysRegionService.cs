@@ -157,7 +157,7 @@ public class SysRegionService : IDynamicApiController, ITransient
             await _sysRegionRep.DeleteAsync(u => u.Id > 0);
             await SyncByMap(syncLevel);
         }, err => {
-            throw Oops.Oh(ErrorCodeEnum.R2005);
+            throw Oops.Oh(ErrorCodeEnum.R2005, err.Message);
         });
         
 
@@ -352,14 +352,16 @@ public class SysRegionService : IDynamicApiController, ITransient
             
             // 按省份同步快速写入提升同步效率，全部一次性写入容易出现从统计局获取数据失败
             // 仅当数据量大于1000或非Oracle数据库时采用大数据量写入方式（SqlSugar官方已说明，数据量小于1000时，其性能不如普通插入, oracle此方法不支持事务）
-            if (list.Count > 1000 || _sysRegionRep.Context.CurrentConnectionConfig.DbType != SqlSugar.DbType.Oracle)
+            if (list.Count > 1000 && _sysRegionRep.Context.CurrentConnectionConfig.DbType != SqlSugar.DbType.Oracle)
             {
                 // 执行大数据量写入
-                var t = _sysRegionRep.Context.Fastest<SysRegion>().BulkCopyAsync(list);
-
-                // 若写入失败则尝试普通插入方式
-                if (t.Exception != null)
+                try
                 {
+                    await _sysRegionRep.Context.Fastest<SysRegion>().BulkCopyAsync(list);
+                }
+                catch(SqlSugarException)
+                {
+                    // 若写入失败则尝试普通插入方式
                     await _sysRegionRep.InsertRangeAsync(list);
                 }
             }
