@@ -401,15 +401,15 @@ public static class SqlSugarSetup
     {
         var dbProvider = db.GetConnectionScope(config.ConfigId);
 
-        // 等待数据库连接就绪
-        WaitForDatabaseReady(dbProvider);
-
-        // 初始化数据库
+        // 初始化数据库  如果是没有数据库的话，是先初始化数据库再做连接
         if (config.DbSettings.EnableInitDb)
         {
             Log.Information($"初始化数据库 {config.DbType} - {config.ConfigId} - {config.ConnectionString}");
             if (config.DbType != DbType.Oracle) dbProvider.DbMaintenance.CreateDatabase();
         }
+
+        // 等待数据库连接就绪   
+        WaitForDatabaseReady(dbProvider);
 
         // 初始化表结构
         if (config.TableSettings.EnableInitTable)
