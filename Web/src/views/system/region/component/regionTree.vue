@@ -1,5 +1,5 @@
 <template>
-	<el-card class="box-card" shadow="hover" style="height: 100%" body-style="height:100%; overflow:auto">
+	<el-card class="box-card" shadow="hover" style="height: 100%" body-style="height:calc(100% - 65px); overflow:auto">
 		<template #header>
 			<div class="card-header">
 				<div class="tree-h-flex">
@@ -26,7 +26,7 @@
 				</div>
 			</div>
 		</template>
-		<div style="margin-bottom: 45px" v-loading="state.loading">
+		<div v-loading="state.loading">
 			<el-tree
 				ref="treeRef"
 				class="filter-tree"

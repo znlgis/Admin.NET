@@ -6,24 +6,26 @@
 			</el-splitter-panel>
 			<el-splitter-panel :min="200" style="overflow: auto; display: flex; flex-direction: column;">
 				<el-card class="full-table" shadow="hover">
-					<el-form :model="state.queryParams" ref="queryForm" :inline="true">
-						<el-form-item label="行政名称">
-							<el-input v-model="state.queryParams.name" placeholder="行政名称" clearable />
-						</el-form-item>
-						<el-form-item label="行政代码">
-							<el-input v-model="state.queryParams.code" placeholder="行政代码" clearable />
-						</el-form-item>
-						<el-form-item>
-							<el-button-group>
-								<el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'sysRegion:page'"> 查询 </el-button>
-								<el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
-							</el-button-group>
-						</el-form-item>
-						<el-form-item>
-							<el-button type="primary" icon="ele-Plus" @click="openAddRegion" v-auth="'sysRegion:add'"> 新增 </el-button>
-							<el-button type="danger" icon="ele-Lightning" @click="handlSync" v-auth="'sysRegion:sync'"> 同步统计局 </el-button>
-						</el-form-item>
-					</el-form>
+                    <template #header>
+                        <el-form :model="state.queryParams" ref="queryForm" :inline="true">
+                            <el-form-item label="行政名称">
+                                <el-input v-model="state.queryParams.name" placeholder="行政名称" clearable />
+                            </el-form-item>
+                            <el-form-item label="行政代码">
+                                <el-input v-model="state.queryParams.code" placeholder="行政代码" clearable />
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button-group>
+                                    <el-button type="primary" icon="ele-Search" @click="handleQuery" v-auth="'sysRegion:page'"> 查询 </el-button>
+                                    <el-button icon="ele-Refresh" @click="resetQuery"> 重置 </el-button>
+                                </el-button-group>
+                            </el-form-item>
+                            <el-form-item>
+                                <el-button type="primary" icon="ele-Plus" @click="openAddRegion" v-auth="'sysRegion:add'"> 新增 </el-button>
+                                <el-button type="danger" icon="ele-Lightning" @click="handlSync" v-auth="'sysRegion:sync'"> 同步统计局 </el-button>
+                            </el-form-item>
+                        </el-form>
+                    </template>
 					<el-table :data="state.regionData" style="width: 100%" v-loading="state.loading" row-key="id" default-expand-all :tree-props="{ children: 'children', hasChildren: 'hasChildren' }" border>
 						<el-table-column prop="name" label="行政名称" align="center" show-overflow-tooltip />
 						<el-table-column prop="code" label="行政代码" align="center" show-overflow-tooltip />
@@ -179,3 +181,10 @@ const handleCurrentChange = async (val: number) => {
 	await handleQuery();
 };
 </script>
+<style lang="scss" scoped>
+.full-table {
+    :deep(.el-card__header) {
+        padding: 10px 20px;
+    }
+}
+</style>
