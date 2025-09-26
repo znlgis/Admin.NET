@@ -554,7 +554,7 @@ public static class SqlSugarSetup
             var entityType = seedType.GetInterfaces().First().GetGenericArguments().First();
             if (!IsEntityForConfig(entityType, config)) return;
 
-            var seedData = GetSeedData(seedType);
+            var seedData = GetSeedData(seedType)?.ToList();
             if (seedData == null) return;
 
             AdjustSeedDataIds(seedData, config);
