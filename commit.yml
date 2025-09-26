@@ -2,19 +2,34 @@
 branches: {
   }
 fileChange:
-  /Admin.NET:
-    newFile: !uuid '85d54184da29befa696ee647c72766d1134708e5'
-    oldFile: !uuid 'beb39dec8690d2c90b8b6a983b9302cb3d839198'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'a55cac4d6cbb221c8fd907f671c484ec10694ce2'
-    oldFile: !uuid '53af7e6380f0df9bfe3de8d42071f14f234bf0c1'
-  /Admin.NET/Admin.NET.Core/SqlSugar:
-    newFile: !uuid '2ae4be0372ac8d68295d1860ee3a3bf0b23e3f58'
-    oldFile: !uuid '1ff5c4cd4c5e580d9d82789273ebeb8252ce7d56'
-  /Admin.NET/Admin.NET.Core/SqlSugar/SqlSugarSetup.cs:
-    newFile: !uuid '0078cc35fd16ce8090bdfbdfa398d1268f247ff5'
-    oldFile: !uuid '8d8e58b05ead83121d964e2f4ba57a447fa76fcf'
-gitCommitId: !uuid 'ce1317900b0f76f9156efba887c63d7513d0a7c4'
+  /Web:
+    newFile: !uuid 'd043015b323f7e4c56697e24d82164425d74af22'
+    oldFile: !uuid '5337db9e620c7ed4012f91e94d9d513fa55e9a76'
+  /Web/src:
+    newFile: !uuid '6241a1162d2703290d43526e0671922802b405c2'
+    oldFile: !uuid 'ada895b835b8e1f6dfd4cc9002ebde5012071809'
+  /Web/src/views:
+    newFile: !uuid '1b9ecc22d18496a3d67964deec723601435933ef'
+    oldFile: !uuid '47b94e6b3a235d9c1aeac0eecd7dc6342c601bf6'
+  /Web/src/views/system:
+    newFile: !uuid 'bf6e5649add528b684579e40eae9f9b9605b0df7'
+    oldFile: !uuid '02e904db76347ab3b26d1921f5358b3a2cb40ff1'
+  /Web/src/views/system/region:
+    newFile: !uuid '5b2b6ffce3dc6c51d755d0005f3d7191e9feea7f'
+    oldFile: !uuid '74ff088a0d0119caaba89039dce0144e84256366'
+  /Web/src/views/system/region/component:
+    newFile: !uuid 'd9f966b0e4146b166ff4cbfb7c06eae171e1815e'
+    oldFile: !uuid '3ef17a3590358866c4b7c4805fdeae8c72a49dfe'
+  /Web/src/views/system/region/component/editRegion.vue:
+    newFile: !uuid 'cab78d9e62d5ad61ce62aa2d59e99a743895aec3'
+    oldFile: !uuid '6ff15f3bb16166362ada5c4df478d98e49da924f'
+  /Web/src/views/system/region/component/regionTree.vue:
+    newFile: !uuid 'a2efdd3777136723a307ef85db0cb35dbf147364'
+    oldFile: !uuid '94af692e8792c3955e4b8c2b3833cc4284948016'
+  /Web/src/views/system/region/index.vue:
+    newFile: !uuid 'ab6faa6145919ce8644ad3bb4e12b27b1ca2868a'
+    oldFile: !uuid 'bffe09ee0d30f345e8334027013dcab12fa74b88'
+gitCommitId: !uuid '329bbb0e804a194088876cfcf24b3288c4bcf5f3'
 renames: {
   }
-revisionId: 2995
+revisionId: 2996
