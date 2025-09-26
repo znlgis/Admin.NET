@@ -27,9 +27,13 @@
 						</el-form-item>
 					</el-col> -->
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-						<el-form-item label="上级行政Id" prop="pid" :rules="[{ required: true, message: '上级行政Id不能为空', trigger: 'blur' }]">
+						<el-form-item label="上级行政Id" prop="pid" v-show="false" :rules="[{ required: true, message: '上级行政Id不能为空', trigger: 'blur' }]">
 							<el-input v-model="state.ruleForm.pid" placeholder="上级行政Id或上级行政代码或默认0" clearable />
 						</el-form-item>
+                        <el-form-item label="上级行政" v-if="!state.ruleForm.id">
+                            <!-- <span>{{state.parentNamePath}}</span> -->
+                            <el-input v-model="state.parentNamePath" disabled></el-input>
+                        </el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-form-item label="行政名称" prop="name" :rules="[{ required: true, message: '行政名称不能为空', trigger: 'blur' }]">
@@ -83,12 +87,13 @@ const ruleFormRef = ref();
 const state = reactive({
 	isShowDialog: false,
 	ruleForm: {} as UpdateRegionInput,
+    parentNamePath: '顶级'
 });
-// 级联选择器配置选项
-//const cascaderProps = { checkStrictly: true, emitPath: false, value: 'id', label: 'name' };
 
 // 打开弹窗
-const openDialog = (row: any) => {
+const openDialog = (row: any, parentNamePath?: string) => {
+    if(parentNamePath) state.parentNamePath = parentNamePath;
+
 	state.ruleForm = JSON.parse(JSON.stringify(row));
 	state.isShowDialog = true;
 	ruleFormRef.value?.resetFields();
