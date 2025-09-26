@@ -6,7 +6,8 @@
 					<template #header>
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典
 					</template>
-					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true" @submit.native.prevent>
+                    
+					<el-form :model="state.queryDictTypeParams" ref="queryForm" :inline="true" @submit.native.prevent class="handle-form">
 						<el-form-item label="名称">
 							<el-input v-model="state.queryDictTypeParams.name" @keyup.enter.native="handleDictTypeQuery" placeholder="字典名称" clearable />
 						</el-form-item>
@@ -23,24 +24,24 @@
 							<el-button type="primary" icon="ele-Plus" @click="openAddDictType" v-auth="'sysDictType:add'"> 新增 </el-button>
 						</el-form-item>
 					</el-form>
-
+                    
 					<el-table :data="state.dictTypeData" style="width: 100%" v-loading="state.typeLoading" @row-click="handleDictType" highlight-current-row @sort-change="sortChangeDityType" border>
 						<el-table-column type="index" label="序号" width="55" align="center" sortable='custom' />
 						<el-table-column prop="name" label="字典名称" min-width="120" header-align="center" sortable='custom' show-overflow-tooltip />
 						<el-table-column prop="code" label="字典编码" min-width="140" header-align="center" sortable='custom' show-overflow-tooltip />
 						<el-table-column prop="sysFlag" label="系统内置" min-width="90" align="center" sortable='custom' show-overflow-tooltip v-if="userInfo.accountType === AccountTypeEnum.NUMBER_999">
 							<template #default="scope">
-                <g-sys-dict v-model="scope.row.sysFlag" code="YesNoEnum" />
+                                <g-sys-dict v-model="scope.row.sysFlag" code="YesNoEnum" />
 							</template>
 						</el-table-column>
 						<el-table-column prop="isTenant" label="租户字典" min-width="90" align="center"  sortable='custom'  show-overflow-tooltip v-if="userInfo.accountType === AccountTypeEnum.NUMBER_999">
 							<template #default="scope">
-                <g-sys-dict v-model="scope.row.isTenant" code="YesNoEnum" />
+                                <g-sys-dict v-model="scope.row.isTenant" code="YesNoEnum" />
 							</template>
 						</el-table-column>
 						<el-table-column prop="status" label="状态" width="80" align="center"  sortable='custom'  show-overflow-tooltip>
 							<template #default="scope">
-                <g-sys-dict v-model="scope.row.status" code="StatusEnum" />
+                                <g-sys-dict v-model="scope.row.status" code="StatusEnum" />
 							</template>
 						</el-table-column>
 						<el-table-column prop="orderNo" label="排序" width="80" align="center"  sortable='custom'  show-overflow-tooltip />
@@ -79,7 +80,7 @@
 					<template #header>
 						<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"><ele-Collection /></el-icon>字典值【{{ state.editDictTypeName }}】
 					</template>
-					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true" @submit.native.prevent>
+					<el-form :model="state.queryDictDataParams" ref="queryForm" :inline="true" @submit.native.prevent class="handle-form">
 						<el-form-item label="显示文本">
 							<el-input v-model="state.queryDictDataParams.label" placeholder="显示文本" @keyup.enter="handleDictDataQuery" />
 						</el-form-item>
@@ -111,7 +112,7 @@
 						</el-table-column>
 						<el-table-column prop="status" label="状态" width="70" align="center" show-overflow-tooltip>
 							<template #default="scope">
-                <g-sys-dict v-model="scope.row.status" code="StatusEnum" />
+                                <g-sys-dict v-model="scope.row.status" code="StatusEnum" />
 							</template>
 						</el-table-column>
 						<el-table-column prop="orderNo" label="排序" width="60" align="center" show-overflow-tooltip />
@@ -158,7 +159,7 @@ import { onMounted, reactive, ref } from 'vue';
 import { getAPI } from '/@/utils/axios-utils';
 import { useUserInfo } from '/@/stores/userInfo';
 import { ElMessageBox, ElMessage } from 'element-plus';
-import {SysDictType, SysDictData, UpdateDictDataInput, AccountTypeEnum} from '/@/api-services/models';
+import {SysDictType, SysDictData, AccountTypeEnum} from '/@/api-services/models';
 import { SysDictTypeApi, SysDictDataApi } from '/@/api-services/api';
 import EditDictType from '/@/views/system/dict/component/editDictType.vue';
 import EditDictData from '/@/views/system/dict/component/editDictData.vue';
@@ -361,9 +362,16 @@ const updateDictSession = async () => {
 };
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .sys-dict-container {
     flex-direction: row !important;
+}
+.handle-form {
+    margin-bottom: var(--el-card-padding);
+
+    .el-form-item, .el-form-item:last-of-type {
+        margin: 0 10px !important;
+    }
 }
 :deep(.notice-bar) {
 	position: absolute;
