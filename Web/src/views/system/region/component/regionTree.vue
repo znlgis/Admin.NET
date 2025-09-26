@@ -86,9 +86,52 @@ const loadNode = async (node: any, resolve: any) => {
 	resolve(data);
 };
 
-// 获取已经选择
+/**
+ * 获取选中节点的Keys
+ * @returns 选中节点的Key数组
+ */
 const getCheckedKeys = () => {
-	return treeRef.value!.getCheckedKeys();
+    return treeRef.value!.getCheckedKeys();
+};
+
+/**
+ * 获取当前选中节点
+ * @returns 当前选中节点
+ */
+const getCurrentNode = () => {
+    return treeRef.value!.getCurrentNode();
+};
+
+/**
+ * 获取当前选中节点的路径数组
+ * （从根节点到当前节点，按下标顺序排列）
+ * @returns {Array<{ id: number, name: string }>} 路径数组
+ */
+const getCurrentPath = () => {
+    const currentNode = getCurrentNode();
+    if(!currentNode) return null;
+
+    const cascaderData = getCascaderData(currentNode);
+    const path = [] as Array<{ id: number, name: string }>;
+    let node = cascaderData;
+    while(node) {
+        path.push({ id: node.id, name: node.name });
+        node = node.child;
+    }
+    return path;
+};
+
+// 递归获取当前选中级联数据
+const getCascaderData = (child: any) => {
+    const parent = treeRef.value!.getNode(child.pid)?.data as SysRegion & { child?: SysRegion };
+    if(!parent) return child;
+
+    parent.child = child;
+    if(parent.pid != 0) {
+        return getCascaderData(parent);
+    }
+
+    return parent;
 };
 
 const filterNode = (value: string, data: any) => {
@@ -119,7 +162,7 @@ const nodeClick = (node: any) => {
 };
 
 // 导出对象
-defineExpose({ initTreeData, getCheckedKeys });
+defineExpose({ initTreeData, getCheckedKeys, getCurrentNode, getCurrentPath });
 </script>
 
 <style lang="scss" scoped>

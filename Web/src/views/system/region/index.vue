@@ -116,7 +116,9 @@ const resetQuery = async () => {
 // 打开新增页面
 const openAddRegion = () => {
 	state.editRegionTitle = '添加行政区域';
-	editRegionRef.value?.openDialog({ orderNo: 100 });
+    const parent = regionTreeRef.value?.getCurrentNode() ?? { id: 0, name: "顶级" };
+    const parentPath = regionTreeRef.value?.getCurrentPath() ?? null;
+	editRegionRef.value?.openDialog({ orderNo: 100, pid: parent.id }, parentPath ? parentPath.map(i => i.name).join(' / ') : '顶级');
 };
 
 // 打开编辑页面
