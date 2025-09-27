@@ -7,6 +7,7 @@
 using Aliyun.OSS.Util;
 using Furion.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
+using Microsoft.Extensions.Configuration;
 
 namespace Admin.NET.Core.Service;
 
@@ -20,6 +21,7 @@ public class SysFileService : IDynamicApiController, ITransient
     private readonly SqlSugarRepository<SysFile> _sysFileRep;
     private readonly OSSProviderOptions _OSSProviderOptions;
     private readonly UploadOptions _uploadOptions;
+    private readonly IConfiguration _configuration;
     private readonly string _imageType = ".jpeg.jpg.png.bmp.gif.tif";
     private readonly INamedServiceProvider<ICustomFileProvider> _namedServiceProvider;
     private readonly ICustomFileProvider _customFileProvider;
@@ -27,18 +29,24 @@ public class SysFileService : IDynamicApiController, ITransient
     public SysFileService(UserManager userManager,
         SqlSugarRepository<SysFile> sysFileRep,
         IOptions<OSSProviderOptions> oSSProviderOptions,
-        IOptions<UploadOptions> uploadOptions, INamedServiceProvider<ICustomFileProvider> namedServiceProvider)
+        IOptions<UploadOptions> uploadOptions,
+        INamedServiceProvider<ICustomFileProvider> namedServiceProvider,
+        IConfiguration configuration)
     {
         _namedServiceProvider = namedServiceProvider;
         _userManager = userManager;
         _sysFileRep = sysFileRep;
         _OSSProviderOptions = oSSProviderOptions.Value;
         _uploadOptions = uploadOptions.Value;
-        if (_OSSProviderOptions.Enabled)
+        _configuration = configuration;
+
+        // 简化提供者选择逻辑
+        if (_OSSProviderOptions.Enabled || _configuration["MultiOSS:Enabled"].ToBoolean())
         {
-            _customFileProvider = _namedServiceProvider.GetService<ITransient>(nameof(OSSFileProvider));
+            // 统一使用MultiOSSFileProvider处理所有OSS情况
+            _customFileProvider = _namedServiceProvider.GetService<ITransient>(nameof(MultiOSSFileProvider));
         }
-        else if (App.Configuration["SSHProvider:Enabled"].ToBoolean())
+        else if (_configuration["SSHProvider:Enabled"].ToBoolean())
         {
             _customFileProvider = _namedServiceProvider.GetService<ITransient>(nameof(SSHFileProvider));
         }
@@ -87,7 +95,7 @@ public class SysFileService : IDynamicApiController, ITransient
         if (string.IsNullOrEmpty(input.FileName))
             input.FileName = $"{YitIdHelper.NextId()}.{contentType.AsSpan(contentType.LastIndexOf('/') + 1)}";
 
-        var ms = new MemoryStream();
+        using var ms = new MemoryStream();
         ms.Write(fileData);
         ms.Seek(0, SeekOrigin.Begin);
         IFormFile formFile = new FormFile(ms, 0, fileData.Length, "file", input.FileName)
@@ -106,10 +114,14 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="files"></param>
     /// <returns></returns>
     [DisplayName("上传多文件")]
-    public List<SysFile> UploadFiles([Required] List<IFormFile> files)
+    public async Task<List<SysFile>> UploadFiles([Required] List<IFormFile> files)
     {
         var fileList = new List<SysFile>();
-        files.ForEach(file => fileList.Add(UploadFile(new UploadFileInput { File = file }).Result));
+        foreach (var file in files)
+        {
+            var uploadedFile = await UploadFile(new UploadFileInput { File = file });
+            fileList.Add(uploadedFile);
+        }
         return fileList;
     }
 
@@ -221,8 +233,11 @@ public class SysFileService : IDynamicApiController, ITransient
     [DisplayName("获取文件路径")]
     public async Task<List<TreeNode>> GetFolder()
     {
-        var files = await _sysFileRep.AsQueryable().ToListAsync();
-        var folders = files.GroupBy(u => u.FilePath).Select(u => u.First().FilePath).ToList();
+        // 优化：直接在数据库层面获取不重复的文件路径
+        var folders = await _sysFileRep.AsQueryable()
+            .Select(u => u.FilePath)
+            .Distinct()
+            .ToListAsync();
 
         var pathTreeBuilder = new PathTreeBuilder();
         var tree = pathTreeBuilder.BuildTree(folders);
@@ -287,7 +302,18 @@ public class SysFileService : IDynamicApiController, ITransient
 
         var newFile = input.Adapt<SysFile>();
         newFile.Id = YitIdHelper.NextId();
-        newFile.BucketName = _OSSProviderOptions.Enabled ? _OSSProviderOptions.Bucket : "Local"; // 阿里云对bucket名称有要求，1.只能包括小写字母，数字，短横线（-）2.必须以小写字母或者数字开头  3.长度必须在3-63字节之间
+
+        // 优先使用用户指定的存储桶名称，如果没有指定则使用默认配置
+        if (!string.IsNullOrEmpty(input.BucketName))
+        {
+            newFile.BucketName = input.BucketName;
+        }
+        else
+        {
+            // MultiOSSFileProvider会自动使用默认配置
+            newFile.BucketName = _OSSProviderOptions.Enabled ? _OSSProviderOptions.Bucket : "Local";
+        }
+
         newFile.FileName = Path.GetFileNameWithoutExtension(input.File.FileName);
         newFile.Suffix = suffix;
         newFile.SizeKb = sizeKb;
@@ -318,7 +344,17 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!string.IsNullOrWhiteSpace(user.Avatar))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Avatar);
-            await DeleteFile(new BaseIdInput { Id = long.Parse(fileId) });
+            if (long.TryParse(fileId, out var id))
+            {
+                try
+                {
+                    await DeleteFile(new BaseIdInput { Id = id });
+                }
+                catch
+                {
+                    // 忽略删除旧头像文件的错误，不影响新头像上传
+                }
+            }
         }
 
         return sysFile;
@@ -340,7 +376,17 @@ public class SysFileService : IDynamicApiController, ITransient
         if (!string.IsNullOrWhiteSpace(user.Signature) && user.Signature.EndsWith(".png"))
         {
             var fileId = Path.GetFileNameWithoutExtension(user.Signature);
-            await DeleteFile(new BaseIdInput { Id = long.Parse(fileId) });
+            if (long.TryParse(fileId, out var id))
+            {
+                try
+                {
+                    await DeleteFile(new BaseIdInput { Id = id });
+                }
+                catch
+                {
+                    // 忽略删除旧签名文件的错误，不影响新签名上传
+                }
+            }
         }
         await sysUserRep.UpdateAsync(u => new SysUser() { Signature = sysFile.Url }, u => u.Id == user.Id);
         return sysFile;
@@ -375,7 +421,7 @@ public class SysFileService : IDynamicApiController, ITransient
     /// <param name="dataId"></param>
     /// <returns></returns>
     [NonAction]
-    public async Task DeteleFileByDataId(long dataId)
+    public async Task DeleteFileByDataId(long dataId)
     {
         // 删除冗余无效的物理文件
         var tmpFiles = await _sysFileRep.GetListAsync(u => u.DataId == dataId);
