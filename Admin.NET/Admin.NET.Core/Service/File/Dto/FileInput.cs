@@ -62,6 +62,16 @@ public class UploadFileInput
     /// 允许格式：.jpeg.jpg.png.bmp.gif.tif
     /// </summary>
     public string AllowSuffix { get; set; }
+
+    /// <summary>
+    /// 指定存储桶名称
+    /// </summary>
+    public string? BucketName { get; set; }
+
+    /// <summary>
+    /// 指定存储提供者ID
+    /// </summary>
+    public long? ProviderId { get; set; }
 }
 
 /// <summary>

@@ -179,3 +179,40 @@ export function formatTimeDiff(dateBegin: Date, dateEnd: Date,) {
 	}
 	return result;
 }
+
+/**
+ * 将时间字符串格式化为 `YYYY-mm-dd HH:MM:SS` 格式
+ * @param timeStr 时间字符串，支持非时区格式，如 `YYYYmmdd`、`YYYYmmddHH`、`YYYYmmddHHMM`、`YYYYmmddHHMMSS`、`YYYY/mm/dd`、`YYYY年mm月dd日`等
+ * @param length 返回的时间字符串长度，默认0表示自动识别长度
+ * @returns 返回格式化后的时间字符串
+ */
+export function formatDateString(timeStr: string | null | undefined, length: number = 0): string {
+	if (!timeStr) return '';
+
+	let str = timeStr.replace(/\D/g, '');
+	let len = str.length;
+
+	if (len <= 4) return str;
+
+	// 处理奇数长度：在最后一位前补0
+	if (len & 1) {
+		len++;
+		str = str.slice(0, -1) + '0' + str.slice(-1);
+	}
+
+	str = str.padEnd(14, '0');
+
+	// 提取各时间部分
+	const [year, month, day, hour, minute, second] = [0, 4, 6, 8, 10, 12].map(index => str.slice(index, (index || 2) + 2));
+
+	// 计算长度，长度为10时，显示分钟
+	const targetLength = length > 0 ? length : len + (len - 4) / 2 + (len == 10 ? 3 : 0);
+
+	// 处理0/00的修正函数
+	const fixZero = (value: string) => ['0', '00'].includes(value) ? '01' : value;
+
+	// 生成完整格式字符串
+	const fullFormat = `${year}-${fixZero(month)}-${fixZero(day)} ${hour}:${minute}:${second}`;
+
+	return fullFormat.slice(0, targetLength);
+}
