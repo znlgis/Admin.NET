@@ -72,8 +72,7 @@
 							show-overflow-tooltip />
 						<el-table-column label="状态" width="70" align="center" show-overflow-tooltip>
 							<template #default="scope">
-								<el-switch v-model="scope.row.status" :active-value="1" :inactive-value="2" size="small"
-									@change="changeStatus(scope.row)" v-auth="'sysUser:setStatus'" />
+								<TagSwitch v-model="scope.row.status" :active-value="1" :inactive-value="2" code="StatusEnum" @change="changeStatus(scope.row)" v-auth="'sysUser:setStatus'" />
 							</template>
 						</el-table-column>
 						<el-table-column prop="orderNo" label="排序" width="70" align="center" show-overflow-tooltip />
@@ -140,6 +139,7 @@ import 'splitpanes/dist/splitpanes.css';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysUserApi, SysOrgApi } from '/@/api-services/api';
 import { SysUser, UpdateUserInput, OrgTreeOutput } from '/@/api-services/models';
+import TagSwitch from '/@/components/TagSwitch/index.vue';
 
 const orgTreeRef = ref<InstanceType<typeof OrgTree>>();
 const editUserRef = ref<InstanceType<typeof EditUser>>();
