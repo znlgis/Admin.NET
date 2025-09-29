@@ -215,7 +215,6 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 获取实体类型属性
         var entityType = provider.DbMaintenance.GetTableInfoList(false).FirstOrDefault(u => u.Name == tableName);
         if (entityType == null) return null;
-        var ppppp = GetEntityInfos(configId).Result.First(e => e.DbTableName.EndsWithIgnoreCase(tableName)).Type.GetProperties();
         var properties = GetEntityInfos(configId).Result.First(e => e.DbTableName.EndsWithIgnoreCase(tableName)).Type.GetProperties()
             .Where(e => e.GetCustomAttribute<SugarColumn>()?.IsIgnore == false).Select(e => new
             {
