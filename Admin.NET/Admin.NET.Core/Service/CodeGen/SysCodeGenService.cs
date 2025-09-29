@@ -233,7 +233,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         }).ToList();
         foreach (var column in columnList)
         {
-            var property = properties.FirstOrDefault(e => (config!.DbSettings.EnableUnderLine ? e.ColumnName.ToUnderLine() : e.ColumnName) == column.ColumnName);
+            // ToLowerInvariant 将字段名转成小写再比较，避免因大小写不一致导致无法匹配(pgsql创建表会默认全小写,而我们的实体中又是大写,就会匹配不上)
+            var property = properties.FirstOrDefault(e => (config!.DbSettings.EnableUnderLine ? e.ColumnName.ToUnderLine() : e.ColumnName).ToLowerInvariant() == column.ColumnName.ToLowerInvariant());
             column.ColumnComment ??= property?.ColumnComment;
             column.PropertyName = property?.PropertyName;
         }
