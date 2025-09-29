@@ -215,6 +215,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 获取实体类型属性
         var entityType = provider.DbMaintenance.GetTableInfoList(false).FirstOrDefault(u => u.Name == tableName);
         if (entityType == null) return null;
+        var ppppp = GetEntityInfos(configId).Result.First(e => e.DbTableName.EndsWithIgnoreCase(tableName)).Type.GetProperties();
         var properties = GetEntityInfos(configId).Result.First(e => e.DbTableName.EndsWithIgnoreCase(tableName)).Type.GetProperties()
             .Where(e => e.GetCustomAttribute<SugarColumn>()?.IsIgnore == false).Select(e => new
             {
@@ -233,7 +234,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         }).ToList();
         foreach (var column in columnList)
         {
-            var property = properties.FirstOrDefault(e => (config!.DbSettings.EnableUnderLine ? e.ColumnName.ToUnderLine() : e.ColumnName) == column.ColumnName);
+            // ToLowerInvariant 将字段名转成小写再比较，避免因大小写不一致导致无法匹配(pgsql创建表会默认全小写,而我们的实体中又是大写,就会匹配不上)
+            var property = properties.FirstOrDefault(e => (config!.DbSettings.EnableUnderLine ? e.ColumnName.ToUnderLine() : e.ColumnName).ToLowerInvariant() == column.ColumnName.ToLowerInvariant());
             column.ColumnComment ??= property?.ColumnComment;
             column.PropertyName = property?.PropertyName;
         }
