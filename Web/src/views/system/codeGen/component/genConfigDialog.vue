@@ -7,7 +7,7 @@
 					<span> 生成配置 </span>
 				</div>
 			</template>
-			<el-table :data="state.tableData" style="width: 100%" v-loading="state.loading" border>
+			<el-table :data="state.tableData" style="width: 100%; height: 100%;" v-loading="state.loading" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
 				<el-table-column prop="propertyName" label="实体属性" show-overflow-tooltip />
 				<el-table-column prop="columnComment" label="描述" show-overflow-tooltip>
@@ -40,7 +40,7 @@
 						</el-select>
 					</template>
 				</el-table-column>
-				<el-table-column prop="whetherTable" label="列表显示" width="70" align="center" show-overflow-tooltip>
+				<el-table-column prop="whetherTable" label="显示" width="70" align="center" show-overflow-tooltip>
 					<template #default="scope">
 						<el-checkbox v-model="scope.row.whetherTable" true-value="Y" false-value="N" />
 					</template>
@@ -182,9 +182,13 @@ const submit = async () => {
 // 导出对象
 defineExpose({ openDialog });
 </script>
-<style scoped>
+<style lang="scss" scoped>
 .effect-type-container {
 	display: flex;
 	align-items: center;
+}
+
+:deep(.el-dialog__body) {
+	height: calc(100vh - 160px) !important;
 }
 </style>

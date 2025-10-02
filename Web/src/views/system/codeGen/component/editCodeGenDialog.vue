@@ -117,12 +117,12 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="生成方式" prop="generateType">
-              <g-sys-dict v-model="state.ruleForm.generateType" code="code_gen_create_type" render-as="select" class="w100" filterable />
+                            <g-sys-dict v-model="state.ruleForm.generateType" code="code_gen_create_type" render-as="select" class="w100" filterable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="支持打印" prop="printType">
-              <g-sys-dict v-model="state.ruleForm.printType" code="code_gen_print_type" render-as="select" @change="printTypeChanged" class="w100" filterable />
+                            <g-sys-dict v-model="state.ruleForm.printType" code="code_gen_print_type" render-as="select" @change="printTypeChanged" class="w100" filterable />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20" v-if="state.ruleForm.printType == 'custom'">
@@ -136,29 +136,24 @@
 						<div style="color: #b1b3b8">数据唯一性配置</div>
 					</el-divider>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-						<el-button icon="ele-Plus" type="primary" plain @click="() => state.ruleForm.tableUniqueList?.push({})"> 增加配置 </el-button>
+						<el-button icon="ele-Plus" text type="primary" plain @click="() => state.ruleForm.tableUniqueList?.push({})"> 增加配置 </el-button>
 						<span style="font-size: 12px; color: gray; padding-left: 5px"> 保证字段值的唯一性，排除null值 </span>
 					</el-col>
-					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="unique-box">
 						<template v-if="state.ruleForm.tableUniqueList != undefined && state.ruleForm.tableUniqueList.length > 0">
-							<el-row :gutter="35" v-for="(v, k) in state.ruleForm.tableUniqueList" :key="k">
-								<el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14" class="mb20">
-									<el-form-item label="字段" :prop="`tableUniqueList[${k}].columns`" :rules="[{ required: true, message: `字段不能为空`, trigger: 'blur' }]">
-										<template #label>
-											<el-button icon="ele-Delete" type="danger" circle plain size="small" @click="() => state.ruleForm.tableUniqueList?.splice(k, 1)" />
-											<span class="ml5">字段</span>
-										</template>
-										<el-select v-model="state.ruleForm.tableUniqueList[k].columns" @change="(val: any) => changeTableUniqueColumn(val, k)" multiple filterable clearable collapse-tags collapse-tags-tooltip class="w100">
-											<el-option v-for="item in state.columnData" :key="item.propertyName" :label="item.propertyName + ' [' + item.columnComment + ']'" :value="item.propertyName" />
-										</el-select>
-									</el-form-item>
-								</el-col>
-								<el-col :xs="24" :sm="10" :md="10" :lg="10" :xl="10" class="mb20">
-									<el-form-item label="描述信息" :prop="`tableUniqueList[${k}].message`" :rules="[{ required: true, message: `描述信息不能为空`, trigger: 'blur' }]">
-										<el-input v-model="state.ruleForm.tableUniqueList[k].message" clearable placeholder="请输入" />
-									</el-form-item>
-								</el-col>
-							</el-row>
+                            <div v-for="(v, k) in state.ruleForm.tableUniqueList" :key="k" class="unique-line">
+                                <el-form-item label="字段" label-width="55" :prop="`tableUniqueList[${k}].columns`" :rules="[{ required: true, message: `字段不能为空`, trigger: 'blur' }]">
+									<el-select v-model="state.ruleForm.tableUniqueList[k].columns" @change="(val: any) => changeTableUniqueColumn(val, k)" multiple filterable clearable collapse-tags collapse-tags-tooltip class="w100">
+										<el-option v-for="item in state.columnData" :key="item.propertyName" :label="item.propertyName + ' [' + item.columnComment + ']'" :value="item.propertyName" />
+									</el-select>
+								</el-form-item>
+                                <el-form-item label="描述" label-width="55" :prop="`tableUniqueList[${k}].message`" :rules="[{ required: true, message: `描述信息不能为空`, trigger: 'blur' }]">
+									<el-input v-model="state.ruleForm.tableUniqueList[k].message" clearable placeholder="请输入" />
+								</el-form-item>
+                                <div class="delete-btn">
+                                    <el-button icon="ele-Delete" type="danger" circle plain size="small" @click="() => state.ruleForm.tableUniqueList?.splice(k, 1)" />
+                                </div>
+                            </div>
 						</template>
 					</el-col>
 				</el-row>
@@ -298,5 +293,25 @@ defineExpose({ openDialog });
 <style lang="scss" scoped>
 :deep(.el-dialog__body) {
 	min-height: 450px;
+}
+
+.unique-box {
+    display: grid;
+    gap: 20px;
+}
+.unique-line {
+    display: flex;
+    gap: 20px;
+    
+    .el-form-item {
+        margin-bottom: 0;
+        flex: 1;
+    }
+
+    .delete-btn {
+        align-self: center;
+        width: 24px;
+        margin-left: -10px;
+    }
 }
 </style>
