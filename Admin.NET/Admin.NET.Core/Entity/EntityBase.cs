@@ -82,6 +82,7 @@ public abstract class EntityBase : EntityBaseId
 /// 框架实体基类（删除标志）
 /// </summary>
 [SugarIndex("index_{table}_D", nameof(IsDelete), OrderByType.Asc)]
+[SugarIndex("index_{table}_DT", nameof(DeleteTime), OrderByType.Asc)]
 public abstract class EntityBaseDel : EntityBase, IDeletedFilter
 {
     /// <summary>
@@ -89,6 +90,12 @@ public abstract class EntityBaseDel : EntityBase, IDeletedFilter
     /// </summary>
     [SugarColumn(ColumnDescription = "软删除")]
     public virtual bool IsDelete { get; set; } = false;
+
+    /// <summary>
+    /// 软删除时间
+    /// </summary>
+    [SugarColumn(ColumnDescription = "软删除时间")]
+    public virtual DateTime? DeleteTime { get; set; } 
 }
 
 /// <summary>
