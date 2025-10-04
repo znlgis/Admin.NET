@@ -17,7 +17,7 @@
 					</template>
 				</el-segmented>
 			</div>
-			<div ref="monacoEditorRef" style="width: 100%; height: 700px;" v-loading="state.loading"></div>
+			<div ref="monacoEditorRef" v-loading="state.loading" class="code-container"></div>
 			<template #footer>
 				<span class="dialog-footer">
 					<el-button icon="ele-Close" @click="cancel">关 闭</el-button>
@@ -125,7 +125,7 @@ const handleCopy = () => {
 defineExpose({ openDialog });
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 .cs-style .el-segmented {
 	--el-segmented-item-selected-bg-color: #5c2d91;
 }
@@ -134,5 +134,13 @@ defineExpose({ openDialog });
 }
 .js-style .el-segmented {
 	--el-segmented-item-selected-bg-color: #e44d26;
+}
+:deep(.el-dialog__body) {
+	height: calc(100vh - 160px) !important;
+
+    .code-container {
+        width: 100%;
+        height: calc(100% - 48px);
+    }
 }
 </style>

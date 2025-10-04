@@ -13,9 +13,9 @@ namespace Admin.NET.Core;
 public enum GenderEnum
 {
     /// <summary>
-    /// 未知的性别
+    /// 未知
     /// </summary>
-    [Description("未知的性别"), Theme("info")]
+    [Description("未知"), Theme("info")]
     Unknown = 0,
 
     /// <summary>
@@ -30,9 +30,9 @@ public enum GenderEnum
     [Description("女性"), Theme("danger")]
     Female = 2,
 
-    /// <summary>
-    /// 未说明的性别
-    /// </summary>
-    [Description("未说明的性别"), Theme("warning")]
-    Unspecified = 9
+    ///// <summary>
+    ///// 未说明的性别
+    ///// </summary>
+    //[Description("未说明的性别"), Theme("warning")]
+    //Unspecified = 9
 }

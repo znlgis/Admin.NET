@@ -473,12 +473,17 @@ public class SelectTable : ISingleton
             // 判断列表是否有权限  sum(1)、sum(*)、Count(1)这样的值直接有效
             if (colName == "*" || int.TryParse(colName, out int colNumber) || (IsCol(subtable, colName) && _identitySvc.ColIsRole(colName, selectrole.Split(','))))
             {
+                // 字段名加引号，防止和SQL关键字冲突(mysql为反引号)
+                string qm = "\"";
+                if (tb.Context.CurrentConnectionConfig.DbType is SqlSugar.DbType.MySql)
+                    qm = "`";
+
                 if (ziduan.Length > 1)
                 {
                     if (ziduan[1].Length > 20)
                         throw new Exception("别名不能超过20个字符");
 
-                    str.Append(ziduan[0] + " as `" + ReplaceSQLChar(ziduan[1]) + "`,");
+                    str.Append(ziduan[0] + " as " + qm + ReplaceSQLChar(ziduan[1]) + qm + ",");
                 }
                 // 不对函数加``，解决sum(*)、Count(1)等不能使用的问题
                 else if (ziduan[0].Contains('('))
@@ -486,7 +491,7 @@ public class SelectTable : ISingleton
                     str.Append(ziduan[0] + ",");
                 }
                 else
-                    str.Append("`" + ziduan[0] + "`" + ",");
+                    str.Append(qm + ziduan[0] + qm + ",");
             }
         }
         if (string.IsNullOrEmpty(str.ToString()))
