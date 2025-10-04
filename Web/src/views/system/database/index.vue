@@ -46,7 +46,7 @@
 		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.columnData" style="width: 100%" v-loading="state.loading1" border>
 				<el-table-column type="index" label="序号" width="55" align="center" />
-				<el-table-column prop="dbColumnName" label="字段名" align="center" show-overflow-tooltip />
+				<el-table-column prop="dbColumnName" label="字段名" show-overflow-tooltip />
 				<el-table-column prop="dataType" label="数据类型" align="center" show-overflow-tooltip />
 				<el-table-column prop="isPrimarykey" label="主键" width="70" align="center" show-overflow-tooltip>
 					<template #default="scope">

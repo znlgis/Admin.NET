@@ -38,7 +38,7 @@
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-						<el-form-item label="菜单权限" v-loading="state.loading">
+						<el-form-item label="菜单权限" v-loading="state.loading" class="tree-container">
 							<el-tree
 								ref="treeRef"
 								:data="state.menuData"
@@ -143,6 +143,15 @@ defineExpose({ openDialog });
 </script>
 
 <style lang="scss" scoped>
+.tree-container {
+    :deep(.el-form-item__content) {
+        border: 1px solid var(--el-border-color);
+        border-radius: var(--el-input-border-radius, var(--el-border-radius-base));
+        padding: 5px 0 5px 3px;
+    }
+    
+}
+
 .menu-data-tree {
 	width: 100%;
 	border: 1px solid var(--el-border-color);
