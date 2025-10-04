@@ -245,6 +245,15 @@ public static class SqlSugarSetup
                     entityInfo.SetValue(App.User?.FindFirst(ClaimConst.UserId)?.Value);
                 else if (entityInfo.PropertyName == nameof(EntityBase.UpdateUserName))
                     entityInfo.SetValue(App.User?.FindFirst(ClaimConst.RealName)?.Value);
+                else if (entityInfo.PropertyName == nameof(EntityBaseDel.DeleteTime))
+                {
+                    dynamic entityValue = entityInfo.EntityValue;
+                    var isDelete = entityValue.IsDelete;
+                    if (isDelete == true)
+                    {
+                        entityInfo.SetValue(DateTime.Now);
+                    }
+                }
             }
         };
 
