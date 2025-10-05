@@ -97,36 +97,31 @@
 								<div style="color: #b1b3b8">附属机构</div>
 							</el-divider>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-								<el-button icon="ele-Plus" type="primary" plain @click="addExtOrgRow"> 增加附属机构 </el-button>
+								<el-button icon="ele-Plus" type="primary" text plain @click="addExtOrgRow"> 增加附属机构 </el-button>
 								<span style="font-size: 12px; color: gray; padding-left: 5px"> 具有相应组织机构的数据权限 </span>
 							</el-col>
-							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
+							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="unique-box">
 								<template v-if="state.ruleForm.extOrgIdList != undefined && state.ruleForm.extOrgIdList.length > 0">
-									<el-row :gutter="35" v-for="(v, k) in state.ruleForm.extOrgIdList" :key="k">
-										<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-											<el-form-item label="机构" :prop="`extOrgIdList[${k}].orgId`" :rules="[{ required: true, message: `机构不能为空`, trigger: 'blur' }]">
-												<template #label>
-													<el-button icon="ele-Delete" type="danger" circle plain size="small" @click="deleteExtOrgRow(k)" />
-													<span class="ml5">机构</span>
+                                    <div v-for="(v, k) in state.ruleForm.extOrgIdList" :key="k" class="unique-line">
+                                        <el-form-item label="机构" label-width="55" :prop="`extOrgIdList[${k}].orgId`" :rules="[{ required: true, message: `机构不能为空`, trigger: 'blur' }]">
+											<el-cascader :options="props.orgTreeData" :props="cascaderProps" placeholder="机构组织" clearable filterable class="w100" v-model="state.ruleForm.extOrgIdList[k].orgId">
+												<template #default="{ node, data }">
+													<span>{{ data.name }}</span>
+													<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
 												</template>
-												<el-cascader :options="props.orgTreeData" :props="cascaderProps" placeholder="机构组织" clearable filterable class="w100" v-model="state.ruleForm.extOrgIdList[k].orgId">
-													<template #default="{ node, data }">
-														<span>{{ data.name }}</span>
-														<span v-if="!node.isLeaf"> ({{ data.children.length }}) </span>
-													</template>
-												</el-cascader>
-											</el-form-item>
-										</el-col>
-										<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
-											<el-form-item label="职位" :prop="`extOrgIdList[${k}].posId`" :rules="[{ required: true, message: `职位不能为空`, trigger: 'blur' }]">
-												<el-select v-model="state.ruleForm.extOrgIdList[k].posId" placeholder="职位名称" class="w100">
-													<el-option v-for="d in state.posData" :key="d.id" :label="d.name" :value="d.id" />
-												</el-select>
-											</el-form-item>
-										</el-col>
-									</el-row>
+											</el-cascader>
+										</el-form-item>
+                                        <el-form-item label="职位" label-width="55" :prop="`extOrgIdList[${k}].posId`" :rules="[{ required: true, message: `职位不能为空`, trigger: 'blur' }]">
+											<el-select v-model="state.ruleForm.extOrgIdList[k].posId" placeholder="职位名称" class="w100">
+												<el-option v-for="d in state.posData" :key="d.id" :label="d.name" :value="d.id" />
+											</el-select>
+										</el-form-item>
+                                        <div class="delete-btn">
+                                            <el-button icon="ele-Delete" type="danger" circle plain size="small" @click="deleteExtOrgRow(k)" />
+                                        </div>
+                                    </div>
 								</template>
-								<el-empty :image-size="50" description="空数据" style="padding: 0px;" v-else></el-empty>
+								<el-empty :image-size="50" style="padding: 0px;" v-else></el-empty>
 							</el-col>
 						</el-row>
 					</el-form>
@@ -342,6 +337,26 @@ defineExpose({ openDialog });
         }
 
         --el-transfer-panel-body-height: calc(100% - 40px);
+    }
+
+    .unique-box {
+        display: grid;
+        gap: 20px;
+    }
+    .unique-line {
+        display: flex;
+        gap: 20px;
+        
+        .el-form-item {
+            margin-bottom: 0;
+            flex: 1;
+        }
+
+        .delete-btn {
+            align-self: center;
+            width: 24px;
+            margin-left: -10px;
+        }
     }
 }
 </style>
