@@ -596,7 +596,8 @@ $--el-table-text-color: #fb6d49;
 			justify-content: space-between;
 
 			.el-card__body {
-				height: 100%;
+                flex: 1;
+				height: 0;
 				display: flex;
 				//padding: 5px 5px 0px 5px;
 				flex-direction: column;
