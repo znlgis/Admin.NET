@@ -1,19 +1,28 @@
 <template>
-	<div v-if="isShowBreadcrumb" class="layout-navbars-breadcrumb">
-		<SvgIcon class="layout-navbars-breadcrumb-icon" :name="themeConfig.isCollapse ? 'ele-Expand' : 'ele-Fold'" :size="16" @click="onThemeConfigChange" />
-		<el-breadcrumb class="layout-navbars-breadcrumb-hide">
-			<transition-group name="breadcrumb">
-				<el-breadcrumb-item v-for="(v, k) in state.breadcrumbList" :key="v.path">
-					<span v-if="k === state.breadcrumbList.length - 1" class="layout-navbars-breadcrumb-span">
-						<SvgIcon :name="v.meta.icon" class="layout-navbars-breadcrumb-iconfont" v-if="themeConfig.isBreadcrumbIcon" />
-						<div v-if="v.meta.title">{{ $t(v.meta.title) }}</div>
-						<div v-else>{{ v.meta.tagsViewName }}</div>
-					</span>
-					<a v-else @click.prevent="onBreadcrumbClick(v)"> <SvgIcon :name="v.meta.icon" class="layout-navbars-breadcrumb-iconfont" v-if="themeConfig.isBreadcrumbIcon" />{{ $t(v.meta.title) }} </a>
-				</el-breadcrumb-item>
-			</transition-group>
-		</el-breadcrumb>
-	</div>
+    <div v-if="isShowBreadcrumb" class="bar-box">
+        <SvgIcon :size="16" class="bar-expand-icon" 
+            :name="themeConfig.isCollapse ? 'ele-Expand' : 'ele-Fold'" 
+            @click="onThemeConfigChange" 
+        />
+
+        <el-breadcrumb>
+            <transition-group name="breadcrumb">
+                <el-breadcrumb-item v-for="(v, k) in state.breadcrumbList" :key="v.path">
+                    <div v-if="k === state.breadcrumbList.length - 1" class="bar-breadcrumb-item bar-breadcrumb-item-last">
+                        <SvgIcon v-if="themeConfig.isBreadcrumbIcon" :name="v.meta.icon" />
+                        <span v-if="v.meta.title">{{ $t(v.meta.title) }}</span>
+                        <span v-else>{{ v.meta.tagsViewName }}</span>
+                    </div>
+                    <div v-else class="bar-breadcrumb-item">
+                        <a @click.prevent="onBreadcrumbClick(v)"> 
+                            <SvgIcon :name="v.meta.icon" v-if="themeConfig.isBreadcrumbIcon" />
+                            <span>{{ $t(v.meta.title) }}</span>
+                        </a>
+                    </div>
+                </el-breadcrumb-item>
+            </transition-group>
+        </el-breadcrumb>
+    </div>
 </template>
 
 <script setup lang="ts" name="layoutBreadcrumb">
@@ -99,42 +108,33 @@ onBeforeRouteUpdate((to) => {
 });
 </script>
 
-<style scoped lang="scss">
-.layout-navbars-breadcrumb {
-	flex: 1;
-	height: inherit;
+<style lang="scss" scoped>
+.bar-box {
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
+
+.bar-expand-icon {
+    cursor: pointer;
+	font-size: 18px;
+	color: var(--next-bg-topBarColor);
+	height: 100%;
+	width: 40px;
+	opacity: 0.8;
+
+	&:hover {
+		opacity: 1;
+	}
+}
+.bar-breadcrumb-item {
+    height: 16px;
+    line-height: 16px;
 	display: flex;
-	align-items: center;
-	.layout-navbars-breadcrumb-icon {
-		cursor: pointer;
-		font-size: 18px;
-		color: var(--next-bg-topBarColor);
-		height: 100%;
-		width: 40px;
-		opacity: 0.8;
-		&:hover {
-			opacity: 1;
-		}
-	}
-	.layout-navbars-breadcrumb-span {
-		display: flex;
-		opacity: 0.7;
-		color: var(--next-bg-topBarColor);
-	}
-	.layout-navbars-breadcrumb-iconfont {
-		font-size: 14px;
-		margin-right: 5px;
-	}
-	:deep(.el-breadcrumb__separator) {
-		opacity: 0.7;
-		color: var(--next-bg-topBarColor);
-	}
-	:deep(.el-breadcrumb__inner a, .el-breadcrumb__inner.is-link) {
-		font-weight: unset !important;
-		color: var(--next-bg-topBarColor);
-		&:hover {
-			color: var(--el-color-primary) !important;
-		}
-	}
+
+    a { display: inherit; font-weight: unset; }
+    i { margin-right: 5px; }
+
+    &-last { opacity: 0.7; }
 }
 </style>
