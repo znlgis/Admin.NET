@@ -113,6 +113,16 @@
 .el-menu {
 	border-right: none !important;
 	width: auto;
+
+    .el-icon {
+        font-size: var(--el-font-size-medium);
+        margin-top: -1px; //由于svg图标源未按标准设计制作,存在错位误差,向上位移1px,以抵消其存在的1px高度差
+    }
+
+    .el-sub-menu__icon-arrow {
+        margin-top: 0;
+        top: unset;
+    }
 }
 
 .el-menu-item,
@@ -568,6 +578,10 @@ $--el-table-text-color: #fb6d49;
 
 .el-tree {
     --el-tree-node-content-height: 30px;
+
+    .el-tree-node__content {
+        line-height: var(--el-tree-node-content-height);
+    }
 }
 
 // hack列表页

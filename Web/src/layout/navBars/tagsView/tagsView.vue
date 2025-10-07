@@ -18,7 +18,7 @@
 					"
 				>
 					<i class="iconfont icon-webicon318 layout-navbars-tagsview-ul-li-iconfont" v-if="isActive(v)"></i>
-					<SvgIcon :name="v.meta.icon" v-if="!isActive(v) && getThemeConfig.isTagsviewIcon" class="pr5" />
+					<SvgIcon :name="v.meta.icon" v-if="!isActive(v) && getThemeConfig.isTagsviewIcon" size="14" class="mr5" />
 					<span>{{ setTagsViewNameI18n(v) }}</span>
 					<template v-if="isActive(v)">
 						<SvgIcon
@@ -642,10 +642,7 @@ watch(
 			&-icon {
 				border-radius: 100%;
 				position: relative;
-				height: 14px;
-				width: 14px;
 				text-align: center;
-				line-height: 14px;
 				right: -5px;
 				&:hover {
 					color: var(--el-color-white);

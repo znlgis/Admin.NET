@@ -131,8 +131,9 @@ onBeforeRouteUpdate((to) => {
     height: 16px;
     line-height: 16px;
 	display: flex;
+    align-items: center;
 
-    a { display: inherit; font-weight: unset; }
+    a { display: inherit; align-items: inherit; font-weight: unset; }
     i { margin-right: 5px; }
 
     &-last { opacity: 0.7; }
