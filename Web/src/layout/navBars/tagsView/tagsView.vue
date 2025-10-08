@@ -18,24 +18,24 @@
 					"
 				>
 					<i class="iconfont icon-webicon318 layout-navbars-tagsview-ul-li-iconfont" v-if="isActive(v)"></i>
-					<SvgIcon :name="v.meta.icon" v-if="!isActive(v) && getThemeConfig.isTagsviewIcon" size="14" class="mr5" />
+					<SvgIcon :name="v.meta.icon" v-if="!isActive(v) && getThemeConfig.isTagsviewIcon" :size="14" class="mr5 el-icon" />
 					<span>{{ setTagsViewNameI18n(v) }}</span>
 					<template v-if="isActive(v)">
 						<SvgIcon
 							name="ele-RefreshRight"
-							class="ml5 layout-navbars-tagsview-ul-li-refresh"
+							class="ml5 layout-navbars-tagsview-ul-li-refresh el-icon"
 							@click.stop="refreshCurrentTagsView($route.fullPath)"
 						/>
 						<SvgIcon
 							name="ele-Close"
-							class="layout-navbars-tagsview-ul-li-icon layout-icon-active"
+							class="layout-navbars-tagsview-ul-li-icon layout-icon-active el-icon"
 							v-if="!v.meta.isAffix"
 							@click.stop="closeCurrentTagsView(getThemeConfig.isShareTagsView ? v.path : v.url)"
 						/>
 					</template>
 					<SvgIcon
 						name="ele-Close"
-						class="layout-navbars-tagsview-ul-li-icon layout-icon-three"
+						class="layout-navbars-tagsview-ul-li-icon layout-icon-three el-icon"
 						v-if="!v.meta.isAffix"
 						@click.stop="closeCurrentTagsView(getThemeConfig.isShareTagsView ? v.path : v.url)"
 					/>

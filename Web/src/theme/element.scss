@@ -10,21 +10,13 @@
         font-size: var(--el-font-size-medium);
     }
 }
-// 第三方字体图标大小
-// .el-button:not(.is-circle) i.el-icon,
-// .el-button i.iconfont,
-// .el-button i.fa,
-// .el-button--default i.iconfont,
-// .el-button--default i.fa {
-// 	font-size: 14px !important;
-// 	margin-right: 5px;
-// }
 
-// .el-button--small i.iconfont,
-// .el-button--small i.fa {
-// 	font-size: 12px !important;
-// 	margin-right: 5px;
-// }
+// 按钮使用第三方字体图标正确用法
+// <el-button>
+//     <SvgIcon name="iconfont icon-yunshangchuan_o" class="el-icon" />
+//     <span>笑笑</span>
+// </el-button>
+
 
 /* Input 输入框、InputNumber 计数器
 ------------------------------- */
@@ -116,7 +108,6 @@
 
     .el-icon {
         font-size: var(--el-font-size-medium);
-        margin-top: -1px; //由于svg图标源未按标准设计制作,存在错位误差,向上位移1px,以抵消其存在的1px高度差
     }
 
     .el-sub-menu__icon-arrow {
@@ -128,9 +119,8 @@
 .el-menu-item,
 .el-sub-menu__title {
 	color: var(--next-bg-menuBarColor);
-	height: 45px !important;
-	line-height: 45px !important;
-	// margin: 0 0 1px 0;
+	height: 44px !important;
+	line-height: 44px !important;
 }
 
 // 修复点击左侧菜单折叠再展开时，宽度不跟随问题
@@ -152,7 +142,7 @@
 .el-sub-menu .iconfont,
 .el-menu-item .fa,
 .el-sub-menu .fa {
-	@include generalIcon;
+	@include generalIcon(var(--el-font-size-medium), var(--el-menu-icon-width));
 }
 
 // 水平菜单、横向菜单高亮 背景色，鼠标 hover 时，有子级菜单的背景色
@@ -460,11 +450,13 @@
     .el-button [class*=el-icon]+span{
         margin-left: 4px;
     }
+
+    .iconfont {
+        font-size: unset !important;
+    }
 }
 .el-table [class*=el-table__row--level] .el-table__expand-icon {
-    height: 14px;
-    line-height: 14px;
-    width: 14px;
+    vertical-align: middle;
 }
 
 $--el-table-text-color: #fb6d49;
@@ -519,11 +511,6 @@ $--el-table-text-color: #fb6d49;
 	max-height: 274px !important;
 }
 
-/*修复Cascader 级联选择器高度问题 -- Tips: 官方已修复该问题 */
-// .el-cascader-menu__wrap.el-scrollbar__wrap {
-// 	height: 204px !important;
-// }
-
 /*用于界面高度自适应（main.vue），区分 scrollbar__view，防止其它使用 scrollbar 的地方出现滚动条消失*/
 .layout-container-view .el-scrollbar__view {
 	height: 100%;
@@ -556,25 +543,6 @@ $--el-table-text-color: #fb6d49;
 .el-drawer__close-btn:hover .el-drawer__close {
 	color: var(--el-color-danger) !important;
 }
-
-// 级联选择-点击文本也生效 -- Tips: 官方已支持,设置 el-cascader 的 checkOnClickNode=true 即可
-// .el-cascader-panel .el-radio {
-// 	width: 100%;
-// 	height: 100%;
-// 	z-index: 10;
-// 	position: absolute;
-// 	top: 0px;
-// 	right: -8px;
-// }
-
-// .el-cascader-panel .el-checkbox {
-// 	width: 100%;
-// 	height: 100%;
-// 	z-index: 10;
-// 	position: absolute;
-// 	top: 0px;
-// 	right: 0px;
-// }
 
 .el-tree {
     --el-tree-node-content-height: 30px;

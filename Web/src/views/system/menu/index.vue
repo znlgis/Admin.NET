@@ -34,9 +34,9 @@
 				:tree-props="{ children: 'children', hasChildren: 'hasChildren' }" border>
 				<el-table-column label="菜单名称" header-align="center">
 					<template #default="scope">
-                        <div style="display: inline-block;">
-                            <SvgIcon :name="scope.row.icon" size="12" />
-                            <span class="ml10">{{ $t(scope.row.title) }}</span>
+                        <div class="menu-icon-box">
+                            <span class="vertical-center"><SvgIcon :name="scope.row.icon" class="el-icon" /></span>
+                            <span class="ml10 vertical-center">{{ $t(scope.row.title) }}</span>
                         </div>
 					</template>
 				</el-table-column>
@@ -191,5 +191,17 @@ const changeStatus = async (row: any) => {
 .el-table .cell.el-tooltip {
     display: inline-flex;
     align-items: center;
+}
+.menu-icon-box {
+    display: inline-block;
+
+    .vertical-center { 
+        display: inline-flex;
+        align-items: center;
+        vertical-align: middle;
+        line-height: 1em;
+        height: 1em;
+    }
+    //.el-icon { vertical-align: middle; }
 }
 </style>

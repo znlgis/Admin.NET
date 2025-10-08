@@ -60,7 +60,9 @@ const onColClick = (v: unknown | string) => {
 		border-radius: 5px;
 		margin-bottom: 10px;
 		height: 30px;
+        width: 30px;
 		i {
+            display: inline-flex;
 			font-size: 20px;
 			color: var(--el-text-color-regular);
 		}

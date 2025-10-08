@@ -1,11 +1,10 @@
 /* 第三方图标字体间距/大小设置
 ------------------------------- */
-@mixin generalIcon {
-	font-size: 14px !important;
-	display: inline-block;
+@mixin generalIcon($fontSize: 16px, $width: 16px) {
+	font-size: $fontSize; 
 	vertical-align: middle;
 	margin-right: 5px;
-	width: 24px;
+	width: $width;
 	text-align: center;
 	justify-content: center;
 }
