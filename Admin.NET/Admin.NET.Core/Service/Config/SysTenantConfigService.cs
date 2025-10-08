@@ -27,8 +27,14 @@ public class SysTenantConfigService : IDynamicApiController, ITransient
         _sysCacheService = sysCacheService;
         _sysConfigRep = sysConfigRep;
         _sysConfigDataRep = sysConfigDataRep;
-        VSysConfig = _sysConfigRep.AsQueryable().InnerJoin(_sysConfigDataRep.AsQueryable().WhereIF(!_userManager.SuperAdmin, cv => cv.TenantId == _userManager.TenantId),
-            (c, cv) => c.Id == cv.ConfigId).Select<SysConfig>().MergeTable();
+        VSysConfig = _sysConfigRep.AsQueryable()
+            .InnerJoin(
+                _sysConfigDataRep.AsQueryable().WhereIF(!_userManager.SuperAdmin, cv => cv.TenantId == _userManager.TenantId),
+                (c, cv) => c.Id == cv.ConfigId
+            )
+            //.Select<SysConfig>().MergeTable();
+            // 解决PostgreSQL下并启用驼峰转下划线时,报字段不存在,SqlSugar在Select后生成的sql, as后没转下划线导致.
+            .SelectMergeTable((c, cv) => new SysConfig { Id = c.Id.SelectAll(), Value = cv.Value });
     }
 
     /// <summary>
