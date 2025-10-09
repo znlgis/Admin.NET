@@ -314,10 +314,10 @@ public partial class SysUser : EntityBaseTenantOrg
     public string? Signature { get; set; }
 
     /// <summary>
-    /// 语言代码（如 zh_CN）
+    /// 语言代码（如 zh-CN）
     /// </summary>
     [SugarColumn(ColumnDescription = "语言代码")]
-    public string LangCode { get; set; } = "zh_CN";
+    public string LangCode { get; set; } = App.GetOptions<LocalizationSettingsOptions>().DefaultCulture;
 
     /// <summary>
     /// 验证超级管理员类型，若账号类型为超级管理员则报错

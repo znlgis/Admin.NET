@@ -50,12 +50,12 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
     /// 适用于：小表（如菜单、字典），可设置较长缓存时间。<br/>
     /// <br/>
     /// 【示例】<br/>
-    /// var content = await _sysLangTextCacheService.GetTranslation("Product", "Name", 123, "en_US");
+    /// var content = await _sysLangTextCacheService.GetTranslation("Product", "Name", 123, "en-US");
     /// </summary>
     /// <param name="entityName">实体名称，如 "Product"</param>
     /// <param name="fieldName">字段名称，如 "Name"</param>
     /// <param name="entityId">实体主键ID</param>
-    /// <param name="langCode">语言编码，如 "zh_CN"</param>
+    /// <param name="langCode">语言编码，如 "zh-CN"</param>
     /// <returns>翻译后的内容（若无则返回 null 或空）</returns>
     [NonAction]
     public async Task<string> GetTranslation(string entityName, string fieldName, long entityId, string langCode)
@@ -166,7 +166,7 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
     /// 按配置把同一字段的翻译写回到实体列表中。内部会调用批量翻译接口。<br/>
     /// <br/>
     /// 【示例】<br/>
-    /// await _sysLangTextCacheService.TranslateList(products, "Product", "Name", p =&gt; p.Id, (p, val) =&gt; p.Name = val, "zh_CN");
+    /// await _sysLangTextCacheService.TranslateList(products, "Product", "Name", p =&gt; p.Id, (p, val) =&gt; p.Name = val, "zh-CN");
     /// </summary>
     /// <typeparam name="TEntity">实体类型</typeparam>
     /// <param name="list">待翻译的实体列表</param>
@@ -219,13 +219,13 @@ public class SysLangTextCacheService : IDynamicApiController, ITransient
     ///         SetTranslatedValue = (p, val) =&gt; p.Description = val
     ///     }
     /// };
-    /// await _sysLangTextCacheService.TranslateMultiFields(products, fields, "zh_CN");
+    /// await _sysLangTextCacheService.TranslateMultiFields(products, fields, "zh-CN");
     /// </code>
     /// </summary>
     /// <typeparam name="TEntity">要翻译的实体类型，如 Product/Menu/SKU 等</typeparam>
     /// <param name="list">需要翻译的实体对象列表</param>
     /// <param name="fields">需要翻译的字段映射集合，支持多个字段</param>
-    /// <param name="langCode">语言编码，如 "zh_CN"、"en_US"、"it_IT" 等</param>
+    /// <param name="langCode">语言编码，如 "zh-CN"、"en-US"、"it-IT" 等</param>
     /// <returns>翻译后的实体列表（引用传递，原对象已直接赋值）</returns>
     [NonAction]
     public async Task<List<TEntity>> TranslateMultiFields<TEntity>(
