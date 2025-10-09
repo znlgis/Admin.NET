@@ -103,7 +103,7 @@
 								<div>
 									重置触发次数
 									<el-tooltip raw-content content="是否在启动时重置最大触发次数等于一次的作业<br/>解决因持久化数据已完成一次触发但启动时不再执行的问题" placement="top">
-										<SvgIcon name="fa fa-question-circle-o" :size="16" style="vertical-align: middle" />
+										<SvgIcon name="fa fa-question-circle-o" :size="15" style="vertical-align: middle" />
 									</el-tooltip>
 								</div>
 							</template>

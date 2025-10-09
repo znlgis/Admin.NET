@@ -40,7 +40,7 @@
 										<div>
 											扫描触发器
 											<el-tooltip raw-content content="此参数只在新增作业时生效<br/>扫描定义在作业上的触发器" placement="top">
-												<SvgIcon name="fa fa-question-circle-o" :size="16" style="vertical-align: middle" />
+												<SvgIcon name="fa fa-question-circle-o" :size="15" style="vertical-align: middle" />
 											</el-tooltip>
 										</div>
 									</template>

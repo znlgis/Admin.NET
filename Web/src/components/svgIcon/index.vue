@@ -20,7 +20,7 @@ const props = defineProps({
 	// svg 大小
 	size: {
 		type: Number,
-		default: () => 16,
+		//default: () => 16,
 	},
 	// svg 颜色
 	color: {
