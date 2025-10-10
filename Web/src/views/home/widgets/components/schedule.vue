@@ -1,8 +1,6 @@
 <template>
-	<el-card shadow="hover" header="我的日程" class="item-background">
-		<template #header>
-			<el-icon style="display: inline; vertical-align: middle"> <ele-Calendar /> </el-icon>
-			<span> 我的日程 </span>
+	<card-pro shadow="hover" title="我的日程" prefix-icon="ele-Calendar" class="item-background">
+		<template #suffix>
 			<el-button type="primary" icon="ele-CirclePlus" round plain @click="openAddSchedule" style="float: right">添加日程</el-button>
 		</template>
 
@@ -47,7 +45,7 @@
 		</div>
 
 		<EditSchedule ref="editScheduleRef" :title="state.editTitle" @handleQuery="handleQuery"> </EditSchedule>
-	</el-card>
+	</card-pro>
 </template>
 
 <script lang="ts">
@@ -64,6 +62,7 @@ import { dayjs, ElMessage, ElMessageBox } from 'element-plus';
 import type { CalendarDateType, CalendarInstance } from 'element-plus';
 import calendarCom from '/@/utils/calendar.js';
 
+import CardPro from '/@/components/CardPro/index.vue';
 import EditSchedule from '/@/views/home/widgets/components/scheduleEdit.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
