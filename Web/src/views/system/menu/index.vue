@@ -32,10 +32,12 @@
 		<el-card class="full-table" shadow="hover" style="margin-top: 5px">
 			<el-table :data="state.menuData" v-loading="state.loading" row-key="id"
 				:tree-props="{ children: 'children', hasChildren: 'hasChildren' }" border>
-				<el-table-column label="菜单名称" header-align="center" show-overflow-tooltip>
+				<el-table-column label="菜单名称" header-align="center">
 					<template #default="scope">
-						<SvgIcon :name="scope.row.icon" />
-						<span class="ml10">{{ scope.row.title }}</span>
+                        <div class="menu-icon-box">
+                            <span class="vertical-center"><SvgIcon :name="scope.row.icon" class="el-icon" /></span>
+                            <span class="ml10 vertical-center">{{ scope.row.title }}</span>
+                        </div>
 					</template>
 				</el-table-column>
 				<el-table-column label="类型" width="70" align="center" show-overflow-tooltip>
@@ -184,3 +186,22 @@ const changeStatus = async (row: any) => {
 		});
 };
 </script>
+
+<style lang="scss" scoped>
+.el-table .cell.el-tooltip {
+    display: inline-flex;
+    align-items: center;
+}
+.menu-icon-box {
+    display: inline-block;
+
+    .vertical-center { 
+        display: inline-flex;
+        align-items: center;
+        vertical-align: middle;
+        line-height: 1em;
+        height: 1em;
+    }
+    //.el-icon { vertical-align: middle; }
+}
+</style>

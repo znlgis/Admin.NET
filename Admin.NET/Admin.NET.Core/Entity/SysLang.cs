@@ -19,7 +19,7 @@ public class SysLang : EntityBase
     public string Name { get; set; }
 
     /// <summary>
-    /// 语言代码（如 zh_CN）
+    /// 语言代码（如 zh-CN）
     /// </summary>
     [SugarColumn(ColumnDescription = "语言代码")]
     public string Code { get; set; }

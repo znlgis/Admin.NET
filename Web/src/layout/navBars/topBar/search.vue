@@ -16,7 +16,7 @@
 						</el-icon>
 					</template>
 					<template #default="{ item }">
-						<div>
+						<div style="display: inline-flex; align-items: center;">
 							<SvgIcon :name="item.meta.icon" class="mr5" />
 							{{ item.meta.title }}
 						</div>
