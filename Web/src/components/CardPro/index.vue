@@ -1,6 +1,6 @@
 <template>
-    <el-card v-bind="$attrs">
-        <template #header>
+    <el-card v-bind="$attrs" :class="sizeClass">
+        <template #header v-if="title || $slots.prefix || prefixIcon || $slots.suffix || suffix">
             <div class="cardpro-header">
                 <div v-if="$slots.prefix || prefixIcon" class="cardpro-header-prefix">
                     <slot v-if="$slots.prefix" name="prefix" />
@@ -8,7 +8,7 @@
                         <component :is="prefixIcon" />
                     </el-icon>
                 </div>
-                <div :class="['cardpro-header-title', sizeClass]">
+                <div class="cardpro-header-title">
                     <span>{{ props.title }}</span>
                 </div>
                 <div v-if="$slots.suffix || suffix" class="cardpro-header-suffix">
@@ -61,8 +61,9 @@ const sizeClass = computed(() => {
         margin-right: 5px;
         display: flex;
         align-items: center;
+        margin-top: 1px;
     }
-    &-title { flex: 1 }
+    &-title { flex: 1; padding: var(--cardpro-padding) 0; }
     &-suffix {
         height: 100%;
         margin-left: 5px;
@@ -70,16 +71,19 @@ const sizeClass = computed(() => {
 }
 
 .cardpro-small {
-    padding: 10px 0;
+    --cardpro-padding: 10px
 }
 .cardpro-default {
-    padding: 15px 0;
+    --cardpro-padding: 15px
 }
 .cardpro-large {
-    padding: 20px 0;
+    --cardpro-padding: 20px
 }
 
 :deep(.el-card__header) {
-    padding: 0 20px;
+    padding: 0 var(--cardpro-padding);
+}
+:deep(.el-card__body) {
+    padding: var(--cardpro-padding);
 }
 </style>
