@@ -134,6 +134,21 @@ public class SysTenantService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 通过域名获取租户Id
+    /// </summary>
+    /// <returns></returns>
+    [DisplayName("通过域名获取租户id")]
+    [AllowAnonymous]
+    public async Task<long> GetTenantIdByHost()
+    {
+        var host = App.HttpContext.Request.Host.Host.ToLower();
+        var tenantByHost = await _sysTenantRep.AsQueryable()
+            .Where(t => t.Host.ToLower() == host)
+            .FirstAsync() ?? throw Oops.Oh(ErrorCodeEnum.D1002);
+        return tenantByHost.Id;
+    }
+
+    /// <summary>
     /// 获取库隔离的租户列表
     /// </summary>
     /// <returns></returns>

@@ -14,5 +14,5 @@ public class ApplicationConst
     /// <summary>
     /// API分组名称
     /// </summary>
-    public const string GroupName = "xxx业务应用";
+    public const string GroupName = "招聘应用";
 }

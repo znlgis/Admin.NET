@@ -26,10 +26,10 @@ if ($args[0] -eq "approvalFlow") {
 }
 
 # 输出信息和删除现有目录
-Write-Output "================================ 删除目录 $moduleName ================================"
-if (Test-Path $apiServicesPath) {
-    Remove-Item -Path $apiServicesPath -Recurse -Force
-}
+# Write-Output "================================ 删除目录 $moduleName ================================"
+# if (Test-Path $apiServicesPath) {
+#     Remove-Item -Path $apiServicesPath -Recurse -Force
+# }
 
 # 开始生成代码
 Write-Output "================================ 开始生成 $moduleName ================================"
