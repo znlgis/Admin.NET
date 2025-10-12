@@ -8,15 +8,15 @@
     "EnableMd5": false // 启用文件MDF5验证-防止重复上传
   },
   "OSSProvider": {
-    "Enabled": false,
-    "Provider": "Minio", // OSS提供者 Invalid/Minio/Aliyun/QCloud/Qiniu/HuaweiCloud
-    "Endpoint": "xxx.xxx.xxx.xxx:8090", // 节点/API地址（在腾讯云OSS中表示AppId）
-    "Region": "xxx.xxx.xxx.xxx", // 地域
-    "AccessKey": "",
-    "SecretKey": "",
+    "Enabled": true,
+    "Provider": "Qiniu", // OSS提供者 Invalid/Minio/Aliyun/QCloud/Qiniu/HuaweiCloud
+    "Endpoint": "s3.cn-north-1.qiniucs.com", // 节点/API地址（在腾讯云OSS中表示AppId）
+    "Region": "cn-north-1", // 地域
+    "AccessKey": "JFckbU3yi45-nASCnPao85zzc4uKvzanYJIGUmKz",
+    "SecretKey": "795YALijYOULOnjKKwohD8Vn0GW4tqIVLNQTMiGL",
     "IsEnableHttps": false, // 是否启用HTTPS
     "IsEnableCache": true, // 是否启用缓存
-    "Bucket": "admin.net",
+    "Bucket": "zhaopin1235",
     "CustomHost": "" // 自定义Host：拼接外链的Host，若空则使用Endpoint拼接
   },
   "SSHProvider": {
