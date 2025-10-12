@@ -202,7 +202,7 @@ public class MultiOSSFileProvider : ICustomFileProvider, ITransient
         return provider.Provider.ToUpper() switch
         {
             "ALIYUN" => $"{protocol}://{bucketName}.{provider.Endpoint}/{filePath.TrimStart('/')}",
-            "QINIU" => $"{protocol}://{bucketName}.{provider.Endpoint}/{filePath.TrimStart('/')}",
+            // "QINIU" => $"{protocol}://{bucketName}.{provider.Endpoint}/{filePath.TrimStart('/')}",
             "QCLOUD" => $"{protocol}://{bucketName}-{provider.Endpoint}.cos.{provider.Region}.myqcloud.com/{filePath.TrimStart('/')}",
             "MINIO" => $"{protocol}://{provider.Endpoint}/{bucketName}/{filePath.TrimStart('/')}",
              _ => throw Oops.Oh($"不支持的OSS提供者: {provider.Provider}")
