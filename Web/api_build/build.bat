@@ -21,10 +21,10 @@ if "%1"=="approvalFlow" (
   set apiUrl=http://localhost:5005/swagger/GoView/swagger.json
 )
 
-if exist %apiServicesPath% (
-    echo ================================ 删除目录 %moduleName% ================================
-    rd /s /q %apiServicesPath%
-)
+@REM if exist %apiServicesPath% (
+@REM     echo ================================ 删除目录 %moduleName% ================================
+@REM     rd /s /q %apiServicesPath%
+@REM )
 
 echo ================================ 开始生成 %moduleName% ================================
 
