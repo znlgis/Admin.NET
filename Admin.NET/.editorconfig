@@ -40,11 +40,6 @@ dotnet_naming_style.pascal_case.required_prefix =
 dotnet_naming_style.pascal_case.required_suffix =
 dotnet_naming_style.pascal_case.word_separator =
 dotnet_naming_style.pascal_case.capitalization = pascal_case
-
-dotnet_naming_style.pascal_case.required_prefix =
-dotnet_naming_style.pascal_case.required_suffix =
-dotnet_naming_style.pascal_case.word_separator =
-dotnet_naming_style.pascal_case.capitalization = pascal_case
 csharp_using_directive_placement = outside_namespace:silent
 csharp_style_expression_bodied_methods = false:silent
 csharp_style_expression_bodied_constructors = false:silent
@@ -132,11 +127,6 @@ dotnet_naming_style.帕斯卡拼写法.required_suffix =
 dotnet_naming_style.帕斯卡拼写法.word_separator =
 dotnet_naming_style.帕斯卡拼写法.capitalization = pascal_case
 
-dotnet_naming_style.帕斯卡拼写法.required_prefix =
-dotnet_naming_style.帕斯卡拼写法.required_suffix =
-dotnet_naming_style.帕斯卡拼写法.word_separator =
-dotnet_naming_style.帕斯卡拼写法.capitalization = pascal_case
-
 [*.{cs,vb}]
 end_of_line = crlf
 dotnet_style_qualification_for_field = false:silent
@@ -172,6 +162,3 @@ dotnet_style_predefined_type_for_member_access = true:silent
 indent_size = 4
 tab_width = 4
 dotnet_style_operator_placement_when_wrapping = beginning_of_line
-
-# Add copyright file header
-file_header_template = Admin.NET 项目的版权、商标、专利和其他相关权利均受相应法律法规的保护。使用本项目应遵守相关法律法规和许可证的要求。\n\n本项目主要遵循 MIT 许可证和 Apache 许可证（版本 2.0）进行分发和使用。许可证位于源代码树根目录中的 LICENSE-MIT 和 LICENSE-APACHE 文件。\n\n不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
