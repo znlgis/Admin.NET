@@ -42,6 +42,8 @@ public class Startup : AppStartup
 {
     public void ConfigureServices(IServiceCollection services)
     {
+        Log.Information($"应用启动：{App.Configuration["Urls"]}");
+
         // 配置选项
         services.AddProjectOptions();
 
