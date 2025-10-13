@@ -1,6 +1,6 @@
 <template>
 	<div>
-		<el-card shadow="hover" v-loading="state.isLoading" style="height: 100%;">
+		<CardPro shadow="hover" v-loading="state.isLoading" style="height: 100%;">
 			<el-descriptions title="系统信息配置" :column="2" :border="true">
 				<template #title>
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Setting /> </el-icon> 系统信息配置
@@ -50,7 +50,7 @@
 					<el-button type="primary" icon="ele-SuccessFilled" @click="onSave">保存</el-button>
 				</template>
 			</el-descriptions>
-		</el-card>
+		</CardPro>
 	</div>
 </template>
 
@@ -62,6 +62,7 @@ import { fileToBase64 } from '/@/utils/base64Conver';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysConfigApi } from '/@/api-services';
 import GSysDict from '/@/components/sysDict/sysDict.vue';
+import CardPro from '/@/components/CardPro/index.vue';
 
 const uploadRef = ref<UploadInstance>();
 const state = reactive({
