@@ -1,8 +1,7 @@
 import { nextTick } from 'vue';
 import * as svg from '@element-plus/icons-vue';
 // import 本地样式类名数组
-import { iconfonntClassList } from '/@/theme/iconfont/font_2298093_rnp72ifj3ba';
-import { fontAwesomeClassList } from '/@/theme/font-awesome/font-awesome';
+import { iconfonntClassList, fontAwesomeClassList } from '../assets/icons';
 
 // 获取阿里字体图标
 const getAlicdnIconfont = () => {
