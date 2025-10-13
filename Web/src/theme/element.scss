@@ -1,4 +1,4 @@
-@import 'mixins/index.scss';
+@use 'mixins/index.scss' as *;
 
 /* Button 按钮
 ------------------------------- */
@@ -119,8 +119,8 @@
 .el-menu-item,
 .el-sub-menu__title {
 	color: var(--next-bg-menuBarColor);
-	height: 44px !important;
-	line-height: 44px !important;
+	// height: 44px !important;
+	// line-height: 44px !important;
 }
 
 // 修复点击左侧菜单折叠再展开时，宽度不跟随问题
@@ -212,13 +212,13 @@
 
 		.el-menu-item,
 		.el-sub-menu {
-			height: 45px !important;
-			line-height: 45px !important;
+			// height: 45px !important;
+			// line-height: 45px !important;
 			color: var(--next-bg-topBarColor);
 
 			.el-sub-menu__title {
-				height: 45px !important;
-				line-height: 45px !important;
+				// height: 45px !important;
+				// line-height: 45px !important;
 				color: var(--next-bg-topBarColor);
 			}
 
@@ -256,7 +256,8 @@
 
 	.el-menu-item,
 	.el-sub-menu__title {
-		height: 50px !important;
+		height: 50px;
+        line-height: 50px;
 		color: var(--next-bg-topBarColor);
 	}
 

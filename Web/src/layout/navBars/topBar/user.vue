@@ -93,6 +93,7 @@
 
 <script setup lang="ts" name="layoutBreadcrumbUser">
 import { defineAsyncComponent, ref, computed, reactive, onMounted } from 'vue';
+import { useCssVar } from '@vueuse/core'
 import { useRouter } from 'vue-router';
 import { ElMessageBox, ElMessage, ElNotification } from 'element-plus';
 import screenfull from 'screenfull';
@@ -245,6 +246,13 @@ const onLanguageChange = async (lang: string) => {
 // 初始化组件大小/i18n
 const initI18nOrSize = (value: string, attr: string) => {
 	(<any>state)[attr] = Local.get('themeConfig')[value];
+
+    // 设置菜单高度-横向
+    useCssVar('--el-menu-horizontal-height').value = 'var(--el-menu-item-height-' + themeConfig.value.globalComponentSize + ')';
+    useCssVar('--el-menu-horizontal-sub-item-height').value = 'var(--el-menu-item-height-' + themeConfig.value.globalComponentSize + ')';
+    // 设置菜单高度-纵向
+    useCssVar('--el-menu-item-height').value = 'var(--el-menu-item-height-' + themeConfig.value.globalComponentSize + ')';
+    useCssVar('--el-menu-sub-item-height').value = 'var(--el-menu-item-height-' + themeConfig.value.globalComponentSize + ')';
 };
 // 页面加载时
 onMounted(async () => {
