@@ -1,7 +1,12 @@
 <template>
-	<i v-if="isShowIconSvg" class="el-icon" :style="setIconSvgStyle">
+	<i v-if="isShowIconEle" class="el-icon" :style="setIconSvgStyle">
 		<component :is="getIconName" />
 	</i>
+    <i v-else-if="isShowIconSvg" class="el-icon" :style="setIconSvgStyle">
+        <svg aria-hidden="true">
+            <use :xlink:href="'#' + getIconName"></use>
+        </svg>
+    </i>
 	<div v-else-if="isShowIconImg" :style="setIconImgOutStyle">
 		<img :src="getIconName" :style="setIconSvgInsStyle" />
 	</div>
@@ -37,8 +42,12 @@ const getIconName = computed(() => {
 	return props?.name;
 });
 // 用于判断 element plus 自带 svg 图标的显示、隐藏
-const isShowIconSvg = computed(() => {
+const isShowIconEle = computed(() => {
 	return props?.name?.startsWith('ele-');
+});
+// 用于判断自定义 svg 图标的显示、隐藏
+const isShowIconSvg = computed(() => {
+	return props?.name?.startsWith('svg-');
 });
 // 用于判断在线链接、本地引入等图标显示、隐藏
 const isShowIconImg = computed(() => {
