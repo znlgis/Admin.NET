@@ -3,123 +3,140 @@ branches: {
   }
 fileChange:
   /Web:
-    newFile: !uuid '1361f5d05730704b87f51367b1ee0b1cb6ef63a9'
-    oldFile: !uuid '1ef9ce3000f0df5cac4dc09d65af42590ab3aebe'
+    newFile: !uuid 'f4d0992aa69c64ca3fd2e36fe0e470118f59b642'
+    oldFile: !uuid '1361f5d05730704b87f51367b1ee0b1cb6ef63a9'
   /Web/src:
-    newFile: !uuid '1d3f102604a5c998aa73360a40deed468a4c2aa0'
-    oldFile: !uuid '233331bd6d055669e0e9b23afe8ea42e4bb67342'
+    newFile: !uuid 'f7c96076c832df7a05130ee6581b8ff46b762679'
+    oldFile: !uuid '1d3f102604a5c998aa73360a40deed468a4c2aa0'
+  /Web/src/assets:
+    newFile: !uuid '7710d7a469e0854bfcf03d3a8856e15a66ecaeb6'
+    oldFile: !uuid '173b943a4ff7b35935cb183f89dcabb767b60f50'
+  /Web/src/assets/icons:
+    newFile: !uuid '71a16d429b1b641dafe4f94490defb25973422c1'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome:
+    newFile: !uuid '0c0811fcad1a418920263e67380c91c856e1ece2'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/font-awesome.scss:
+    newFile: !uuid '33555e210cdc6e25d312fcd91489e471925e3984'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/font-awesome.ts:
+    newFile: !uuid '1545c612553cbf2bc86fe3981ee974d2cf1d39b2'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.eot:
+    newFile: !uuid 'e9f60ca953f93e35eab4108bd414bc02ddcf3928'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.svg:
+    newFile: !uuid '855c845e538b65548118279537a04eab2ec6ef0d'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.ttf:
+    newFile: !uuid '35acda2fa1196aad98c2adf4378a7611dd713aa3'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.woff:
+    newFile: !uuid '400014a4b06eee3d0c0d54402a47ab2601b2862b'
+    oldFile: null
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.woff2:
+    newFile: !uuid '4d13fc60404b91e398a37200c4a77b645cfd9586'
+    oldFile: null
+  /Web/src/assets/icons/iconfont:
+    newFile: !uuid '840e7442fc3106234c64a6e7a6cf9a08d2b333c4'
+    oldFile: null
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.scss:
+    newFile: !uuid 'e7f741ea3a0ae60bacaaa348673d0434ee0af42b'
+    oldFile: null
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.ts:
+    newFile: !uuid '15bcac8c57edeea71a7b7829183a68f7973d5c83'
+    oldFile: null
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.ttf:
+    newFile: !uuid '9df435d15c0271ad53ad3c22fbe582702ac9ed6c'
+    oldFile: null
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.woff:
+    newFile: !uuid '4a0251ffa0278e6f4d42e962c47536a5aa0e481c'
+    oldFile: null
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.woff2:
+    newFile: !uuid 'c3d4611e1bff6fddb4e95cf00d4e30a5c5dc4b67'
+    oldFile: null
+  /Web/src/assets/icons/index.scss:
+    newFile: !uuid '86fb0c5f2bc886fd158b1c4b6bac0c0e2e3b9208'
+    oldFile: null
+  /Web/src/assets/icons/index.ts:
+    newFile: !uuid '885b1c7672e18ad60c20607facf3dd7aa1d2b014'
+    oldFile: null
   /Web/src/components:
-    newFile: !uuid 'bb60fce27487e09875e444a9abb83f1cdc5fe473'
-    oldFile: !uuid '596fbcc826393f9be287e42c87db4e1da118ee8e'
-  /Web/src/components/CardPro:
-    newFile: !uuid 'c878cbe55eeec2541a6aaa8d7a493b0819129fba'
-    oldFile: null
-  /Web/src/components/CardPro/README.md:
-    newFile: !uuid '09de2b7a2e2bdb522164d963a701a81111664ff1'
-    oldFile: null
-  /Web/src/components/CardPro/index.vue:
-    newFile: !uuid '3202bb2eace46dfb2f272976c94aa4be439eb4bb'
-    oldFile: null
-  /Web/src/layout:
-    newFile: !uuid '126e0369db6bfff7283a2390453f034e596f3894'
-    oldFile: !uuid '1f7222a806bd7afc80636356995407053ceaff7c'
-  /Web/src/layout/navBars:
-    newFile: !uuid '5b5d5406a37258ba309c89445e23d1eafcbf2ced'
-    oldFile: !uuid '498027cce2d72f0545a870d3879702c637f012da'
-  /Web/src/layout/navBars/topBar:
-    newFile: !uuid '90fd8a0801276b3429f77a3aca0aaf20f7e2315d'
-    oldFile: !uuid '4faebb0be38869f1ffbb16793ce6d3e495e25e8e'
-  /Web/src/layout/navBars/topBar/user.vue:
-    newFile: !uuid '57b7233d6f3e2ebbf91a350b4be145b07eb87417'
-    oldFile: !uuid 'e4e49d648dbdc4a118040c7fc9a45a71f92d7554'
+    newFile: !uuid '4398ff7597c5c5d612e517c1fe5aa08c0c4f0cc2'
+    oldFile: !uuid 'bb60fce27487e09875e444a9abb83f1cdc5fe473'
+  /Web/src/components/svgIcon:
+    newFile: !uuid '8345f692a7842a3e082609a8b8008a6f92415b6e'
+    oldFile: !uuid '5c9d06e166dfc68ade90c726e5f2768134f11f18'
+  /Web/src/components/svgIcon/index.vue:
+    newFile: !uuid '29c13978d9ce956d50e5790bf063c03ae1b9deee'
+    oldFile: !uuid '672aceb9abb38058177c1d081a2f6071bc576072'
   /Web/src/theme:
-    newFile: !uuid '2373a17df2bcdd54a0eafb1331cd023e944a7d9b'
-    oldFile: !uuid 'f9b4deace6dfe15e55e18eceff238f8b7868a1d7'
-  /Web/src/theme/app.scss:
-    newFile: !uuid '324c337de5a164c78ce5bed85c87a2ab860eb290'
-    oldFile: !uuid '2284f3ad45cf42c8aeaf8800dd1d670996f77902'
-  /Web/src/theme/element.scss:
-    newFile: !uuid '145ccd188fa232d5461a72a8f1af254401fcbcc7'
-    oldFile: !uuid 'e3d033bab6d2d7fe0ea03bd866dba80441df90f3'
+    newFile: !uuid '179fd2d7d173d96ee741cb7a2d1063d9a87a5e40'
+    oldFile: !uuid '2373a17df2bcdd54a0eafb1331cd023e944a7d9b'
+  /Web/src/theme/font-awesome:
+    newFile: null
+    oldFile: !uuid '2d525b695e5e7e5a0b3333c267958b850499c7c8'
+  /Web/src/theme/font-awesome/font-awesome.scss:
+    newFile: null
+    oldFile: !uuid '216e6034f1f18a73a82d648c840ccac56d6ffec9'
+  /Web/src/theme/font-awesome/font-awesome.ts:
+    newFile: null
+    oldFile: !uuid '1545c612553cbf2bc86fe3981ee974d2cf1d39b2'
+  /Web/src/theme/font-awesome/fontawesome-webfont.eot:
+    newFile: null
+    oldFile: !uuid 'e9f60ca953f93e35eab4108bd414bc02ddcf3928'
+  /Web/src/theme/font-awesome/fontawesome-webfont.svg:
+    newFile: null
+    oldFile: !uuid '855c845e538b65548118279537a04eab2ec6ef0d'
+  /Web/src/theme/font-awesome/fontawesome-webfont.ttf:
+    newFile: null
+    oldFile: !uuid '35acda2fa1196aad98c2adf4378a7611dd713aa3'
+  /Web/src/theme/font-awesome/fontawesome-webfont.woff:
+    newFile: null
+    oldFile: !uuid '400014a4b06eee3d0c0d54402a47ab2601b2862b'
+  /Web/src/theme/font-awesome/fontawesome-webfont.woff2:
+    newFile: null
+    oldFile: !uuid '4d13fc60404b91e398a37200c4a77b645cfd9586'
+  /Web/src/theme/iconfont:
+    newFile: null
+    oldFile: !uuid '087a9fdd4d416060dfb39693482d6aaad6953014'
+  /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.scss:
+    newFile: null
+    oldFile: !uuid '35f1277e093114d9a8447ebeba416b4b5e7403a0'
+  /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.ts:
+    newFile: null
+    oldFile: !uuid '15bcac8c57edeea71a7b7829183a68f7973d5c83'
+  /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.ttf:
+    newFile: null
+    oldFile: !uuid '9df435d15c0271ad53ad3c22fbe582702ac9ed6c'
+  /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.woff:
+    newFile: null
+    oldFile: !uuid '4a0251ffa0278e6f4d42e962c47536a5aa0e481c'
+  /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.woff2:
+    newFile: null
+    oldFile: !uuid 'c3d4611e1bff6fddb4e95cf00d4e30a5c5dc4b67'
   /Web/src/theme/index.scss:
-    newFile: !uuid 'a83bfa6f30f74c1960d45fa015a9accaaa8ed109'
-    oldFile: !uuid '2c4f178644849347842be18a6529527f041453ae'
-  /Web/src/theme/media:
-    newFile: !uuid 'ebbc80415a1089cc93691834cd85646617a81bc7'
-    oldFile: !uuid '5cf9aba633ed59955900a9dd2b00fed8f2d7734e'
-  /Web/src/theme/media/chart.scss:
-    newFile: !uuid '992729eac52e39154e9625c36f5842ca3fcb0279'
-    oldFile: !uuid '8485e39c21dcc115a5cff5ec3a6d9fefe488bb5e'
-  /Web/src/theme/media/cityLinkage.scss:
-    newFile: !uuid '950e00955fe610c29620f2b6ad4a0df4e6dbb239'
-    oldFile: !uuid '1394156ee1d9a3f7d595b8ab3f056b5a1f8704d8'
-  /Web/src/theme/media/date.scss:
-    newFile: !uuid '58b5c0c5b4f32f165ac9ce6332cf606c28849df7'
-    oldFile: !uuid '1a503970683aa0c271d3c318b3b11d8821d16c2a'
-  /Web/src/theme/media/dialog.scss:
-    newFile: !uuid 'ac29a44175e9667073321964e8e8dd09a656a39f'
-    oldFile: !uuid '023ccae0eb6439ba7b43cba414c0dd0692bb268f'
-  /Web/src/theme/media/error.scss:
-    newFile: !uuid '132a3acef015a8c1fc6e0584a5de079f25740061'
-    oldFile: !uuid 'f35015fda673cd46a7e03dfc1a76e672f011bc8c'
-  /Web/src/theme/media/form.scss:
-    newFile: !uuid 'dc11a28d442dcb6c723c31322a1a4e56e5bf352b'
-    oldFile: !uuid '3c5774153d8ad66f7f5b0549ac7c6f1cc6a39278'
-  /Web/src/theme/media/home.scss:
-    newFile: !uuid '8d1a535debc1bb1d0c71160b26d85db64370f077'
-    oldFile: !uuid '5a2417e18d38d7cb47064cf5392ee7726ddfe66a'
-  /Web/src/theme/media/layout.scss:
-    newFile: !uuid 'c92a12478ecce14473641744597fee51189013ba'
-    oldFile: !uuid '48cc5f9c6841fbf0d9769c06bfea867cf1a004c0'
-  /Web/src/theme/media/login.scss:
-    newFile: !uuid '43bead7c9f7765e2cbaf4439cb643933dfc9bc40'
-    oldFile: !uuid '22d563524247d0580d2577c40a7b1b6a7068f7c7'
-  /Web/src/theme/media/media.scss:
-    newFile: !uuid '20de623d251a86377fb971631d63d786b922eaa6'
-    oldFile: !uuid 'bed1c356a2193e185be340cd3351dd7b163a732e'
-  /Web/src/theme/media/pagination.scss:
-    newFile: !uuid '2aa80e5485a938279deb171919a8bede038c5107'
-    oldFile: !uuid '37af75f265ccbe752f2f09c37e6d23b39a381b2b'
-  /Web/src/theme/media/personal.scss:
-    newFile: !uuid '8f5da28a8e3f9b8ef512aeac09321660f9d552c8'
-    oldFile: !uuid '7ec0d4abcc85b515fcb86c4f264670191887ae02'
-  /Web/src/theme/media/scrollbar.scss:
-    newFile: !uuid '912ecc72654838f335cbe45bc5655333f73125b2'
-    oldFile: !uuid '968a79d59520558d40ca4ffaf6c1a4fee5929fca'
-  /Web/src/theme/media/tagsView.scss:
-    newFile: !uuid 'b5a69ab87923ee09d0a6afa4b69482e9c4374b28'
-    oldFile: !uuid 'b71674ef43f6c877d9cc48705e8fd299910de0a4'
-  /Web/src/views:
-    newFile: !uuid '889e8fa947e9ef12412a6790ed0856792797aac8'
-    oldFile: !uuid 'c749f74e7a25856b8baa8c8f8f20c9a416077fb4'
-  /Web/src/views/home:
-    newFile: !uuid '5e5e8941efdec2b19f3e78ff712d64f2a7df0d0d'
-    oldFile: !uuid '09adabeb4aad0b6ceb9389e897b2a18ff0669146'
-  /Web/src/views/home/widgets:
-    newFile: !uuid 'c0e1ac970c9be45e5795f51d0e0ab940a9b533aa'
-    oldFile: !uuid '836d9442277bf009a39060750c231eb6707ebdbc'
-  /Web/src/views/home/widgets/components:
-    newFile: !uuid '58ccd2aed6cab15bd8dbf9b93f2ed9873904ca94'
-    oldFile: !uuid '5db37bdb236afda390f48586b62110ef83da2a6a'
-  /Web/src/views/home/widgets/components/about.vue:
-    newFile: !uuid '4f653e0475a97499a18f0597a3f962eec3df5eaf'
-    oldFile: !uuid '021b14ad4d69805241a0fa047a9feecb83e11aa0'
-  /Web/src/views/home/widgets/components/commit.vue:
-    newFile: !uuid '9a43693be892c19b8b21dc327c56861e5e7af83b'
-    oldFile: !uuid 'd049345c4a5a28644519425a89f839f83bf2016b'
-  /Web/src/views/home/widgets/components/schedule.vue:
-    newFile: !uuid '33ce540b6259bcaa4acfb294672c57514939bfb5'
-    oldFile: !uuid '91bb6c4b0aa7206ef08a660033f527c6bcf94da0'
-  /Web/src/views/system:
-    newFile: !uuid '141084f4595576d81dc91c90508c85bdcaeba95e'
-    oldFile: !uuid '3520a50ee0a92a7a13a0bb5d72d7d352c6443faf'
-  /Web/src/views/system/infoSetting:
-    newFile: !uuid '7d3b506855aef7083bc0166728cb3a08736416cc'
-    oldFile: !uuid 'ce1a98e9dfb8b613f6ac6a45faceaece575ff3f5'
-  /Web/src/views/system/infoSetting/index.vue:
-    newFile: !uuid '9a946856655ba358dbd9ce3e8dddf6ed64f4f60b'
-    oldFile: !uuid 'a6f96b6b309e7d229e95caf2f7a9c56aa34b0426'
-gitCommitId: !uuid '051220fee4eb6e4a3706e897d2547e1122b928b6'
-renames: {
-  }
-revisionId: 3007
+    newFile: !uuid '0bc1b017ea35b543d6f348bde76dd6be08df2713'
+    oldFile: !uuid 'a83bfa6f30f74c1960d45fa015a9accaaa8ed109'
+  /Web/src/utils:
+    newFile: !uuid '2edaedff13f9eb061eca2226df5f38496ea94158'
+    oldFile: !uuid 'abf88c8534a74df0d3b4ce6d7b5580b479b394f5'
+  /Web/src/utils/getStyleSheets.ts:
+    newFile: !uuid '3318baca1e30ae2a799d792e38c917b61ce17497'
+    oldFile: !uuid '894eb99b1a446a9417f7a36662a5f185ffaa5158'
+gitCommitId: !uuid 'af65b583f836af624b797edf6f418dacc9a06a7a'
+renames:
+  /Web/src/assets/icons/font-awesome/font-awesome.scss: /Web/src/theme/font-awesome/font-awesome.scss
+  /Web/src/assets/icons/font-awesome/font-awesome.ts: /Web/src/theme/font-awesome/font-awesome.ts
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.eot: /Web/src/theme/font-awesome/fontawesome-webfont.eot
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.svg: /Web/src/theme/font-awesome/fontawesome-webfont.svg
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.ttf: /Web/src/theme/font-awesome/fontawesome-webfont.ttf
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.woff: /Web/src/theme/font-awesome/fontawesome-webfont.woff
+  /Web/src/assets/icons/font-awesome/fontawesome-webfont.woff2: /Web/src/theme/font-awesome/fontawesome-webfont.woff2
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.scss: /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.scss
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.ts: /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.ts
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.ttf: /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.ttf
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.woff: /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.woff
+  /Web/src/assets/icons/iconfont/font_2298093_rnp72ifj3ba.woff2: /Web/src/theme/iconfont/font_2298093_rnp72ifj3ba.woff2
+revisionId: 3008
