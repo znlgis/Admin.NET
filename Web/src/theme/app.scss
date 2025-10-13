@@ -26,6 +26,11 @@
 	//--el-text-color-primary: rgba(0, 0, 0, .75) !important;
 	--el-text-color-regular: rgba(0, 0, 0, 0.99) !important;
 	//--el-text-color-secondary: var(--el-text-color-regular) !important;
+
+    // 导航菜单项高度,建议设置为偶数,否则图标与文本会在垂直位置上存在1px差
+    --el-menu-item-height-small: 34px;
+    --el-menu-item-height-default: 44px;
+    --el-menu-item-height-large: 50px;
 }
 
 html,
