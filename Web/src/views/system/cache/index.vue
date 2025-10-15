@@ -1,25 +1,19 @@
 <template>
 	<div class="sys-cache-container">
-		<div>
+		<!-- <div>
 			<NoticeBar text="系统缓存数据管理，请慎重操作！" style="margin: 4px" />
-		</div>
+		</div> -->
 
 		<el-splitter class="smallbar-el-splitter">
 			<el-splitter-panel size="20%" :min="200">
-				<el-card shadow="hover" header="缓存列表" v-loading="state.loading" style="height: 100%" body-style="height:100%; overflow:auto">
-					<template #header>
-						<div class="card-header">
-							<span>缓存列表</span>
-							<div>
-								<el-button icon="ele-Refresh" size="small" type="success" circle plain @click="handleQuery" v-auth="'sysCache:keyList'" />
-								<el-button icon="ele-DeleteFilled" size="small" type="danger" circle plain @click="clearCache" v-auth="'sysCache:clear'"> </el-button>
-							</div>
-						</div>
+				<CardPro title="缓存列表" v-loading="state.loading" full-height body-style="overflow:auto">
+					<template #suffix>
+						<el-button icon="ele-Refresh" type="success" circle plain @click="handleQuery" v-auth="'sysCache:keyList'" />
+                        <el-button icon="ele-DeleteFilled" type="danger" circle plain @click="clearCache" v-auth="'sysCache:clear'"> </el-button>
 					</template>
 					<el-tree
 						ref="treeRef"
 						class="filter-tree"
-						style="padding-bottom: 60px"
 						:data="state.cacheData"
 						node-key="id"
 						:props="{ children: 'children', label: 'name' }"
@@ -30,18 +24,15 @@
 						default-expand-all
 						accordion
 					/>
-				</el-card>
+				</CardPro>
 			</el-splitter-panel>
 			<el-splitter-panel :min="200">
-				<el-card shadow="hover" header="缓存数据" v-loading="state.loading1" style="height: 100%" body-style="height:100%; overflow:auto">
-					<template #header>
-						<div class="card-header">
-							<span>{{ `缓存数据${state.cacheKey ? `【${state.cacheKey}】` : ''}` }}</span>
-							<el-button icon="ele-Delete" size="small" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
-						</div>
-					</template>
-					<vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController style="padding-bottom: 60px" />
-				</el-card>
+				<CardPro :title="`缓存数据${state.cacheKey ? `【${state.cacheKey}】` : ''}`" v-loading="state.loading1" full-height body-style="overflow:auto">
+                    <template #suffix>
+                        <el-button icon="ele-Delete" type="danger" @click="delCache" v-auth="'sysCache:delete'"> 删除缓存 </el-button>
+                    </template>
+                    <vue-json-pretty :data="state.cacheValue" showLength showIcon showLineNumber showSelectController />
+				</CardPro>
 			</el-splitter-panel>
 		</el-splitter>
 	</div>
@@ -50,10 +41,10 @@
 <script lang="ts" setup name="sysCache">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage, ElTree } from 'element-plus';
-import NoticeBar from '/@/components/noticeBar/index.vue';
+// import NoticeBar from '/@/components/noticeBar/index.vue';
+import CardPro from '/@/components/CardPro/index.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
-//import { Splitpanes, Pane } from 'splitpanes';
 import 'splitpanes/dist/splitpanes.css';
 
 import { getAPI } from '/@/utils/axios-utils';
@@ -171,11 +162,3 @@ const nodeClick = async (node: any) => {
 	state.loading1 = false;
 };
 </script>
-
-<style lang="scss" scoped>
-.card-header {
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
-</style>
