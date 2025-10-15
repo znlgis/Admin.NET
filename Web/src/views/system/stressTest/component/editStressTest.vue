@@ -31,75 +31,91 @@
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="每轮请求数" :rules="[{ required: true, message: '每轮请求数不能为空', trigger: 'blur' }]">
-							<el-input-number v-model="state.ruleForm.numberOfRequests" step="100" placeholder="每轮请求数" />
+							<el-input-number v-model="state.ruleForm.numberOfRequests" :step="100" placeholder="每轮请求数" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
 						<el-form-item label="最大并发量">
-							<el-input-number v-model="state.ruleForm.maxDegreeOfParallelism" step="5" placeholder="最大并发量" />
+							<el-input-number v-model="state.ruleForm.maxDegreeOfParallelism" :step="5" placeholder="最大并发量" />
 						</el-form-item>
 					</el-col>
 					<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 						<el-tabs v-model="state.activeName" addable @tab-add="addParams()">
 							<el-tab-pane label="Headers" name="1">
-								<el-row :gutter="25" class="w100">
-									<template v-for="(item, index) in state.ruleForm.headers" :key="index">
-										<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" class="mb10">
-											<el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.headers.splice(index,1)" />
-										</el-col>
-										<el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" class="mb10">
-											<el-input v-model="item[0]" placeholder="参数名" clearable />
-										</el-col>
-										<el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16" class="mb10">
-											<el-input v-model="item[1]" placeholder="参数值" clearable />
-										</el-col>
-									</template>
-								</el-row>
+								<template v-for="(item, index) in state.ruleForm.headers" :key="index">
+                                    <div class="flex flex-items-center">
+                                        <div class="flex-auto">
+                                            <el-row :gutter="15" class="w100">
+                                                <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7" class="mt5 mb5">
+                                                    <el-input v-model="item[0]" placeholder="参数名" clearable />
+                                                </el-col>
+                                                <el-col :xs="24" :sm="17" :md="17" :lg="17" :xl="17" class="mt5 mb5">
+                                                    <el-input v-model="item[1]" placeholder="参数值" clearable />
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        <div style="width: 40px;">
+                                            <el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.headers.splice(index,1)" />
+                                        </div>
+                                    </div>
+                                </template>
 							</el-tab-pane>
 							<el-tab-pane label="Body" name="2">
-								<el-row :gutter="25" class="w100">
-									<template v-for="(item, index) in state.ruleForm.requestParameters" :key="index">
-										<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" class="mb10">
-											<el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.requestParameters.splice(index,1)" />
-										</el-col>
-										<el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" class="mb10">
-											<el-input v-model="item[0]" placeholder="参数名" clearable />
-										</el-col>
-										<el-col :xs="24" :sm="16" :md="16" :lg="16" :xl="16" class="mb10">
-											<el-input v-model="item[1]" placeholder="参数值" clearable />
-										</el-col>
-									</template>
-								</el-row>
+                                <template v-for="(item, index) in state.ruleForm.requestParameters" :key="index">
+                                    <div class="flex flex-items-center">
+                                        <div class="flex-auto">
+                                            <el-row :gutter="15" class="w100">
+                                                <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7" class="mt5 mb5">
+                                                    <el-input v-model="item[0]" placeholder="参数名" clearable />
+                                                </el-col>
+                                                <el-col :xs="24" :sm="17" :md="17" :lg="17" :xl="17" class="mt5 mb5">
+                                                    <el-input v-model="item[1]" placeholder="参数值" clearable />
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        <div style="width: 40px;">
+                                            <el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.requestParameters.splice(index,1)" />
+                                        </div>
+                                    </div>
+                                </template>
 							</el-tab-pane>
 							<el-tab-pane label="Path" name="3">
-								<el-row :gutter="25" class="w100">
-									<template v-for="(item, index) in state.ruleForm.pathParameters" :key="index">
-										<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" class="mb10">
-											<el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.pathParameters.splice(index,1)" />
-										</el-col>
-										<el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" class="mb10">
-											<el-input v-model="item[0]" placeholder="参数名" clearable />
-										</el-col>
-										<el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14" class="mb10">
-											<el-input v-model="item[1]" placeholder="参数值" clearable/>
-										</el-col>
-									</template>
-								</el-row>
+                                <template v-for="(item, index) in state.ruleForm.pathParameters" :key="index">
+                                    <div class="flex flex-items-center">
+                                        <div class="flex-auto">
+                                            <el-row :gutter="15" class="w100">
+                                                <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7" class="mt5 mb5">
+                                                    <el-input v-model="item[0]" placeholder="参数名" clearable />
+                                                </el-col>
+                                                <el-col :xs="24" :sm="17" :md="17" :lg="17" :xl="17" class="mt5 mb5">
+                                                    <el-input v-model="item[1]" placeholder="参数值" clearable/>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        <div style="width: 40px;">
+                                            <el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.pathParameters.splice(index,1)" />
+                                        </div>
+                                    </div>
+                                </template>
 							</el-tab-pane>
 							<el-tab-pane label="Query" name="4">
-								<el-row :gutter="25" class="w100">
-									<template v-for="(item, index) in state.ruleForm.queryParameters" :key="index">
-										<el-col :xs="24" :sm="2" :md="2" :lg="2" :xl="2" class="mb10">
-											<el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.queryParameters.splice(index,1)" />
-										</el-col>
-										<el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" class="mb10">
-											<el-input v-model="item[0]" placeholder="参数名" clearable/>
-										</el-col>
-										<el-col :xs="24" :sm="14" :md="14" :lg="14" :xl="14" class="mb10">
-											<el-input v-model="item[1]" placeholder="参数值" clearable/>
-										</el-col>
-									</template>
-								</el-row>
+                                <template v-for="(item, index) in state.ruleForm.queryParameters" :key="index">
+                                    <div class="flex flex-items-center">
+                                        <div class="flex-auto">
+                                            <el-row :gutter="15" class="w100">
+                                                <el-col :xs="24" :sm="7" :md="7" :lg="7" :xl="7" class="mt5 mb5">
+                                                    <el-input v-model="item[0]" placeholder="参数名" clearable/>
+                                                </el-col>
+                                                <el-col :xs="24" :sm="17" :md="17" :lg="17" :xl="17" class="mt5 mb5">
+                                                    <el-input v-model="item[1]" placeholder="参数值" clearable/>
+                                                </el-col>
+                                            </el-row>
+                                        </div>
+                                        <div style="width: 40px;">
+                                            <el-button type="danger" size="small" icon="ele-Delete" text @click="() => state.ruleForm.queryParameters.splice(index,1)" />
+                                        </div>
+                                    </div>
+                                </template>
 							</el-tab-pane>
 						</el-tabs>
 					</el-col>
