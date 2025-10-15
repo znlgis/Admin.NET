@@ -1,5 +1,5 @@
 <template>
-    <el-card v-bind="$attrs" :class="sizeClass">
+    <el-card v-bind="$attrs" :class="[sizeClass, fullHeight ? 'full-height' : '']">
         <template #header v-if="title || $slots.prefix || prefixIcon || $slots.suffix || suffix">
             <div class="cardpro-header">
                 <div v-if="$slots.prefix || prefixIcon" class="cardpro-header-prefix">
@@ -37,7 +37,8 @@ const props = defineProps({
     title: { type: String },
     prefixIcon: { type: String },
     suffix: { type: String },
-    size: useSizeProp
+    size: useSizeProp,
+    fullHeight: { type: Boolean, default: false }
 });
 
 // 获取全局组件大小
@@ -63,7 +64,13 @@ const sizeClass = computed(() => {
         align-items: center;
         margin-top: 1px;
     }
-    &-title { flex: 1; padding: var(--cardpro-padding) 0; }
+    &-title { 
+        flex: 1; 
+        padding: var(--cardpro-padding) 0; 
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
     &-suffix {
         height: 100%;
         margin-left: 5px;
@@ -85,5 +92,15 @@ const sizeClass = computed(() => {
 }
 :deep(.el-card__body) {
     padding: var(--cardpro-padding);
+}
+
+.full-height {
+    display: flex;
+    flex-direction:column;
+    height: 100%;
+    
+    :deep(.el-card__body) {
+        flex: 1;
+    }
 }
 </style>
