@@ -4,6 +4,16 @@
 
 ---
 
+## 属性
+
+| 属性名 | 说明 | 类型 | 默认值 |
+| --- | --- | --- | ---  |
+| title | 卡片的标题 | `string` | — |
+| prefix-icon | 标题前方的图标 | `string` | — |
+| suffix | header 右侧的内容，可以传入文本内容，也可以通过 `#footer` 传入 `solt`  | `string` | — |
+| size | 尺寸, 可取值有 `large` 、`default` 、 `small` | `enum` | — |
+| full-height | 是否 100% 高度，设置为 `true` 后，卡片将使用 flex 布局，父元素需有高度。卡片内容区将根据父元素高度自适应，无需再设置卡片 `style="height:100%" ` 和 `body-style="height:100%"` 。 | `boolean` | false |
+
 ## 如何使用
 
 ### 基本用法
@@ -69,6 +79,21 @@ import CardPro from '/@/components/CardPro/index.vue';
 </script>
 ```
 
+### 自适应100%高度
+
+设置 `full-height` 属性为 `true` 即可
+
+```html
+<template>
+    <card-pro title="标题" :full-height="true">
+        <!-- 你的内容 -->
+    </card-pro>
+</template>
+<script lang="ts" setup>
+import CardPro from '/@/components/CardPro/index.vue';
+</script>
+```
+
 ---
 
-最新更新于 2025.10.10
+最新更新于 2025.10.15
