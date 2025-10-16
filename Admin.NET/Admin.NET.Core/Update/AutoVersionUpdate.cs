@@ -38,29 +38,29 @@ public static class AutoVersionUpdate
     /// <returns></returns>
     public static IApplicationBuilder UseAutoVersionUpdate(this IApplicationBuilder app)
     {
-        ConsoleLogger.Info("AutoVersionUpdate 中间件运行");
+        LogHelper.Info("AutoVersionUpdate 中间件运行");
 
         var snowIdOpt = App.GetConfig<SnowIdOptions>("SnowId", true);
         if (snowIdOpt.WorkerId != 1)
         {
-            ConsoleLogger.Handle("非主节点，不执行脚本");
+            LogHelper.Handle("非主节点，不执行脚本");
             return app;
         }
 
         var currentVersion = GetEntryAssemblyCurrentVersion();
-        ConsoleLogger.Handle($"当前版本：{currentVersion}");
+        LogHelper.Handle($"当前版本：{currentVersion}");
 
         var historyVersionInfo = GetEntryAssemblyHistoryVersionInfo();
         var historyVersion = historyVersionInfo.Version;
         var historyDate = historyVersionInfo.Date;
         var historyIsRunScript = historyVersionInfo.IsRunScript;
 
-        ConsoleLogger.Handle($"历史版本：{historyVersion},更新时间：{historyDate}，是否已执行{historyIsRunScript}");
+        LogHelper.Handle($"历史版本：{historyVersion},更新时间：{historyDate}，是否已执行{historyIsRunScript}");
 
         // 历史版本为空、版本号相同，不执行脚本
         if (historyVersion == string.Empty)
         {
-            ConsoleLogger.Handle("历史版本为空，默认为最新版本，不执行脚本");
+            LogHelper.Handle("历史版本为空，默认为最新版本，不执行脚本");
 
             // 保存当前版本信息
             SetEntryAssemblyCurrentVersion(currentVersion, true);
@@ -69,7 +69,7 @@ public static class AutoVersionUpdate
         }
         else if (currentVersion.CompareTo(historyVersion) <= 0 && historyIsRunScript)
         {
-            ConsoleLogger.Handle("当前版本号与历史版本号相同，且已执行过脚本，不再执行");
+            LogHelper.Handle("当前版本号与历史版本号相同，且已执行过脚本，不再执行");
 
             // 保存当前版本信息
             SetEntryAssemblyCurrentVersion(currentVersion, false);
@@ -78,14 +78,14 @@ public static class AutoVersionUpdate
         }
         else
         {
-            ConsoleLogger.Handle("当前版本号与历史版本号不同，或版本号相同但未执行过脚本，开始执行脚本");
+            LogHelper.Handle("当前版本号与历史版本号不同，或版本号相同但未执行过脚本，开始执行脚本");
 
             var scriptSqlVersions = GetScriptSqlVersions();
 
             // 若不存在当前版本的脚本，则只保存当前版本信息，不执行脚本
             if (scriptSqlVersions.All(s => s.Version.CompareTo(currentVersion) < 0))
             {
-                ConsoleLogger.Handle("不存在当前版本的脚本，只保存当前版本信息，不执行脚本");
+                LogHelper.Handle("不存在当前版本的脚本，只保存当前版本信息，不执行脚本");
 
                 // 保存当前版本信息
                 SetEntryAssemblyCurrentVersion(currentVersion, false);
@@ -101,12 +101,12 @@ public static class AutoVersionUpdate
                 // 只执行大于历史版本的脚本，或者当前版本但未执行过
                 if (sqlVersion.CompareTo(historyVersion) < 0)
                 {
-                    ConsoleLogger.Handle($"版本{sqlVersion}低于历史版本，跳过");
+                    LogHelper.Handle($"版本{sqlVersion}低于历史版本，跳过");
                     continue;
                 }
                 if (sqlVersion == historyVersion && historyIsRunScript)
                 {
-                    ConsoleLogger.Handle($"版本{sqlVersion}等于历史版本，且已执行过脚本，跳过");
+                    LogHelper.Handle($"版本{sqlVersion}等于历史版本，且已执行过脚本，跳过");
                     continue;
                 }
 
@@ -114,14 +114,14 @@ public static class AutoVersionUpdate
                 var sql = File.ReadAllText(sqlFileInfo.FilePath);
                 if (sql != null)
                 {
-                    ConsoleLogger.Handle($"执行版本{sqlVersion}脚本");
+                    LogHelper.Handle($"执行版本{sqlVersion}脚本");
 
                     HandleSqlScript(app, sql, sqlVersion);
                 }
             }
         }
 
-        ConsoleLogger.Success("AutoVersionUpdate 中间件结束");
+        LogHelper.Success("AutoVersionUpdate 中间件结束");
 
         return app;
     }
@@ -219,7 +219,7 @@ public static class AutoVersionUpdate
         catch (Exception ex)
         {
             dbContext.Ado.RollbackTran();
-            ConsoleLogger.Error($"AutoVersionUpdate 执行 SQL 脚本出错，版本：{sqlVersion}，错误：{ex.Message}");
+            LogHelper.Error($"AutoVersionUpdate 执行 SQL 脚本出错，版本：{sqlVersion}，错误：{ex.Message}");
         }
         finally
         {
