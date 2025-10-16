@@ -31,9 +31,9 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器硬件信息")]
-    public SystemHardwareInfo HardwareInfo()
+    public SystemInfo HardwareInfo()
     {
-        var hardwareInfo = HardwareInfoManager.GetSystemHardwareInfo();
+        var hardwareInfo = SystemInfoManager.GetSystemInfo();
         return hardwareInfo;
     }
 
@@ -42,9 +42,9 @@ public class SysServerService : IDynamicApiController, ITransient
     /// </summary>
     /// <returns></returns>
     [DisplayName("获取服务器运行时信息")]
-    public SystemRuntimeInfo RuntimeInfo()
+    public XiHan.Framework.Utils.Runtime.RuntimeInfo RuntimeInfo()
     {
-        var systemRuntimeInfo = RuntimeInfoManager.GetSystemRuntimeInfo();
+        var systemRuntimeInfo = new XiHan.Framework.Utils.Runtime.RuntimeInfo();
         return systemRuntimeInfo;
     }
 
