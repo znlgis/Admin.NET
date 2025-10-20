@@ -4,9 +4,7 @@
             <div class="cardpro-header">
                 <div v-if="$slots.prefix || prefixIcon" class="cardpro-header-prefix">
                     <slot v-if="$slots.prefix" name="prefix" />
-                    <el-icon v-else-if="prefixIcon">
-                        <component :is="prefixIcon" />
-                    </el-icon>
+                    <SvgIcon v-else-if="prefixIcon" :name="prefixIcon" />
                 </div>
                 <div class="cardpro-header-title">
                     <span>{{ props.title }}</span>
