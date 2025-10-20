@@ -39,7 +39,7 @@ public class SqlSugarRepository<T> : SimpleClient<T>, ISqlSugarRepository<T> whe
             return;
 
         // 看请求头有没有租户id
-        var tenantId = App.HttpContext.Request.Headers.GetValue(ClaimConst.TenantId).ToString();
+        var tenantId = App.HttpContext?.Request.Headers.GetValue(ClaimConst.TenantId).ToString();
         if (tenantId == SqlSugarConst.MainConfigId) return;
         else if (string.IsNullOrWhiteSpace(tenantId))
         {
