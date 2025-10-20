@@ -571,7 +571,7 @@ $--el-table-text-color: #fb6d49;
 	}
 
 	// Table页自动撑满页面
-	> div:first-child {
+	> div:has(.full-table) {
 		display: flex;
 		flex-direction: column;
 		height: 100%;
