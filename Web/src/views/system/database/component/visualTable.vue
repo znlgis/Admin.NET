@@ -1,5 +1,5 @@
 <template>
-	<div class="sys-databaseVisual-container" style="height: calc(100vh - 60px)">
+	<div class="sys-databaseVisual-container" style="height: 100%">
 		<RelationGraph ref="graphRef" :options="graphOptions" :on-node-click="onNodeClick" :on-line-click="onLineClick">
 			<template #graph-plug>
 				<div
@@ -45,7 +45,7 @@
 							<th>长度</th>
 							<th>描述</th>
 						</tr>
-						<template v-for="column of node.data.columns" :key="column.columnName">
+						<template v-for="column of node.data.columns">
 							<tr>
 								<td>
 									<div :id="`${node.id}-${column.columnName}`">{{ column.columnName }}</div>

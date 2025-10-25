@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-formDes-container">
-		<v-form-designer class="form-designer" ref="vFormDesignRef"></v-form-designer>
+		<v-form-designer ref="vFormDesignRef"></v-form-designer>
 	</div>
 </template>
 
