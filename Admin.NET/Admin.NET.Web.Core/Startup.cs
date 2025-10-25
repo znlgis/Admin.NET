@@ -237,6 +237,7 @@ public class Startup : AppStartup
                 Title = "Admin.NET API",
                 Description = "Admin.NET 通用权限开发平台"
             });
+            c.OperationFilter<TenantHeaderOperationFilter>();
         });
 
         // 将IP地址数据库文件完全加载到内存，提升查询速度（以空间换时间，内存将会增加60-70M）

@@ -4,6 +4,8 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using NewLife.Reflection;
+
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -36,9 +38,15 @@ public class SqlSugarRepository<T> : SimpleClient<T>, ISqlSugarRepository<T> whe
         if (typeof(T).IsDefined(typeof(SysTableAttribute), false))
             return;
 
-        // 若未贴任何表特性或当前未登录或是默认租户Id，则返回默认库连接
-        var tenantId = App.User?.FindFirst(ClaimConst.TenantId)?.Value;
-        if (string.IsNullOrWhiteSpace(tenantId) || tenantId == SqlSugarConst.MainConfigId) return;
+        // 看请求头有没有租户id
+        var tenantId = App.HttpContext?.Request.Headers.GetValue(ClaimConst.TenantId, false)?.ToString();
+        if (tenantId == SqlSugarConst.MainConfigId) return;
+        else if (string.IsNullOrWhiteSpace(tenantId))
+        {
+            // 若未贴任何表特性或当前未登录或是默认租户Id，则返回默认库连接
+            tenantId = App.User?.FindFirst(ClaimConst.TenantId)?.Value;
+            if (string.IsNullOrWhiteSpace(tenantId) || tenantId == SqlSugarConst.MainConfigId) return;
+        }
 
         // 根据租户Id切换库连接 为空则返回默认库连接
         var sqlSugarScopeProviderTenant = App.GetRequiredService<SysTenantService>().GetTenantDbConnectionScope(long.Parse(tenantId));
