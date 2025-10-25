@@ -3,12 +3,12 @@
 		<router-view v-slot="{ Component }">
 			<transition :name="setTransitionName" mode="out-in">
 				<keep-alive :include="getKeepAliveNames">
-					<component :is="Component" :key="state.refreshRouterViewKey" class="w100" v-show="!isIframePage" />
+					<component :is="Component" :key="state.refreshRouterViewKey" v-show="!isIframePage" />
 				</keep-alive>
 			</transition>
 		</router-view>
 		<transition :name="setTransitionName" mode="out-in">
-			<Iframes class="w100" v-show="isIframePage" :refreshKey="state.iframeRefreshKey" :name="setTransitionName" :list="state.iframeList" />
+			<Iframes v-show="isIframePage" :refreshKey="state.iframeRefreshKey" :name="setTransitionName" :list="state.iframeList" />
 		</transition>
 	</div>
 </template>
@@ -21,7 +21,6 @@ import { useKeepALiveNames } from '/@/stores/keepAliveNames';
 import { useThemeConfig } from '/@/stores/themeConfig';
 import { Session } from '/@/utils/storage';
 import mittBus from '/@/utils/mitt';
-import {random} from "lodash-es";
 
 // 引入组件
 const Iframes = defineAsyncComponent(() => import('/@/layout/routerView/iframes.vue'));

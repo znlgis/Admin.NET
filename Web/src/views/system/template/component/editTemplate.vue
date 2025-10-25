@@ -1,15 +1,15 @@
 <template>
 	<div class="sys-config-container">
-		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="700px">
+		<el-dialog v-model="state.isShowDialog" draggable :close-on-click-modal="false" width="900px">
 			<template #header>
 				<div style="color: #fff">
 					<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Edit /> </el-icon>
 					<span> {{ props.title }} </span>
 				</div>
 			</template>
-			<el-form :model="state.ruleForm" ref="ruleFormRef" label-width="60">
+			<el-form :model="state.ruleForm" ref="ruleFormRef">
 				<el-tabs v-model="state.selectedTabName">
-					<el-tab-pane label="基础信息" name="1" style="height: 550px; overflow-y: auto; overflow-x: hidden">
+					<el-tab-pane label="基础信息" name="1" >
 						<el-row :gutter="35">
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 								<el-form-item label="名称" prop="name" :rules="[{ required: true, message: '名称不能为空', trigger: 'blur' }]">
@@ -43,7 +43,7 @@
 							</el-col>
 						</el-row>
 					</el-tab-pane>
-					<el-tab-pane label="模板内容" name="2" style="height: 550px; overflow-y: auto; overflow-x: hidden">
+					<el-tab-pane label="模板内容" name="2">
 						<el-row :gutter="5">
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 								<el-form-item label="内容类型">
@@ -55,7 +55,7 @@
 								</el-form-item>
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-								<el-form-item label="内容" prop="content" :rules="[{ required: true, message: '内容不能为空', trigger: 'blur' }]">
+								<el-form-item label="内容" prop="content" :rules="[{ required: true, message: '内容不能为空', trigger: 'blur' }]" label-position="top">
 									<Editor v-model:get-html="state.ruleForm.content" ref="editorRef" height="200px" v-if="state.contentType == 1" />
 									<el-input v-model="state.ruleForm.content" v-else type="textarea" rows="15" show-word-limit clearable />
 								</el-form-item>
@@ -63,7 +63,7 @@
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20" style="user-select: none;">
 								<el-row :gutter="5">
 									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20" title="双击删除参数项">
-										<el-form-item label="预览参数">
+										<el-form-item label="预览参数" label-position="top">
 											<el-button icon="ele-Plus" text @click="() => state.renderData.push([])"></el-button>
 										</el-form-item>
 									</el-col>
@@ -80,7 +80,7 @@
 								</el-row>
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
-								<el-form-item label="预览结果：" label-width="75" label-position="left" />
+								<el-form-item label="预览结果：" label-width="85" />
 							</el-col>
 							<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 								<span v-html="state.result"></span>
