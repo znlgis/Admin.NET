@@ -1,7 +1,12 @@
 <template>
-	<div class="layout-padding layout-padding-unset layout-iframe">
-		<div class="layout-padding-auto layout-padding-view">
-			<div class="w100" v-for="v in setIframeList" :key="v.path" v-loading="v.meta.loading" element-loading-background="white">
+	<div class="layout-iframe w100 h100">
+		<div class="layout-padding-view w100 h100">
+			<div class="w100 h100"
+                v-for="v in setIframeList" :key="v.path" 
+                v-show="getRoutePath === v.path"
+                v-loading="v.meta.loading" 
+                element-loading-background="white"
+            >
 				<transition-group :name="name">
 					<iframe
 						:src="`${v.meta.isLink}${v.meta.isLink.indexOf('?') > 0 ? '&' : '?'}token=${getToken()}`"
@@ -9,9 +14,7 @@
 						frameborder="0"
 						height="100%"
 						width="100%"
-						style="position: absolute"
 						:data-url="v.path"
-						v-show="getRoutePath === v.path"
 						ref="iframeRef"
 					/>
 				</transition-group>
@@ -50,6 +53,7 @@ const route = useRoute();
 
 // 处理 list 列表，当打开时，才进行加载
 const setIframeList = computed(() => {
+    console.log(props.list);
 	return (<RouteItems>props.list).filter((v: RouteItem) => v.meta?.isIframeOpen);
 });
 // 获取 iframe 当前路由 path
