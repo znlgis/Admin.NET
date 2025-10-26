@@ -20,7 +20,7 @@ public class ElasticSearchLoggingWriter : IDatabaseLoggingWriter, IDisposable
     public ElasticSearchLoggingWriter(IServiceScopeFactory scopeFactory)
     {
         _serviceScope = scopeFactory.CreateScope();
-        _esClient = _serviceScope.ServiceProvider.GetRequiredService<ElasticsearchClient>();
+        _esClient = _serviceScope.ServiceProvider.GetRequiredService<ElasticSearchClientContainer>()?.Logging;
         _sysConfigService = _serviceScope.ServiceProvider.GetRequiredService<SysConfigService>();
     }
 
