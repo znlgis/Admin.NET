@@ -1,5 +1,5 @@
 <template>
-	<div>
+	<div class="h100">
 		<CardPro shadow="hover" v-loading="state.isLoading" style="height: 100%;">
 			<el-descriptions title="系统信息配置" :column="2" :border="true">
 				<template #title>
