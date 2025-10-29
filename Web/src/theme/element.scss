@@ -354,8 +354,12 @@
 	}
 }
 
+.el-dialog.is-fullscreen {
+    overflow: hidden;
+}
 .el-dialog__body {
-	max-height: calc(100vh - 160px) !important;
+	//max-height: calc(100vh - 160px) !important;
+    height: calc(100% - 37px);
 	overflow-y: auto;
 	overflow-x: auto;
 }
