@@ -221,6 +221,8 @@ public static class CodeGenUtil
             "money" or "smallmoney" or "numeric" or "decimal" => "decimal",
             "real" => "Single",
             "datetime" or "datetime2" or "smalldatetime" => "DateTime",
+            "date" => "DateOnly",// MYSQL
+            "time" => "TimeOnly",// MYSQL
             "float" or "double" => "double",
             "image" or "binary" or "varbinary" => "byte[]",
             "uniqueidentifier" => "Guid",
