@@ -354,10 +354,23 @@
 	}
 }
 
+.el-dialog.is-fullscreen {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+    .el-dialog__body {
+        flex: 1;
+    }
+    .el-dialog__footer {
+        padding: 15px;
+        border-top: 1px solid var(--el-border-color);
+    }
+}
 .el-dialog__body {
-	max-height: calc(100vh - 160px) !important;
-	overflow-y: auto;
-	overflow-x: auto;
+	//max-height: calc(100vh - 160px) !important;
+    overflow-y: auto;
+    overflow-x: auto;
 }
 
 // .el-dialog__title{
