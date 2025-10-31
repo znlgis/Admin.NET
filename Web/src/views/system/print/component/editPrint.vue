@@ -1,6 +1,6 @@
 <template>
 	<div class="sys-print-container">
-		<div class="printDialog">
+		<div class="print-dialog">
 			<el-dialog v-model="state.isShowDialog" draggable overflow destroy-on-close fullscreen>
 				<template #header>
 					<div style="color: #fff">
@@ -8,7 +8,7 @@
 						<span> {{ props.title }} </span>
 					</div>
 				</template>
-				<div style="margin: 0px 0px 0px 0px">
+				<div style="margin: 0px; height: 100%;">
 					<HiprintDesign :mode-index="mode" ref="hiprintDesignRef" />
 				</div>
 				<template #footer>
@@ -165,17 +165,3 @@ const templateSubmit = async () => {
 // 导出对象
 defineExpose({ openDialog });
 </script>
-
-<style lang="scss" scoped>
-.printDialog {
-	:deep(.el-dialog) {
-		.el-dialog__header {
-			display: none !important;
-		}
-		.el-dialog__body {
-			max-height: calc(100vh - 80px) !important;
-			height: calc(100vh - 80px) !important;
-		}
-	}
-}
-</style>
