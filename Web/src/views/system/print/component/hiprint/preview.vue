@@ -1,18 +1,20 @@
 <template>
-	<el-dialog v-model="state.dialogVisible" draggable :close-on-click-modal="false" :width="Number(state.width) + Number(8) + 'mm'">
-		<template #header>
-			<div style="color: #fff">
-				<el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Printer /> </el-icon>
-				<span>{{ props.title }}</span>
-			</div>
-		</template>
-		<div id="preview_content" ref="previewContentRef"></div>
-		<template #footer>
-			<el-button :loading="state.waitShowPrinter" type="primary" icon="ele-Printer" @click.stop="print">直接打印</el-button>
-			<el-button type="primary" icon="ele-Printer" @click.stop="toPdf">导出PDF</el-button>
-			<el-button key="close" @click="hideDialog"> 关闭 </el-button>
-		</template>
-	</el-dialog>
+    <div class="preview-dialog" v-show="state.dialogVisible">
+        <el-dialog v-model="state.dialogVisible" width="80%">
+            <template #header>
+                <div style="color: #fff">
+                    <el-icon size="16" style="margin-right: 3px; display: inline; vertical-align: middle"> <ele-Printer /> </el-icon>
+                    <span>{{ props.title }}</span>
+                </div>
+            </template>
+            <div id="preview_content" ref="previewContentRef"></div>
+            <template #footer>
+                <el-button :loading="state.waitShowPrinter" type="primary" icon="ele-Printer" @click.stop="print">直接打印</el-button>
+                <el-button type="primary" icon="ele-Printer" @click.stop="toPdf">导出PDF</el-button>
+                <el-button key="close" @click="hideDialog"> 关闭 </el-button>
+            </template>
+        </el-dialog>
+    </div>
 </template>
 
 <script lang="ts" setup>
@@ -112,12 +114,28 @@ const hideDialog = () => {
 defineExpose({ showDialog });
 </script>
 
-<style lang="less" scoped>
-:deep(.ant-modal-body) {
-	padding: 0px;
-}
+<style lang="scss" scoped>
+.preview-dialog {
+    :deep(.el-dialog) {
+        display: flex;
+        flex-direction: column;
+        height: calc(100% - 20px);
 
-:deep(.ant-modal-content) {
-	margin-bottom: 24px;
+        .el-dialog__body {
+            background-color: var(--next-bg-main-color);
+        }
+    }
+
+    :deep(.hiprint-printTemplate .hiprint-printPanel) {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 24px;
+        
+        .hiprint-printPaper {
+            margin: auto;
+            background-color: #fff;
+            box-shadow: 5px 5px 10px 0px rgb(78, 78, 78);
+        }
+    }
 }
 </style>

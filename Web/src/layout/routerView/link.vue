@@ -1,5 +1,5 @@
 <template>
-	<div class="layout-padding layout-link-container">
+	<div class="layout-link-container w100 h100">
 		<div class="layout-padding-auto layout-padding-view">
 			<div class="layout-link-warp">
 				<i class="layout-link-icon iconfont icon-xingqiu"></i>

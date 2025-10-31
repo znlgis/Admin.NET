@@ -79,27 +79,25 @@
 		</el-col>
 	</el-row>
 
-	<el-row :gutter="8">
+	<el-row :gutter="8" style="height: calc(100% - 42px);">
 		<el-col :span="4">
-			<el-card style="height: 100%" shadow="never">
-				<el-row>
-					<el-col :span="24" id="hiprintEpContainer" class="rect-printElement-types hiprintEpContainer"> </el-col>
-				</el-row>
-			</el-card>
+			<CardPro shadow="never" full-height :body-style="{overflow: 'auto'}">
+                <div id="hiprintEpContainer" class="rect-printElement-types hiprintEpContainer"></div>
+			</CardPro>
 		</el-col>
-		<el-col :span="14">
-			<el-card shadow="never" class="card-design" :body-style="{ padding: '18px' }">
-				<div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
-			</el-card>
+		<el-col :span="14" style="height: 100%;">
+			<CardPro shadow="never" full-height :body-style="{overflow: 'auto'}">
+                <div id="hiprint-printTemplate" class="hiprint-printTemplate"></div>
+			</CardPro>
 		</el-col>
-		<el-col :span="6" class="params_setting_container">
-			<el-tabs type="border-card" style="height: 100%">
-				<el-tab-pane label="属性" style="height: 100%">
-					<el-card shadow="never" :body-style="{ padding: '0px' }">
+		<el-col :span="6" class="params_setting_container" style="height: 100%;">
+			<el-tabs type="border-card" style="height: 100%; overflow: auto;">
+				<el-tab-pane label="属性" style="height: 100%;">
+                    <!-- <CardPro full-height shadow="never"> -->
 						<el-row class="hinnn-layout-sider">
 							<div id="PrintElementOptionSetting"></div>
 						</el-row>
-					</el-card>
+					<!-- </CardPro> -->
 				</el-tab-pane>
 				<el-tab-pane label="测试数据">
 					<el-button @click="formatPrintDataDemo()" style="margin-bottom: 10px; width: 100%">格式化字符串</el-button>
@@ -127,6 +125,7 @@ import { hiprint } from 'vue-plugin-hiprint';
 import providers from './providers';
 import PrintPreview from './preview.vue';
 import printDataDefault from './print-data';
+import CardPro from '/@/components/CardPro/index.vue';
 // import { IPaperType } from './type';
 
 interface IPaperType {
@@ -412,15 +411,30 @@ defineExpose({ hiprintTemplate, printDataDemo, setPrintDataDemo, initPaper, mode
 </script>
 
 <style lang="scss" scoped>
-:deep(.rect-printElement-types .hiprint-printElement-type > li > ul > li > a) {
-	// padding: 4px 4px;
-	//color: #1296db;
-	// line-height: 1;
-	height: auto;
-	text-overflow: ellipsis;
-	color: var(--el-color-primary);
-	box-shadow: none !important;
-	// border: 1px dashed var(--el-color-primary);
+.el-card {
+    border-radius: 0;
+}
+:deep(.rect-printElement-types .hiprint-printElement-type > li > ul) {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    justify-items: center;
+    align-items: center;
+    align-content: center;
+    gap: 7px;
+
+    li {
+        width: 100%;
+        a {
+            height: auto;
+            text-overflow: ellipsis;
+            color: var(--el-color-primary);
+            box-shadow: none !important;
+
+            margin: 0;
+            width: 100%;
+        }
+    }
 }
 
 // 默认图片
@@ -428,15 +442,6 @@ defineExpose({ hiprintTemplate, printDataDemo, setPrintDataDemo, initPaper, mode
 	img {
 		content: url('~@/assets/logo.png');
 	}
-}
-
-// 设计容器
-.card-design {
-	overflow: hidden;
-	overflow-x: auto;
-	overflow-y: auto;
-	height: 100%;
-	padding: 2px;
 }
 
 :deep(.hiprint-option-item-submitBtn) {
@@ -450,5 +455,12 @@ defineExpose({ hiprintTemplate, printDataDemo, setPrintDataDemo, initPaper, mode
 :deep(.prop-tabs .prop-tab-items li.active) {
 	color: var(--el-color-primary);
 	border-bottom: 2px solid var(--el-color-primary);
+}
+:deep(.el-tabs--border-card > .el-tabs__content) {
+    overflow: auto;
+    padding: 10px;
+}
+:deep(.hiprint-option-items) {
+    padding: 0;
 }
 </style>
