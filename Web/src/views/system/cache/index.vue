@@ -1,9 +1,5 @@
 <template>
-	<div class="sys-cache-container">
-		<!-- <div>
-			<NoticeBar text="系统缓存数据管理，请慎重操作！" style="margin: 4px" />
-		</div> -->
-
+	<div class="sys-cache-container h100">
 		<el-splitter class="smallbar-el-splitter">
 			<el-splitter-panel size="20%" :min="200">
 				<CardPro title="缓存列表" v-loading="state.loading" full-height body-style="overflow:auto">
@@ -41,7 +37,6 @@
 <script lang="ts" setup name="sysCache">
 import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage, ElTree } from 'element-plus';
-// import NoticeBar from '/@/components/noticeBar/index.vue';
 import CardPro from '/@/components/CardPro/index.vue';
 import VueJsonPretty from 'vue-json-pretty';
 import 'vue-json-pretty/lib/styles.css';
