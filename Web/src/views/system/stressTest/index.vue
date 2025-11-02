@@ -1,47 +1,40 @@
 <template>
 	<div class="sys-stress-test h100 overlay-none">
-		<div>
-			<NoticeBar text="接口压测会占用服务器大量的内存资源，请慎重操作！" style="margin: 4px" />
-		</div>
 		<el-splitter class="smallbar-el-splitter overlay-hidden">
-			<el-splitter-panel size="20%" :min="200">
-				<el-card class="vh80" shadow="hover" header="接口列表" v-loading="state.loading">
-					<el-row :gutter="35">
-						<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb10">
-							<el-select v-model="state.swaggerUrl" @change="queryTreeNode" placeholder="接口分组" size="small">
-								<el-option :label="item.name" :value="item.url" v-for="(item, index) in state.groupList" :key="index" />
-							</el-select>
-						</el-col>
-						<el-col :xs="24" :sm="18" :md="18" :lg="18" :xl="18" class="mb10">
-							<el-input v-model="state.keywords" size="small" placeholder="关键字" clearable />
-						</el-col>
-						<el-col :xs="24" :sm="6" :md="6" :lg="6" :xl="6" class="mb10">
-							<el-button size="small" icon="ele-Search" v-reclick="1000" @click="queryTreeNode()" />
-						</el-col>
-					</el-row>
-					<el-tree
-						ref="treeRef"
-						class="filter-tree overlay-y vh68"
-						style="padding-bottom: 60px"
-						:data="state.data"
-						:props="{ children: 'children', label: 'summary' }"
-						:filter-node-method="filterNode"
-						node-key="id"
-						highlight-current
-						check-strictly>
-						<template #default="{ node }">
-							{{ node.label }}
-							<span class="node-button" v-if="!node.data.children">
-								<el-button size="small" icon="ele-DataLine" @click="treeNodeTest(node.data)" />
-							</span>
-						</template>
-					</el-tree>
-				</el-card>
+			<el-splitter-panel size="25%" :min="300">
+				<CardPro title="接口列表" full-height shadow="hover" v-loading="state.loading" body-style="display: flex; flex-direction: column;">
+					<el-select v-model="state.swaggerUrl" @change="queryTreeNode" placeholder="接口分组" class="mb10">
+						<el-option :label="item.name" :value="item.url" v-for="(item, index) in state.groupList" :key="index" />
+					</el-select>
+                    <div class="mb10" style="display: flex;">
+                        <el-input v-model="state.keywords" placeholder="关键字" clearable style="flex: 1; margin-right: 10px;" />
+                        <el-button icon="ele-Search" v-reclick="1000" @click="queryTreeNode()" />
+                    </div>
+                    <el-tree ref="treeRef" class="filter-tree overlay-y"
+                        :data="state.data"
+                        :props="{ children: 'children', label: 'summary' }"
+                        :filter-node-method="filterNode"
+                        node-key="id"
+                        highlight-current
+                        check-strictly
+                        style="flex: 1 1 0;"
+                    >
+                        <template #default="{ node }">
+                            {{ node.label }}
+                            <span class="node-button" v-if="!node.data.children">
+                                <el-button size="small" icon="ele-DataLine" @click="treeNodeTest(node.data)" />
+                            </span>
+                        </template>
+                    </el-tree>
+					
+				</CardPro>
 			</el-splitter-panel>
 			<el-splitter-panel :min="200">
-				<el-card class="main-container vh80" shadow="hover" header="缓存数据" v-loading="state.loading" body-style="height:100vh; overflow:auto">
-					<template #header>
-						<el-button type="primary" @click="showDialog(undefined)">开始测试</el-button>
+				<CardPro title="缓存数据" full-height shadow="hover"v-loading="state.loading">
+					<template #suffix>
+                        <div style="display: flex; width: 100%;">
+                            <el-button type="primary" @click="showDialog(undefined)">开始测试</el-button>
+                        </div>
 					</template>
 					<el-descriptions title="压测参数" label-width="180px" :column="2" class="mb20" border>
 						<el-descriptions-item label="请求方式" label-align="left" align="left">
@@ -104,7 +97,7 @@
 							{{ (state.result.percentile999ResponseTime ?? 0).toFixed(2) }}
 						</el-descriptions-item>
 					</el-descriptions>
-				</el-card>
+				</CardPro>
 			</el-splitter-panel>
 		</el-splitter>
 		<EditStressTest ref="editStressTestRef" @refreshData="refreshData" />
@@ -114,10 +107,9 @@
 <script lang="ts" setup name="sysStressTest">
 import { onMounted, reactive, ref } from 'vue';
 import EditStressTest from './component/editStressTest.vue';
-import NoticeBar from '/@/components/noticeBar/index.vue';
+import CardPro from '/@/components/CardPro/index.vue';
 import request, { getToken } from '/@/utils/request';
 import { StressTestOutput } from "/@/api-services";
-import { Splitpanes, Pane } from 'splitpanes';
 import { ElTree } from 'element-plus';
 import 'splitpanes/dist/splitpanes.css';
 import 'vue-json-pretty/lib/styles.css';
@@ -136,13 +128,13 @@ const state = reactive({
 		requestParameters: [[]],
 		queryParameters: [[]],
 		pathParameters: [[]],
-		headers: [[]],
+		headers: [[]] as Array<Array<any>>,
 	},
 	keywords: undefined,
 	swaggerUrl: '/swagger/Default/swagger.json',
 	result: {} as StressTestOutput,
 	data: [] as Array<any>,
-	groupList: [],
+	groupList: [] as Array<any>,
 });
 
 onMounted(async () => {
@@ -195,7 +187,7 @@ const treeNodeTest = async (node: any) => {
 
 const showDialog = async (row: any) => {
 	const newRow = row ?? { ...state.ruleForm };
-	const convertToKeyValuePairs = (params) => {
+	const convertToKeyValuePairs = (params: any) => {
 		if (Array.isArray(params) && params.every(item => Array.isArray(item) && item.length === 2)) {
 			return params
 		} else if (typeof params === 'object' && params !== null) {
@@ -219,7 +211,7 @@ const refreshData = (data: StressTestOutput) => {
 	state.result = data;
 }
 
-const getApiList = (keywords: string | undefined) => {
+const getApiList = (keywords?: string | undefined) => {
 	const emojiPattern = /[\u{2139}\u{2B05}-\u{2B07}\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F700}-\u{1F77F}\u{1F780}-\u{1F7FF}\u{1F800}-\u{1F8FF}\u{1F900}-\u{1F9FF}\u{1FA00}-\u{1FA6F}\u{1FA70}-\u{1FAFF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}]/gu;
 	return request(state.swaggerUrl, { method: 'get' }).then(({ data }) => {
 		const pathMap = data.paths;
@@ -239,7 +231,7 @@ const getApiList = (keywords: string | undefined) => {
 					data: apiInfo,
 				});
 		});
-		return result.filter((u) => u.children.length > 0);
+		return result.filter((u: any) => u.children.length > 0);
 	});
 };
 
@@ -255,20 +247,9 @@ const filterNode = (value: string, data: any) => {
 </script>
 
 <style lang="scss" scoped>
-.card-header {
-	width: 100%;
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-}
 :deep(.el-collapse-item) {
 	.el-collapse-item__arrow {
 		float: right;
-	}
-}
-:deep(.main-container) {
-	.el-card__header {
-		padding: 8px;
 	}
 }
 .node-button {
