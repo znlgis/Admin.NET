@@ -38,10 +38,18 @@ public class SysSmsService : IDynamicApiController, ITransient
     [DisplayName("发送短信")]
     public async Task SendSms([Required] string phoneNumber, string templateId = "0")
     {
-        if (!string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeyId) && !string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeySecret))
+        if (_smsOptions.Custom != null && _smsOptions.Custom.Enabled && !string.IsNullOrWhiteSpace(_smsOptions.Custom.ApiUrl))
+        {
+            await CustomSendSms(phoneNumber, templateId);
+        }
+        else if (!string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeyId) && !string.IsNullOrWhiteSpace(_smsOptions.Aliyun.AccessKeySecret))
+        {
             await AliyunSendSms(phoneNumber, templateId);
+        }
         else
+        {
             await TencentSendSms(phoneNumber, templateId);
+        }
     }
 
     /// <summary>
@@ -97,7 +105,7 @@ public class SysSmsService : IDynamicApiController, ITransient
         if (sendSmsResponse.Body.Code == "OK" && sendSmsResponse.Body.Message == "OK")
         {
             // var bizId = sendSmsResponse.Body.BizId;
-            _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(60));
+            _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(_smsOptions.VerifyCodeExpireSeconds));
         }
         else
         {
@@ -179,7 +187,7 @@ public class SysSmsService : IDynamicApiController, ITransient
         if (resp.SendStatusSet[0].Code == "Ok" && resp.SendStatusSet[0].Message == "send success")
         {
             // var bizId = sendSmsResponse.Body.BizId;
-            _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(60));
+            _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(_smsOptions.VerifyCodeExpireSeconds));
         }
         else
         {
@@ -216,5 +224,85 @@ public class SysSmsService : IDynamicApiController, ITransient
             SecretKey = _smsOptions.Tencentyun.AccessKeySecret
         };
         return cred;
+    }
+
+    /// <summary>
+    /// 自定义短信接口发送短信 📨
+    /// </summary>
+    /// <param name="phoneNumber">手机号</param>
+    /// <param name="templateId">短信模板id</param>
+    /// <returns></returns>
+    [AllowAnonymous]
+    [DisplayName("自定义短信接口发送短信")]
+    public async Task CustomSendSms([DataValidation(ValidationTypes.PhoneNumber)] string phoneNumber, string templateId = "0")
+    {
+        if (_smsOptions.Custom == null || !_smsOptions.Custom.Enabled)
+            throw Oops.Oh("自定义短信接口未启用");
+
+        if (string.IsNullOrWhiteSpace(_smsOptions.Custom.ApiUrl))
+            throw Oops.Oh("自定义短信接口地址未配置");
+
+        // 生成随机验证码
+        var verifyCode = Random.Shared.Next(100000, 999999);
+
+        // 获取模板
+        var template = _smsOptions.Custom.GetTemplate(templateId);
+        if (template == null)
+            throw Oops.Oh($"短信模板[{templateId}]不存在");
+
+        // 替换模板内容中的占位符
+        var content = template.Content.Replace("{code}", verifyCode.ToString());
+
+        try
+        {
+            using var httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromSeconds(30);
+
+            HttpResponseMessage response;
+
+            //替换URL占位符
+            var url = _smsOptions.Custom.ApiUrl
+                .Replace("{templateId}", templateId)
+                .Replace("{mobile}", phoneNumber)
+                .Replace("{content}", Uri.EscapeDataString(content))
+                .Replace("{code}", verifyCode.ToString());
+
+            if (_smsOptions.Custom.Method.ToUpper() == "POST")
+            {
+                // 替换占位符
+                var postData = _smsOptions.Custom.PostData?
+                    .Replace("{templateId}", templateId)
+                    .Replace("{mobile}", phoneNumber)
+                    .Replace("{content}", content)
+                    .Replace("{code}", verifyCode.ToString());
+                HttpContent httpContent = new StringContent(postData ?? string.Empty, Encoding.UTF8, _smsOptions.Custom.ContentType ?? "application/x-www-form-urlencoded");
+                response = await httpClient.PostAsync(url, httpContent);
+            }
+            else
+            {
+                // GET 请求
+                response = await httpClient.GetAsync(url);
+            }
+
+            var responseContent = await response.Content.ReadAsStringAsync();
+
+            // 判断是否发送成功
+            if (response.IsSuccessStatusCode && responseContent.Contains(_smsOptions.Custom.SuccessFlag))
+            {
+                if (_smsOptions.Custom.ApiUrl.Contains("{code}") || template.Content.Contains("{code}") || (_smsOptions.Custom.PostData?.Contains("{code}") == true))
+                {
+                    // 如果模板含有验证码，则添加到缓存
+                    _sysCacheService.Set($"{CacheConst.KeyPhoneVerCode}{phoneNumber}", verifyCode, TimeSpan.FromSeconds(_smsOptions.VerifyCodeExpireSeconds));
+                }
+            }
+            else
+            {
+                throw Oops.Oh($"短信发送失败：{responseContent}");
+            }
+        }
+        catch (Exception ex)
+        {
+            throw Oops.Oh($"短信发送异常：{ex.Message}");
+        }
     }
 }
