@@ -53,7 +53,6 @@ const route = useRoute();
 
 // 处理 list 列表，当打开时，才进行加载
 const setIframeList = computed(() => {
-    console.log(props.list);
 	return (<RouteItems>props.list).filter((v: RouteItem) => v.meta?.isIframeOpen);
 });
 // 获取 iframe 当前路由 path
