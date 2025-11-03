@@ -2,19 +2,37 @@
 branches: {
   }
 fileChange:
-  /Web:
-    newFile: !uuid '129109dc1af008985ec9ba0206708e1592e6fa15'
-    oldFile: !uuid 'e3174952699967eb3c79a2abc938cffeeb055684'
-  /Web/src:
-    newFile: !uuid 'e6dbe2abc31c6e08a1d785489b6a93444e836a4d'
-    oldFile: !uuid '4a7d4c17641c8a56404cd32e07370daafb17f314'
-  /Web/src/theme:
-    newFile: !uuid '6b31ef9b68781695ac261e61e0d16046c0d8866a'
-    oldFile: !uuid 'c7254bd721f15e07de87610a459c3ee46b01c58b'
-  /Web/src/theme/element.scss:
-    newFile: !uuid 'ce0c9d7c0a8a2d8b52a2002b431b36d06e99d937'
-    oldFile: !uuid 'a446149c1266ec6ed83ef500b4a1c4379ef54acd'
-gitCommitId: !uuid 'efd790df5fbc4977c6e059f0e35cef7c1326ecaa'
+  /Admin.NET:
+    newFile: !uuid 'f2b01588565d5de34fe42c8df3d86e38e7907370'
+    oldFile: !uuid 'f0460ff76b10be4a7a8dd40e5618f8bb7a8197de'
+  /Admin.NET/Admin.NET.Application:
+    newFile: !uuid '49c04098760197ff5acad464bafb8edb820e6a81'
+    oldFile: !uuid '4263ed1a977121d4dbfde183f68dc381238a54a3'
+  /Admin.NET/Admin.NET.Application/Configuration:
+    newFile: !uuid 'a12f6e556b6c601dee55fdb4aafd97e005685012'
+    oldFile: !uuid 'b88b3c7c9708bcfc5786d6df68c359dd7233ef03'
+  /Admin.NET/Admin.NET.Application/Configuration/SMS.json:
+    newFile: !uuid '03905c86b044e1eb1d91e3bf6885530d3e212148'
+    oldFile: !uuid 'b68d662175f0b4cbf0e82079e8ddc91c0ff3c5c8'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid '16b9ba6613fa26fe24a8c1187095b7afd5e24735'
+    oldFile: !uuid '425edecec6d63b3c1c2a10efe3425b5341554e5d'
+  /Admin.NET/Admin.NET.Core/Option:
+    newFile: !uuid 'b4e1fc0a2683b1bf54968bdc8ffe8c5952166f3b'
+    oldFile: !uuid '086fbc0ea5f6d2ad711bfbdab100de1e4436bcba'
+  /Admin.NET/Admin.NET.Core/Option/SMSOptions.cs:
+    newFile: !uuid '692c35286f22a354eeed944d1bb6f198a6785864'
+    oldFile: !uuid '2011c11dd36b8482565d66d8721985ae9eb3df0a'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid '6246e2f6bef51b076ec5865712a313d9b90faa8f'
+    oldFile: !uuid '548f1f2cd53eac62ba25f4be29cd21a3f1213794'
+  /Admin.NET/Admin.NET.Core/Service/Message:
+    newFile: !uuid '1cc6fb7293c7410c45a292526650d484a82296e8'
+    oldFile: !uuid '33e09ccee91a30b65989c433862234b8ee171a83'
+  /Admin.NET/Admin.NET.Core/Service/Message/SysSmsService.cs:
+    newFile: !uuid 'fea589b9f1037e74a7853e75cc087f5dbe6e2140'
+    oldFile: !uuid '405ed674d6d5b57492a55f6ca2c173a11d8989f6'
+gitCommitId: !uuid 'dfd49b8b8dd414a69f13ee9621f7c74ab23ca5cd'
 renames: {
   }
-revisionId: 3018
+revisionId: 3019
