@@ -12,6 +12,12 @@ namespace Admin.NET.Core;
 public sealed class SMSOptions : IConfigurableOptions
 {
     /// <summary>
+    /// 验证码缓存过期时间（秒）
+    /// 默认: 60秒
+    /// </summary>
+    public int VerifyCodeExpireSeconds { get; set; } = 60;
+
+    /// <summary>
     /// Aliyun
     /// </summary>
     public SMSSettings Aliyun { get; set; }
@@ -20,6 +26,11 @@ public sealed class SMSOptions : IConfigurableOptions
     /// Tencentyun
     /// </summary>
     public SMSSettings Tencentyun { get; set; }
+
+    /// <summary>
+    /// Custom 自定义短信接口
+    /// </summary>
+    public CustomSMSSettings Custom { get; set; }
 }
 
 public sealed class SMSSettings
@@ -63,4 +74,63 @@ public class SmsTemplate
     public string SignName { get; set; }
     public string TemplateCode { get; set; }
     public string Content { get; set; }
+}
+
+/// <summary>
+/// 自定义短信配置
+/// </summary>
+public sealed class CustomSMSSettings
+{
+    /// <summary>
+    /// 是否启用自定义短信接口
+    /// </summary>
+    public bool Enabled { get; set; }
+
+    /// <summary>
+    /// API 接口地址模板
+    /// 支持占位符: {mobile} - 手机号, {content} - 短信内容, {code} - 验证码
+    /// 示例: https://api.xxxx.com/sms?u=xxxx&key=59e03f49c3dbb5033&m={mobile}&c={content}
+    /// </summary>
+    public string ApiUrl { get; set; }
+
+    /// <summary>
+    /// 请求方法 (GET/POST)
+    /// </summary>
+    public string Method { get; set; } = "GET";
+
+    /// <summary>
+    /// POST 请求的 Content-Type (application/json 或 application/x-www-form-urlencoded)
+    /// 默认: application/x-www-form-urlencoded
+    /// </summary>
+    public string ContentType { get; set; } = "application/x-www-form-urlencoded";
+
+    /// <summary>
+    /// POST 请求的数据模板（支持占位符）
+    /// JSON 格式示例: {"mobile":"{mobile}","content":"{content}","apikey":"your_key"}
+    /// Form 格式示例: mobile={mobile}&content={content}&apikey=your_key
+    /// </summary>
+    public string PostData { get; set; }
+
+    /// <summary>
+    /// 成功响应标识（用于判断发送是否成功）
+    /// 如果响应内容包含此字符串，则认为发送成功
+    /// </summary>
+    public string SuccessFlag { get; set; } = "0";
+
+    /// <summary>
+    /// 短信模板列表
+    /// </summary>
+    public List<SmsTemplate> Templates { get; set; }
+
+    /// <summary>
+    /// 获取模板
+    /// </summary>
+    public SmsTemplate GetTemplate(string id = "0")
+    {
+        foreach (var template in Templates)
+        {
+            if (template.Id == id) { return template; }
+        }
+        return null;
+    }
 }
