@@ -50,7 +50,7 @@ public class SysRoleOrgService : ITransient
                 .Where(u => roleIdList.Contains(u.RoleId))
                 .Select(u => u.OrgId).ToListAsync();
         }
-        else return new List<long>();
+        else return [];
     }
 
     /// <summary>

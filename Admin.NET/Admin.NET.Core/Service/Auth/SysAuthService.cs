@@ -441,7 +441,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             OrgId = regWay.OrgId,
             PosId = regWay.PosId,
             TenantId = input.TenantId,
-            RoleIdList = new List<long> { regWay.RoleId },
+            RoleIdList = [regWay.RoleId],
         };
         addUserInput.Copy(input);
         await _sysUserService.RegisterUser(addUserInput);

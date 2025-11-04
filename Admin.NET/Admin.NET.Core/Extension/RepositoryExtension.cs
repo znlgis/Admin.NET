@@ -370,7 +370,7 @@ public static class RepositoryExtension
     public static IUpdateable<T> OnlyUpdateColumn<T, R>(this IUpdateable<T> updateable) where T : EntityBase, new() where R : class, new()
     {
         if (updateable.UpdateBuilder.UpdateColumns == null)
-            updateable.UpdateBuilder.UpdateColumns = new List<string>();
+            updateable.UpdateBuilder.UpdateColumns = [];
 
         foreach (PropertyInfo info in typeof(R).GetProperties())
         {

@@ -377,7 +377,7 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         {
             if (!mapping.TryGetValue(provider.BucketName, out List<SysFileProvider> value))
             {
-                value = new List<SysFileProvider>();
+                value = [];
                 mapping[provider.BucketName] = value;
             }
 

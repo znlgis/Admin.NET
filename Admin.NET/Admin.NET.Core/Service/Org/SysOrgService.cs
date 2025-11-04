@@ -71,7 +71,7 @@ public class SysOrgService : IDynamicApiController, ITransient
         if (sysOrg == null) return orgTree;
 
         sysOrg.Children = orgTree;
-        orgTree = new List<SysOrg> { sysOrg };
+        orgTree = [sysOrg];
         return orgTree;
     }
 
@@ -118,7 +118,7 @@ public class SysOrgService : IDynamicApiController, ITransient
         if (sysOrg == null) return orgTree;
 
         sysOrg.Children = orgTree;
-        orgTree = new List<OrgTreeOutput> { sysOrg };
+        orgTree = [sysOrg];
         return orgTree;
     }
 
@@ -396,7 +396,7 @@ public class SysOrgService : IDynamicApiController, ITransient
         var roleList = await _sysUserRoleService.GetUserRoleList(userId);
         if (roleList != null && roleList.Exists(r => r.Code == role.Code) == true)
             return true;
-        roleList = new List<SysRole> { role };
+        roleList = [role];
         var orgIds = await GetUserOrgIdList(roleList, userId, userOrgId);
         return orgIds.Contains(userOrgId);
     }

@@ -198,11 +198,10 @@ public class DateTimeUtil
     /// <returns></returns>
     public static List<DateTime> GetTodayTimeList(DateTime time)
     {
-        return new List<DateTime>
-        {
+        return [
             Convert.ToDateTime(time.ToString("D")),
             Convert.ToDateTime(time.AddDays(1).ToString("D")).AddSeconds(-1)
-        };
+        ];
     }
 
     /// <summary>

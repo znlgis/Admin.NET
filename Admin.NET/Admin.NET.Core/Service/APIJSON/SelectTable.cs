@@ -335,7 +335,7 @@ public class SelectTable : ISingleton
         var query = jb["query"] == null ? 2 : int.Parse(jb["query"].ToString()); // 默认输出数据和数量
         jb.Remove("page"); jb.Remove("count"); jb.Remove("query");
         var htt = new JArray();
-        List<string> tables = new List<string>(), where = new List<string>();
+        List<string> tables = [], where = [];
         foreach (var t in jb)
         {
             tables.Add(t.Key); where.Add(t.Value.ToString());
