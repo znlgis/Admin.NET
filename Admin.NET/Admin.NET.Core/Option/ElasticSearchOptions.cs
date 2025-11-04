@@ -55,7 +55,7 @@ public class ElasticSearchOptions
     /// <summary>
     /// 地址
     /// </summary>
-    public List<string> ServerUris { get; set; } = new List<string>();
+    public List<string> ServerUris { get; set; } = [];
 
     /// <summary>
     /// 索引

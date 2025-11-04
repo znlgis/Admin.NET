@@ -103,7 +103,7 @@ public class SysMenuService : IDynamicApiController, ITransient
     public async Task<List<SysMenu>> GetList([FromQuery] MenuInput input)
     {
         var langCode = _userManager.LangCode;
-        var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new List<long>() : await GetMenuIdList();
+        var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? [] : await GetMenuIdList();
         var (query, _) = GetSugarQueryableAndTenantId(input.TenantId);
 
         // 有条件直接查询菜单列表（带 Title、Type 过滤）

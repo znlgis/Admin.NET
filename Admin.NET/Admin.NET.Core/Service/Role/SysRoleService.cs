@@ -46,7 +46,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     public async Task<SqlSugarPagedList<SysRole>> Page(PageRoleInput input)
     {
         // 当前用户已拥有的角色集合
-        var roleIdList = _userManager.SuperAdmin ? new List<long>() : await _sysUserRoleService.GetUserRoleIdList(_userManager.UserId);
+        var roleIdList = _userManager.SuperAdmin ? [] : await _sysUserRoleService.GetUserRoleIdList(_userManager.UserId);
         return await _sysRoleRep.AsQueryable()
             .WhereIF(_userManager.SuperAdmin && input.TenantId > 0, u => u.TenantId == input.TenantId)
             .WhereIF(!_userManager.SuperAdmin, u => u.TenantId == _userManager.TenantId) // 若非超管，则只能操作本租户的角色
@@ -65,7 +65,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     public async Task<List<RoleOutput>> GetList()
     {
         // 当前用户已拥有的角色集合
-        var roleIdList = _userManager.SuperAdmin ? new List<long>() : await _sysUserRoleService.GetUserRoleIdList(_userManager.UserId);
+        var roleIdList = _userManager.SuperAdmin ? [] : await _sysUserRoleService.GetUserRoleIdList(_userManager.UserId);
 
         return await _sysRoleRep.AsQueryable()
             .WhereIF(!_userManager.SuperAdmin, u => u.TenantId == _userManager.TenantId) // 若非超管，则只能操作本租户的角色
@@ -221,7 +221,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     [DisplayName("根据角色Id获取菜单Id集合")]
     public async Task<List<long>> GetOwnMenuList([FromQuery] RoleInput input)
     {
-        var menuIds = await _sysRoleMenuService.GetRoleMenuIdList(new List<long> { input.Id });
+        var menuIds = await _sysRoleMenuService.GetRoleMenuIdList([input.Id]);
         return await _sysMenuService.ExcludeParentMenuOfFullySelected(menuIds);
     }
 
@@ -233,7 +233,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     [DisplayName("根据角色Id获取机构Id集合")]
     public async Task<List<long>> GetOwnOrgList([FromQuery] RoleInput input)
     {
-        return await _sysRoleOrgService.GetRoleOrgIdList(new List<long> { input.Id });
+        return await _sysRoleOrgService.GetRoleOrgIdList([input.Id]);
     }
 
     /// <summary>

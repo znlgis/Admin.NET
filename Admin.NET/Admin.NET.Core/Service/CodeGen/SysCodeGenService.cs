@@ -713,28 +713,25 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         if (input.GenerateType!.Substring(1, 1).Contains('1'))
         {
             // 生成到本项目(前端)
-            return new List<string>
-            {
+            return [
                 indexPath,
                 formModalPath,
                 apiJsPath
-            };
+            ];
         }
 
         if (input.GenerateType.Substring(1, 1).Contains('2'))
         {
             // 生成到本项目(后端)
-            return new List<string>
-            {
+            return [
                 servicePath,
                 inputPath,
                 outputPath,
                 viewPath,
-            };
+            ];
         }
         // 前后端同时生成到本项目
-        return new List<string>
-        {
+        return [
             servicePath,
             inputPath,
             outputPath,
@@ -742,7 +739,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             indexPath,
             formModalPath,
             apiJsPath
-        };
+        ];
     }
 
     /// <summary>
@@ -767,27 +764,24 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         var apiJsPath = Path.Combine(zipPath, _codeGenOptions.FrontRootPath, "src", "api", input.PagePath, firstLowerTableName + ".ts");
         if (input.GenerateType!.StartsWith("11"))
         {
-            return new List<string>
-            {
+            return [
                 indexPath,
                 formModalPath,
                 apiJsPath
-            };
+            ];
         }
 
         if (input.GenerateType.StartsWith("12"))
         {
-            return new List<string>
-            {
+            return [
                 servicePath,
                 inputPath,
                 outputPath,
                 viewPath
-            };
+            ];
         }
 
-        return new List<string>
-        {
+        return [
             servicePath,
             inputPath,
             outputPath,
@@ -795,6 +789,6 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             indexPath,
             formModalPath,
             apiJsPath
-        };
+        ];
     }
 }
