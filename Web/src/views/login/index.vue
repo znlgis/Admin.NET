@@ -361,6 +361,9 @@ const getTenantInfo = async () => {
 	}
 }
 @media screen and (max-width: 1200px) {
+	.login-right-warp {
+		width: 100%;
+	}
 	.copyright,
 	.icp {
 		left: 50%;
