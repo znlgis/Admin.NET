@@ -119,7 +119,7 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         catch (Exception ex)
         {
             _db.AsTenant().RollbackTran();
-            throw ex;
+            throw Oops.Oh(ex);
         }
     }
 
