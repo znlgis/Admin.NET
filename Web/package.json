@@ -36,7 +36,7 @@
 		"animate.css": "^4.1.1",
 		"async-validator": "^4.2.5",
 		"axios": "^1.13.2",
-		"countup.js": "^2.8.2",
+		"countup.js": "^2.9.0",
 		"cropperjs": "^1.6.2",
 		"echarts": "^6.0.0",
 		"echarts-gl": "^2.0.9",
@@ -121,7 +121,7 @@
 			"json-editor-vue",
 			"vue-demi"
 		],
-        "overrides": {
+		"overrides": {
 			"rollup": "4.43.0"
 		}
 	},
