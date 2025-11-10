@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core.Utils;
 using RabbitMQ.Client;
 using RabbitMQ.Client.Events;
 using System.Threading.Channels;
@@ -43,7 +44,10 @@ public class RabbitMQEventSourceStore : IEventSourceStorer, IDisposable
     /// <param name="capacity">存储器最多能够处理多少消息，超过该容量进入等待写入</param>
     public RabbitMQEventSourceStore(ConnectionFactory factory, string routeKey, int capacity)
     {
-        InitEventSourceStore(factory, routeKey, capacity).GetAwaiter().GetResult();
+        AsyncHelper.RunSync(async () =>
+        {
+            await InitEventSourceStore(factory, routeKey, capacity);
+        });
     }
 
     /// <summary>

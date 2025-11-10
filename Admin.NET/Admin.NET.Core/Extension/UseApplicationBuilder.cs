@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core.Utils;
 using AspNetCoreRateLimit;
 using Microsoft.AspNetCore.Builder;
 
@@ -17,10 +18,13 @@ public static class UseApplicationBuilder
     // 配置限流中间件策略
     public static void UsePolicyRateLimit(this IApplicationBuilder app)
     {
-        var ipPolicyStore = app.ApplicationServices.GetRequiredService<IIpPolicyStore>();
-        ipPolicyStore.SeedAsync().GetAwaiter().GetResult();
+        AsyncHelper.RunSync(async () =>
+        {
+            var ipPolicyStore = app.ApplicationServices.GetRequiredService<IIpPolicyStore>();
+            await ipPolicyStore.SeedAsync();
 
-        var clientPolicyStore = app.ApplicationServices.GetRequiredService<IClientPolicyStore>();
-        clientPolicyStore.SeedAsync().GetAwaiter().GetResult();
+            var clientPolicyStore = app.ApplicationServices.GetRequiredService<IClientPolicyStore>();
+            await clientPolicyStore.SeedAsync();
+        });
     }
 }

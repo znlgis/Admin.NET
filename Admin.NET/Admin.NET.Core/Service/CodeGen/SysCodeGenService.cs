@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core.Utils;
 using System.IO.Compression;
 
 namespace Admin.NET.Core.Service;
@@ -70,9 +71,9 @@ public class SysCodeGenService : IDynamicApiController, ITransient
 
         var codeGen = input.Adapt<SysCodeGen>();
         var newCodeGen = await _db.Insertable(codeGen).ExecuteReturnEntityAsync();
-
+        var columns = await GetColumnList(input);
         // 增加配置表
-        _codeGenConfigService.AddList(GetColumnList(input), newCodeGen);
+        _codeGenConfigService.AddList(columns, newCodeGen);
     }
 
     /// <summary>
@@ -112,7 +113,8 @@ public class SysCodeGenService : IDynamicApiController, ITransient
             //if (oldRecord.TableName != input.TableName)
             //{
             await _codeGenConfigService.DeleteCodeGenConfig(codeGen.Id);
-            _codeGenConfigService.AddList(GetColumnList(input.Adapt<AddCodeGenInput>()), codeGen);
+            var columns = await GetColumnList(input.Adapt<AddCodeGenInput>());
+            _codeGenConfigService.AddList(columns, codeGen);
             //}
             _db.AsTenant().CommitTran();
         }
@@ -215,7 +217,13 @@ public class SysCodeGenService : IDynamicApiController, ITransient
         // 获取实体类型属性
         var entityType = provider.DbMaintenance.GetTableInfoList(false).FirstOrDefault(u => u.Name == tableName);
         if (entityType == null) return null;
-        var properties = GetEntityInfos(configId).Result.First(e => e.DbTableName.EndsWithIgnoreCase(tableName)).Type.GetProperties()
+
+        var entityInfos = AsyncHelper.RunSync(async () =>
+        {
+            return await GetEntityInfos(configId);
+        });
+
+        var properties = entityInfos.First(e => e.DbTableName.EndsWithIgnoreCase(tableName)).Type.GetProperties()
             .Where(e => e.GetCustomAttribute<SugarColumn>()?.IsIgnore == false).Select(e => new
             {
                 PropertyName = e.Name,
@@ -245,9 +253,10 @@ public class SysCodeGenService : IDynamicApiController, ITransient
     /// 获取数据表列（实体属性）集合
     /// </summary>
     /// <returns></returns>
-    private List<ColumnOuput> GetColumnList([FromQuery] AddCodeGenInput input)
+    private async Task<List<ColumnOuput>> GetColumnList([FromQuery] AddCodeGenInput input)
     {
-        var entityType = GetEntityInfos(input.ConfigId).GetAwaiter().GetResult().FirstOrDefault(u => u.EntityName == input.TableName);
+        var entityInfos = await GetEntityInfos(input.ConfigId);
+        var entityType = entityInfos.FirstOrDefault(u => u.EntityName == input.TableName);
         if (entityType == null) return null;
 
         var config = _dbConnectionOptions.ConnectionConfigs.FirstOrDefault(u => u.ConfigId.ToString() == input.ConfigId);

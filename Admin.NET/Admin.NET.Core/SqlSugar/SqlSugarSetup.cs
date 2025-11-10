@@ -4,6 +4,8 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core.Utils;
+using Markdig.Extensions.TaskLists;
 using Microsoft.Data.Sqlite;
 using DbType = SqlSugar.DbType;
 
@@ -369,7 +371,11 @@ public static class SqlSugarSetup
             Console.ForegroundColor = ConsoleColor.Green;
             Console.WriteLine($"初始化视图 {viewType.FullName,-58} ({dbProvider.CurrentConnectionConfig.ConfigId} - {Interlocked.Increment(ref taskIndex):D003}/{size:D003}，耗时：{stopWatch.ElapsedMilliseconds:N0} ms)");
         }));
-        Task.WaitAll(taskList.ToArray());
+
+        AsyncHelper.RunSync(async () =>
+        {
+            await Task.WhenAll(taskList);
+        });        
 
         totalWatch.Stop(); // 停止总计时
         Console.ForegroundColor = ConsoleColor.Green;
@@ -501,7 +507,10 @@ public static class SqlSugarSetup
             InitializeTable(dbProvider, entityType);
         }));
 
-        Task.WhenAll(tasks).GetAwaiter().GetResult();
+        AsyncHelper.RunSync(async () =>
+        {
+            await Task.WhenAll(tasks);
+        });
     }
 
     /// <summary>
@@ -570,7 +579,10 @@ public static class SqlSugarSetup
             InsertOrUpdateSeedData(dbProvider, seedType, entityType, seedData, config, ref count, sum);
         }));
 
-        Task.WhenAll(tasks).GetAwaiter().GetResult();
+        AsyncHelper.RunSync(async () =>
+        {
+            await Task.WhenAll(tasks);
+        });
         _isHandlingSeedData = false;
     }
 

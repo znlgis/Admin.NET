@@ -4,6 +4,8 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core.Utils;
+
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -63,7 +65,10 @@ public class DictAttribute : ValidationAttribute, ITransient
             sysDictDataService = App.GetRequiredService<SysDictDataService>();
 
         // 获取字典值列表
-        var dictDataList = sysDictDataService.GetDataList(DictTypeCode).GetAwaiter().GetResult();
+        var dictDataList = AsyncHelper.RunSync(async () =>
+        {
+            return await sysDictDataService.GetDataList(DictTypeCode);
+        });
 
         // 使用 HashSet 来提高查找效率
         var dictHash = new HashSet<string>(dictDataList.Select(u => u.Value));
