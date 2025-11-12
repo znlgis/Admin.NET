@@ -5,8 +5,6 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using OnceMi.AspNetCore.OSS;
-using Newtonsoft.Json;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Admin.NET.Core.Service;
 
@@ -43,7 +41,7 @@ public class SysFileProviderService : IDynamicApiController, ITransient
     /// <returns></returns>
     [DisplayName("获取文件存储提供者分页列表")]
     [NonAction]
-    public async Task<SqlSugarPagedList<SysFileProvider>> GetFileProviderPage(PageFileProviderInput input)
+    public async Task<SqlSugarPagedList<SysFileProvider>> GetFileProviderPage([FromQuery] PageFileProviderInput input)
     {
         return await _sysFileProviderRep.AsQueryable()
             .WhereIF(!string.IsNullOrWhiteSpace(input.Provider), u => u.Provider.Contains(input.Provider!))

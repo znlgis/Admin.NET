@@ -4,7 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
 
 using Microsoft.AspNetCore.Builder;
 using XiHan.Framework.Utils.Logging;
@@ -237,4 +237,4 @@ public static class AutoVersionUpdate
 public record SqlFileInfo(string Version, string FilePath);
 public record HistoryVersionInfo(string Version, string Date, bool IsRunScript);
 
-#endif // NET9_0_OR_GREATER
+#endif // NET10_0_OR_GREATER

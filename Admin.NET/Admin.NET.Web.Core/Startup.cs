@@ -32,7 +32,7 @@ using System.Text.Json;
 using System.Text.Unicode;
 using System.Threading.Tasks;
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
 using Admin.NET.Core.Update;
 #endif
 
@@ -221,25 +221,25 @@ public class Startup : AppStartup
         // 控制台logo
         services.AddConsoleLogo();
 
-        // Swagger 时间格式化
-        services.AddSwaggerGen(c =>
-        {
-            c.MapType<DateTime>(() => new Microsoft.OpenApi.Models.OpenApiSchema
-            {
-                Type = "string",
-                Format = "date-time",
-                Example = new Microsoft.OpenApi.Any.OpenApiString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) // 示例值
-            });
+        //// Swagger 时间格式化
+        //services.AddSwaggerGen(c =>
+        //{
+        //    c.MapType<DateTime>(() => new Microsoft.OpenApi.Models.OpenApiSchema
+        //    {
+        //        Type = "string",
+        //        Format = "date-time",
+        //        Example = new Microsoft.OpenApi.Any.OpenApiString(DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss")) // 示例值
+        //    });
 
-            // 确保生成的文档包含 OpenAPI 版本字段
-            c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
-            {
-                Version = "v1",
-                Title = "Admin.NET API",
-                Description = "Admin.NET 通用权限开发平台"
-            });
-            c.OperationFilter<TenantHeaderOperationFilter>();
-        });
+        //    // 确保生成的文档包含 OpenAPI 版本字段
+        //    c.SwaggerDoc("v1", new Microsoft.OpenApi.Models.OpenApiInfo
+        //    {
+        //        Version = "v1",
+        //        Title = "Admin.NET API",
+        //        Description = "Admin.NET 通用权限开发平台"
+        //    });
+        //    c.OperationFilter<TenantHeaderOperationFilter>();
+        //});
 
         // 将IP地址数据库文件完全加载到内存，提升查询速度（以空间换时间，内存将会增加60-70M）
         IpToolSettings.LoadInternationalDbToMemory = true;
@@ -384,7 +384,7 @@ public class Startup : AppStartup
             });
         });
 
-#if NET9_0_OR_GREATER
+#if NET10_0_OR_GREATER
         app.UseAutoVersionUpdate();
 #endif 
 
