@@ -158,7 +158,7 @@ public class SysAuthService : IDynamicApiController, ITransient
             }
             else
             {
-                if (CryptogramUtil.Decrypt(user.Password).Equals(password)) return;
+                if (CryptogramUtil.SM2Decrypt(user.Password).Equals(password)) return;
             }
         }
         catch (Exception ex)
