@@ -421,7 +421,7 @@ public class SysOrgService : IDynamicApiController, ITransient
 
         if (roleList is { Count: > 0 })
         {
-            roleList.ForEach(u =>
+            foreach (var u in roleList)
             {
                 if (u.DataScope == DataScopeEnum.Define)
                 {
@@ -432,10 +432,11 @@ public class SysOrgService : IDynamicApiController, ITransient
                 {
                     strongerDataScopeType = (int)u.DataScope;
                     // 根据数据范围获取机构集合
-                    var orgIds = GetOrgIdListByDataScope(userOrgId, strongerDataScopeType).GetAwaiter().GetResult();
+                    var orgIds = await GetOrgIdListByDataScope(userOrgId, strongerDataScopeType);
                     dataScopeOrgIdList = dataScopeOrgIdList.Union(orgIds).ToList();
                 }
-            });
+            }
+
         }
 
         // 缓存当前用户最大角色数据范围

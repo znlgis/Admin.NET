@@ -156,25 +156,25 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
     {
         return new SignatureAuthenticationEvent
         {
-            OnGetAccessSecret = context =>
+            OnGetAccessSecret = async context =>
             {
                 var logger = context.HttpContext.RequestServices.GetRequiredService<ILogger<SysOpenAccessService>>();
                 try
                 {
                     var openAccessService = context.HttpContext.RequestServices.GetRequiredService<SysOpenAccessService>();
-                    var openAccess = openAccessService.GetByKey(context.AccessKey).GetAwaiter().GetResult();
-                    return Task.FromResult(openAccess == null ? "" : openAccess.AccessSecret);
+                    var openAccess = await openAccessService.GetByKey(context.AccessKey);
+                    return openAccess == null ? "" : openAccess.AccessSecret;
                 }
                 catch (Exception ex)
                 {
                     logger.LogError(ex, "开放接口身份验证");
-                    return Task.FromResult("");
+                    return "";
                 }
             },
-            OnValidated = context =>
+            OnValidated = async context =>
             {
                 var openAccessService = context.HttpContext.RequestServices.GetRequiredService<SysOpenAccessService>();
-                var openAccess = openAccessService.GetByKey(context.AccessKey).GetAwaiter().GetResult();
+                var openAccess = await openAccessService.GetByKey(context.AccessKey);
                 var identity = ((ClaimsIdentity)context.Principal!.Identity!);
 
                 identity.AddClaims(new[]
@@ -188,7 +188,6 @@ public class SysOpenAccessService : IDynamicApiController, ITransient
                     new Claim(ClaimConst.OrgName, openAccess.BindUser.SysOrg?.Name + ""),
                     new Claim(ClaimConst.OrgType, openAccess.BindUser.SysOrg?.Type + ""),
                 });
-                return Task.CompletedTask;
             }
         };
     }

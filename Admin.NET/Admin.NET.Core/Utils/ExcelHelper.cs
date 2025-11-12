@@ -4,6 +4,7 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
+using Admin.NET.Core.Utils;
 using OfficeOpenXml;
 
 namespace Admin.NET.Core;
@@ -20,7 +21,14 @@ public class ExcelHelper
     {
         try
         {
-            var result = CommonUtil.ImportExcelDataAsync<IN>(file).Result ?? throw Oops.Oh("有效数据为空");
+            var result = AsyncHelper.RunSync(async () =>
+            {
+                return await CommonUtil.ImportExcelDataAsync<IN>(file);
+            });
+
+            if (result == null)
+                throw Oops.Oh("有效数据为空");
+
             result.ForEach(u => u.Id = YitIdHelper.NextId());
 
             var tasks = new List<Task>();
@@ -42,7 +50,10 @@ public class ExcelHelper
             });
 
             // 等待所有标记验证信息任务完成
-            Task.WhenAll(tasks).GetAwaiter().GetResult();
+            AsyncHelper.RunSync(async () =>
+            {
+                await Task.WhenAll(tasks);
+            });
 
             // 仅导出错误记录
             var errorList = result.Where(u => !string.IsNullOrWhiteSpace(u.Error)).ToList();
@@ -65,7 +76,12 @@ public class ExcelHelper
     public static IActionResult ExportData(dynamic list, string fileName = "导入记录")
     {
         var exporter = new ExcelExporter();
-        var fs = new MemoryStream(exporter.ExportAsByteArray(list).GetAwaiter().GetResult());
+        var bytes = AsyncHelper.RunSync(async () =>
+        {
+            return await exporter.ExportAsByteArray(list);
+        });
+
+        var fs = new MemoryStream(bytes);
         return new XlsxFileResult(stream: fs, fileDownloadName: $"{fileName}-{DateTime.Now:yyyy-MM-dd_HHmmss}");
     }
 
@@ -116,9 +132,12 @@ public class ExcelHelper
                     var dict = prop.GetCustomAttribute<DictAttribute>();
                     if (dict != null)
                     {
+                        var dataDictTypes = AsyncHelper.RunSync(async () =>
+                        {
+                            return await sysDictTypeService.GetDataList(new GetDataDictTypeInput { Code = dict.DictTypeCode });
+                        });
                         // 填充字典值value为下列列表
-                        dataList = sysDictTypeService.GetDataList(new GetDataDictTypeInput { Code = dict.DictTypeCode })
-                            .Result?.Select(x => x.Label).ToList();
+                        dataList = dataDictTypes.Select(x => x.Label).ToList();
                     }
                 }
             }
