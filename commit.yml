@@ -3,33 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '30eb563fba776d5cb4402a2fcca16cfd192ed98c'
-    oldFile: !uuid '869cfc4f5c2aa0729b6318b092a71c02efd28218'
+    newFile: !uuid '64e800df09b5a8be28bedfd5ae94cc9da1c635a0'
+    oldFile: !uuid '30eb563fba776d5cb4402a2fcca16cfd192ed98c'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '7a47aa51fe9bcb3d310d86e8ab91f9c8feeb1fe9'
-    oldFile: !uuid 'd53d3e9acbcea217f7d03e9681426718e9f2d74d'
-  /Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj:
-    newFile: !uuid '633846eb542d9af32de8023e9ef08ec76ee7375b'
-    oldFile: !uuid '460e241ea0eef78e30cf38ac486f431368d301d0'
-  /Admin.NET/Admin.NET.Core/Enum:
-    newFile: !uuid 'c7fbc5facd93feba5931e1be71bcf8ecdc650b4d'
-    oldFile: !uuid 'b32e235ec4bcf3dbf4d886195ed23b1f3472f109'
-  /Admin.NET/Admin.NET.Core/Enum/ErrorCodeEnum.cs:
-    newFile: !uuid 'dff72be30f0e7fba72c5cf4109a5f048433e11e2'
-    oldFile: !uuid '0533a67a723ce7dff8bde5a8ea61b9b4c1631499'
+    newFile: !uuid 'a1627992457d50c269e2edd351e1e60e4e3f2370'
+    oldFile: !uuid '7a47aa51fe9bcb3d310d86e8ab91f9c8feeb1fe9'
   /Admin.NET/Admin.NET.Core/SeedData:
-    newFile: !uuid '8f4d5a1d39067dad670795d9831f2ef314c0dee4'
-    oldFile: !uuid '4529eb0bd89f77ffcc719fa9c27b76d70ba19187'
-  /Admin.NET/Admin.NET.Core/SeedData/SysOrgSeedData.cs:
-    newFile: !uuid '35ba85d5a22d92183b79dc163c3d737dfb076d9f'
-    oldFile: !uuid '5f6ee4614416bc6af411f4d91c5e9ac058cf37be'
-  /Admin.NET/Admin.NET.Core/SeedData/SysTenantSeedData.cs:
-    newFile: !uuid 'ccef80d562d758fe5a390eb092b1e8af548d3f32'
-    oldFile: !uuid '1f436e10f16db1167fd809031ebf2e4d0534c5cb'
-  /Admin.NET/Admin.NET.Core/SeedData/SysUserExtOrgSeedData.cs:
-    newFile: !uuid 'a54ee7dfb2afe30135d4087de7a1852d6c1ed605'
-    oldFile: !uuid '95cae3c0d20814c0b1c61cfbef9f5de58b56ea7b'
-gitCommitId: !uuid '57120d9b3eb9942f18cb588481fedf6a14e53a99'
+    newFile: !uuid '77f5af14b4c0993a9d96a0e080e6aae0dfbc0947'
+    oldFile: !uuid '8f4d5a1d39067dad670795d9831f2ef314c0dee4'
+  /Admin.NET/Admin.NET.Core/SeedData/SysUserRoleSeedData.cs:
+    newFile: !uuid '29f89ec72895d61f8203422755a3105771202e39'
+    oldFile: !uuid '7f68700dc5e69b03f04210e67b7fd19c4a08ed3f'
+  /Admin.NET/Admin.NET.sln:
+    newFile: !uuid '8428fe6c965d82e8db523cf96a223da1b293c219'
+    oldFile: !uuid 'aa46f74ef48ed4e7171e23150890455384a98f2b'
+gitCommitId: !uuid '4a1276f53d103c8b4c73d05f4fcb98b87c44d383'
 renames: {
   }
-revisionId: 3027
+revisionId: 3028
