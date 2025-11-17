@@ -20,8 +20,8 @@ public class SysUserExtOrgSeedData : ISqlSugarEntitySeedData<SysUserExtOrg>
         var userList = new SysUserSeedData().HasData().ToList();
         var orgList = new SysOrgSeedData().HasData().ToList();
         var posList = new SysPosSeedData().HasData().ToList();
-        var admin = userList.First(u => u.Account == "admin");
-        var user3 = userList.First(u => u.Account == "user3");
+        var admin = userList.First(u => u.Account == "Admin.NET");
+        var user3 = userList.First(u => u.Account == "TestUser3");
         var org1 = orgList.First(u => u.Name == "系统默认");
         var org2 = orgList.First(u => u.Name == "开发部");
         var pos1 = posList.First(u => u.Name == "部门经理");

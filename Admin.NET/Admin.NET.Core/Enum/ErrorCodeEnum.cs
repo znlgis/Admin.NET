@@ -61,11 +61,11 @@ public enum ErrorCodeEnum
     [ErrorCodeItemMetadata("旧密码输入错误")]
     D1004,
 
-    /// <summary>
-    /// 测试数据禁止更改admin密码
-    /// </summary>
-    [ErrorCodeItemMetadata("测试数据禁止更改用户【admin】密码")]
-    D1005,
+    ///// <summary>
+    ///// 测试数据禁止更改admin密码
+    ///// </summary>
+    //[ErrorCodeItemMetadata("测试数据禁止更改用户【admin】密码")]
+    //D1005,
 
     /// <summary>
     /// 数据已存在
