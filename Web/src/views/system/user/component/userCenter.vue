@@ -96,6 +96,11 @@
 											</el-select>
 										</el-form-item>
 									</el-col>
+									<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+										<el-form-item label="个性化首页" prop="homepage">
+											<el-input v-model="state.ruleFormBase.homepage" placeholder="个性化首页" clearable />
+										</el-form-item>
+									</el-col>
 									<el-col :xs="24" :sm="24" :md="24" :lg="24" :xl="24" class="mb20">
 										<el-form-item label="地址">
 											<el-input v-model="state.ruleFormBase.address" placeholder="地址" clearable type="textarea" />
