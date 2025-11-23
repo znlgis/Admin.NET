@@ -3,63 +3,18 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '6f4d280f9ccd9142b60d70df297f98359ccf01f7'
-    oldFile: !uuid '64e800df09b5a8be28bedfd5ae94cc9da1c635a0'
-  /Admin.NET/Plugins:
-    newFile: !uuid '19c10b42827e1ef5f5e0cbd356d3b1cc414caad6'
-    oldFile: !uuid '8acccd6d6a927cf0deef3529b41483a81f4c469a'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk:
-    newFile: !uuid 'c5a0aa208c5ce7b9185fa8e6075c78125624dc49'
-    oldFile: !uuid '9f22f72fb9bc7ba8a77f1cf4787500afbdb127c3'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity:
-    newFile: !uuid '56230f0d31e12e83e29109c15295666b1fd65a1a'
-    oldFile: !uuid '3cdc6e0e19ec607a97f6a6d495282d9b62fd23a8'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity/DingTalkDept.cs:
-    newFile: !uuid '1ef7949ca8e8342e6d814ff53c2aa9fc9f22b638'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity/DingTalkWokerflowConfig.cs:
-    newFile: !uuid 'a363b05daa6b86abf2e133058fa1f98bf9535528'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity/DingTalkWokerflowLog.cs:
-    newFile: !uuid 'e8f4da204d66d85baf4e6c659fb97d77d50f9566'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Job:
-    newFile: !uuid 'fdcdb5cbd4a347fa9da185de5d78e7bc53995001'
-    oldFile: !uuid '0abdf2e389b47904acc9f3c134d0c725d0f22b92'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Job/SyncDingTalkDeptJob.cs:
-    newFile: !uuid '160aef84e673765beaeeb7ec8dded827df0e483c'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Job/SyncWokerflowLogJob.cs:
-    newFile: !uuid 'e45fd19884e7cf0f226865827c786393b4800c15'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service:
-    newFile: !uuid '12205dafc03577d1f77dc1eb048420d7d997db4f'
-    oldFile: !uuid 'a1f064cdcf10fb9c685af36b5bfc45872c274646'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/DingTalkService.cs:
-    newFile: !uuid 'e0f2df097612970cdf94ab008ad6e2ee999bd81b'
-    oldFile: !uuid '2d362f38b11603fd97bb5c72a68cf031d50fd8c7'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto:
-    newFile: !uuid '60272ba08f7dc848c3331ffc6c1e5b48c36a2864'
-    oldFile: !uuid '7ad29d577ce053081112dcd74318d8821604d2ad'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkDeptOutput.cs:
-    newFile: !uuid '775318a1fff7a0e57a25e8a2c06fb370fa82410d'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkGetProcessInstancesOutput.cs:
-    newFile: !uuid 'bf50ec12dda8b8f68fbfecfb9ef7fd74092421ec'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkWorkflowProcessInstancesInput.cs:
-    newFile: !uuid '829e802943a84a74d630bf203e5173f2574f189f'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkWorkflowProcessInstancesOutput.cs:
-    newFile: !uuid 'bca716b238fd94a6ab261c1518d7cc47d3346b39'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/GetDingTalkDeptInput.cs:
-    newFile: !uuid '3482c6948465baab743c07544c51eb3f1c24e4a1'
-    oldFile: null
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/IDingTalkApi.cs:
-    newFile: !uuid 'aeba716d094be65751c119ec0e70a901b0407c1f'
-    oldFile: !uuid '4695433e22f4c3ecd7979f163f4aadea45ce2815'
-gitCommitId: !uuid '253155bfbacfe5f4bbadc817032373061b188d86'
+    newFile: !uuid 'adc2b9e885f38351e12d75bb5788c9bbb2d34b4a'
+    oldFile: !uuid '6f4d280f9ccd9142b60d70df297f98359ccf01f7'
+  /Admin.NET/Admin.NET.Core:
+    newFile: !uuid 'c04001631f40969c878d1a6e6934a0769bc65caa'
+    oldFile: !uuid 'a1627992457d50c269e2edd351e1e60e4e3f2370'
+  /Admin.NET/Admin.NET.Core/Utils:
+    newFile: !uuid 'f057f0c57eba273f534f93a4a6de3e71969f20ff'
+    oldFile: !uuid '0b191236a8ebe71870437b3adcad49bf20ed2941'
+  /Admin.NET/Admin.NET.Core/Utils/TenantHeaderOperationFilter.cs:
+    newFile: !uuid '9f44439e63bdd3799f4fb8c5086709e8bb425d61'
+    oldFile: !uuid '3ca06127f926184ddad2d8daa7de13473e192974'
+gitCommitId: !uuid '9e00957583e9ec705534f1a315f7267fb85de388'
 renames: {
   }
-revisionId: 3029
+revisionId: 3030
