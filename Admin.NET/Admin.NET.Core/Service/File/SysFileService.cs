@@ -7,7 +7,6 @@
 using Aliyun.OSS.Util;
 using Furion.AspNetCore;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
-using Microsoft.Extensions.Configuration;
 
 namespace Admin.NET.Core.Service;
 

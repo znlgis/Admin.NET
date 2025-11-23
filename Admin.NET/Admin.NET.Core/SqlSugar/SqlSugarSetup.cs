@@ -417,7 +417,7 @@ public static class SqlSugarSetup
             if (config.DbType != DbType.Oracle) dbProvider.DbMaintenance.CreateDatabase();
         }
 
-        // 等待数据库连接就绪   
+        // 等待数据库连接就绪
         WaitForDatabaseReady(dbProvider);
 
         // 初始化表结构

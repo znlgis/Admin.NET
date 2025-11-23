@@ -349,7 +349,6 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         await Task.CompletedTask;
     }
 
-
     /// <summary>
     /// 获取所有可用的存储桶列表
     /// </summary>
@@ -497,7 +496,7 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         {
             // 确保只有一个默认提供者，将其他提供者的默认标识设为false
             await _sysFileProviderRep.AsUpdateable()
-                .SetColumns(p => p.IsDefault == false) 
+                .SetColumns(p => p.IsDefault == false)
                 .Where(p => p.IsDefault == true && p.Id != provider.Id)
                 .ExecuteCommandAsync();
         }
@@ -506,7 +505,6 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         {
             provider.IsDefault ??= false;
         }
-           
 
         // 检查是否还有其他默认提供者，如果没有且当前提供者启用，则设为默认
         var hasDefaultProvider = await _sysFileProviderRep.AsQueryable()

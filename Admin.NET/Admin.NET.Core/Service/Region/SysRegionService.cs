@@ -153,13 +153,14 @@ public class SysRegionService : IDynamicApiController, ITransient
         var syncLevel = await _sysConfigService.GetConfigValue<int>(ConfigConst.SysRegionSyncLevel);
         if (syncLevel is < 1 or > 5) syncLevel = 3;//默认区县级
 
-        await _sysRegionRep.AsTenant().UseTranAsync(async () => {
+        await _sysRegionRep.AsTenant().UseTranAsync(async () =>
+        {
             await _sysRegionRep.DeleteAsync(u => u.Id > 0);
             await SyncByMap(syncLevel);
-        }, err => {
+        }, err =>
+        {
             throw Oops.Oh(ErrorCodeEnum.R2005, err.Message);
         });
-        
 
         // var context = BrowsingContext.New(AngleSharp.Configuration.Default.WithDefaultLoader());
         // var dom = await context.OpenAsync(_url);
@@ -349,7 +350,7 @@ public class SysRegionService : IDynamicApiController, ITransient
                     list.Add(county);
                 }
             }
-            
+
             // 按省份同步快速写入提升同步效率，全部一次性写入容易出现从统计局获取数据失败
             // 仅当数据量大于1000或非Oracle数据库时采用大数据量写入方式（SqlSugar官方已说明，数据量小于1000时，其性能不如普通插入, oracle此方法不支持事务）
             if (list.Count > 1000 && _sysRegionRep.Context.CurrentConnectionConfig.DbType != SqlSugar.DbType.Oracle)
@@ -359,7 +360,7 @@ public class SysRegionService : IDynamicApiController, ITransient
                 {
                     await _sysRegionRep.Context.Fastest<SysRegion>().BulkCopyAsync(list);
                 }
-                catch(SqlSugarException)
+                catch (SqlSugarException)
                 {
                     // 若写入失败则尝试普通插入方式
                     await _sysRegionRep.InsertRangeAsync(list);

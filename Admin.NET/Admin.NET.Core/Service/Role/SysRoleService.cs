@@ -19,6 +19,7 @@ public class SysRoleService : IDynamicApiController, ITransient
     private readonly SysRoleOrgService _sysRoleOrgService;
     private readonly SysMenuService _sysMenuService;
     private readonly SysOrgService _sysOrgService;
+    private readonly SysCacheService _sysCacheService;
 
     public SysRoleService(UserManager userManager,
         SysOrgService sysOrgService,
@@ -26,7 +27,8 @@ public class SysRoleService : IDynamicApiController, ITransient
         SysRoleOrgService sysRoleOrgService,
         SqlSugarRepository<SysRole> sysRoleRep,
         SysRoleMenuService sysRoleMenuService,
-        SysUserRoleService sysUserRoleService)
+        SysUserRoleService sysUserRoleService,
+        SysCacheService sysCacheService)
     {
         _userManager = userManager;
         _sysRoleRep = sysRoleRep;
@@ -35,6 +37,7 @@ public class SysRoleService : IDynamicApiController, ITransient
         _sysRoleOrgService = sysRoleOrgService;
         _sysRoleMenuService = sysRoleMenuService;
         _sysUserRoleService = sysUserRoleService;
+        _sysCacheService = sysCacheService;
     }
 
     /// <summary>
@@ -164,6 +167,10 @@ public class SysRoleService : IDynamicApiController, ITransient
     [DisplayName("授权角色菜单")]
     public async Task GrantMenu(RoleMenuInput input)
     {
+        if (input.MenuIdList == null || input.MenuIdList.Count < 1) return;
+
+        await ClearUserApiCache(input.Id);
+
         await _sysRoleMenuService.GrantRoleMenu(input);
     }
 
@@ -250,5 +257,20 @@ public class SysRoleService : IDynamicApiController, ITransient
             .SetColumns(u => u.Status == input.Status)
             .Where(u => u.Id == input.Id)
             .ExecuteCommandAsync();
+    }
+
+    /// <summary>
+    /// 删除与该角色相关的用户接口缓存
+    /// </summary>
+    /// <param name="roleId"></param>
+    /// <returns></returns>
+    [NonAction]
+    public async Task ClearUserApiCache(long roleId)
+    {
+        var userIdList = await _sysUserRoleService.GetUserIdList(roleId);
+        foreach (var userId in userIdList)
+        {
+            _sysCacheService.Remove($"{CacheConst.KeyUserButton}{userId}");
+        }
     }
 }

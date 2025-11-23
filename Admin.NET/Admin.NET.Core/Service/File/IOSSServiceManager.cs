@@ -1,7 +1,4 @@
 using OnceMi.AspNetCore.OSS;
-using System.Collections.Concurrent;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Admin.NET.Core.Service;
 

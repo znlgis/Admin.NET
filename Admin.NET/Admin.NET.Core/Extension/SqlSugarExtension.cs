@@ -102,8 +102,8 @@ public static class SqlSugarExtension
     {
         return filterLogic switch
         {
-            FilterLogicEnum.And => Expression.And(bExpresionBase, bExpresion),
-            FilterLogicEnum.Or => Expression.Or(bExpresionBase, bExpresion),
+            FilterLogicEnum.And => Expression.AndAlso(bExpresionBase, bExpresion),
+            FilterLogicEnum.Or => Expression.OrElse(bExpresionBase, bExpresion),
             FilterLogicEnum.Xor => Expression.ExclusiveOr(bExpresionBase, bExpresion),
             _ => throw new ArgumentException("FilterLogic is not valid.", nameof(filterLogic)),
         };
