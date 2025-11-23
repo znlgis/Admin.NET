@@ -12,18 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
- * 
+ * 审批人信息
  *
  * @export
- * @interface DingTalkCardData
+ * @interface Approver
  */
-export interface DingTalkCardData {
+export interface Approver {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 节点类型：AGREE（同意），REFUSE（拒绝）等
+     *
+     * @type {string}
+     * @memberof Approver
      */
-    cardParamMap?: DingTalkCardParamMap;
+    actionType?: string | null;
+
+    /**
+     * 该节点的审批人用户ID列表
+     *
+     * @type {Array<string>}
+     * @memberof Approver
+     */
+    userIds?: Array<string> | null;
 }

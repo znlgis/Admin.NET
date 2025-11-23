@@ -12,19 +12,42 @@
  * Do not edit the class manually.
  */
 
+import { DingTalkFieldValueVo } from './ding-talk-field-value-vo';
  /**
  * 
  *
  * @export
- * @interface DingTalkSendInteractiveCardsResult
+ * @interface DingTalkEmpFieldDataVo
  */
-export interface DingTalkSendInteractiveCardsResult {
+export interface DingTalkEmpFieldDataVo {
 
     /**
-     * 用于业务方后续查看已读列表的查询key
+     * 字段名称
      *
      * @type {string}
-     * @memberof DingTalkSendInteractiveCardsResult
+     * @memberof DingTalkEmpFieldDataVo
      */
-    processQueryKey?: string | null;
+    fieldName?: string | null;
+
+    /**
+     * 字段标识
+     *
+     * @type {string}
+     * @memberof DingTalkEmpFieldDataVo
+     */
+    fieldCode?: string | null;
+
+    /**
+     * 分组标识
+     *
+     * @type {string}
+     * @memberof DingTalkEmpFieldDataVo
+     */
+    groupId?: string | null;
+
+    /**
+     * @type {Array<DingTalkFieldValueVo>}
+     * @memberof DingTalkEmpFieldDataVo
+     */
+    fieldValueList?: Array<DingTalkFieldValueVo> | null;
 }

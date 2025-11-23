@@ -26,21 +26,21 @@ public class SyncWokerflowLogJob : IJob
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IDingTalkApi _dingTalkApi;
     private readonly ILogger _logger;
-    private readonly SqlSugarRepository<DingTalkDept> 部门信息;
-    private readonly SqlSugarRepository<DingTalkWokerflowLog> 钉钉审批记录;
+    private readonly SqlSugarRepository<DingTalkDept> _dingTalkDeptRep;
+    private readonly SqlSugarRepository<DingTalkWokerflowLog> _dingTalkWokerflowLogRep;
 
     public SyncWokerflowLogJob(
         IServiceScopeFactory scopeFactory,
         IDingTalkApi dingTalkApi,
-        SqlSugarRepository<DingTalkDept> _部门信息,
-        SqlSugarRepository<DingTalkWokerflowLog> _钉钉审批记录,
+        SqlSugarRepository<DingTalkDept> dingTalkDeptRep,
+        SqlSugarRepository<DingTalkWokerflowLog> dingTalkWokerflowLogRep,
         ILoggerFactory loggerFactory
     )
     {
         _scopeFactory = scopeFactory;
         _dingTalkApi = dingTalkApi;
-        部门信息 = _部门信息;
-        钉钉审批记录 = _钉钉审批记录;
+        _dingTalkDeptRep = dingTalkDeptRep;
+        _dingTalkWokerflowLogRep = dingTalkWokerflowLogRep;
         _logger = loggerFactory.CreateLogger(CommonConst.SysLogCategoryName);
     }
 
@@ -61,7 +61,7 @@ public class SyncWokerflowLogJob : IJob
 
         var dingTalkDeptList = new List<DingTalkDept>();
         // 获取未完成审批列表
-        List<DingTalkWokerflowLog> flow_list = await 钉钉审批记录.GetListAsync(t =>
+        List<DingTalkWokerflowLog> flow_list = await _dingTalkWokerflowLogRep.GetListAsync(t =>
             t.Status == "RUNNING"
         );
         List<DingTalkWokerflowLog> update_list = new List<DingTalkWokerflowLog>();
@@ -87,7 +87,7 @@ public class SyncWokerflowLogJob : IJob
 
             if (update_list.Count > 0)
             {
-                钉钉审批记录.UpdateRangeAsync(update_list);
+                await _dingTalkWokerflowLogRep.UpdateRangeAsync(update_list);
             }
             var originColor = Console.ForegroundColor;
             Console.ForegroundColor = ConsoleColor.Blue;

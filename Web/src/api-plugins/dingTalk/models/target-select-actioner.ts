@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * DingTalk
+ * 钉钉开放平台
  * 集成钉钉开放平台<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
@@ -11,17 +11,28 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { ResultDomain } from './result-domain';
-/**
- * 
+
+ /**
+ * 动态选择办理人
+ *
  * @export
- * @interface RosterListsQueryResponse
+ * @interface TargetSelectActioner
  */
-export interface RosterListsQueryResponse {
+export interface TargetSelectActioner {
+
     /**
-     * 结果列表
-     * @type {Array<ResultDomain>}
-     * @memberof RosterListsQueryResponse
+     * 办理人Key，对应表单中的人员选择控件的key
+     *
+     * @type {string}
+     * @memberof TargetSelectActioner
      */
-    result?: Array<ResultDomain> | null;
+    actionerKey?: string | null;
+
+    /**
+     * 该控件选中的用户ID列表
+     *
+     * @type {Array<string>}
+     * @memberof TargetSelectActioner
+     */
+    actionerUserIds?: Array<string> | null;
 }

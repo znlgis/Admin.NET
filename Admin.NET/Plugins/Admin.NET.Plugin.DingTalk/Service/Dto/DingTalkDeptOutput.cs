@@ -4,23 +4,24 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-
 namespace Admin.NET.Plugin.DingTalk;
+
 public class DingTalkDeptOutput
 {
-
     /// <summary>
     /// 上级部门Id
     /// </summary>
     [JsonProperty("parent_id")]
     [System.Text.Json.Serialization.JsonPropertyName("parent_id")]
     public long parent_id { get; set; }
+
     /// <summary>
     /// 部门名
     /// </summary>
     [JsonProperty("name")]
     [System.Text.Json.Serialization.JsonPropertyName("name")]
     public string name { get; set; }
+
     /// <summary>
     /// 部门Id
     /// </summary>

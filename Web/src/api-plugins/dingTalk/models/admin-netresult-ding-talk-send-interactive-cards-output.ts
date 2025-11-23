@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * DingTalk
+ * 钉钉开放平台
  * 集成钉钉开放平台<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
@@ -11,47 +11,59 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-import { EmployeeQueryOnJobResponse } from './employee-query-on-job-response';
-/**
+
+import { DingTalkSendInteractiveCardsOutput } from './ding-talk-send-interactive-cards-output';
+ /**
  * 全局返回结果
+ *
  * @export
- * @interface AdminResultEmployeeQueryOnJobResponse
+ * @interface AdminNETResultDingTalkSendInteractiveCardsOutput
  */
-export interface AdminResultEmployeeQueryOnJobResponse {
+export interface AdminNETResultDingTalkSendInteractiveCardsOutput {
+
     /**
      * 状态码
+     *
      * @type {number}
-     * @memberof AdminResultEmployeeQueryOnJobResponse
+     * @memberof AdminNETResultDingTalkSendInteractiveCardsOutput
      */
     code?: number;
+
     /**
      * 类型success、warning、error
+     *
      * @type {string}
-     * @memberof AdminResultEmployeeQueryOnJobResponse
+     * @memberof AdminNETResultDingTalkSendInteractiveCardsOutput
      */
     type?: string | null;
+
     /**
      * 错误信息
+     *
      * @type {string}
-     * @memberof AdminResultEmployeeQueryOnJobResponse
+     * @memberof AdminNETResultDingTalkSendInteractiveCardsOutput
      */
     message?: string | null;
+
     /**
-     * 
-     * @type {EmployeeQueryOnJobResponse}
-     * @memberof AdminResultEmployeeQueryOnJobResponse
+     * @type {DingTalkSendInteractiveCardsOutput}
+     * @memberof AdminNETResultDingTalkSendInteractiveCardsOutput
      */
-    result?: EmployeeQueryOnJobResponse;
+    result?: DingTalkSendInteractiveCardsOutput;
+
     /**
      * 附加数据
+     *
      * @type {any}
-     * @memberof AdminResultEmployeeQueryOnJobResponse
+     * @memberof AdminNETResultDingTalkSendInteractiveCardsOutput
      */
     extras?: any | null;
+
     /**
      * 时间
+     *
      * @type {Date}
-     * @memberof AdminResultEmployeeQueryOnJobResponse
+     * @memberof AdminNETResultDingTalkSendInteractiveCardsOutput
      */
     time?: Date;
 }

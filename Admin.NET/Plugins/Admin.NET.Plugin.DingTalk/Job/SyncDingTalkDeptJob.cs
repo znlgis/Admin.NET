@@ -21,17 +21,17 @@ public class SyncDingTalkDeptJob : IJob
     private readonly IServiceScopeFactory _scopeFactory;
     private readonly IDingTalkApi _dingTalkApi;
     private readonly ILogger _logger;
-    private readonly SqlSugarRepository<DingTalkDept> 部门信息;
+    private readonly SqlSugarRepository<DingTalkDept> _dingTalkDeptRep;
 
     public SyncDingTalkDeptJob(
         IServiceScopeFactory scopeFactory,
         IDingTalkApi dingTalkApi,
-        SqlSugarRepository<DingTalkDept> _部门信息,
+        SqlSugarRepository<DingTalkDept> dingTalkDeptRep,
         ILoggerFactory loggerFactory)
     {
         _scopeFactory = scopeFactory;
         _dingTalkApi = dingTalkApi;
-        部门信息 = _部门信息;
+        _dingTalkDeptRep = dingTalkDeptRep;
         _logger = loggerFactory.CreateLogger(CommonConst.SysLogCategoryName);
     }
 
@@ -62,20 +62,20 @@ public class SyncDingTalkDeptJob : IJob
         }));
         foreach (var item in deptIdsRes.Result)
         {
-            dingTalkDeptList.AddRange(await 获取部门列表(tokenRes.AccessToken, item.dept_id));
+            dingTalkDeptList.AddRange(await GetDingTalkDeptList(tokenRes.AccessToken, item.dept_id));
         }
-        部门信息.InsertOrUpdateAsync(dingTalkDeptList);
+        await _dingTalkDeptRep.InsertOrUpdateAsync(dingTalkDeptList);
         var originColor = Console.ForegroundColor;
         Console.ForegroundColor = ConsoleColor.Blue;
         Console.WriteLine("【" + DateTime.Now + "】同步钉钉部门");
         Console.ForegroundColor = originColor;
     }
 
-    private async Task<List<DingTalkDept>> 获取部门列表(string token, long dept_id)
+    private async Task<List<DingTalkDept>> GetDingTalkDeptList(string token, long dept_id)
     {
         List<DingTalkDept> listTemp = new List<DingTalkDept>();
         var deptIdsRes = await _dingTalkApi.GetDingTalkDept(token, new GetDingTalkDeptInput
-        {dept_id= dept_id });
+        { dept_id = dept_id });
         if (deptIdsRes.ErrCode != 0)
         {
             return null;
@@ -88,7 +88,7 @@ public class SyncDingTalkDeptJob : IJob
         }));
         foreach (var item in deptIdsRes.Result)
         {
-            listTemp.AddRange(await 获取部门列表(token, item.dept_id));
+            listTemp.AddRange(await GetDingTalkDeptList(token, item.dept_id));
         }
         return listTemp;
     }

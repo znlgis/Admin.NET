@@ -4,8 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using static SKIT.FlurlHttpClient.Wechat.Api.Models.CgibinExpressIntracityQueryFlowResponse.Types;
-
 namespace Admin.NET.Plugin.DingTalk.Service;
 
 /// <summary>
@@ -16,17 +14,17 @@ public class DingTalkService : IDynamicApiController, IScoped
 {
     private readonly IDingTalkApi _dingTalkApi;
     private readonly DingTalkOptions _dingTalkOptions;
-    private readonly SqlSugarRepository<DingTalkWokerflowLog> 钉钉审批记录;
+    private readonly SqlSugarRepository<DingTalkWokerflowLog> _dingTalkWokerflowLogRep;
 
     public DingTalkService(
         IDingTalkApi dingTalkApi,
         IOptions<DingTalkOptions> dingTalkOptions,
-        SqlSugarRepository<DingTalkWokerflowLog> _钉钉审批记录
+        SqlSugarRepository<DingTalkWokerflowLog> dingTalkWokerflowLogRep
     )
     {
         _dingTalkApi = dingTalkApi;
         _dingTalkOptions = dingTalkOptions.Value;
-        钉钉审批记录 = _钉钉审批记录;
+        _dingTalkWokerflowLogRep = dingTalkWokerflowLogRep;
     }
 
     /// <summary>
@@ -128,7 +126,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     )
     {
         var temp = await _dingTalkApi.GetProcessInstances(token, input);
-        DingTalkWokerflowLog flow = await 钉钉审批记录.GetFirstAsync(t =>
+        DingTalkWokerflowLog flow = await _dingTalkWokerflowLogRep.GetFirstAsync(t =>
             t.Status == "RUNNING" && t.instanceId == input
         );
 
@@ -139,7 +137,7 @@ public class DingTalkService : IDynamicApiController, IScoped
             flow.WorkflowId = temp.Result.BusinessId;
             flow.Result = temp.Result.Result;
             flow.taskId = temp.Result.Tasks.FirstOrDefault(t => t.Status == "RUNNING")?.TaskId;
-            钉钉审批记录.UpdateAsync(flow);
+            await _dingTalkWokerflowLogRep.UpdateAsync(flow);
         }
         return temp;
     }

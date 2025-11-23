@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * DingTalk
+ * 钉钉开放平台
  * 集成钉钉开放平台<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
@@ -11,22 +11,36 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
-/**
+
+ /**
  * 
+ *
  * @export
- * @interface GetAccessTokenResponse
+ * @interface PullConfig
  */
-export interface GetAccessTokenResponse {
+export interface PullConfig {
+
     /**
-     * 生成的accessToken
+     * 拉取策略，可选值：NONE：不拉取，无动态数据  INTERVAL：间隔拉取ONCE：只拉取一次
+     *
      * @type {string}
-     * @memberof GetAccessTokenResponse
+     * @memberof PullConfig
      */
-    accessToken?: string | null;
+    pullStrategy?: string | null;
+
     /**
-     * accessToken的过期时间，单位秒
+     * 拉取的间隔时间。
+     *
      * @type {number}
-     * @memberof GetAccessTokenResponse
+     * @memberof PullConfig
      */
-    expireIn?: number;
+    interval?: number;
+
+    /**
+     * 拉取的间隔时间的单位， 可选值：SECONDS：秒 MINUTES：分钟 HOURS：小时 DAYS：天
+     *
+     * @type {string}
+     * @memberof PullConfig
+     */
+    timeUnit?: string | null;
 }

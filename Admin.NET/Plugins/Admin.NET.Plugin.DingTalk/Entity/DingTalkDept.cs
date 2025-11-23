@@ -18,6 +18,7 @@ public class DingTalkDept
     [SugarColumn(ColumnName = "Id", ColumnDescription = "部门id", IsPrimaryKey = true, IsIdentity = false)]
     [Required]
     public long dept_id { get; set; }
+
     /// <summary>
     /// 上级部门id
     /// </summary>
@@ -31,6 +32,7 @@ public class DingTalkDept
     [SugarColumn(ColumnDescription = "部门名", Length = 64)]
     [MaxLength(64)]
     public string? name { get; set; }
+
     /// <summary>
     /// 创建时间
     /// </summary>

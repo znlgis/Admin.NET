@@ -16,15 +16,43 @@
  * 
  *
  * @export
- * @interface DingTalkSendInteractiveCardsResult
+ * @interface OperationRecord
  */
-export interface DingTalkSendInteractiveCardsResult {
+export interface OperationRecord {
 
     /**
-     * 用于业务方后续查看已读列表的查询key
-     *
-     * @type {string}
-     * @memberof DingTalkSendInteractiveCardsResult
+     * @type {Date}
+     * @memberof OperationRecord
      */
-    processQueryKey?: string | null;
+    date?: Date | null;
+
+    /**
+     * @type {string}
+     * @memberof OperationRecord
+     */
+    result?: string | null;
+
+    /**
+     * @type {Array<any>}
+     * @memberof OperationRecord
+     */
+    images?: Array<any> | null;
+
+    /**
+     * @type {string}
+     * @memberof OperationRecord
+     */
+    showName?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof OperationRecord
+     */
+    type?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof OperationRecord
+     */
+    userId?: string | null;
 }

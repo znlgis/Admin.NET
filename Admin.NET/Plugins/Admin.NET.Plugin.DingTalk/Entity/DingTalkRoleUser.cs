@@ -10,7 +10,7 @@ namespace Admin.NET.Plugin.DingTalk;
 /// 钉钉角色信息
 /// </summary>
 [SugarTable(null, "钉钉角色表")]
-public class DingTalkRoleUser : EntityBaseDel
+public class DingTalkRoleUser : EntityBase
 {
     /// <summary>
     /// 钉钉用户id

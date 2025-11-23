@@ -132,7 +132,7 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <summary>
     /// 发起审批实例
     /// </summary>
-    /// <param name="access_token">用于发起OA审批实例</param>
+    /// <param name="token"></param>
     /// <param name="input"></param>
     /// <returns></returns>
     [Post("https://api.dingtalk.com/v1.0/workflow/processInstances")]
@@ -145,8 +145,8 @@ public interface IDingTalkApi : IHttpDeclarative
     /// <summary>
     /// 查询审批实例
     /// </summary>
-    /// <param name="access_token"></param>
-    /// <param name="input">审批实例Id</param>
+    /// <param name="token"></param>
+    /// <param name="processInstanceId"></param>
     /// <returns></returns>
     [Get("https://api.dingtalk.com/v1.0/workflow/processInstances")]
     Task<DingTalkGetProcessInstancesOutput> GetProcessInstances(

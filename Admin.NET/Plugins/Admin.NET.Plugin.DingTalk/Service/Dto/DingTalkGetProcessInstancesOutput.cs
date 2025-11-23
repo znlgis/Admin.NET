@@ -64,6 +64,7 @@ public class ResultData
     /// 审批结果 agree：同意 refuse：拒绝
     /// </summary>
     public string Result { get; set; }
+
     public string BizAction { get; set; }
     public DateTime? CreateTime { get; set; }
     public string OriginatorUserId { get; set; }

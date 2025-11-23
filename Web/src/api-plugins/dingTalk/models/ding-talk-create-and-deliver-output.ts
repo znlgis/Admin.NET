@@ -12,26 +12,44 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkSendInteractiveCardsResult } from './ding-talk-send-interactive-cards-result';
+import { DingTalkCreateAndDeliverResult } from './ding-talk-create-and-deliver-result';
  /**
- * 发送钉钉互动卡片返回
+ * 
  *
  * @export
- * @interface DingTalkSendInteractiveCardsOutput
+ * @interface DingTalkCreateAndDeliverOutput
  */
-export interface DingTalkSendInteractiveCardsOutput {
+export interface DingTalkCreateAndDeliverOutput {
 
     /**
      * 返回结果
      *
      * @type {boolean}
-     * @memberof DingTalkSendInteractiveCardsOutput
+     * @memberof DingTalkCreateAndDeliverOutput
      */
     success?: boolean;
 
     /**
-     * @type {DingTalkSendInteractiveCardsResult}
-     * @memberof DingTalkSendInteractiveCardsOutput
+     * @type {DingTalkCreateAndDeliverResult}
+     * @memberof DingTalkCreateAndDeliverOutput
      */
-    result?: DingTalkSendInteractiveCardsResult;
+    result?: DingTalkCreateAndDeliverResult;
+
+    /**
+     * @type {string}
+     * @memberof DingTalkCreateAndDeliverOutput
+     */
+    code?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof DingTalkCreateAndDeliverOutput
+     */
+    requestid?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof DingTalkCreateAndDeliverOutput
+     */
+    message?: string | null;
 }
