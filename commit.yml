@@ -3,18 +3,265 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'adc2b9e885f38351e12d75bb5788c9bbb2d34b4a'
-    oldFile: !uuid '6f4d280f9ccd9142b60d70df297f98359ccf01f7'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'c04001631f40969c878d1a6e6934a0769bc65caa'
-    oldFile: !uuid 'a1627992457d50c269e2edd351e1e60e4e3f2370'
-  /Admin.NET/Admin.NET.Core/Utils:
-    newFile: !uuid 'f057f0c57eba273f534f93a4a6de3e71969f20ff'
-    oldFile: !uuid '0b191236a8ebe71870437b3adcad49bf20ed2941'
-  /Admin.NET/Admin.NET.Core/Utils/TenantHeaderOperationFilter.cs:
-    newFile: !uuid '9f44439e63bdd3799f4fb8c5086709e8bb425d61'
-    oldFile: !uuid '3ca06127f926184ddad2d8daa7de13473e192974'
-gitCommitId: !uuid '9e00957583e9ec705534f1a315f7267fb85de388'
-renames: {
-  }
-revisionId: 3030
+    newFile: !uuid '6c9173574ed520399c1694d4302f67bdeb87137c'
+    oldFile: !uuid 'adc2b9e885f38351e12d75bb5788c9bbb2d34b4a'
+  /Admin.NET/Plugins:
+    newFile: !uuid '15768b525607a566aefc4df3b996cbb89ba92204'
+    oldFile: !uuid '19c10b42827e1ef5f5e0cbd356d3b1cc414caad6'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk:
+    newFile: !uuid '96dcecb5b3d07d30d1c85641e78b45e274b6a59f'
+    oldFile: !uuid 'c5a0aa208c5ce7b9185fa8e6075c78125624dc49'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity:
+    newFile: !uuid '50637c8d23aee31f5b151aef68e667600f006bd7'
+    oldFile: !uuid '56230f0d31e12e83e29109c15295666b1fd65a1a'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity/DingTalkDept.cs:
+    newFile: !uuid '3cae568403a0855897254862c535a909ade59f3b'
+    oldFile: !uuid '1ef7949ca8e8342e6d814ff53c2aa9fc9f22b638'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity/DingTalkRoleUser.cs:
+    newFile: !uuid 'aaaa23ccb2bd0a180f815c3ad6e0d2f5c65980b5'
+    oldFile: !uuid '8871f2e0fbba7f0accac5e43443d946e7d0c2093'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Entity/DingTalkWokerflowLog.cs:
+    newFile: !uuid '47352187fa57e2d6ab630dc92f4130e8f2c1cceb'
+    oldFile: !uuid 'e8f4da204d66d85baf4e6c659fb97d77d50f9566'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Job:
+    newFile: !uuid 'f5e27a88d87de6dd1e72d41455665a974c1abc71'
+    oldFile: !uuid 'fdcdb5cbd4a347fa9da185de5d78e7bc53995001'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Job/SyncDingTalkDeptJob.cs:
+    newFile: !uuid 'f151ad61cf20bdf0c18c4e79473a4ac114dcbcfd'
+    oldFile: !uuid '160aef84e673765beaeeb7ec8dded827df0e483c'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Job/SyncWokerflowLogJob.cs:
+    newFile: !uuid '1fdbf13a9728c701031384f2c63ba7cd83227e1e'
+    oldFile: !uuid 'e45fd19884e7cf0f226865827c786393b4800c15'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service:
+    newFile: !uuid '69a6db88e042f55e3981556a610e232b36579374'
+    oldFile: !uuid '12205dafc03577d1f77dc1eb048420d7d997db4f'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/DingTalkService.cs:
+    newFile: !uuid 'af274298b8b9cea1419ca8e1843ace2661d95beb'
+    oldFile: !uuid 'e0f2df097612970cdf94ab008ad6e2ee999bd81b'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto:
+    newFile: !uuid '5b1d126ca5c3ca694355f49c0727a57978dccc33'
+    oldFile: !uuid '60272ba08f7dc848c3331ffc6c1e5b48c36a2864'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkDeptOutput.cs:
+    newFile: !uuid '98a359f4f7ec1e4670bc02e0e4b867e976706f4b'
+    oldFile: !uuid '775318a1fff7a0e57a25e8a2c06fb370fa82410d'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkGetProcessInstancesOutput.cs:
+    newFile: !uuid '63fa83a7e92f4da5692877f63969abebd98f67b4'
+    oldFile: !uuid 'bf50ec12dda8b8f68fbfecfb9ef7fd74092421ec'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/DingTalkWorkflowProcessInstancesInput.cs:
+    newFile: !uuid '4186e4dd9f17bb46d173e3b260ebf1c84f47f295'
+    oldFile: !uuid '829e802943a84a74d630bf203e5173f2574f189f'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/Dto/GetDingTalkDeptInput.cs:
+    newFile: !uuid '1c219af6e4ad7c70ed1f5b0be9537bb7043d8b2c'
+    oldFile: !uuid '3482c6948465baab743c07544c51eb3f1c24e4a1'
+  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/IDingTalkApi.cs:
+    newFile: !uuid '67713f49e837dd6703a85024c6b14003d32c7f70'
+    oldFile: !uuid 'aeba716d094be65751c119ec0e70a901b0407c1f'
+  /Web:
+    newFile: !uuid '90d49a13a44539c8c81bdd85301d9d28d7f5fe81'
+    oldFile: !uuid 'a90c71f88d8061b0a3323ffc9a96ebf2cca212a9'
+  /Web/src:
+    newFile: !uuid '101875be7aa15f127f019d23b2f9f7d7e9404f00'
+    oldFile: !uuid '366871e22c7e81a9872d85744d593449ddffd1a2'
+  /Web/src/api-plugins:
+    newFile: !uuid '6f4a2046af3199e2c7916ce0bfeb1b236bb6d25a'
+    oldFile: !uuid 'fe4f603ddc8ebbcb74b9ddc6914f9a17699b388f'
+  /Web/src/api-plugins/dingTalk:
+    newFile: !uuid '3314b25447f44b0c3c9bdd58c5f09be7d8351a06'
+    oldFile: !uuid 'ddabb2facadb1e920f7e49027824df9d1231ec88'
+  /Web/src/api-plugins/dingTalk/api.ts:
+    newFile: !uuid '964a2418d5cd16605c4567000c0e172c07656fd9'
+    oldFile: !uuid 'd958c3a55db6f2ac1e9624a4d05c4805f065c54b'
+  /Web/src/api-plugins/dingTalk/apis:
+    newFile: !uuid '945aaa2b5a49fa41735c82a33a7c62f1d112d7e7'
+    oldFile: !uuid '11a0d1d8021fceb6fd0c6164074e2bf6d51dda15'
+  /Web/src/api-plugins/dingTalk/apis/ding-talk-api.ts:
+    newFile: !uuid '71ee1e6b429642436be72d9a6c67ef44dfc4ab51'
+    oldFile: !uuid '5333c34c970e4f4abc975162fc1c0e9e847960f5'
+  /Web/src/api-plugins/dingTalk/base.ts:
+    newFile: !uuid '628f2505eab22a5493b2e3f5238c29d210008450'
+    oldFile: !uuid '318f021abc2700fb74a4d4227899f23a0d2e92f6'
+  /Web/src/api-plugins/dingTalk/configuration.ts:
+    newFile: !uuid 'f7710c5d37fbbf1dfef4b8af700e70adddb9fc2c'
+    oldFile: !uuid '4c057034c783453abbd2e9c063a60852ed498b59'
+  /Web/src/api-plugins/dingTalk/index.ts:
+    newFile: !uuid '86b92b797cceeabbec10ba5bdd56cf32f2d08a51'
+    oldFile: !uuid '318e87b1a4a499f7560c3095de9d9764f6c06989'
+  /Web/src/api-plugins/dingTalk/models:
+    newFile: !uuid '1d4f28d95a69bd3e11e0799f71065a4832a96ba8'
+    oldFile: !uuid 'b9160a3568ff5566e1c534c3fa5edb2cf2dda4c3'
+  ? /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-base-response-get-ding-talk-current-employees-list-output.ts
+  : newFile: !uuid '2de5b71c37245ad070e0c35d2dda5110c4df1142'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-base-response-list-ding-talk-emp-roster-field-vo.ts:
+    newFile: !uuid 'f21c3873273f61ad588d9cd01f31def805afa393'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-create-and-deliver-output.ts:
+    newFile: !uuid '2168a6fc70ca8b01d4740b42efb74d011fc48e74'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-get-process-instances-output.ts:
+    newFile: !uuid 'b2f842e906bb18cc69eac62adccbf3ccc29fa4ff'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-send-interactive-cards-output.ts:
+    newFile: !uuid '765c12ed4f4774143bcbcf7014ebb33696604486'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-workflow-process-instances-output.ts:
+    newFile: !uuid '52b8e0746499794e3ce07dab658896d8c896363a'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-get-ding-talk-token-output.ts:
+    newFile: !uuid 'bbce6a1ff2167c4e2e003ecc831cfe87bb06ac93'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/admin-result-ding-talk-send-interactive-cards-output.ts:
+    newFile: null
+    oldFile: !uuid '58c75d765ad0bc735e355ed994f640a5d518f6eb'
+  /Web/src/api-plugins/dingTalk/models/admin-result-employee-query-on-job-response.ts:
+    newFile: null
+    oldFile: !uuid 'aefdf51dcb37ffa22d3685d111a2235f929b2583'
+  /Web/src/api-plugins/dingTalk/models/admin-result-get-access-token-response.ts:
+    newFile: null
+    oldFile: !uuid '40568b667333172ee155554d1d8cc3ff7b8616e6'
+  /Web/src/api-plugins/dingTalk/models/admin-result-roster-lists-query-response.ts:
+    newFile: null
+    oldFile: !uuid 'c105079840fb520e6d527e19b49ca5f4723f57db'
+  /Web/src/api-plugins/dingTalk/models/approver.ts:
+    newFile: !uuid '991d2ef68e2076fbd26232f1998fa28ed0a8f98b'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-base-response-get-ding-talk-current-employees-list-output.ts:
+    newFile: !uuid 'c3a994df1be3c7badd805e7f51ec31cf67bf0d5b'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-base-response-list-ding-talk-emp-roster-field-vo.ts:
+    newFile: !uuid 'e8083646bc853d7a928c7816b2ecc8fcb1f96a58'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-card-data.ts:
+    newFile: !uuid '4a8576f7c55a6d1b0dcd083a15639a1e2734ccc0'
+    oldFile: !uuid '3374c96ad05a18edad9e82e7fdfc91a2a516c7ed'
+  /Web/src/api-plugins/dingTalk/models/ding-talk-card-param-map.ts:
+    newFile: !uuid '854bff38213c32d10dc520ff162551c2e375a0ab'
+    oldFile: !uuid '2f33fadf70fa7c82d75ebc6e189c229fde347bbf'
+  /Web/src/api-plugins/dingTalk/models/ding-talk-conversation-type-enum.ts:
+    newFile: !uuid 'f2b3b6cc03426cfc29f21a08404aa1efcac2038c'
+    oldFile: !uuid '581182b862401c87fe2cebbbf9fdcbd2cde31aa4'
+  /Web/src/api-plugins/dingTalk/models/ding-talk-create-and-deliver-input.ts:
+    newFile: !uuid 'f2a3caca927e2ec46b1554ec8a0af11ca49665df'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-create-and-deliver-output.ts:
+    newFile: !uuid '91a393efbcbc9777a9c0f2a9312c654b9bbdc441'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-create-and-deliver-result.ts:
+    newFile: !uuid 'fd4d0790fd722b54e4bc9b5a40aa9ef5f92ecf36'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-emp-field-data-vo.ts:
+    newFile: !uuid '98decc7433a70a4dd669a3e5701568032300cc16'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-emp-roster-field-vo.ts:
+    newFile: !uuid '03e8f42f685a0d918e4a8aead57024bf66235cb1'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-field-value-vo.ts:
+    newFile: !uuid '27e985eb30be023c9b87745537cf2f7b499e287f'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-get-process-instances-output.ts:
+    newFile: !uuid '3b1e80909cb064c4480e6b8025be16ce05cb4e00'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-open-deliver-model.ts:
+    newFile: !uuid '45ac12393e2eecb60b435eda7ded786995ce7a33'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-send-interactive-cards-input.ts:
+    newFile: !uuid '3c0cdb3e04a4dcc2e9daeced688dc185ea0ea3ef'
+    oldFile: !uuid 'e1a286fb59b57db47016e99879cc3ec17bc75f0a'
+  /Web/src/api-plugins/dingTalk/models/ding-talk-send-interactive-cards-output.ts:
+    newFile: !uuid 'd3bc52ab8351b5b18bd8ce75fe1ffc3635d5597a'
+    oldFile: !uuid '009c849851a06d05a7f1f2c40e282bb52ffb6806'
+  /Web/src/api-plugins/dingTalk/models/ding-talk-send-interactive-cards-result.ts:
+    newFile: !uuid '63a1f6cd3e7f1b4fe66b61d8fc5f07e9bf647457'
+    oldFile: !uuid 'a411e9c09f3706872039242fbe7604ba15ffc4b3'
+  /Web/src/api-plugins/dingTalk/models/ding-talk-workflow-process-instances-input.ts:
+    newFile: !uuid '0767e4328648bd936fd54e4c9529256ca798adda'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/ding-talk-workflow-process-instances-output.ts:
+    newFile: !uuid '9138650e1ed8edd810f703bbb209168ac07c12f8'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/dynamic-data-source-config.ts:
+    newFile: !uuid 'e412e5ed15751276ea71653af55bdaef9e770d4b'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/employee-query-on-job-response-result-domain.ts:
+    newFile: null
+    oldFile: !uuid '789cfd79964b139c344455a5f5c31fad5620dd53'
+  /Web/src/api-plugins/dingTalk/models/employee-query-on-job-response.ts:
+    newFile: null
+    oldFile: !uuid '853cb8ead099580a2c33ae5a5383fff045609a80'
+  /Web/src/api-plugins/dingTalk/models/field-data-domain.ts:
+    newFile: null
+    oldFile: !uuid '3622d40db6c46008bd903c9d89b868181128e447'
+  /Web/src/api-plugins/dingTalk/models/field-value-domain.ts:
+    newFile: null
+    oldFile: !uuid 'a35f926de012f4c6254b39c757a0e4ecd44ff943'
+  /Web/src/api-plugins/dingTalk/models/form-component-value.ts:
+    newFile: !uuid '240843ea2411d49c8d2fb95190d53702af02877f'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/get-access-token-response.ts:
+    newFile: null
+    oldFile: !uuid '4568fe9549ed9abd082f6a8bea0547e1ef3b6a6b'
+  /Web/src/api-plugins/dingTalk/models/get-ding-talk-current-employees-list-input.ts:
+    newFile: !uuid '64c76d3162d4eee0ed1707efa1745fba3d0f2886'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/get-ding-talk-current-employees-list-output.ts:
+    newFile: !uuid '64f44d5f32c2ea675a68d03c49de2f6466fe9516'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/get-ding-talk-current-employees-roster-list-input.ts:
+    newFile: !uuid '9fbb27426abca98e2262c1460ee0aea9055f3d49'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/get-ding-talk-token-output.ts:
+    newFile: !uuid 'defe5d68527f3c107f2553fc4fb81ca1e9b735ac'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/index.ts:
+    newFile: !uuid '2636f294b5b816b5dc84c58e6a4b7c03f1d42f5c'
+    oldFile: !uuid 'e82764919fce1d1ea4b124084183843009f13aa3'
+  /Web/src/api-plugins/dingTalk/models/notification.ts:
+    newFile: !uuid 'a5d433bfb3ae44e6117e34168d9d6105fedb0874'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/open-dynamic-data-config.ts:
+    newFile: !uuid 'fe510c2ffd595bd4eb4662a34b579113cbb7cfb9'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/open-space-model.ts:
+    newFile: !uuid '1b3ebeaea3575135663f4c9a8975cadd57e840f8'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/operation-record.ts:
+    newFile: !uuid '608ac3e3aa95de8e01c44fa8c596654c18632a01'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/private-data.ts:
+    newFile: !uuid '555a9a9559d11452115f512c40e637e69f41f23d'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/pull-config.ts:
+    newFile: !uuid '0ba3d41ac7bf248d3c5fdb4b741100350d2a330b'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/result-data.ts:
+    newFile: !uuid '46e16f455a4ec26bbffba17e1e660109b028ec89'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/result-domain.ts:
+    newFile: null
+    oldFile: !uuid '9927413d71ec08dbfa385ffd1800eb5de93ee1a6'
+  /Web/src/api-plugins/dingTalk/models/roster-lists-query-response.ts:
+    newFile: null
+    oldFile: !uuid '0c2a35974fad09ae1f8375fb20c6eab2aaa4968c'
+  /Web/src/api-plugins/dingTalk/models/search-support.ts:
+    newFile: !uuid '80010ace7356b535be99419072a43e05af25923e'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/target-select-actioner.ts:
+    newFile: !uuid '21d55b060a0f840f1c2215f67b89f131df7b9186'
+    oldFile: null
+  /Web/src/api-plugins/dingTalk/models/task-item.ts:
+    newFile: !uuid '21e34b11e5b7fd52904d0824aa8e571fe793524c'
+    oldFile: null
+gitCommitId: !uuid '11fa5a028d8b1b3be5890a9c4876efbd28f76ada'
+renames:
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-ding-talk-send-interactive-cards-output.ts: /Web/src/api-plugins/dingTalk/models/admin-result-ding-talk-send-interactive-cards-output.ts
+  /Web/src/api-plugins/dingTalk/models/admin-netresult-get-ding-talk-token-output.ts: /Web/src/api-plugins/dingTalk/models/admin-result-employee-query-on-job-response.ts
+  /Web/src/api-plugins/dingTalk/models/approver.ts: /Web/src/api-plugins/dingTalk/models/get-access-token-response.ts
+  /Web/src/api-plugins/dingTalk/models/ding-talk-create-and-deliver-result.ts: /Web/src/api-plugins/dingTalk/models/roster-lists-query-response.ts
+  /Web/src/api-plugins/dingTalk/models/ding-talk-emp-field-data-vo.ts: /Web/src/api-plugins/dingTalk/models/field-data-domain.ts
+  /Web/src/api-plugins/dingTalk/models/ding-talk-field-value-vo.ts: /Web/src/api-plugins/dingTalk/models/field-value-domain.ts
+  /Web/src/api-plugins/dingTalk/models/ding-talk-get-process-instances-output.ts: /Web/src/api-plugins/dingTalk/models/get-access-token-response.ts
+  /Web/src/api-plugins/dingTalk/models/get-ding-talk-current-employees-list-output.ts: /Web/src/api-plugins/dingTalk/models/employee-query-on-job-response-result-domain.ts
+  /Web/src/api-plugins/dingTalk/models/notification.ts: /Web/src/api-plugins/dingTalk/models/get-access-token-response.ts
+  /Web/src/api-plugins/dingTalk/models/open-dynamic-data-config.ts: /Web/src/api-plugins/dingTalk/models/get-access-token-response.ts
+  /Web/src/api-plugins/dingTalk/models/private-data.ts: /Web/src/api-plugins/dingTalk/models/roster-lists-query-response.ts
+revisionId: 3031
