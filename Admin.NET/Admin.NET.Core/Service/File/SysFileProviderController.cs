@@ -87,10 +87,6 @@ public class SysFileProviderController : IDynamicApiController, ITransient
         await _fileProviderService.DeleteFileProvider(input);
     }
 
-
-
-
-
     /// <summary>
     /// 根据存储桶名称获取存储提供者 🔖
     /// </summary>
@@ -183,11 +179,7 @@ public class SysFileProviderController : IDynamicApiController, ITransient
     {
         return await _fileProviderService.GetBucketProviderMapping();
     }
-
-
 }
-
-
 
 /// <summary>
 /// 批量启用/禁用存储提供者输入参数

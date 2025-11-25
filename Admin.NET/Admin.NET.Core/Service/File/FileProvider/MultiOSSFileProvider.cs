@@ -4,8 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using OnceMi.AspNetCore.OSS;
-
 namespace Admin.NET.Core.Service;
 
 /// <summary>
@@ -204,7 +202,7 @@ public class MultiOSSFileProvider : ICustomFileProvider, ITransient
             "ALIYUN" => $"{protocol}://{bucketName}.{provider.Endpoint}/{filePath.TrimStart('/')}",
             "QCLOUD" => $"{protocol}://{bucketName}-{provider.Endpoint}.cos.{provider.Region}.myqcloud.com/{filePath.TrimStart('/')}",
             "MINIO" => $"{protocol}://{provider.Endpoint}/{bucketName}/{filePath.TrimStart('/')}",
-             _ => throw Oops.Oh($"不支持的OSS提供者: {provider.Provider}")
+            _ => throw Oops.Oh($"不支持的OSS提供者: {provider.Provider}")
         };
     }
 

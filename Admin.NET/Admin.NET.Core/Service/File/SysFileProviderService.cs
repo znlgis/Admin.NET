@@ -5,8 +5,6 @@
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
 using OnceMi.AspNetCore.OSS;
-using Newtonsoft.Json;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace Admin.NET.Core.Service;
 
@@ -43,7 +41,7 @@ public class SysFileProviderService : IDynamicApiController, ITransient
     /// <returns></returns>
     [DisplayName("获取文件存储提供者分页列表")]
     [NonAction]
-    public async Task<SqlSugarPagedList<SysFileProvider>> GetFileProviderPage(PageFileProviderInput input)
+    public async Task<SqlSugarPagedList<SysFileProvider>> GetFileProviderPage([FromQuery] PageFileProviderInput input)
     {
         return await _sysFileProviderRep.AsQueryable()
             .WhereIF(!string.IsNullOrWhiteSpace(input.Provider), u => u.Provider.Contains(input.Provider!))
@@ -351,7 +349,6 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         await Task.CompletedTask;
     }
 
-
     /// <summary>
     /// 获取所有可用的存储桶列表
     /// </summary>
@@ -499,7 +496,7 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         {
             // 确保只有一个默认提供者，将其他提供者的默认标识设为false
             await _sysFileProviderRep.AsUpdateable()
-                .SetColumns(p => p.IsDefault == false) 
+                .SetColumns(p => p.IsDefault == false)
                 .Where(p => p.IsDefault == true && p.Id != provider.Id)
                 .ExecuteCommandAsync();
         }
@@ -508,7 +505,6 @@ public class SysFileProviderService : IDynamicApiController, ITransient
         {
             provider.IsDefault ??= false;
         }
-           
 
         // 检查是否还有其他默认提供者，如果没有且当前提供者启用，则设为默认
         var hasDefaultProvider = await _sysFileProviderRep.AsQueryable()

@@ -4,8 +4,6 @@
 //
 // 不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！
 
-using NewLife.Reflection;
-
 namespace Admin.NET.Core;
 
 /// <summary>
@@ -39,7 +37,7 @@ public class SqlSugarRepository<T> : SimpleClient<T>, ISqlSugarRepository<T> whe
             return;
 
         // 看请求头有没有租户id
-        var tenantId = App.HttpContext?.Request.Headers.GetValue(ClaimConst.TenantId, false)?.ToString();
+        var tenantId = App.HttpContext?.Request.Headers[ClaimConst.TenantId].FirstOrDefault();
         if (tenantId == SqlSugarConst.MainConfigId) return;
         else if (string.IsNullOrWhiteSpace(tenantId))
         {
