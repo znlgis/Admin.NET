@@ -12,18 +12,43 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface GetDingTalkTokenOutput
  */
-export interface DingTalkCardData {
+export interface GetDingTalkTokenOutput {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 生成的access_token
+     *
+     * @type {string}
+     * @memberof GetDingTalkTokenOutput
      */
-    cardParamMap?: DingTalkCardParamMap;
+    accessToken?: string | null;
+
+    /**
+     * access_token的过期时间，单位秒
+     *
+     * @type {number}
+     * @memberof GetDingTalkTokenOutput
+     */
+    expiresIn?: number;
+
+    /**
+     * 返回码描述
+     *
+     * @type {string}
+     * @memberof GetDingTalkTokenOutput
+     */
+    errMsg?: string | null;
+
+    /**
+     * 返回码
+     *
+     * @type {number}
+     * @memberof GetDingTalkTokenOutput
+     */
+    errCode?: number;
 }

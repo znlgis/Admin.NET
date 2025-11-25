@@ -12,18 +12,24 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
+import { ResultData } from './result-data';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface DingTalkGetProcessInstancesOutput
  */
-export interface DingTalkCardData {
+export interface DingTalkGetProcessInstancesOutput {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * @type {ResultData}
+     * @memberof DingTalkGetProcessInstancesOutput
      */
-    cardParamMap?: DingTalkCardParamMap;
+    result?: ResultData;
+
+    /**
+     * @type {boolean}
+     * @memberof DingTalkGetProcessInstancesOutput
+     */
+    success?: boolean;
 }

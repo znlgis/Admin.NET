@@ -12,18 +12,34 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
+import { PullConfig } from './pull-config';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface DynamicDataSourceConfig
  */
-export interface DingTalkCardData {
+export interface DynamicDataSourceConfig {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 数据源的唯一 ID, 调用方指定。
+     *
+     * @type {string}
+     * @memberof DynamicDataSourceConfig
      */
-    cardParamMap?: DingTalkCardParamMap;
+    dynamicDataSourceId?: string | null;
+
+    /**
+     * 回调数据源时回传的固定参数。 示例
+     *
+     * @type {{ [key: string]: string; }}
+     * @memberof DynamicDataSourceConfig
+     */
+    constParams?: { [key: string]: string; } | null;
+
+    /**
+     * @type {PullConfig}
+     * @memberof DynamicDataSourceConfig
+     */
+    pullConfig?: PullConfig;
 }

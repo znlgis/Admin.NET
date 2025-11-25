@@ -12,18 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface PullConfig
  */
-export interface DingTalkCardData {
+export interface PullConfig {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 拉取策略，可选值：NONE：不拉取，无动态数据  INTERVAL：间隔拉取ONCE：只拉取一次
+     *
+     * @type {string}
+     * @memberof PullConfig
      */
-    cardParamMap?: DingTalkCardParamMap;
+    pullStrategy?: string | null;
+
+    /**
+     * 拉取的间隔时间。
+     *
+     * @type {number}
+     * @memberof PullConfig
+     */
+    interval?: number;
+
+    /**
+     * 拉取的间隔时间的单位， 可选值：SECONDS：秒 MINUTES：分钟 HOURS：小时 DAYS：天
+     *
+     * @type {string}
+     * @memberof PullConfig
+     */
+    timeUnit?: string | null;
 }

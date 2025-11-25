@@ -12,18 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface Notification
  */
-export interface DingTalkCardData {
+export interface Notification {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 供消息展示与搜索的字段。
+     *
+     * @type {string}
+     * @memberof Notification
      */
-    cardParamMap?: DingTalkCardParamMap;
+    alertContent?: string | null;
+
+    /**
+     * 是否关闭推送通知：true：关闭 false：不关闭
+     *
+     * @type {boolean}
+     * @memberof Notification
+     */
+    notificationOff?: boolean;
 }

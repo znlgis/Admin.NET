@@ -12,18 +12,20 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
+import { DynamicDataSourceConfig } from './dynamic-data-source-config';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface OpenDynamicDataConfig
  */
-export interface DingTalkCardData {
+export interface OpenDynamicDataConfig {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 动态数据源配置列表。
+     *
+     * @type {Array<DynamicDataSourceConfig>}
+     * @memberof OpenDynamicDataConfig
      */
-    cardParamMap?: DingTalkCardParamMap;
+    dynamicDataSourceConfigs?: Array<DynamicDataSourceConfig> | null;
 }

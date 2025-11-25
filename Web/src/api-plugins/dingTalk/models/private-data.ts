@@ -17,13 +17,13 @@ import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface PrivateData
  */
-export interface DingTalkCardData {
+export interface PrivateData {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * @type {{ [key: string]: DingTalkCardParamMap; }}
+     * @memberof PrivateData
      */
-    cardParamMap?: DingTalkCardParamMap;
+    key?: { [key: string]: DingTalkCardParamMap; } | null;
 }

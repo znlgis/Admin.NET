@@ -12,18 +12,36 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
+import { DingTalkEmpFieldDataVo } from './ding-talk-emp-field-data-vo';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface DingTalkEmpRosterFieldVo
  */
-export interface DingTalkCardData {
+export interface DingTalkEmpRosterFieldVo {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 企业的corpid
+     *
+     * @type {string}
+     * @memberof DingTalkEmpRosterFieldVo
      */
-    cardParamMap?: DingTalkCardParamMap;
+    corpId?: string | null;
+
+    /**
+     * 返回的字段信息列表
+     *
+     * @type {Array<DingTalkEmpFieldDataVo>}
+     * @memberof DingTalkEmpRosterFieldVo
+     */
+    fieldDataList?: Array<DingTalkEmpFieldDataVo> | null;
+
+    /**
+     * 员工的userid
+     *
+     * @type {string}
+     * @memberof DingTalkEmpRosterFieldVo
+     */
+    userid?: string | null;
 }

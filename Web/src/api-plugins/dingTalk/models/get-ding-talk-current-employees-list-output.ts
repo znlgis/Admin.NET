@@ -12,18 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface GetDingTalkCurrentEmployeesListOutput
  */
-export interface DingTalkCardData {
+export interface GetDingTalkCurrentEmployeesListOutput {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 查询到的员工userId列表
+     *
+     * @type {Array<string>}
+     * @memberof GetDingTalkCurrentEmployeesListOutput
      */
-    cardParamMap?: DingTalkCardParamMap;
+    dataList?: Array<string> | null;
+
+    /**
+     * 下一次分页调用的offset值，当返回结果里没有next_cursor时，表示分页结束。
+     *
+     * @type {number}
+     * @memberof GetDingTalkCurrentEmployeesListOutput
+     */
+    nextCursor?: number | null;
 }

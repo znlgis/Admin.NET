@@ -1,7 +1,7 @@
 /* tslint:disable */
 /* eslint-disable */
 /**
- * DingTalk
+ * 钉钉开放平台
  * 集成钉钉开放平台<br/><u><b><font color='FF0000'> 👮不得利用本项目从事危害国家安全、扰乱社会秩序、侵犯他人合法权益等法律法规禁止的活动！任何基于本项目二次开发而产生的一切法律纠纷和责任，我们不承担任何责任！</font></b></u>
  *
  * OpenAPI spec version: 1.0.0
@@ -11,16 +11,24 @@
  * https://github.com/swagger-api/swagger-codegen.git
  * Do not edit the class manually.
  */
+
 import globalAxios, { AxiosResponse, AxiosInstance, AxiosRequestConfig } from 'axios';
 import { Configuration } from '../configuration';
 // Some imports not used depending on template conditions
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, RequestArgs, BaseAPI, RequiredError } from '../base';
-import { AdminResultDingTalkSendInteractiveCardsOutput } from '../models';
-import { AdminResultEmployeeQueryOnJobResponse } from '../models';
-import { AdminResultGetAccessTokenResponse } from '../models';
-import { AdminResultRosterListsQueryResponse } from '../models';
+import { AdminNETResultDingTalkBaseResponseGetDingTalkCurrentEmployeesListOutput } from '../models';
+import { AdminNETResultDingTalkBaseResponseListDingTalkEmpRosterFieldVo } from '../models';
+import { AdminNETResultDingTalkCreateAndDeliverOutput } from '../models';
+import { AdminNETResultDingTalkGetProcessInstancesOutput } from '../models';
+import { AdminNETResultDingTalkSendInteractiveCardsOutput } from '../models';
+import { AdminNETResultDingTalkWorkflowProcessInstancesOutput } from '../models';
+import { AdminNETResultGetDingTalkTokenOutput } from '../models';
+import { DingTalkCreateAndDeliverInput } from '../models';
 import { DingTalkSendInteractiveCardsInput } from '../models';
+import { DingTalkWorkflowProcessInstancesInput } from '../models';
+import { GetDingTalkCurrentEmployeesListInput } from '../models';
+import { GetDingTalkCurrentEmployeesRosterListInput } from '../models';
 /**
  * DingTalkApi - axios parameter creator
  * @export
@@ -29,31 +37,77 @@ export const DingTalkApiAxiosParamCreator = function (configuration?: Configurat
     return {
         /**
          * 
-         * @summary 获取在职员工列表 🔖
-         * @param {string} accessToken 
-         * @param {number} size 
-         * @param {number} offset 
-         * @param {Array<string>} [body] 
+         * @summary 创建并投放钉钉消息卡片 🔖
+         * @param {string} token 
+         * @param {DingTalkCreateAndDeliverInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost: async (accessToken: string, size: number, offset: number, body?: Array<string>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiDingTalkDingTalkCreateAndDeliverTokenPost: async (token: string, body?: DingTalkCreateAndDeliverInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            if (token === null || token === undefined) {
+                throw new RequiredError('token','Required parameter token was null or undefined when calling apiDingTalkDingTalkCreateAndDeliverTokenPost.');
+            }
+            const localVarPath = `/api/dingTalk/dingTalkCreateAndDeliver/{token}`
+                .replace(`{${"token"}}`, encodeURIComponent(String(token)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 获取在职员工列表 🔖
+         * @param {GetDingTalkCurrentEmployeesListInput} body 
+         * @param {string} accessToken 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost: async (body: GetDingTalkCurrentEmployeesListInput, accessToken: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost.');
+            }
             // verify required parameter 'accessToken' is not null or undefined
             if (accessToken === null || accessToken === undefined) {
-                throw new RequiredError('accessToken','Required parameter accessToken was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost.');
+                throw new RequiredError('accessToken','Required parameter accessToken was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost.');
             }
-            // verify required parameter 'size' is not null or undefined
-            if (size === null || size === undefined) {
-                throw new RequiredError('size','Required parameter size was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost.');
-            }
-            // verify required parameter 'offset' is not null or undefined
-            if (offset === null || offset === undefined) {
-                throw new RequiredError('offset','Required parameter offset was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost.');
-            }
-            const localVarPath = `/api/dingTalk/dingTalkCurrentEmployeesList/{accessToken}/{size}/{offset}`
-                .replace(`{${"accessToken"}}`, encodeURIComponent(String(accessToken)))
-                .replace(`{${"size"}}`, encodeURIComponent(String(size)))
-                .replace(`{${"offset"}}`, encodeURIComponent(String(offset)));
+            const localVarPath = `/api/dingTalk/dingTalkCurrentEmployeesList/{access_token}`
+                .replace(`{${"access_token"}}`, encodeURIComponent(String(accessToken)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -96,24 +150,22 @@ export const DingTalkApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 
          * @summary 获取员工花名册字段信息 🔖
+         * @param {GetDingTalkCurrentEmployeesRosterListInput} body 
          * @param {string} accessToken 
-         * @param {number} appAgentId 
-         * @param {Array<string>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost: async (accessToken: string, appAgentId: number, body?: Array<string>, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+        apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost: async (body: GetDingTalkCurrentEmployeesRosterListInput, accessToken: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'body' is not null or undefined
+            if (body === null || body === undefined) {
+                throw new RequiredError('body','Required parameter body was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost.');
+            }
             // verify required parameter 'accessToken' is not null or undefined
             if (accessToken === null || accessToken === undefined) {
-                throw new RequiredError('accessToken','Required parameter accessToken was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost.');
+                throw new RequiredError('accessToken','Required parameter accessToken was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost.');
             }
-            // verify required parameter 'appAgentId' is not null or undefined
-            if (appAgentId === null || appAgentId === undefined) {
-                throw new RequiredError('appAgentId','Required parameter appAgentId was null or undefined when calling apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost.');
-            }
-            const localVarPath = `/api/dingTalk/dingTalkCurrentEmployeesRosterList/{accessToken}/{appAgentId}`
-                .replace(`{${"accessToken"}}`, encodeURIComponent(String(accessToken)))
-                .replace(`{${"appAgentId"}}`, encodeURIComponent(String(appAgentId)));
+            const localVarPath = `/api/dingTalk/dingTalkCurrentEmployeesRosterList/{access_token}`
+                .replace(`{${"access_token"}}`, encodeURIComponent(String(accessToken)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -156,18 +208,18 @@ export const DingTalkApiAxiosParamCreator = function (configuration?: Configurat
         /**
          * 
          * @summary 发送钉钉互动卡片 🔖
-         * @param {string} accessToken 
+         * @param {string} token 
          * @param {DingTalkSendInteractiveCardsInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost: async (accessToken: string, body?: DingTalkSendInteractiveCardsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
-            // verify required parameter 'accessToken' is not null or undefined
-            if (accessToken === null || accessToken === undefined) {
-                throw new RequiredError('accessToken','Required parameter accessToken was null or undefined when calling apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost.');
+        apiDingTalkDingTalkSendInteractiveCardsTokenPost: async (token: string, body?: DingTalkSendInteractiveCardsInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            if (token === null || token === undefined) {
+                throw new RequiredError('token','Required parameter token was null or undefined when calling apiDingTalkDingTalkSendInteractiveCardsTokenPost.');
             }
-            const localVarPath = `/api/dingTalk/dingTalkSendInteractiveCards/{accessToken}`
-                .replace(`{${"accessToken"}}`, encodeURIComponent(String(accessToken)));
+            const localVarPath = `/api/dingTalk/dingTalkSendInteractiveCards/{token}`
+                .replace(`{${"token"}}`, encodeURIComponent(String(token)));
             // use dummy base URL string because the URL constructor only accepts absolute URLs.
             const localVarUrlObj = new URL(localVarPath, 'https://example.com');
             let baseOptions;
@@ -250,6 +302,115 @@ export const DingTalkApiAxiosParamCreator = function (configuration?: Configurat
                 options: localVarRequestOptions,
             };
         },
+        /**
+         * 
+         * @summary 查询审批实例
+         * @param {string} token 
+         * @param {string} input 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost: async (token: string, input: string, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            if (token === null || token === undefined) {
+                throw new RequiredError('token','Required parameter token was null or undefined when calling apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost.');
+            }
+            // verify required parameter 'input' is not null or undefined
+            if (input === null || input === undefined) {
+                throw new RequiredError('input','Required parameter input was null or undefined when calling apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost.');
+            }
+            const localVarPath = `/api/dingTalk/dingTalkWorkflowProcessInstances/{token}/{input}`
+                .replace(`{${"token"}}`, encodeURIComponent(String(token)))
+                .replace(`{${"input"}}`, encodeURIComponent(String(input)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
+        /**
+         * 
+         * @summary 用于发起OA审批实例
+         * @param {string} token 
+         * @param {DingTalkWorkflowProcessInstancesInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        apiDingTalkDingTalkWorkflowProcessInstancesTokenPost: async (token: string, body?: DingTalkWorkflowProcessInstancesInput, options: AxiosRequestConfig = {}): Promise<RequestArgs> => {
+            // verify required parameter 'token' is not null or undefined
+            if (token === null || token === undefined) {
+                throw new RequiredError('token','Required parameter token was null or undefined when calling apiDingTalkDingTalkWorkflowProcessInstancesTokenPost.');
+            }
+            const localVarPath = `/api/dingTalk/dingTalkWorkflowProcessInstances/{token}`
+                .replace(`{${"token"}}`, encodeURIComponent(String(token)));
+            // use dummy base URL string because the URL constructor only accepts absolute URLs.
+            const localVarUrlObj = new URL(localVarPath, 'https://example.com');
+            let baseOptions;
+            if (configuration) {
+                baseOptions = configuration.baseOptions;
+            }
+            const localVarRequestOptions :AxiosRequestConfig = { method: 'POST', ...baseOptions, ...options};
+            const localVarHeaderParameter = {} as any;
+            const localVarQueryParameter = {} as any;
+
+            // authentication Bearer required
+            // http bearer authentication required
+            if (configuration && configuration.accessToken) {
+                const accessToken = typeof configuration.accessToken === 'function'
+                    ? await configuration.accessToken()
+                    : await configuration.accessToken;
+                localVarHeaderParameter["Authorization"] = "Bearer " + accessToken;
+            }
+
+            localVarHeaderParameter['Content-Type'] = 'application/json-patch+json';
+
+            const query = new URLSearchParams(localVarUrlObj.search);
+            for (const key in localVarQueryParameter) {
+                query.set(key, localVarQueryParameter[key]);
+            }
+            for (const key in options.params) {
+                query.set(key, options.params[key]);
+            }
+            localVarUrlObj.search = (new URLSearchParams(query)).toString();
+            let headersFromBaseOptions = baseOptions && baseOptions.headers ? baseOptions.headers : {};
+            localVarRequestOptions.headers = {...localVarHeaderParameter, ...headersFromBaseOptions, ...options.headers};
+            const needsSerialization = (typeof body !== "string") || localVarRequestOptions.headers['Content-Type'] === 'application/json';
+            localVarRequestOptions.data =  needsSerialization ? JSON.stringify(body !== undefined ? body : {}) : (body || "");
+
+            return {
+                url: localVarUrlObj.pathname + localVarUrlObj.search + localVarUrlObj.hash,
+                options: localVarRequestOptions,
+            };
+        },
     }
 };
 
@@ -261,16 +422,29 @@ export const DingTalkApiFp = function(configuration?: Configuration) {
     return {
         /**
          * 
-         * @summary 获取在职员工列表 🔖
-         * @param {string} accessToken 
-         * @param {number} size 
-         * @param {number} offset 
-         * @param {Array<string>} [body] 
+         * @summary 创建并投放钉钉消息卡片 🔖
+         * @param {string} token 
+         * @param {DingTalkCreateAndDeliverInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost(accessToken: string, size: number, offset: number, body?: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultEmployeeQueryOnJobResponse>>> {
-            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost(accessToken, size, offset, body, options);
+        async apiDingTalkDingTalkCreateAndDeliverTokenPost(token: string, body?: DingTalkCreateAndDeliverInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultDingTalkCreateAndDeliverOutput>>> {
+            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkCreateAndDeliverTokenPost(token, body, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 获取在职员工列表 🔖
+         * @param {GetDingTalkCurrentEmployeesListInput} body 
+         * @param {string} accessToken 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost(body: GetDingTalkCurrentEmployeesListInput, accessToken: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultDingTalkBaseResponseGetDingTalkCurrentEmployeesListOutput>>> {
+            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost(body, accessToken, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -279,14 +453,13 @@ export const DingTalkApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 获取员工花名册字段信息 🔖
+         * @param {GetDingTalkCurrentEmployeesRosterListInput} body 
          * @param {string} accessToken 
-         * @param {number} appAgentId 
-         * @param {Array<string>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost(accessToken: string, appAgentId: number, body?: Array<string>, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultRosterListsQueryResponse>>> {
-            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost(accessToken, appAgentId, body, options);
+        async apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost(body: GetDingTalkCurrentEmployeesRosterListInput, accessToken: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultDingTalkBaseResponseListDingTalkEmpRosterFieldVo>>> {
+            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost(body, accessToken, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -295,13 +468,13 @@ export const DingTalkApiFp = function(configuration?: Configuration) {
         /**
          * 
          * @summary 发送钉钉互动卡片 🔖
-         * @param {string} accessToken 
+         * @param {string} token 
          * @param {DingTalkSendInteractiveCardsInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost(accessToken: string, body?: DingTalkSendInteractiveCardsInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultDingTalkSendInteractiveCardsOutput>>> {
-            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost(accessToken, body, options);
+        async apiDingTalkDingTalkSendInteractiveCardsTokenPost(token: string, body?: DingTalkSendInteractiveCardsInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultDingTalkSendInteractiveCardsOutput>>> {
+            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkSendInteractiveCardsTokenPost(token, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -313,8 +486,38 @@ export const DingTalkApiFp = function(configuration?: Configuration) {
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkTokenGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminResultGetAccessTokenResponse>>> {
+        async apiDingTalkDingTalkTokenGet(options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultGetDingTalkTokenOutput>>> {
             const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkTokenGet(options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 查询审批实例
+         * @param {string} token 
+         * @param {string} input 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost(token: string, input: string, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultDingTalkGetProcessInstancesOutput>>> {
+            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost(token, input, options);
+            return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
+                const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
+                return axios.request(axiosRequestArgs);
+            };
+        },
+        /**
+         * 
+         * @summary 用于发起OA审批实例
+         * @param {string} token 
+         * @param {DingTalkWorkflowProcessInstancesInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiDingTalkDingTalkWorkflowProcessInstancesTokenPost(token: string, body?: DingTalkWorkflowProcessInstancesInput, options?: AxiosRequestConfig): Promise<(axios?: AxiosInstance, basePath?: string) => Promise<AxiosResponse<AdminNETResultDingTalkWorkflowProcessInstancesOutput>>> {
+            const localVarAxiosArgs = await DingTalkApiAxiosParamCreator(configuration).apiDingTalkDingTalkWorkflowProcessInstancesTokenPost(token, body, options);
             return (axios: AxiosInstance = globalAxios, basePath: string = BASE_PATH) => {
                 const axiosRequestArgs :AxiosRequestConfig = {...localVarAxiosArgs.options, url: basePath + localVarAxiosArgs.url};
                 return axios.request(axiosRequestArgs);
@@ -331,39 +534,47 @@ export const DingTalkApiFactory = function (configuration?: Configuration, baseP
     return {
         /**
          * 
-         * @summary 获取在职员工列表 🔖
-         * @param {string} accessToken 
-         * @param {number} size 
-         * @param {number} offset 
-         * @param {Array<string>} [body] 
+         * @summary 创建并投放钉钉消息卡片 🔖
+         * @param {string} token 
+         * @param {DingTalkCreateAndDeliverInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost(accessToken: string, size: number, offset: number, body?: Array<string>, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultEmployeeQueryOnJobResponse>> {
-            return DingTalkApiFp(configuration).apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost(accessToken, size, offset, body, options).then((request) => request(axios, basePath));
+        async apiDingTalkDingTalkCreateAndDeliverTokenPost(token: string, body?: DingTalkCreateAndDeliverInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultDingTalkCreateAndDeliverOutput>> {
+            return DingTalkApiFp(configuration).apiDingTalkDingTalkCreateAndDeliverTokenPost(token, body, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 获取在职员工列表 🔖
+         * @param {GetDingTalkCurrentEmployeesListInput} body 
+         * @param {string} accessToken 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost(body: GetDingTalkCurrentEmployeesListInput, accessToken: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultDingTalkBaseResponseGetDingTalkCurrentEmployeesListOutput>> {
+            return DingTalkApiFp(configuration).apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost(body, accessToken, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 获取员工花名册字段信息 🔖
+         * @param {GetDingTalkCurrentEmployeesRosterListInput} body 
          * @param {string} accessToken 
-         * @param {number} appAgentId 
-         * @param {Array<string>} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost(accessToken: string, appAgentId: number, body?: Array<string>, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultRosterListsQueryResponse>> {
-            return DingTalkApiFp(configuration).apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost(accessToken, appAgentId, body, options).then((request) => request(axios, basePath));
+        async apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost(body: GetDingTalkCurrentEmployeesRosterListInput, accessToken: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultDingTalkBaseResponseListDingTalkEmpRosterFieldVo>> {
+            return DingTalkApiFp(configuration).apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost(body, accessToken, options).then((request) => request(axios, basePath));
         },
         /**
          * 
          * @summary 发送钉钉互动卡片 🔖
-         * @param {string} accessToken 
+         * @param {string} token 
          * @param {DingTalkSendInteractiveCardsInput} [body] 
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost(accessToken: string, body?: DingTalkSendInteractiveCardsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultDingTalkSendInteractiveCardsOutput>> {
-            return DingTalkApiFp(configuration).apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost(accessToken, body, options).then((request) => request(axios, basePath));
+        async apiDingTalkDingTalkSendInteractiveCardsTokenPost(token: string, body?: DingTalkSendInteractiveCardsInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultDingTalkSendInteractiveCardsOutput>> {
+            return DingTalkApiFp(configuration).apiDingTalkDingTalkSendInteractiveCardsTokenPost(token, body, options).then((request) => request(axios, basePath));
         },
         /**
          * 
@@ -371,8 +582,30 @@ export const DingTalkApiFactory = function (configuration?: Configuration, baseP
          * @param {*} [options] Override http request option.
          * @throws {RequiredError}
          */
-        async apiDingTalkDingTalkTokenGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminResultGetAccessTokenResponse>> {
+        async apiDingTalkDingTalkTokenGet(options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultGetDingTalkTokenOutput>> {
             return DingTalkApiFp(configuration).apiDingTalkDingTalkTokenGet(options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 查询审批实例
+         * @param {string} token 
+         * @param {string} input 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost(token: string, input: string, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultDingTalkGetProcessInstancesOutput>> {
+            return DingTalkApiFp(configuration).apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost(token, input, options).then((request) => request(axios, basePath));
+        },
+        /**
+         * 
+         * @summary 用于发起OA审批实例
+         * @param {string} token 
+         * @param {DingTalkWorkflowProcessInstancesInput} [body] 
+         * @param {*} [options] Override http request option.
+         * @throws {RequiredError}
+         */
+        async apiDingTalkDingTalkWorkflowProcessInstancesTokenPost(token: string, body?: DingTalkWorkflowProcessInstancesInput, options?: AxiosRequestConfig): Promise<AxiosResponse<AdminNETResultDingTalkWorkflowProcessInstancesOutput>> {
+            return DingTalkApiFp(configuration).apiDingTalkDingTalkWorkflowProcessInstancesTokenPost(token, body, options).then((request) => request(axios, basePath));
         },
     };
 };
@@ -386,42 +619,51 @@ export const DingTalkApiFactory = function (configuration?: Configuration, baseP
 export class DingTalkApi extends BaseAPI {
     /**
      * 
-     * @summary 获取在职员工列表 🔖
-     * @param {string} accessToken 
-     * @param {number} size 
-     * @param {number} offset 
-     * @param {Array<string>} [body] 
+     * @summary 创建并投放钉钉消息卡片 🔖
+     * @param {string} token 
+     * @param {DingTalkCreateAndDeliverInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DingTalkApi
      */
-    public async apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost(accessToken: string, size: number, offset: number, body?: Array<string>, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultEmployeeQueryOnJobResponse>> {
-        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkCurrentEmployeesListAccessTokenSizeOffsetPost(accessToken, size, offset, body, options).then((request) => request(this.axios, this.basePath));
+    public async apiDingTalkDingTalkCreateAndDeliverTokenPost(token: string, body?: DingTalkCreateAndDeliverInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultDingTalkCreateAndDeliverOutput>> {
+        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkCreateAndDeliverTokenPost(token, body, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 获取在职员工列表 🔖
+     * @param {GetDingTalkCurrentEmployeesListInput} body 
+     * @param {string} accessToken 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DingTalkApi
+     */
+    public async apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost(body: GetDingTalkCurrentEmployeesListInput, accessToken: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultDingTalkBaseResponseGetDingTalkCurrentEmployeesListOutput>> {
+        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkCurrentEmployeesListAccessTokenPost(body, accessToken, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 获取员工花名册字段信息 🔖
+     * @param {GetDingTalkCurrentEmployeesRosterListInput} body 
      * @param {string} accessToken 
-     * @param {number} appAgentId 
-     * @param {Array<string>} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DingTalkApi
      */
-    public async apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost(accessToken: string, appAgentId: number, body?: Array<string>, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultRosterListsQueryResponse>> {
-        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenAppAgentIdPost(accessToken, appAgentId, body, options).then((request) => request(this.axios, this.basePath));
+    public async apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost(body: GetDingTalkCurrentEmployeesRosterListInput, accessToken: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultDingTalkBaseResponseListDingTalkEmpRosterFieldVo>> {
+        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkCurrentEmployeesRosterListAccessTokenPost(body, accessToken, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
      * @summary 发送钉钉互动卡片 🔖
-     * @param {string} accessToken 
+     * @param {string} token 
      * @param {DingTalkSendInteractiveCardsInput} [body] 
      * @param {*} [options] Override http request option.
      * @throws {RequiredError}
      * @memberof DingTalkApi
      */
-    public async apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost(accessToken: string, body?: DingTalkSendInteractiveCardsInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultDingTalkSendInteractiveCardsOutput>> {
-        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkSendInteractiveCardsAccessTokenPost(accessToken, body, options).then((request) => request(this.axios, this.basePath));
+    public async apiDingTalkDingTalkSendInteractiveCardsTokenPost(token: string, body?: DingTalkSendInteractiveCardsInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultDingTalkSendInteractiveCardsOutput>> {
+        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkSendInteractiveCardsTokenPost(token, body, options).then((request) => request(this.axios, this.basePath));
     }
     /**
      * 
@@ -430,7 +672,31 @@ export class DingTalkApi extends BaseAPI {
      * @throws {RequiredError}
      * @memberof DingTalkApi
      */
-    public async apiDingTalkDingTalkTokenGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminResultGetAccessTokenResponse>> {
+    public async apiDingTalkDingTalkTokenGet(options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultGetDingTalkTokenOutput>> {
         return DingTalkApiFp(this.configuration).apiDingTalkDingTalkTokenGet(options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 查询审批实例
+     * @param {string} token 
+     * @param {string} input 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DingTalkApi
+     */
+    public async apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost(token: string, input: string, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultDingTalkGetProcessInstancesOutput>> {
+        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkWorkflowProcessInstancesTokenInputPost(token, input, options).then((request) => request(this.axios, this.basePath));
+    }
+    /**
+     * 
+     * @summary 用于发起OA审批实例
+     * @param {string} token 
+     * @param {DingTalkWorkflowProcessInstancesInput} [body] 
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof DingTalkApi
+     */
+    public async apiDingTalkDingTalkWorkflowProcessInstancesTokenPost(token: string, body?: DingTalkWorkflowProcessInstancesInput, options?: AxiosRequestConfig) : Promise<AxiosResponse<AdminNETResultDingTalkWorkflowProcessInstancesOutput>> {
+        return DingTalkApiFp(this.configuration).apiDingTalkDingTalkWorkflowProcessInstancesTokenPost(token, body, options).then((request) => request(this.axios, this.basePath));
     }
 }

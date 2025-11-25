@@ -16,15 +16,35 @@
  * 
  *
  * @export
- * @interface DingTalkSendInteractiveCardsResult
+ * @interface DingTalkWorkflowProcessInstancesOutput
  */
-export interface DingTalkSendInteractiveCardsResult {
+export interface DingTalkWorkflowProcessInstancesOutput {
 
     /**
-     * 用于业务方后续查看已读列表的查询key
+     * 请求Id
      *
      * @type {string}
-     * @memberof DingTalkSendInteractiveCardsResult
+     * @memberof DingTalkWorkflowProcessInstancesOutput
      */
-    processQueryKey?: string | null;
+    requestId?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof DingTalkWorkflowProcessInstancesOutput
+     */
+    code?: string | null;
+
+    /**
+     * @type {string}
+     * @memberof DingTalkWorkflowProcessInstancesOutput
+     */
+    message?: string | null;
+
+    /**
+     * 是否还有更多数据
+     *
+     * @type {string}
+     * @memberof DingTalkWorkflowProcessInstancesOutput
+     */
+    instanceId?: string | null;
 }

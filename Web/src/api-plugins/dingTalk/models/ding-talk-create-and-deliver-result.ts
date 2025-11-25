@@ -12,18 +12,19 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface DingTalkCreateAndDeliverResult
  */
-export interface DingTalkCardData {
+export interface DingTalkCreateAndDeliverResult {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 用于业务方后续查看已读列表的查询key
+     *
+     * @type {string}
+     * @memberof DingTalkCreateAndDeliverResult
      */
-    cardParamMap?: DingTalkCardParamMap;
+    processQueryKey?: string | null;
 }

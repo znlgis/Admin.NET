@@ -12,18 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface DingTalkFieldValueVo
  */
-export interface DingTalkCardData {
+export interface DingTalkFieldValueVo {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 第几条的明细标识，下标从0开始
+     *
+     * @type {number}
+     * @memberof DingTalkFieldValueVo
      */
-    cardParamMap?: DingTalkCardParamMap;
+    itemIndex?: number;
+
+    /**
+     * 字段展示值，选项类型字段对应选项的value
+     *
+     * @type {string}
+     * @memberof DingTalkFieldValueVo
+     */
+    label?: string | null;
+
+    /**
+     * 字段取值，选项类型字段对应选项的key
+     *
+     * @type {string}
+     * @memberof DingTalkFieldValueVo
+     */
+    value?: string | null;
 }

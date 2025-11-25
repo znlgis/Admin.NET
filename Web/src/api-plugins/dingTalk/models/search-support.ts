@@ -12,18 +12,35 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
  * 
  *
  * @export
- * @interface DingTalkCardData
+ * @interface SearchSupport
  */
-export interface DingTalkCardData {
+export interface SearchSupport {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 类型的icon，供搜索展示使用。
+     *
+     * @type {string}
+     * @memberof SearchSupport
      */
-    cardParamMap?: DingTalkCardParamMap;
+    searchIcon?: string | null;
+
+    /**
+     * 卡片类型名。
+     *
+     * @type {string}
+     * @memberof SearchSupport
+     */
+    searchTypeName?: string | null;
+
+    /**
+     * 供消息展示与搜索的字段。
+     *
+     * @type {string}
+     * @memberof SearchSupport
+     */
+    searchDesc?: string | null;
 }

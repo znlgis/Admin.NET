@@ -12,18 +12,27 @@
  * Do not edit the class manually.
  */
 
-import { DingTalkCardParamMap } from './ding-talk-card-param-map';
  /**
- * 
+ * 动态选择办理人
  *
  * @export
- * @interface DingTalkCardData
+ * @interface TargetSelectActioner
  */
-export interface DingTalkCardData {
+export interface TargetSelectActioner {
 
     /**
-     * @type {DingTalkCardParamMap}
-     * @memberof DingTalkCardData
+     * 办理人Key，对应表单中的人员选择控件的key
+     *
+     * @type {string}
+     * @memberof TargetSelectActioner
      */
-    cardParamMap?: DingTalkCardParamMap;
+    actionerKey?: string | null;
+
+    /**
+     * 该控件选中的用户ID列表
+     *
+     * @type {Array<string>}
+     * @memberof TargetSelectActioner
+     */
+    actionerUserIds?: Array<string> | null;
 }
