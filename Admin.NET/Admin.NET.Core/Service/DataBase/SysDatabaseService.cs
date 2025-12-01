@@ -175,15 +175,21 @@ public class SysDatabaseService : IDynamicApiController, ITransient
     public void UpdateColumn(UpdateDbColumnInput input)
     {
         var db = _db.AsTenant().GetConnectionScope(input.ConfigId);
-        db.DbMaintenance.RenameColumn(input.TableName, input.OldColumnName, input.ColumnName);
+
+        // 前端未修改列名时，不进行重命名操作，避免报错
+        if (input.OldColumnName != input.ColumnName)
+        {
+            db.DbMaintenance.RenameColumn(input.TableName, input.OldColumnName, input.ColumnName);
+        }
+
         if (!string.IsNullOrWhiteSpace(input.DefaultValue))
         {
             db.DbMaintenance.AddDefaultValue(input.TableName, input.ColumnName, input.DefaultValue);
         }
-        if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
-        {
-            db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
-        }
+        //if (db.DbMaintenance.IsAnyColumnRemark(input.ColumnName, input.TableName))
+        //{
+        //    db.DbMaintenance.DeleteColumnRemark(input.ColumnName, input.TableName);
+        //}
 
         db.DbMaintenance.AddColumnRemark(input.ColumnName, input.TableName, string.IsNullOrWhiteSpace(input.Description) ? input.ColumnName : input.Description);
     }
