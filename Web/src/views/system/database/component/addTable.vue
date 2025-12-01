@@ -50,7 +50,7 @@
 				</el-table-column>
 				<el-table-column prop="dataType" label="类型" width="150">
 					<template #default="scope">
-						<el-select v-model="scope.row.dataType" class="m-2" placeholder="Select">
+						<el-select v-model="scope.row.dataType" class="m-2" placeholder="Select" @change="handleColTypeChange(scope.row)">
 							<el-option v-for="item in dataTypeList" :key="item.value" :label="item.value" :value="item.value" />
 						</el-select>
 					</template>
@@ -183,13 +183,13 @@ function addPrimaryColumn() {
 function addColumn() {
 	state.tableData.push({
 		columnDescription: '',
-		dataType: 'varchar',
+		//dataType: 'varchar',
 		dbColumnName: '',
 		decimalDigits: 0,
 		isIdentity: 0,
 		isNullable: 1,
 		isPrimarykey: 0,
-		length: 32,
+		//length: 32,
 		key: colIndex,
 		editable: true,
 		isNew: true,
@@ -308,6 +308,17 @@ function addDeleteColumn() {
 
 function handleColDelete(index: number) {
 	state.tableData.splice(index, 1);
+}
+
+// 列类型选择变化
+function handleColTypeChange(record: EditRecordRow) {
+    if (['varchar', 'char', 'nvarchar', 'nchar'].includes(record.dataType as string)) {
+        if ([0, undefined, null].includes(record.length)) {
+            record.length = 32;
+        }
+    } else {
+        record.length = 0;
+    }
 }
 
 // 上移
