@@ -17,7 +17,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <param name="accessToken"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    /// <inheritdoc cref="https://developer.work.weixin.qq.com/document/path/90245"/>
+    /// <see href="https://developer.work.weixin.qq.com/document/path/90245"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/appchat/create")]
     Task<CreatAppChatOutput> Create([Query("access_token")] string accessToken, [Body] CreatAppChatInput body);
 
@@ -27,7 +27,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <param name="accessToken"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    /// <inheritdoc cref="https://developer.work.weixin.qq.com/document/path/98913"/>
+    /// <see href="https://developer.work.weixin.qq.com/document/path/98913"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/appchat/update")]
     Task<CreatAppChatOutput> Update([Query("access_token")] string accessToken, [Body] UpdateAppChatInput body);
 
@@ -37,7 +37,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <param name="accessToken"></param>
     /// <param name="chatId"></param>
     /// <returns></returns>
-    /// <inheritdoc cref="https://developer.work.weixin.qq.com/document/path/98914"/>
+    /// <see href="https://developer.work.weixin.qq.com/document/path/98914"/>
     [Get("https://qyapi.weixin.qq.com/cgi-bin/appchat/get")]
     Task<CreatAppChatOutput> Get([Query("access_token")] string accessToken, [Query("chatid")] string chatId);
 
@@ -47,7 +47,7 @@ public interface IWorkWeixinAppChatHttp : IHttpDeclarative
     /// <param name="accessToken"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    /// <inheritdoc cref="https://developer.work.weixin.qq.com/document/path/90248"/>
+    /// <see href="https://developer.work.weixin.qq.com/document/path/90248"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/appchat/send")]
     Task<BaseWorkOutput> Send([Query("access_token")] string accessToken, [Body] SendBaseAppChatInput body);
 }
