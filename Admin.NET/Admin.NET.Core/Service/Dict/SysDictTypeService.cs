@@ -130,6 +130,8 @@ public class SysDictTypeService : IDynamicApiController, ITransient
         var isExist = await _sysDictTypeRep.IsAnyAsync(u => u.Code == input.Code);
         if (isExist) throw Oops.Oh(ErrorCodeEnum.D3001);
 
+        if (_userManager.SuperAdmin) input.IsTenant = YesNoEnum.N;  // 超级管理员添加的字典类型默认非租户级
+
         await _sysDictTypeRep.InsertAsync(input.Adapt<SysDictType>());
     }
 

@@ -29,7 +29,9 @@ public class SysDictDataService : IDynamicApiController, ITransient
         _sysLangTextCacheService = sysLangTextCacheService;
         VSysDictData = _sysDictDataRep.Context.UnionAll(
             _sysDictDataRep.AsQueryable(),
-            _sysDictDataRep.Change<SysDictDataTenant>().AsQueryable().WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId).Select<SysDictData>());
+            _sysDictDataRep.Change<SysDictDataTenant>().AsQueryable()
+            //.WhereIF(_userManager.SuperAdmin, d => d.TenantId == _userManager.TenantId)
+            .Select<SysDictData>());
     }
 
     /// <summary>
