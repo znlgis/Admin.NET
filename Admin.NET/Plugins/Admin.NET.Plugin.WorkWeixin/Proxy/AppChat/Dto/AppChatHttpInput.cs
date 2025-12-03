@@ -32,7 +32,7 @@ public class CreatAppChatInput
     /// </summary>
     [JsonProperty("userlist")]
     [JsonPropertyName("userlist")]
-    [NotEmpty(ErrorMessage = "群成员列表不能为空")]
+    [Core.NotEmpty(ErrorMessage = "群成员列表不能为空")]
     public List<string> UserList { get; set; }
 
     /// <summary>
