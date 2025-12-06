@@ -352,6 +352,9 @@
 				padding: 18px !important;
                 max-height: calc(100vh - 37px);
 			}
+            .el-dialog__body:has(+ .el-dialog__footer) {
+                max-height: calc(100vh - 37px - 47px);
+            }
 		}
 	}
 }

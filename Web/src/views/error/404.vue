@@ -1,5 +1,5 @@
 <template>
-	<div class="error layout-padding">
+	<div class="error">
 		<div class="layout-padding-auto layout-padding-view">
 			<div class="error-flex">
 				<div class="left">
@@ -36,6 +36,8 @@ const onGoHome = () => {
 <style scoped lang="scss">
 .error {
 	height: 100%;
+    width: 100%;
+
 	.error-flex {
 		margin: auto;
 		display: flex;
