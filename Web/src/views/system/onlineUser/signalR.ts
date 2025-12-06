@@ -13,8 +13,10 @@ const connection = new SignalR.HubConnectionBuilder()
 	})
 	.build();
 
-connection.keepAliveIntervalInMilliseconds = 15 * 1000; // 心跳检测15s
-connection.serverTimeoutInMilliseconds = 30 * 60 * 1000; // 超时时间30m
+// 心跳检测：若15s内没有向服务器发送任何消息，则ping一下服务器端
+connection.keepAliveIntervalInMilliseconds = 15 * 1000;
+// 超时时间：若30s内没有收到服务器端发过来的信息，则认为服务器端异常
+connection.serverTimeoutInMilliseconds = 30 * 1000;
 
 // 启动连接
 connection.start().then(() => {
