@@ -319,6 +319,14 @@ public partial class SysUser : EntityBaseTenantOrg
     [SugarColumn(ColumnDescription = "语言代码")]
     public string LangCode { get; set; } = App.GetOptions<LocalizationSettingsOptions>().DefaultCulture;
 
+
+    /// <summary>
+    /// 个性化首页地址
+    /// </summary>
+    [SugarColumn(ColumnDescription = "个性化首页地址", Length = 512)]
+    [MaxLength(512)]
+    public string? Homepage { get; set; }
+
     /// <summary>
     /// 验证超级管理员类型，若账号类型为超级管理员则报错
     /// </summary>
