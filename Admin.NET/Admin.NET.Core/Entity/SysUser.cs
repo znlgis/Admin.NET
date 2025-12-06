@@ -319,7 +319,6 @@ public partial class SysUser : EntityBaseTenantOrg
     [SugarColumn(ColumnDescription = "语言代码")]
     public string LangCode { get; set; } = App.GetOptions<LocalizationSettingsOptions>().DefaultCulture;
 
-
     /// <summary>
     /// 个性化首页地址
     /// </summary>
