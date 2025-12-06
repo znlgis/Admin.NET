@@ -3,123 +3,18 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid 'c1f2bd747eef5cbf87da0012b4c64da5d53b8c44'
-    oldFile: !uuid '196c7e09baa31387b85ae7d9e5dc27592d3e01f4'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '4b31fa401dde28d6318562f021710fe14b6fa9fd'
-    oldFile: !uuid '18d1cfb28263177e344f96f05fbcd21cd258c9fc'
-  /Admin.NET/Admin.NET.Core/Option:
-    newFile: !uuid '06ec010c56513c1df019a5c79474cf7857ad5610'
-    oldFile: !uuid 'b4e1fc0a2683b1bf54968bdc8ffe8c5952166f3b'
-  /Admin.NET/Admin.NET.Core/Option/SMSOptions.cs:
-    newFile: !uuid '524e08b633744ef0e3b3f7032d0e2dd14ac31314'
-    oldFile: !uuid '692c35286f22a354eeed944d1bb6f198a6785864'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid '3e56f1e11841883e05384778a2a96b9295142e3a'
-    oldFile: !uuid 'ce8acfbff3fd6b928f8da9b0f74ab135b86895df'
-  /Admin.NET/Admin.NET.Core/Service/DataBase:
-    newFile: !uuid '014a6df5eb462d293d977346f91aaae5ab8cb316'
-    oldFile: !uuid '19ad9e38983c3d85b59ec10a10398d50e9e2afaf'
-  /Admin.NET/Admin.NET.Core/Service/DataBase/SysDatabaseService.cs:
-    newFile: !uuid '13d3cda189c0eeeb9936117b17702fdd778c1dc1'
-    oldFile: !uuid '9d9e38a732055206d3f6039506cb012d34695668'
-  /Admin.NET/Admin.NET.Core/Service/Dict:
-    newFile: !uuid '36cd6f63e5a13f780fb56e1c8e810418eed4fc94'
-    oldFile: !uuid '684741dc788d1f578b5f0a712b2c2a5c45f339ce'
-  /Admin.NET/Admin.NET.Core/Service/Dict/Dto:
-    newFile: !uuid '857341c32d0f3e7aff498f111907818c93ce8333'
-    oldFile: !uuid '318e4e325df290f3cd44862ad3738e58bcc64e04'
-  /Admin.NET/Admin.NET.Core/Service/Dict/Dto/DictTypeInput.cs:
-    newFile: !uuid '960e6a9474cf3b5397a709fa1985f15ed6b2a80d'
-    oldFile: !uuid '10682d5dcf6d0260762b053583bbbd0f98cb89cb'
-  /Admin.NET/Admin.NET.Core/Service/Dict/SysDictDataService.cs:
-    newFile: !uuid '7487e96cd6eb7d59583f048427d67639d5c30c02'
-    oldFile: !uuid 'cba2d427553854142f288ce7172970482918e76b'
-  /Admin.NET/Admin.NET.Core/Service/Dict/SysDictTypeService.cs:
-    newFile: !uuid '6315d2930c73c1ac2daad32ac43a7ae9a5593b16'
-    oldFile: !uuid 'b8fa231c6d2249749ff8170198bdc5a2a8db9af3'
-  /Admin.NET/Admin.NET.Core/Utils:
-    newFile: !uuid 'e2034cd63879241a95fea0c9e81e282d6e7eb40b'
-    oldFile: !uuid 'e967f3670a038c45644a007d243f2495337a7d67'
-  /Admin.NET/Admin.NET.Core/Utils/GiteeHelper.cs:
-    newFile: !uuid '54f3fc645376b9a496b44391e7114db4bf316684'
-    oldFile: !uuid '3f369e4d86b3e574d00bb6a72b50dccb8ef4e8aa'
-  /Admin.NET/Plugins:
-    newFile: !uuid '5a1426c16fd79a8d6211e90db83fa2b7941247ba'
-    oldFile: !uuid 'e2c90e11275010e1cf7676c01cea6c889e913714'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk:
-    newFile: !uuid '96a2695ff699e3b2b913b6fdf413deb083adc652'
-    oldFile: !uuid 'f0d53f56c6060c1555589709735654b10a4fe64b'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service:
-    newFile: !uuid 'c02160cda30882dec6c3dadfc20d524e1b0ec0c1'
-    oldFile: !uuid '69a6db88e042f55e3981556a610e232b36579374'
-  /Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Service/DingTalkService.cs:
-    newFile: !uuid '66331968e0d8687795d980561fafb45648af15fa'
-    oldFile: !uuid 'af274298b8b9cea1419ca8e1843ace2661d95beb'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin:
-    newFile: !uuid 'b776950d43d7f03f660ede02bf9b472d863ae545'
-    oldFile: !uuid 'dfcb0dff15e022651d4f272bdfb889f6213da71f'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy:
-    newFile: !uuid '9841d4eaec88210e81ef6655a43ca79cb5568832'
-    oldFile: !uuid 'f632c886d184397327022cbf863f9bd7beabab23'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy/AppChat:
-    newFile: !uuid '46bb1a4f438b17ed147effdd2d4da62dece3b672'
-    oldFile: !uuid 'b9fb92b20c31d4909ac7c6a9183bce3b7d1cdef5'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy/AppChat/Dto:
-    newFile: !uuid '7ed04bf3c64f71ad783e3e97996099a2e031eeb8'
-    oldFile: !uuid '1bf4e485c0f114a43a904f02a2de0ea8563e3b69'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy/AppChat/Dto/AppChatHttpInput.cs:
-    newFile: !uuid 'e6649388762f92b29248fe66c03147a8c6f81ca6'
-    oldFile: !uuid 'a5655e81dd8bba512f652a068cb3c3c855b1ad11'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy/AppChat/IWorkWeixinAppChatHttp.cs:
-    newFile: !uuid '2a8256d0a19e15e4417b1d0108945dece7309655'
-    oldFile: !uuid '89ac90c6a5ff51df8b4df17cf904c11c7561a7c8'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy/Auth:
-    newFile: !uuid '2f182c26d174ea6d6a137f5b15afe6090fc5b8e4'
-    oldFile: !uuid '25532a48fdd6c291fc17ebd87270488d175598b0'
-  /Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Proxy/Auth/IWorkWeixinAuthHttp.cs:
-    newFile: !uuid '118a08e36e3187aef6f2e03a78cebe47dca877e4'
-    oldFile: !uuid '9db100e1e7feda1035b58f729f02b553bf3dbde6'
-  /Web:
-    newFile: !uuid '8becdc94bba6f75182910726344dd011b7dcce54'
-    oldFile: !uuid 'b13e83579577ae879913e38021953b58051d7337'
-  /Web/src:
-    newFile: !uuid 'b4f081f090c470613130caf5732cee0615141daf'
-    oldFile: !uuid '1c9e6759e4739d2c0b12ae406a7d5ded209abaa9'
-  /Web/src/theme:
-    newFile: !uuid '054399aa802735b9feaec0112ae68ffac7d51761'
-    oldFile: !uuid '6b31ef9b68781695ac261e61e0d16046c0d8866a'
-  /Web/src/theme/element.scss:
-    newFile: !uuid '09c9c9993347149585d643539b80986208a9efb1'
-    oldFile: !uuid 'ce0c9d7c0a8a2d8b52a2002b431b36d06e99d937'
-  /Web/src/theme/media:
-    newFile: !uuid '6354739c57b1bd0b9d56953dd403e3c415f5b552'
-    oldFile: !uuid 'ebbc80415a1089cc93691834cd85646617a81bc7'
-  /Web/src/theme/media/scrollbar.scss:
-    newFile: !uuid '54baa7f3c58c7e3e5347068a73f5538cbd6ed208'
-    oldFile: !uuid '912ecc72654838f335cbe45bc5655333f73125b2'
-  /Web/src/views:
-    newFile: !uuid 'd40d5f220709ae0e9247062d6dffd8d7d05fd287'
-    oldFile: !uuid '12d2824b0c5e2b705a60635da5d28be89798731b'
-  /Web/src/views/system:
-    newFile: !uuid '26f840575a9a444f1bc6c13ba437fa0d7483f89c'
-    oldFile: !uuid 'd9bfb25d7031590c33e06f870486270ba4de05b5'
-  /Web/src/views/system/database:
-    newFile: !uuid '876db9fbd4bfb46f37c7c1d98346cf511b181f1b'
-    oldFile: !uuid '0252e981eef3553da00178d2388da5587304d60c'
-  /Web/src/views/system/database/component:
-    newFile: !uuid '4ff1c27d059de8965c513182e8d0177ff7a7be8c'
-    oldFile: !uuid '02edd371eecbe0da9631863e192f34bacafb0a18'
-  /Web/src/views/system/database/component/addTable.vue:
-    newFile: !uuid 'f9602a1eae86255b7528e159f5bbf8939fe2a4f8'
-    oldFile: !uuid 'c9922b270b9901e599e3cbd94943ccf498b14ffb'
-  /Web/src/views/system/stressTest:
-    newFile: !uuid '43db796bcc26ae8cb9a12049babc1facee9e38d9'
-    oldFile: !uuid '19164df0a9d391d643c0e08127b9d39410e69562'
-  /Web/src/views/system/stressTest/index.vue:
-    newFile: !uuid '08afffe1797e4286d68461031d0d1ce7dd883794'
-    oldFile: !uuid 'b4ba11eb61badd07446f139e51bce7974ec9e852'
-gitCommitId: !uuid '0b7676eea1ad85840238ebd43bce666c49594fa3'
+    newFile: !uuid 'd883502fad06332477e5199a51e817de77730119'
+    oldFile: !uuid 'c1f2bd747eef5cbf87da0012b4c64da5d53b8c44'
+  /Admin.NET/Admin.NET.Application:
+    newFile: !uuid '3be9aa71f03a259deb12f2263ca0bc38efe89086'
+    oldFile: !uuid '0974f2415aedbf7480dc5efe69634ed21aa3f599'
+  /Admin.NET/Admin.NET.Application/Configuration:
+    newFile: !uuid '3464341df3449aa6d44ac8e07e24d83f8a63e901'
+    oldFile: !uuid 'bc100ea8d6cd098d5d7837846924a2a011e5d536'
+  /Admin.NET/Admin.NET.Application/Configuration/Database.json:
+    newFile: !uuid '372873c8d205de14ab36425323625b3cdab26d7f'
+    oldFile: !uuid 'dee9aff2a835ebcfefaa041f8d0c8446af2826d9'
+gitCommitId: !uuid 'b3a85d3f10acd27d168a1cbaa8dcc9b836243db7'
 renames: {
   }
-revisionId: 3034
+revisionId: 3035
