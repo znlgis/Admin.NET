@@ -76,7 +76,7 @@ const getSmsCode = async () => {
 		return;
 	}
 
-	await getAPI(SysSmsApi).apiSysSmsSendSmsPhoneNumberPost(state.ruleForm.phone);
+	await getAPI(SysSmsApi).apiSysSmsSendSmsPhoneNumberTemplateIdPost(state.ruleForm.phone, '0');
 
 	// 倒计时期间禁止点击
 	state.disabled = true;
