@@ -37,7 +37,7 @@ public class GiteeHelper
     /// 构建Query参数
     /// </summary>
     /// <returns></returns>
-    private static string BuilderQueryString([NotNull] object obj)
+    private static string BuilderQueryString([System.Diagnostics.CodeAnalysis.NotNull] object obj)
     {
         if (obj == null) return string.Empty;
         var query = HttpUtility.ParseQueryString(string.Empty);

@@ -88,9 +88,9 @@ public sealed class CustomSMSSettings
 
     /// <summary>
     /// API 接口地址模板
-    /// 支持占位符: {mobile} - 手机号, {content} - 短信内容, {code} - 验证码
-    /// 示例: https://api.xxxx.com/sms?u=xxxx&key=59e03f49c3dbb5033&m={mobile}&c={content}
+    /// <para>支持占位符: {mobile} - 手机号, {content} - 短信内容, {code} - 验证码</para>
     /// </summary>
+    /// <remarks>示例: https://api.xxxx.com/sms?u=xxxx&amp;key=59e03f49c3dbb5033&amp;m={mobile}&amp;c={content}</remarks>
     public string ApiUrl { get; set; }
 
     /// <summary>
@@ -106,9 +106,11 @@ public sealed class CustomSMSSettings
 
     /// <summary>
     /// POST 请求的数据模板（支持占位符）
-    /// JSON 格式示例: {"mobile":"{mobile}","content":"{content}","apikey":"your_key"}
-    /// Form 格式示例: mobile={mobile}&content={content}&apikey=your_key
     /// </summary>
+    /// <remarks>
+    /// JSON 格式示例: {"mobile":"{mobile}","content":"{content}","apikey":"your_key"} <br />
+    /// Form 格式示例: mobile={mobile}&amp;content={content}&amp;apikey=your_key
+    /// </remarks>
     public string PostData { get; set; }
 
     /// <summary>

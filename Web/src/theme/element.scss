@@ -346,9 +346,11 @@
 			padding: 0 !important;
 			margin: 0 auto !important;
 			position: absolute;
+            max-height: 100vh;
 
 			.el-dialog__body {
 				padding: 18px !important;
+                max-height: calc(100vh - 37px);
 			}
 		}
 	}
@@ -386,6 +388,7 @@
 	padding: 8px;
     border-radius: var(--el-dialog-border-radius) var(--el-dialog-border-radius) 0 0;
 	background: var(--el-color-primary);
+    color: #fff;
     height: 37px;
     line-height: 21px;
 

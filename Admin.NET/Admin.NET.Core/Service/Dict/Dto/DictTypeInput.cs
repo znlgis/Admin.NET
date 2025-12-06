@@ -26,6 +26,10 @@ public class PageDictTypeInput : BasePageInput
 public class AddDictTypeInput : SysDictType
 {
     /// <summary>
+    /// 是否是租户字典（Y-是，N-否）
+    /// </summary>
+    public override YesNoEnum IsTenant { get; set; } = YesNoEnum.Y;
+    /// <summary>
     /// 是否是内置字典（Y-是，N-否）
     /// </summary>
     public override YesNoEnum SysFlag { get; set; } = YesNoEnum.N;

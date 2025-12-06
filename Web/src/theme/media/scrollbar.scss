@@ -41,6 +41,7 @@
 	}
 	::-webkit-scrollbar-track-piece {
 		background-color: var(--next-bg-main-color);
+        border-radius: 4px;
 	}
 	// 滚动条的设置
 	::-webkit-scrollbar-thumb {
