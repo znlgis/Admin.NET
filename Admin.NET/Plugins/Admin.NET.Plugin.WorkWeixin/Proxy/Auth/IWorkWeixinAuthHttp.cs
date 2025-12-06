@@ -17,7 +17,7 @@ public interface IWorkWeixinAuthHttp : IHttpDeclarative
     /// <param name="corpId">企业ID</param>
     /// <param name="corpSecret">应用的凭证密钥</param>
     /// <returns></returns>
-    /// <inheritdoc cref="https://developer.work.weixin.qq.com/document/path/91039"/>
+    /// <see href="https://developer.work.weixin.qq.com/document/path/91039"/>
     [Post("https://qyapi.weixin.qq.com/cgi-bin/gettoken")]
     Task<AuthAccessTokenHttpOutput> GetToken([Query("corpid")] string corpId, [Query("corpsecret")] string corpSecret);
 }

@@ -86,6 +86,7 @@ public class DingTalkService : IDynamicApiController, IScoped
     /// <param name="input"></param>
     /// <returns></returns>
     [DisplayName("给指定用户发送钉钉互动卡片")]
+    [Obsolete]
     public async Task<DingTalkSendInteractiveCardsOutput> DingTalkSendInteractiveCards(
         string token,
         DingTalkSendInteractiveCardsInput input
