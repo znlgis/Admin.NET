@@ -53,6 +53,11 @@
 									</el-select>
 								</el-form-item>
 							</el-col>
+							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb20">
+								<el-form-item label="个性化首页" prop="homepage">
+									<el-input v-model="state.ruleForm.homepage" placeholder="个性化首页" clearable />
+								</el-form-item>
+							</el-col>
 							<el-col :xs="24" :sm="12" :md="12" :lg="12" :xl="12" class="mb5">
 								<el-form-item label="排序">
 									<el-input-number v-model="state.ruleForm.orderNo" placeholder="排序" class="w100" />

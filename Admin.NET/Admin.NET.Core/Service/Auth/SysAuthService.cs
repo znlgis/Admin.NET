@@ -279,7 +279,8 @@ public class SysAuthService : IDynamicApiController, ITransient
             Output = new LoginOutput
             {
                 AccessToken = accessToken,
-                RefreshToken = refreshToken
+                RefreshToken = refreshToken,
+                Homepage = user.Homepage
             }
         };
 

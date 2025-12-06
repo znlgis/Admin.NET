@@ -51,6 +51,8 @@ export async function initBackEndControlRoutes() {
 	useRequestOldRoutes().setRequestOldRoutes(res as string[]);
 	// 处理路由（component），替换 dynamicRoutes（/@/router/route）第一个顶级 children 的路由
 	dynamicRoutes[0].children = await backEndComponent(res);
+	// 检查用户自定义首页设置
+	dynamicRoutes[0].redirect = Session.get('homepage') || dynamicRoutes[0].redirect;
 	// 添加动态路由
 	await setAddRoute();
 	// 设置路由到 pinia routesList 中（已处理成多级嵌套路由）及缓存多级嵌套数组处理后的一维数组

@@ -240,6 +240,8 @@ const onSignIn = async () => {
 				ElMessage.error('登录失败，请检查账号！');
 				return;
 			}
+			// 记录用户自定义首页设置
+			Session.set('homepage', res.data.result?.homepage);
 			await saveTokenAndInitRoutes(res.data.result?.accessToken);
 		} finally {
 			state.loading.signIn = false;

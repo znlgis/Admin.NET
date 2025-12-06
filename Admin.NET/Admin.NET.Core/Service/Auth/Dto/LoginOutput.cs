@@ -20,4 +20,9 @@ public class LoginOutput
     /// 刷新Token
     /// </summary>
     public string RefreshToken { get; set; }
+
+    /// <summary>
+    /// 个性化首页
+    /// </summary>
+    public string? Homepage { get; set; }
 }
