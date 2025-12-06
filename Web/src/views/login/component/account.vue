@@ -1,8 +1,8 @@
 <template>
-	<el-tooltip :visible="state.capsLockVisible" effect="light" :content="$t('message.account.placeholder5')" placement="top">
+	<el-tooltip :visible="state.capsLockVisible" effect="light" content="大写锁定已打开" placement="top">
 		<el-form ref="ruleFormRef" :model="state.ruleForm" size="large" :rules="state.rules" class="login-content-form">
 			<el-form-item class="login-animation1" prop="account">
-				<el-input ref="accountRef" text :placeholder="$t('message.account.placeholder1')" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
+				<el-input ref="accountRef" text placeholder="请输入账号" v-model="state.ruleForm.account" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
 					<template #prefix>
 						<el-icon>
 							<ele-User />
@@ -11,7 +11,7 @@
 				</el-input>
 			</el-form-item>
 			<el-form-item class="login-animation2" prop="password">
-				<el-input ref="passwordRef" :type="state.isShowPassword ? 'text' : 'password'" :placeholder="$t('message.account.placeholder2')" v-model="state.ruleForm.password" autocomplete="off" @keyup.enter.native="handleSignIn">
+				<el-input ref="passwordRef" :type="state.isShowPassword ? 'text' : 'password'" placeholder="请输入密码" v-model="state.ruleForm.password" autocomplete="off" @keyup.enter.native="handleSignIn">
 					<template #prefix>
 						<el-icon>
 							<ele-Unlock />
@@ -24,7 +24,7 @@
 				</el-input>
 			</el-form-item>
 			<el-form-item class="login-animation2" prop="tenantId" clearable v-if="!props.tenantInfo.id && !state.hideTenantForLogin">
-				<el-select v-model="state.ruleForm.tenantId" :placeholder="$t('message.account.placeholder3')" style="width: 100%" filterable>
+				<el-select v-model="state.ruleForm.tenantId" placeholder="请选择租户" style="width: 100%" filterable>
 					<template #prefix>
 						<i class="iconfont icon-shuxingtu el-input__icon"></i>
 					</template>
@@ -37,7 +37,7 @@
 						ref="codeRef"
 						text
 						maxlength="4"
-						:placeholder="$t('message.account.placeholder4')"
+						placeholder="请输入验证码"
 						v-model="state.ruleForm.code"
 						clearable
 						autocomplete="off"
@@ -59,10 +59,10 @@
 			</el-form-item>
 			<el-form-item class="login-animation4">
 				<el-button type="primary" class="login-content-submit" round v-waves @click="handleSignIn" :loading="state.loading.signIn">
-					<span>{{ $t('message.account.btnText') }}</span>
+					<span>登 录</span>
 				</el-button>
 			</el-form-item>
-			<div class="font12 mt30 login-animation4 login-msg">{{ $t('message.mobile.msgText') }}</div>
+			<div class="font12 mt30 login-animation4 login-msg">* 温馨提示：建议使用谷歌、Microsoft Edge，版本 79.0.1072.62 及以上浏览器，360浏览器请使用极速模式</div>
 			<!-- <el-button type="primary" round v-waves @click="weixinSignIn" :loading="state.loading.signIn"></el-button> -->
 		</el-form>
 	</el-tooltip>
@@ -72,8 +72,8 @@
 				ref="dragRef"
 				:imgsrc="state.rotateVerifyImg"
 				v-model:isPassing="state.isPassRotate"
-				:text="$t('message.account.placeholder6')"
-				:successText="$t('message.account.placeholder7')"
+				text="请按住滑块拖动"
+				successText="验证通过"
 				handlerIcon="fa fa-angle-double-right"
 				successIcon="fa fa-hand-peace-o"
 				@passcallback="passRotateVerify"
@@ -86,7 +86,6 @@
 import { reactive, computed, ref, onMounted, defineAsyncComponent, onUnmounted, watch } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { ElMessage, InputInstance } from 'element-plus';
-import { useI18n } from 'vue-i18n';
 import { initBackEndControlRoutes } from '/@/router/backEnd';
 import { Local, Session } from '/@/utils/storage';
 import { formatAxis } from '/@/utils/formatTime';
@@ -112,7 +111,6 @@ const DragVerifyImgRotate = defineAsyncComponent(() => import('/@/components/dra
 const storesThemeConfig = useThemeConfig();
 const { themeConfig } = storeToRefs(storesThemeConfig);
 
-const { t } = useI18n();
 const route = useRoute();
 const router = useRouter();
 
@@ -132,9 +130,9 @@ const state = reactive({
 		codeId: 0,
 	},
 	rules: {
-		account: [{ required: true, message: t('message.account.placeholder1'), trigger: 'blur' }],
-		password: [{ required: true, message: t('message.account.placeholder2'), trigger: 'blur' }],
-		// code: [{ required: true, message: t('message.account.placeholder4'), trigger: 'blur' }],
+		account: [{ required: true, message: '请输入账号', trigger: 'blur' }],
+		password: [{ required: true, message: '请输入密码', trigger: 'blur' }],
+		// code: [{ required: true, message: '请输入验证码', trigger: 'blur' }],
 	},
 	loading: {
 		signIn: false,
@@ -239,9 +237,11 @@ const onSignIn = async () => {
 			}
 			if (res.data.result?.accessToken == undefined) {
 				getCaptcha(); // 重新获取验证码
-				ElMessage.error(t('message.account.placeholder8'));
+				ElMessage.error('登录失败，请检查账号！');
 				return;
 			}
+			// 记录用户自定义首页设置
+			Session.set('homepage', res.data.result?.homepage);
 			await saveTokenAndInitRoutes(res.data.result?.accessToken);
 		} finally {
 			state.loading.signIn = false;
@@ -264,7 +264,7 @@ const saveTokenAndInitRoutes = async (accessToken: string | any) => {
 // 登录成功后的跳转
 const signInSuccess = (isNoPower: boolean | undefined) => {
 	if (isNoPower) {
-		ElMessage.warning(t('message.account.placeholder9'));
+		ElMessage.warning('抱歉，您没有登录权限');
 		clearTokens(); // 清空Token缓存
 	} else {
 		// 初始化登录成功时间问候语
@@ -280,7 +280,7 @@ const signInSuccess = (isNoPower: boolean | undefined) => {
 		}
 
 		// 登录成功提示
-		const signInText = t('message.signInText');
+		const signInText = '欢迎回来！';
 		ElMessage.success(`${currentTimeInfo}，${signInText}`);
 		// 添加 loading，防止第一次进入界面时出现短暂空白
 		NextLoading.start();
