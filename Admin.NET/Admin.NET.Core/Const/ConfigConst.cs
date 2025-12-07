@@ -14,135 +14,135 @@ public class ConfigConst
     /// <summary>
     /// 演示环境
     /// </summary>
-    public const string SysDemoEnv = "sys_demo";
+    public const string SysDemoEnv = "SYS_DEMO";
 
     /// <summary>
     /// 默认密码
     /// </summary>
-    public const string SysPassword = "sys_password";
+    public const string SysPassword = "SYS_PASSWORD";
 
     /// <summary>
     /// 密码最大错误次数
     /// </summary>
-    public const string SysPasswordMaxErrorTimes = "sys_password_max_error_times";
+    public const string SysPasswordMaxErrorTimes = "SYS_PASSWORD_MAX_ERROR_TIMES";
 
     /// <summary>
     /// 日志保留天数
     /// </summary>
-    public const string SysLogRetentionDays = "sys_log_retention_days";
+    public const string SysLogRetentionDays = "SYS_LOG_RETENTION_DAYS";
 
     /// <summary>
     /// 记录操作日志
     /// </summary>
-    public const string SysOpLog = "sys_oplog";
+    public const string SysOpLog = "SYS_OPLOG";
 
     /// <summary>
     /// 单设备登录
     /// </summary>
-    public const string SysSingleLogin = "sys_single_login";
+    public const string SysSingleLogin = "SYS_SINGLE_LOGIN";
 
     /// <summary>
     /// 登入登出提醒
     /// </summary>
-    public const string SysLoginOutReminder = "sys_login_out_reminder";
+    public const string SysLoginOutReminder = "SYS_LOGIN_OUT_REMINDER";
 
     /// <summary>
     /// 登陆时隐藏租户
     /// </summary>
-    public const string SysHideTenantLogin = "sys_hide_tenant_login";
+    public const string SysHideTenantLogin = "SYS_HIDE_TENANT_LOGIN";
 
     /// <summary>
     /// 登录二次验证
     /// </summary>
-    public const string SysSecondVer = "sys_second_ver";
+    public const string SysSecondVer = "SYS_SECOND_VER";
 
     /// <summary>
     /// 图形验证码
     /// </summary>
-    public const string SysCaptcha = "sys_captcha";
+    public const string SysCaptcha = "SYS_CAPTCHA";
 
     /// <summary>
     /// Token过期时间
     /// </summary>
-    public const string SysTokenExpire = "sys_token_expire";
+    public const string SysTokenExpire = "SYS_TOKEN_EXPIRE";
 
     /// <summary>
     /// RefreshToken过期时间
     /// </summary>
-    public const string SysRefreshTokenExpire = "sys_refresh_token_expire";
+    public const string SysRefreshTokenExpire = "SYS_REFRESH_TOKEN_EXPIRE";
 
     /// <summary>
     /// 发送异常日志邮件
     /// </summary>
-    public const string SysErrorMail = "sys_error_mail";
+    public const string SysErrorMail = "SYS_ERROR_MAIL";
 
     /// <summary>
     /// 域登录验证
     /// </summary>
-    public const string SysDomainLogin = "sys_domain_login";
+    public const string SysDomainLogin = "SYS_DOMAIN_LOGIN";
 
     // /// <summary>
     // /// 租户域名隔离登录验证
     // /// </summary>
-    // public const string SysTenantHostLogin = "sys_tenant_host_login";
+    // public const string SysTenantHostLogin = "SYS_TENANT_HOST_LOGIN";
 
     /// <summary>
     /// 数据校验日志
     /// </summary>
-    public const string SysValidationLog = "sys_validation_log";
+    public const string SysValidationLog = "SYS_VALIDATION_LOG";
 
     /// <summary>
     /// 行政区域同步层级 1-省级,2-市级,3-区县级,4-街道级,5-村级
     /// </summary>
-    public const string SysRegionSyncLevel = "sys_region_sync_level";
+    public const string SysRegionSyncLevel = "SYS_REGION_SYNC_LEVEL";
 
     /// <summary>
     /// Default 分组
     /// </summary>
-    public const string SysDefaultGroup = "Default";
+    public const string SysDefaultGroup = "DEFAULT";
 
     /// <summary>
     /// 支付宝授权页面地址
     /// </summary>
-    public const string AlipayAuthPageUrl = "alipay_auth_page_url_";
+    public const string AlipayAuthPageUrl = "ALIPAY_AUTH_PAGE_URL_";
 
     // /// <summary>
     // /// 系统图标
     // /// </summary>
-    // public const string SysWebLogo = "sys_web_logo";
+    // public const string SysWebLogo = "SYS_WEB_LOGO";
     //
     // /// <summary>
     // /// 系统主标题
     // /// </summary>
-    // public const string SysWebTitle = "sys_web_title";
+    // public const string SysWebTitle = "SYS_WEB_TITLE";
     //
     // /// <summary>
     // /// 系统副标题
     // /// </summary>
-    // public const string SysWebViceTitle = "sys_web_viceTitle";
+    // public const string SysWebViceTitle = "SYS_WEB_VICETITLE";
     //
     // /// <summary>
     // /// 系统描述
     // /// </summary>
-    // public const string SysWebViceDesc = "sys_web_viceDesc";
+    // public const string SysWebViceDesc = "SYS_WEB_VICEDESC";
     //
     // /// <summary>
     // /// 水印内容
     // /// </summary>
-    // public const string SysWebWatermark = "sys_web_watermark";
+    // public const string SysWebWatermark = "SYS_WEB_WATERMARK";
     //
     // /// <summary>
     // /// 版权说明
     // /// </summary>
-    // public const string SysWebCopyright = "sys_web_copyright";
+    // public const string SysWebCopyright = "SYS_WEB_COPYRIGHT";
     //
     // /// <summary>
     // /// ICP备案号
     // /// </summary>
-    // public const string SysWebIcp = "sys_web_icp";
+    // public const string SysWebIcp = "SYS_WEB_ICP";
     //
     // /// <summary>
     // /// ICP地址
     // /// </summary>
-    // public const string SysWebIcpUrl = "sys_web_icpUrl";
+    // public const string SysWebIcpUrl = "SYS_WEB_ICPURL";
 }

@@ -18,7 +18,7 @@ public class SysOrgSeedData : ISqlSugarEntitySeedData<SysOrg>
     /// <returns></returns>
     public IEnumerable<SysOrg> HasData()
     {
-        var admin = new SysUserSeedData().HasData().First(u => u.Account == "admin");
+        var admin = new SysUserSeedData().HasData().First(u => u.Account == "Admin.NET");
         return new[]
         {
             new SysOrg{ Id=SqlSugarConst.DefaultTenantId, Pid=0, Name="系统默认", Code="1001", Type="101", Level=1, CreateTime=DateTime.Parse("2022-02-10 00:00:00"), Remark="系统默认", TenantId=SqlSugarConst.DefaultTenantId },
