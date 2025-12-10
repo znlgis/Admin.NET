@@ -3,9 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.queryParams.tenantId" clearable />
 				</el-form-item>
 				<el-form-item label="职位名称">
 					<el-input v-model="state.queryParams.name" placeholder="职位名称" clearable />
@@ -81,16 +79,17 @@ import EditPos from '/@/views/system/pos/component/editPos.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
-import {SysPosApi, SysTenantApi} from '/@/api-services/api';
+import { SysPosApi } from '/@/api-services/api';
 import { SysPos, UpdatePosInput } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
+
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const userStore = useUserInfo();
 const editPosRef = ref<InstanceType<typeof EditPos>>();
 const state = reactive({
 	loading: false,
 	posData: [] as Array<SysPos>,
-	tenantList: [] as Array<any>,
 	queryParams: {
 		tenantId: undefined,
 		name: undefined,
@@ -101,7 +100,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	handleQuery();

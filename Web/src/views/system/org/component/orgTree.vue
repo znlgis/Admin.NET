@@ -3,9 +3,7 @@
 		<template #header>
 			<div class="card-header">
 				<div class="tree-h-flex" v-if="!props.tenantId">
-					<el-select v-if="userStore.userInfos.accountType == 999" v-model="state.tenantId" @change="initTreeData()" placeholder="请选择租户" class="w100 mb10">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.tenantId" @change="initTreeData()" clearable class="mb10" />
 				</div>
 				<div class="tree-h-flex">
 					<div class="tree-h-left">
@@ -62,19 +60,17 @@ import type { ElTree } from 'element-plus';
 import { Search, MoreFilled } from '@element-plus/icons-vue';
 
 import { getAPI } from '/@/utils/axios-utils';
-import {SysOrgApi, SysTenantApi} from '/@/api-services/api';
-import { OrgTreeOutput, SysOrg } from '/@/api-services/models';
-import { useUserInfo } from "/@/stores/userInfo";
+import { SysOrgApi } from '/@/api-services/api';
+import { OrgTreeOutput } from '/@/api-services/models';
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const props = defineProps({
-	tenantId: Number,
+	tenantId: [Number, String],
 });
-const userStore = useUserInfo();
 const filterText = ref('');
 const treeRef = ref<InstanceType<typeof ElTree>>();
 const state = reactive({
 	loading: false,
-	tenantList: [] as Array<any>,
 	tenantId: props.tenantId as number,
 	orgData: [] as Array<OrgTreeOutput>,
 	isShowCheckbox: false,
@@ -82,9 +78,6 @@ const state = reactive({
 });
 
 onMounted( async () => {
-	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
-	}
 	initTreeData();
 });
 

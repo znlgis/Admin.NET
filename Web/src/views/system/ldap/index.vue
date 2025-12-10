@@ -3,9 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.queryParams.tenantId" clearable />
 				</el-form-item>
 				<el-form-item label="关键字">
 					<el-input v-model="state.queryParams.keyword" clearable placeholder="请输入模糊查询关键字" />
@@ -76,16 +74,16 @@ import { onMounted, reactive, ref } from 'vue';
 import { ElMessageBox, ElMessage } from 'element-plus';
 import { auth } from '/@/utils/authFunction';
 import { getAPI } from '/@/utils/axios-utils';
-import {SysLdapApi, SysTenantApi} from '/@/api-services/api';
+import { SysLdapApi } from '/@/api-services/api';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import EditLdap from './component/editLdap.vue';
 import { useUserInfo } from "/@/stores/userInfo";
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const userStore = useUserInfo();
 const editLdapRef = ref<InstanceType<typeof EditLdap>>();
 const state = reactive({
 	loading: false,
-	tenantList: [] as Array<any>,
 	tableData: [] as any,
 	queryParams: {
 		tenantId: undefined,
@@ -102,7 +100,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	handleQuery();
@@ -143,13 +140,11 @@ const delSysLdap = (row: any) => {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
 		type: 'warning',
-	})
-		.then(async () => {
-			await getAPI(SysLdapApi).apiSysLdapDeletePost({ id: row.id });
-			handleQuery();
-			ElMessage.success('删除成功');
-		})
-		.catch(() => {});
+	}).then(async () => {
+		await getAPI(SysLdapApi).apiSysLdapDeletePost({ id: row.id });
+		handleQuery();
+		ElMessage.success('删除成功');
+	}).catch(() => {});
 };
 
 // 改变页面容量
@@ -170,13 +165,11 @@ const syncDomainUser = (row: any) => {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
 		type: 'warning',
-	})
-		.then(async () => {
-			await getAPI(SysLdapApi).apiSysLdapSyncUserPost({ id: row.id });
-			handleQuery();
-			ElMessage.success('删除成功');
-		})
-		.catch(() => {});
+	}).then(async () => {
+		await getAPI(SysLdapApi).apiSysLdapSyncUserPost({ id: row.id });
+		handleQuery();
+		ElMessage.success('删除成功');
+	}).catch(() => {});
 };
 
 // 同步域组织
@@ -185,12 +178,10 @@ const syncDomainOrg = (row: any) => {
 		confirmButtonText: '确定',
 		cancelButtonText: '取消',
 		type: 'warning',
-	})
-		.then(async () => {
-			await getAPI(SysLdapApi).apiSysLdapSyncOrgPost({ id: row.id });
-			handleQuery();
-			ElMessage.success('删除成功');
-		})
-		.catch(() => {});
+	}).then(async () => {
+		await getAPI(SysLdapApi).apiSysLdapSyncOrgPost({ id: row.id });
+		handleQuery();
+		ElMessage.success('删除成功');
+	}).catch(() => {});
 };
 </script>

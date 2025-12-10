@@ -3,9 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+                    <TenantSelect v-model="state.queryParams.tenantId" clearable />
 				</el-form-item>
 				<el-form-item label="模板名称">
 					<el-input v-model="state.queryParams.name" placeholder="模板名称" clearable />
@@ -68,15 +66,15 @@ import { ElMessageBox, ElMessage } from 'element-plus';
 import EditPrint from '/@/views/system/print/component/editPrint.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import { getAPI } from '/@/utils/axios-utils';
-import {SysPrintApi, SysTenantApi} from '/@/api-services/api';
+import { SysPrintApi } from '/@/api-services/api';
 import { SysPrint } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const userStore = useUserInfo();
 const editPrintRef = ref<InstanceType<typeof EditPrint>>();
 const state = reactive({
 	loading: false,
-	tenantList: [] as Array<any>,
 	printData: [] as Array<SysPrint>,
 	queryParams: {
 		tenantId: undefined,
@@ -92,7 +90,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	handleQuery();
