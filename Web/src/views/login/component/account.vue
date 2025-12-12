@@ -23,26 +23,17 @@
 					</template>
 				</el-input>
 			</el-form-item>
-			<el-form-item class="login-animation2" prop="tenantId" clearable v-if="!props.tenantInfo.id && !state.hideTenantForLogin">
+			<el-form-item class="login-animation2" prop="tenantId" clearable v-if="!props.tenantInfo?.id && !state.hideTenantForLogin">
 				<el-select v-model="state.ruleForm.tenantId" placeholder="请选择租户" style="width: 100%" filterable>
 					<template #prefix>
 						<i class="iconfont icon-shuxingtu el-input__icon"></i>
 					</template>
-					<el-option :value="item.value" :label="item.label" v-for="(item, index) in tenantInfo.list" :key="index" />
+					<el-option :value="item.value" :label="item.label" v-for="(item, index) in tenantInfo?.list" :key="index" />
 				</el-select>
 			</el-form-item>
 			<el-form-item class="login-animation3" prop="captcha" v-if="state.captchaEnabled">
 				<el-col :span="15">
-					<el-input
-						ref="codeRef"
-						text
-						maxlength="4"
-						placeholder="请输入验证码"
-						v-model="state.ruleForm.code"
-						clearable
-						autocomplete="off"
-						@keyup.enter.native="handleSignIn"
-					>
+					<el-input ref="codeRef" text maxlength="4" placeholder="请输入验证码" v-model="state.ruleForm.code" clearable autocomplete="off" @keyup.enter.native="handleSignIn">
 						<template #prefix>
 							<el-icon>
 								<ele-Position />
@@ -125,7 +116,7 @@ const state = reactive({
 	ruleForm: {
 		account: window.__env__.VITE_DEFAULT_USER,
 		password: window.__env__.VITE_DEFAULT_USER_PASSWORD,
-		tenantId: props.tenantInfo.id,
+		tenantId: props.tenantInfo?.id ?? undefined,
 		code: '',
 		codeId: 0,
 	},
@@ -195,8 +186,7 @@ onUnmounted(() => {
 
 // 检测大小写按键
 const handleKeyPress = (e: KeyboardEvent) => {
-    if (e.getModifierState != undefined)
-	    state.capsLockVisible = e.getModifierState('CapsLock');
+	if (e.getModifierState != undefined) state.capsLockVisible = e.getModifierState('CapsLock');
 };
 
 // 获取验证码
@@ -204,7 +194,9 @@ const getCaptcha = async () => {
 	if (!state.captchaEnabled) return;
 
 	state.ruleForm.code = '';
-	const res = await getAPI(SysAuthApi).apiSysAuthCaptchaGet().then(res => res.data.result);
+	const res = await getAPI(SysAuthApi)
+		.apiSysAuthCaptchaGet()
+		.then((res) => res.data.result);
 	state.captchaImage = 'data:text/html;base64,' + res?.img;
 	state.expirySeconds = res?.expirySeconds;
 	state.ruleForm.codeId = res?.id;
