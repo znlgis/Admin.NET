@@ -162,6 +162,17 @@ public class SysFileService : IDynamicApiController, ITransient
     }
 
     /// <summary>
+    /// 获取文件流
+    /// </summary>
+    [NonAction]
+    public async Task<Stream> GetFileStream(SysFile file)
+    {
+        var fileName = HttpUtility.UrlEncode(file.FileName, Encoding.GetEncoding("UTF-8"));
+        var result = await _customFileProvider.GetFileStreamResultAsync(file, fileName);
+        return result.FileStream;
+    }
+
+    /// <summary>
     /// 下载指定文件Base64格式 🔖
     /// </summary>
     /// <param name="url"></param>
