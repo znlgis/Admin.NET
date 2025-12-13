@@ -116,7 +116,7 @@ const ruleFormRef = ref();
 const accountRef = ref<InputInstance>();
 const codeRef = ref<InputInstance>();
 
-const emits = defineEmits(['reload']);
+const emits = defineEmits(['reload', 'goLogin']);
 const dragRef: any = ref(null);
 const state = reactive({
 	ruleForm: {
@@ -214,7 +214,7 @@ const onRegister = async () => {
 			state.ruleForm.tenantId ??= props.tenantInfo.id ?? props.tenantInfo.list[0]?.value ?? undefined;
 			const [err, res] = await feature(getAPI(SysAuthApi).apiSysAuthUserRegistrationPost({...state.ruleForm, password: password } as any));
 
-			if (res?.data?.code === 200) {
+			if (res?.code === 200) {
 				const registerText = t('message.registerText');
 				ElMessage.success(registerText);
 				emits('goLogin');
@@ -223,7 +223,7 @@ const onRegister = async () => {
 
 			if (err) {
 				getCaptcha(); // 重新获取验证码
-			} else if (res.data.type != 'success') {
+			} else if (res.type != 'success') {
 				getCaptcha(); // 重新获取验证码
 				ElMessage.error(t('message.register.placeholder6'));
 			}
@@ -244,7 +244,7 @@ const openRotateVerify = () => {
 const passRotateVerify = () => {
 	state.rotateVerifyVisible = false;
 	state.isPassRotate = true;
-	onSignIn();
+	//onSignIn();
 };
 
 // 注册处理
@@ -276,7 +276,11 @@ const handleRegister = () => {
 }
 
 .login-content-form {
-	margin-top: 20px;
+	margin-top: 5px;
+
+    .el-form-item--large {
+        margin-bottom: 15px;
+    }
 
 	@for $i from 0 through 4 {
 		.login-animation#{$i} {

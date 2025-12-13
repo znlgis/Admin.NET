@@ -45,12 +45,12 @@
 							<i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
 							<div class="login-content-main-scan-delta"></div>
 						</div>
-						<div class="login-content-main-left" v-if="getThemeConfig.registration">
+						<div class="login-content-main-bottom" v-if="getThemeConfig.registration">
 							<template v-if="state.tabsActiveName != 'register'">
-								{{$t('message.label.label4')}}<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'register'">{{$t('message.label.label5')}}</el-link>
+								{{$t('message.label.label4')}}<el-link class="login-content-main-bottom-register" @click="() => state.tabsActiveName = 'register'">{{$t('message.label.label5')}}</el-link>
 							</template>
 							<template v-else>
-								{{$t('message.label.label6')}}<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'account'">{{$t('message.label.label7')}}</el-link>
+								{{$t('message.label.label6')}}<el-link class="login-content-main-bottom-register" @click="() => state.tabsActiveName = 'account'">{{$t('message.label.label7')}}</el-link>
 							</template>
 						</div>
 					</div>
@@ -120,6 +120,9 @@ const getTenantInfo = async () => {
 	if (tenant?.value) tenantInfo.value.id = parseInt(tenant?.value);
 	return tenantInfo.value;
 }
+
+// 计算登录右侧容器高度(根据是否启用租户选择来决定高度)
+const loginRightWarpHeight = !tenantInfo.value?.id && themeConfig.value.hideTenantForLogin ? '600px' : '660px';
 </script>
 
 <style scoped lang="scss">
@@ -185,7 +188,7 @@ const getTenantInfo = async () => {
 		.login-right-warp {
 			border: 1px solid var(--el-color-primary-light-3);
 			border-radius: 6px;
-			height: 600px;
+			height: v-bind(loginRightWarpHeight); // 600px;
 			position: relative;
 			overflow: hidden;
 			background-color: var(--el-color-white);
@@ -300,17 +303,15 @@ const getTenantInfo = async () => {
 							top: 0px;
 						}
 					}
-					.login-content-main-left {
+					.login-content-main-bottom {
 						position: absolute;
-						top: 10px;
-						left: 10px;
-						width: 150px;
-						height: 50px;
+                        bottom: 30px;
+						left: 50%;
+                        transform: translate(-50%);
 						overflow: hidden;
-						cursor: pointer;
 						transition: all ease 0.3s;
 						user-select: none;
-						.login-content-main-left-register {
+						.login-content-main-bottom-register {
 							top: -1.5px;
 							color: var(--el-color-primary);
 						}
