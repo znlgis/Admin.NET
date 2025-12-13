@@ -278,10 +278,11 @@ public static class CommonUtil
     public static async Task<List<T>> ImportExcelDataAsync<T>([Required] IFormFile file) where T : class, new()
     {
         var newFile = await SysFileService.UploadFile(new UploadFileInput { File = file });
-        var filePath = Path.Combine(App.WebHostEnvironment.WebRootPath, newFile.FilePath!, newFile.Id + newFile.Suffix);
+
+        await using var fileStream = await SysFileService.GetFileStream(newFile);
 
         IImporter importer = new ExcelImporter();
-        var res = await importer.Import<T>(filePath);
+        var res = await importer.Import<T>(fileStream);
 
         // 删除文件
         _ = SysFileService.DeleteFile(new BaseIdInput { Id = newFile.Id });
