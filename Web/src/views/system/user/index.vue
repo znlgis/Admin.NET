@@ -118,7 +118,15 @@
 							</template>
 						</el-table-column>
 					</el-table>
-					<el-pagination v-model:currentPage="state.tableParams.page" @current-change="handleCurrentChange" layout="total, sizes, prev, pager, next, jumper" />
+					<el-pagination size="small" background 
+                        v-model:currentPage="state.tableParams.page" 
+                        v-model:page-size="state.tableParams.pageSize"
+                        :total="state.tableParams.total"
+                        :page-sizes="[10, 20, 50, 100]"
+                        @size-change="handleSizeChange"
+                        @current-change="handleCurrentChange" 
+                        layout="total, sizes, prev, pager, next, jumper" 
+                    />
 				</el-card>
 			</el-splitter-panel>
 		</el-splitter>
@@ -174,7 +182,6 @@ const loadOrgData = async () => {
 	state.loading = true;
 	let res = await getAPI(SysOrgApi).apiSysOrgTreeGet(0);
 	state.orgTreeData = res.data.result ?? [];
-	console.log('🚀 → index.vue:173 → loadOrgData → state.orgTreeData:', state.orgTreeData);
 	state.loading = false;
 };
 

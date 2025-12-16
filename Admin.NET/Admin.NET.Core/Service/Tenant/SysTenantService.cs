@@ -109,7 +109,7 @@ public class SysTenantService : IDynamicApiController, ITransient
            .Where(u => u.Status == StatusEnum.Enable)
            .Select((u, a) => new
            {
-               Label = $"{u.Title}-{a.Name}",
+               Label = SqlFunc.HasValue(u.Title) ? $"{u.Title}-{a.Name}" : a.Name,
                Host = u.Host.ToLower(),
                Value = u.Id,
            }).ToListAsync();

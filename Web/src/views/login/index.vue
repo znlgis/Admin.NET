@@ -45,12 +45,12 @@
 							<i class="iconfont" :class="state.isScan ? 'icon-diannao1' : 'icon-barcode-qr'"></i>
 							<div class="login-content-main-scan-delta"></div>
 						</div>
-						<div class="login-content-main-left" v-if="getThemeConfig.registration">
+						<div class="login-content-main-bottom" v-if="getThemeConfig.registration">
 							<template v-if="state.tabsActiveName != 'register'">
 								没有账号? 去<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'register'">注册账号</el-link>
 							</template>
 							<template v-else>
-								已有账户? 去<el-link class="login-content-main-left-register" @click="() => state.tabsActiveName = 'account'">登录账号</el-link>
+								已有账户? 去<el-link class="login-content-main-bottom-register" @click="() => state.tabsActiveName = 'account'">登录账号</el-link>
 							</template>
 						</div>
 					</div>
@@ -120,6 +120,9 @@ const getTenantInfo = async () => {
 	if (tenant?.value) tenantInfo.value.id = parseInt(tenant?.value);
 	return tenantInfo.value;
 }
+
+// 计算登录右侧容器高度(根据是否启用租户选择来决定高度)
+const loginRightWarpHeight = !tenantInfo.value?.id && themeConfig.value.hideTenantForLogin ? '600px' : '660px';
 </script>
 
 <style scoped lang="scss">
@@ -184,8 +187,8 @@ const getTenantInfo = async () => {
 		background-repeat: no-repeat;
 		.login-right-warp {
 			border: 1px solid var(--el-color-primary-light-3);
-			border-radius: 3px;
-			height: 600px;
+			border-radius: 6px;
+			height: v-bind(loginRightWarpHeight); // 600px;
 			position: relative;
 			overflow: hidden;
 			background-color: var(--el-color-white);
@@ -193,8 +196,8 @@ const getTenantInfo = async () => {
 			.login-right-warp-two {
 				position: absolute;
 				display: block;
-				width: inherit;
-				height: inherit;
+				width: 100%;
+				height: 100%;
 				&::before,
 				&::after {
 					content: '';
@@ -203,19 +206,19 @@ const getTenantInfo = async () => {
 				}
 			}
 			.login-right-warp-one {
-				&::before {
+				&::before {  //上
 					filter: hue-rotate(0deg);
-					top: 0px;
-					left: 0;
+					top: 0;
+                    left: -100%;
 					width: 100%;
 					height: 1px;
 					background: linear-gradient(90deg, transparent, var(--el-color-primary));
 					animation: loginLeft 3s linear infinite;
 				}
-				&::after {
+				&::after { //右
 					filter: hue-rotate(0deg);
 					top: -100%;
-					right: 2px;
+					right: 0;
 					width: 1px;
 					height: 100%;
 					background: linear-gradient(180deg, transparent, var(--el-color-primary));
@@ -224,9 +227,9 @@ const getTenantInfo = async () => {
 				}
 			}
 			.login-right-warp-two {
-				&::before {
+				&::before { //下
 					filter: hue-rotate(0deg);
-					bottom: 2px;
+					bottom: 0;
 					right: -100%;
 					width: 100%;
 					height: 1px;
@@ -234,10 +237,10 @@ const getTenantInfo = async () => {
 					animation: loginRight 3s linear infinite;
 					animation-delay: 1.4s;
 				}
-				&::after {
+				&::after { //左
 					filter: hue-rotate(0deg);
 					bottom: -100%;
-					left: 0px;
+					left: 0;
 					width: 1px;
 					height: 100%;
 					background: linear-gradient(360deg, transparent, var(--el-color-primary));
@@ -300,17 +303,15 @@ const getTenantInfo = async () => {
 							top: 0px;
 						}
 					}
-					.login-content-main-left {
+					.login-content-main-bottom {
 						position: absolute;
-						top: 10px;
-						left: 10px;
-						width: 150px;
-						height: 50px;
+                        bottom: 30px;
+						left: 50%;
+                        transform: translate(-50%);
 						overflow: hidden;
-						cursor: pointer;
 						transition: all ease 0.3s;
 						user-select: none;
-						.login-content-main-left-register {
+						.login-content-main-bottom-register {
 							top: -1.5px;
 							color: var(--el-color-primary);
 						}
@@ -361,9 +362,18 @@ const getTenantInfo = async () => {
 	}
 }
 @media screen and (max-width: 1200px) {
-	.login-right-warp {
-		width: 100%;
-	}
+    .login-right {
+        border-radius: 6px;
+
+        .login-right-warp {
+            width: 100%;
+            .login-right-warp-one,
+            .login-right-warp-two {
+                display: none !important;
+            }
+        }
+    }
+    
 	.copyright,
 	.icp {
 		left: 50%;
@@ -376,6 +386,17 @@ const getTenantInfo = async () => {
 	}
 }
 @media screen and (max-width: 580px) {
+    .login-right {
+        border-radius: 0;
+        
+        .login-right-warp {
+            width: 100%;
+            .login-right-warp-one,
+            .login-right-warp-two {
+                display: none !important;
+            }
+        }
+    }
 	.copyright,
 	.icp {
 		left: 50%;

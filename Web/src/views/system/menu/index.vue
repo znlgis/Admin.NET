@@ -3,10 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`"
-							v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.queryParams.tenantId" />
 				</el-form-item>
 				<el-form-item label="菜单名称">
 					<el-input v-model="state.queryParams.title" placeholder="菜单名称" clearable />
@@ -73,8 +70,7 @@
 			</el-table>
 		</el-card>
 
-		<EditMenu ref="editMenuRef" :title="state.editMenuTitle" :menuData="state.allMenuData"
-			@handleQuery="handleQuery" />
+		<EditMenu ref="editMenuRef" :title="state.editMenuTitle" :menuData="state.allMenuData" @handleQuery="handleQuery" />
 	</div>
 </template>
 
@@ -85,15 +81,15 @@ import EditMenu from '/@/views/system/menu/component/editMenu.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 
 import { getAPI } from '/@/utils/axios-utils';
-import { SysMenuApi, SysTenantApi } from '/@/api-services/api';
+import { SysMenuApi } from '/@/api-services/api';
 import { SysMenu, UpdateMenuInput } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const userStore = useUserInfo();
 const editMenuRef = ref<InstanceType<typeof EditMenu>>();
 const state = reactive({
 	loading: false,
-	tenantList: [] as Array<any>,
 	menuData: [] as Array<SysMenu>,
 	allMenuData: [] as Array<SysMenu>,
 	queryParams: {
@@ -106,7 +102,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	handleQuery();

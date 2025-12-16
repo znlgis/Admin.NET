@@ -1,5 +1,5 @@
 <template>
-	<el-card shadow="hover" header="快捷入口">
+	<el-card shadow="hover" header="快捷入口" body-style="padding: 0">
 		<template #header>
 			<el-icon style="display: inline; vertical-align: middle"> <ele-Guide /> </el-icon>
 			<span> 快捷入口 </span>
@@ -139,7 +139,6 @@ const beforeClose = async () => {
 <style scoped lang="scss">
 .myMods {
 	list-style: none;
-	margin: -10px;
 }
 .myMods li {
 	display: inline-block;
