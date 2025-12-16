@@ -175,7 +175,6 @@ const nodeClick = async (node: any) => {
     state.queryParams.code = undefined;
     state.queryParams.type = undefined;
     state.tenantId = node.tenantId;
-    console.log(node)
     handleQuery();
 };
 </script>
