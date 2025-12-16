@@ -114,7 +114,7 @@ const ruleFormRef = ref();
 const accountRef = ref<InputInstance>();
 const codeRef = ref<InputInstance>();
 
-const emits = defineEmits(['reload']);
+const emits = defineEmits(['reload', 'goLogin']);
 const dragRef: any = ref(null);
 const state = reactive({
 	ruleForm: {
@@ -221,7 +221,7 @@ const onRegister = async () => {
 
 			if (err) {
 				getCaptcha(); // 重新获取验证码
-			} else if (res.data.type != 'success') {
+			} else if (res.type != 'success') {
 				getCaptcha(); // 重新获取验证码
 				ElMessage.error('message.register.注册失败！');
 			}
@@ -242,7 +242,7 @@ const openRotateVerify = () => {
 const passRotateVerify = () => {
 	state.rotateVerifyVisible = false;
 	state.isPassRotate = true;
-	onSignIn();
+	//onSignIn();
 };
 
 // 注册处理
@@ -274,7 +274,11 @@ const handleRegister = () => {
 }
 
 .login-content-form {
-	margin-top: 20px;
+	margin-top: 5px;
+
+    .el-form-item--large {
+        margin-bottom: 15px;
+    }
 
 	@for $i from 0 through 4 {
 		.login-animation#{$i} {

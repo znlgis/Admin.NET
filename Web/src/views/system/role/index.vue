@@ -3,9 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.queryParams.tenantId" clearable />
 				</el-form-item>
 				<el-form-item label="角色名称">
 					<el-input v-model="state.queryParams.name" placeholder="角色名称" clearable />
@@ -79,16 +77,16 @@ import EditRole from '/@/views/system/role/component/editRole.vue';
 import GrantData from '/@/views/system/role/component/grantData.vue';
 import ModifyRecord from '/@/components/table/modifyRecord.vue';
 import { getAPI } from '/@/utils/axios-utils';
-import { SysRoleApi, SysTenantApi } from '/@/api-services/api';
+import { SysRoleApi } from '/@/api-services/api';
 import { SysRole } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const userStore = useUserInfo();
 const editRoleRef = ref<InstanceType<typeof EditRole>>();
 const grantDataRef = ref<InstanceType<typeof GrantData>>();
 const state = reactive({
 	loading: false,
-	tenantList: [] as Array<any>,
 	roleData: [] as Array<SysRole>,
 	queryParams: {
 		tenantId: undefined,
@@ -105,7 +103,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	await handleQuery();

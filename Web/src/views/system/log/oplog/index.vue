@@ -3,9 +3,7 @@
 		<el-card shadow="hover" :body-style="{ padding: 5 }">
 			<el-form :model="state.queryParams" ref="queryForm" :inline="true">
 				<el-form-item label="租户" v-if="userStore.userInfos.accountType == 999">
-					<el-select v-model="state.queryParams.tenantId" placeholder="租户" style="width: 100%">
-						<el-option :value="item.value" :label="`${item.label} (${item.host})`" v-for="(item, index) in state.tenantList" :key="index" />
-					</el-select>
+					<TenantSelect v-model="state.queryParams.tenantId" clearable />
 				</el-form-item>
 				<el-form-item label="开始时间">
 					<el-date-picker v-model="state.queryParams.startTime" type="datetime" placeholder="开始时间" value-format="YYYY-MM-DD HH:mm:ss" :shortcuts="shortcuts" />
@@ -119,13 +117,13 @@ import { downloadByData, getFileName } from '/@/utils/download';
 import { getAPI } from '/@/utils/axios-utils';
 import { SysLogOp } from '/@/api-services/models';
 import { useUserInfo } from "/@/stores/userInfo";
-import { SysLogOpApi, SysTenantApi } from '/@/api-services/api';
+import { SysLogOpApi } from '/@/api-services/api';
+import TenantSelect from '/@/views/system/tenant/component/tenantSelect.vue';
 
 const userStore = useUserInfo();
 const state = reactive({
 	loading: false,
 	loadingDetail: false,
-	tenantList: [] as Array<any>,
 	queryParams: {
 		tenantId: undefined,
 		startTime: undefined,
@@ -151,7 +149,6 @@ const state = reactive({
 
 onMounted(async () => {
 	if (userStore.userInfos.accountType == 999) {
-		state.tenantList = await getAPI(SysTenantApi).apiSysTenantListGet().then(res => res.data.result ?? []);
 		state.queryParams.tenantId = userStore.userInfos.currentTenantId as any;
 	}
 	handleQuery();
