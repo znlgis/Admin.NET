@@ -337,6 +337,11 @@ public class SysMenuService : IDynamicApiController, ITransient
         if (permissions != null) return permissions;
 
         var menuIdList = _userManager.SuperAdmin || _userManager.SysAdmin ? new() : await GetMenuIdList();
+        if(menuIdList.Count <= 0 && !_userManager.SuperAdmin)
+        {
+            //_sysCacheService.Set(CacheConst.KeyUserButton + userId, new List<string>(), TimeSpan.FromDays(7));
+            return new List<string>();
+        }
 
         permissions = await _sysMenuRep.AsQueryable()
             .InnerJoinIF<SysTenantMenu>(!_userManager.SuperAdmin, (u, t) => t.TenantId == _userManager.TenantId && u.Id == t.MenuId)
