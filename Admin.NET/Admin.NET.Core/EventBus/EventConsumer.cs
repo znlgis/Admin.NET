@@ -60,7 +60,7 @@ public class EventConsumer<T> : IDisposable
             {
                 try
                 {
-                    var cr = Consumer.TakeOne(10);
+                    var cr = Consumer.TakeOne(1);
                     if (cr == null) continue;
                     Received?.Invoke(this, cr);
                 }
