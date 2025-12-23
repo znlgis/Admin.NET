@@ -746,6 +746,12 @@ public enum ErrorCodeEnum
     D1705,
 
     /// <summary>
+    /// 作业调度功能已禁用
+    /// </summary>
+    [ErrorCodeItemMetadata("作业调度功能已禁用")]
+    D1706,
+
+    /// <summary>
     /// 已存在同名打印模板
     /// </summary>
     [ErrorCodeItemMetadata("已存在同名打印模板")]

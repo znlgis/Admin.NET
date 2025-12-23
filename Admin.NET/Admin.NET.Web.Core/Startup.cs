@@ -7,9 +7,11 @@
 using Admin.NET.Core;
 using Admin.NET.Core.ElasticSearch;
 using Admin.NET.Core.Service;
+
 using AspNetCoreRateLimit;
 using Furion;
 using Furion.Logging;
+using Furion.Schedule;
 using Furion.SpecificationDocument;
 using Furion.VirtualFileServer;
 using IGeekFan.AspNetCore.Knife4jUI;
@@ -77,11 +79,17 @@ public class Startup : AppStartup
         // 任务队列
         services.AddTaskQueue();
         // 任务调度
-        services.AddSchedule(options =>
+        var jobScheduleEnabled = App.GetConfig<bool>("JobSchedule:Enabled", false);
+        if (jobScheduleEnabled)
         {
-            options.AddPersistence<DbJobPersistence>(); // 添加作业持久化器
-            options.AddMonitor<JobMonitor>(); // 添加作业执行监视器
-        });
+            services.AddSchedule(options =>
+            {
+                options.AddPersistence<DbJobPersistence>(); // 添加作业持久化器
+                options.AddMonitor<JobMonitor>(); // 添加作业执行监视器
+            });
+        }
+        // 当任务调度禁用时，不注册ISchedulerFactory，这样serviceProvider.GetService<ISchedulerFactory>()会返回null
+        // SysJobService中已经有null检查，会抛出D1706错误提示任务调度功能已禁用
         // 脱敏检测
         services.AddSensitiveDetection();
 
