@@ -3,51 +3,18 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '1ffc705a9d6962e89802e33a34954f89e9a769ec'
-    oldFile: !uuid 'f8b602df4aaf17bbd06b211ee895c1b89406f9fd'
-  /Admin.NET/Admin.NET.Core:
-    newFile: !uuid '5e4a022f60dfde166d176ba71c4945cc2ff3dd46'
-    oldFile: !uuid 'bacfd10cf4a34c2fbb1e44d424d707fbbd9587c1'
-  /Admin.NET/Admin.NET.Core/Service:
-    newFile: !uuid 'a3fe75bde872d703adcecd79ba76acc3318006f5'
-    oldFile: !uuid '89fa1d7abb530fa293addfc49479aad5cba0b4e3'
-  /Admin.NET/Admin.NET.Core/Service/CodeGen:
-    newFile: !uuid 'fe4945abf18920d161a80094959aeab8817e091b'
-    oldFile: !uuid '5b50ac802fcc4fa0e6234f438e6ff02df9c49b7e'
-  /Admin.NET/Admin.NET.Core/Service/CodeGen/SysCodeGenConfigService.cs:
-    newFile: !uuid '09c1cb3148ab87dcf9143405dba63b30b6d0ca04'
-    oldFile: !uuid '5cb5b4a510dad45b87fbc1041a2a4bca2218b08a'
-  /Admin.NET/Admin.NET.Core/Service/CodeGen/SysCodeGenService.cs:
-    newFile: !uuid '5c70d2e6b84687797ab905dbb6c0f350940d52ec'
-    oldFile: !uuid '35ea6090f2b13e06c68bca949a3a874f3056a944'
-  /Web:
-    newFile: !uuid '44e162c5d3cf3deb7cfaed9d5e2fea2163927ea3'
-    oldFile: !uuid '88d07a1ac7c1204e740bbd9a51cedbb7d0eca38a'
-  /Web/src:
-    newFile: !uuid '1286c62a1a53f2bdf59deaf3489369801597c37a'
-    oldFile: !uuid '4fe7f2979942df6c8d0aeb5852b5412f3c06b91a'
-  /Web/src/api-services:
-    newFile: !uuid 'cf489561fbd5f98f97f28cc20e92b0783e30cfd3'
-    oldFile: !uuid '9e9fd36ae923c1e4dbd569ecda5f89313adc0291'
-  /Web/src/api-services/apis:
-    newFile: !uuid 'aa96d97c32c68bd1a86e7fb66740279e1d300730'
-    oldFile: !uuid 'a018b07e2d0eeb4eed91ea203803c860a9b8bb57'
-  /Web/src/api-services/apis/sys-code-gen-api.ts:
-    newFile: !uuid '2bf9923f09172fe93ec5739213dabec07ee360e7'
-    oldFile: !uuid '85ca3ec7cb96cf4fbffef72d77a3d12c22aaace0'
-  /Web/src/views:
-    newFile: !uuid '55d2ee66b256bd8cb3e4d5cad7638780cd35fdbf'
-    oldFile: !uuid 'f19e8ee446fd4404d3efa3db255baf3a9dde8326'
-  /Web/src/views/system:
-    newFile: !uuid 'ea4bdc08c0972c63307ed622bac99cfc6c451a54'
-    oldFile: !uuid '04305e93103af4d6fd8d351fa7a3315e5c58bbbb'
-  /Web/src/views/system/codeGen:
-    newFile: !uuid '3ae26ac3c3520c56d791eca3c254b55b153efdb9'
-    oldFile: !uuid '1a571e5a7b0fbd2eb3e9ace3b6d7370499edc9a7'
-  /Web/src/views/system/codeGen/index.vue:
-    newFile: !uuid 'fd392edbe66201f28c855b6ee23555df18565957'
-    oldFile: !uuid '4c44f2c767a42d0ca030d724df1f15238df4aa35'
-gitCommitId: !uuid '5f48844a952ceffe89913a537eb97036b87f456b'
+    newFile: !uuid '76341f0059460b2b13c6d502bf3c288295e5a6e2'
+    oldFile: !uuid '1ffc705a9d6962e89802e33a34954f89e9a769ec'
+  /Admin.NET/Admin.NET.Application:
+    newFile: !uuid 'f89b15b9d3154204857bb1fd1c6df2ade9884dea'
+    oldFile: !uuid '3be9aa71f03a259deb12f2263ca0bc38efe89086'
+  /Admin.NET/Admin.NET.Application/Configuration:
+    newFile: !uuid '726e8d7ce3283563e2306f7b6e51cf47d5f8b0a8'
+    oldFile: !uuid '3464341df3449aa6d44ac8e07e24d83f8a63e901'
+  /Admin.NET/Admin.NET.Application/Configuration/Alipay.json:
+    newFile: !uuid '5aa74e14741811359742af2b9fc90022f4f5fa1a'
+    oldFile: !uuid 'b3d2d2bc32a6be1193b7f785796442b32b93d1d9'
+gitCommitId: !uuid '51bfd9ac0e0d839da262a7560e74371829e6b723'
 renames: {
   }
-revisionId: 3044
+revisionId: 3045
