@@ -3,30 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '7a85815a879867986aaa8af04bb11ef84f3a2481'
-    oldFile: !uuid '17f0c97fae314aa3c8981e296341e3f3f40b81ea'
+    newFile: !uuid 'b3b8edc71c1eeeb481350e07f36efe1e56ef371e'
+    oldFile: !uuid '7a85815a879867986aaa8af04bb11ef84f3a2481'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'deb934fb451974efe4a4c10f76681c61a2eb20f8'
-    oldFile: !uuid '5e4a022f60dfde166d176ba71c4945cc2ff3dd46'
-  /Admin.NET/Admin.NET.Core/SeedData:
-    newFile: !uuid '19331b2efd55c8012cd5b988f4e36daeef7dcfe5'
-    oldFile: !uuid '77f5af14b4c0993a9d96a0e080e6aae0dfbc0947'
-  /Admin.NET/Admin.NET.Core/SeedData/SysDictDataSeedData.cs:
-    newFile: !uuid '0b71790ec1261238b6020dde574e57b64a1c7eb2'
-    oldFile: !uuid '006f3b9ff2b441ec979a43c46ca36562fe9dfdf7'
-  /Admin.NET/Admin.NET.Web.Entry:
-    newFile: !uuid 'c8c3892fbcf07621deabe0b1869bc2f46e67b50a'
-    oldFile: !uuid 'e0c3064099e81f78f400f32495e7d57ed9474063'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot:
-    newFile: !uuid 'ad36ba20bd801bc5f6d839a661079e7deeff1e55'
-    oldFile: !uuid 'de43d13a2ca026586046316343bbbf86cefa5fbb'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template:
-    newFile: !uuid '05bded5c3db5b6cf05cd8a1e815c26b9f1a4032b'
-    oldFile: !uuid '49066e5cfb046654a46dabbeac21ceffc70d2fc1'
-  /Admin.NET/Admin.NET.Web.Entry/wwwroot/template/editDialog.vue.vm:
-    newFile: !uuid '8eddc158413d13a908cc58d9b7b8262c5bdf333a'
-    oldFile: !uuid '9950063d475a521de1da0d3f731cddddae8bc882'
-gitCommitId: !uuid 'f1007b9b902c989ebfa8ddaae27454065da74aac'
+    newFile: !uuid 'ecfe10cc17f9c29da9b3f6eef0ba9258c3472966'
+    oldFile: !uuid 'deb934fb451974efe4a4c10f76681c61a2eb20f8'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid 'e8f22859638f71e2020bf953e75b8e5d9013b11d'
+    oldFile: !uuid 'a3fe75bde872d703adcecd79ba76acc3318006f5'
+  /Admin.NET/Admin.NET.Core/Service/CodeGen:
+    newFile: !uuid 'a15920c7e9f4b7f3d3db10eeeaf6d6d5f0cae3c3'
+    oldFile: !uuid 'fe4945abf18920d161a80094959aeab8817e091b'
+  /Admin.NET/Admin.NET.Core/Service/CodeGen/CustomViewEngine.cs:
+    newFile: !uuid '9a10a59b9adfd825a854c63524110f62728e765e'
+    oldFile: !uuid '3e8006849f62d3b4147456a8b1507468c69bbe9d'
+gitCommitId: !uuid 'f6f260c9c69b3231cd765b9057c9ab627fbbc4e3'
 renames: {
   }
-revisionId: 3047
+revisionId: 3048
