@@ -2,10 +2,25 @@
 branches: {
   }
 fileChange:
-  /README.md:
-    newFile: !uuid '48ffd66373f600eb14497f6ec71a5a1f28d60be5'
-    oldFile: !uuid 'c0bd6f1521cb0225e9137f45534c635c80c2f802'
-gitCommitId: !uuid '02c34746a9d472942e500a4e4ff686a2b19f367e'
+  /Web:
+    newFile: !uuid '814ed2aea959c6d3a6d6b7754411ee5bb32643df'
+    oldFile: !uuid '44e162c5d3cf3deb7cfaed9d5e2fea2163927ea3'
+  /Web/src:
+    newFile: !uuid '8f483bfaebd8fb29c90738314da49daf833b967e'
+    oldFile: !uuid '1286c62a1a53f2bdf59deaf3489369801597c37a'
+  /Web/src/layout:
+    newFile: !uuid '6795a6939088a53a2498b55728fb954cec40d1c2'
+    oldFile: !uuid '98168eda195e098cb2b2253a626e42d45917edc7'
+  /Web/src/layout/navBars:
+    newFile: !uuid '87f3ae1dbd8ccb18ae70b735e9b89599172af3b2'
+    oldFile: !uuid '5b5d5406a37258ba309c89445e23d1eafcbf2ced'
+  /Web/src/layout/navBars/tagsView:
+    newFile: !uuid '6f493327082ec0211a912040e8bd5b8f7d67e4e0'
+    oldFile: !uuid '28df187f0ed3a017ca7747edf39bcc73bae7d924'
+  /Web/src/layout/navBars/tagsView/tagsView.vue:
+    newFile: !uuid '18fba1b457beda00498e42716e3b49e0a598f623'
+    oldFile: !uuid '7cda3e12eef456877dbfce3a295f1208690cab92'
+gitCommitId: !uuid 'c55a74c1e0bbfb7889ecf443b61a0024d45dac77'
 renames: {
   }
-revisionId: 3050
+revisionId: 3051
