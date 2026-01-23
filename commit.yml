@@ -3,18 +3,21 @@ branches: {
   }
 fileChange:
   /Admin.NET:
-    newFile: !uuid '338579d3229d874b46bcb4e6d49851403bbd1daa'
-    oldFile: !uuid '4d524944fdc58a8f785e7a1a3baf5b38c26f1510'
+    newFile: !uuid 'd8f61f893fb7b582cd6a91ad576113939785c4c5'
+    oldFile: !uuid '338579d3229d874b46bcb4e6d49851403bbd1daa'
   /Admin.NET/Admin.NET.Core:
-    newFile: !uuid 'a6fb46825fcedc74a63a16370f18ab99f5e5bf64'
-    oldFile: !uuid 'a0e9524f733ff7c33aac50dcf25b8d69cb1b45ec'
-  /Admin.NET/Admin.NET.Core/Logging:
-    newFile: !uuid '1963007a662c5d93ba11ed121f741b76fe185103'
-    oldFile: !uuid '0f013600a8915b30fad512db9ec0b0bf8566d66c'
-  /Admin.NET/Admin.NET.Core/Logging/DatabaseLoggingWriter.cs:
-    newFile: !uuid 'd8db2c809633c8be0fcaa0db0381b0fd6532fc95'
-    oldFile: !uuid '014eec073f5a7e1c07f1115c47b31e8ca5e058ce'
-gitCommitId: !uuid '0aff51cf3d3b21a3010ad41fd66b06e03e2c8877'
+    newFile: !uuid '65e2230813892a0d7862fab832c1b1d1738af9ef'
+    oldFile: !uuid 'a6fb46825fcedc74a63a16370f18ab99f5e5bf64'
+  /Admin.NET/Admin.NET.Core/Service:
+    newFile: !uuid 'aff250796404d3f1a453c01027fef0bb9e73f3ea'
+    oldFile: !uuid '60ce7b71f655100af2ed7ff2296688f2201be363'
+  /Admin.NET/Admin.NET.Core/Service/Job:
+    newFile: !uuid 'c2b118cbd99947ad32614d6a761b7fc65836d533'
+    oldFile: !uuid '3fd7500a8d759126869708bf20f350dc72f3483e'
+  /Admin.NET/Admin.NET.Core/Service/Job/SysJobService.cs:
+    newFile: !uuid 'aad0bb7d7fe4a535f4c2a1e7b2f59eb9c5166782'
+    oldFile: !uuid '61c39cf596a4ed08af3e004c515080a6f7c09c5c'
+gitCommitId: !uuid 'e3e3b244ef09060adfbdfe3b5c32123a39be262f'
 renames: {
   }
-revisionId: 3052
+revisionId: 3053
