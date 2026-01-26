@@ -16,21 +16,21 @@ public class SysJobService : IDynamicApiController, ITransient
     private readonly SqlSugarRepository<SysJobTrigger> _sysJobTriggerRep;
     private readonly SqlSugarRepository<SysJobTriggerRecord> _sysJobTriggerRecordRep;
     private readonly SqlSugarRepository<SysJobCluster> _sysJobClusterRep;
-    private readonly ISchedulerFactory _schedulerFactory;
+    private readonly ISchedulerFactory? _schedulerFactory;
     private readonly DynamicJobCompiler _dynamicJobCompiler;
 
     public SysJobService(SqlSugarRepository<SysJobDetail> sysJobDetailRep,
         SqlSugarRepository<SysJobTrigger> sysJobTriggerRep,
         SqlSugarRepository<SysJobTriggerRecord> sysJobTriggerRecordRep,
         SqlSugarRepository<SysJobCluster> sysJobClusterRep,
-        ISchedulerFactory schedulerFactory,
+        IServiceProvider serviceProvider,
         DynamicJobCompiler dynamicJobCompiler)
     {
         _sysJobDetailRep = sysJobDetailRep;
         _sysJobTriggerRep = sysJobTriggerRep;
         _sysJobTriggerRecordRep = sysJobTriggerRecordRep;
         _sysJobClusterRep = sysJobClusterRep;
-        _schedulerFactory = schedulerFactory;
+        _schedulerFactory = serviceProvider.GetService<ISchedulerFactory>();
         _dynamicJobCompiler = dynamicJobCompiler;
     }
 
@@ -109,6 +109,7 @@ public class SysJobService : IDynamicApiController, ITransient
                 throw new NotSupportedException();
         }
 
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.AddJob(JobBuilder.Create(jobType).LoadFrom(input.Adapt<SysJobDetail>()).SetJobType(jobType));
 
         // 延迟一下等待持久化写入，再执行其他字段的更新
@@ -132,6 +133,7 @@ public class SysJobService : IDynamicApiController, ITransient
         var sysJobDetail = await _sysJobDetailRep.GetFirstAsync(u => u.Id == input.Id);
         if (sysJobDetail.JobId != input.JobId) throw Oops.Oh(ErrorCodeEnum.D1704);
 
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         var scheduler = _schedulerFactory.GetJob(sysJobDetail.JobId);
         var oldScriptCode = sysJobDetail.ScriptCode; // 旧脚本代码
         input.Adapt(sysJobDetail);
@@ -171,6 +173,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("删除作业")]
     public async Task DeleteJobDetail(DeleteJobDetailInput input)
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.RemoveJob(input.JobId);
 
         // 如果 _schedulerFactory 中不存在 JodId，则无法触发持久化，下面的代码确保作业和触发器能被删除
@@ -203,6 +206,11 @@ public class SysJobService : IDynamicApiController, ITransient
         var jobTrigger = input.Adapt<SysJobTrigger>();
         jobTrigger.Args = "[" + jobTrigger.Args + "]";
 
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         var scheduler = _schedulerFactory.GetJob(input.JobId);
         scheduler?.AddTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
     }
@@ -229,6 +237,7 @@ public class SysJobService : IDynamicApiController, ITransient
         }
         jobTrigger.Args = "[" + jobTrigger.Args + "]";
 
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         var scheduler = _schedulerFactory.GetJob(input.JobId);
         scheduler?.UpdateTrigger(Triggers.Create(input.AssemblyName, input.TriggerType).LoadFrom(jobTrigger));
     }
@@ -241,6 +250,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("删除触发器")]
     public async Task DeleteJobTrigger(DeleteJobTriggerInput input)
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         var scheduler = _schedulerFactory.GetJob(input.JobId);
         scheduler?.RemoveTrigger(input.TriggerId);
 
@@ -255,6 +265,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("暂停所有作业")]
     public void PauseAllJob()
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.PauseAll();
     }
 
@@ -265,6 +276,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("启动所有作业")]
     public void StartAllJob()
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.StartAll();
     }
 
@@ -274,6 +286,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("暂停作业")]
     public void PauseJob(JobDetailInput input)
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.TryPauseJob(input.JobId, out _);
     }
 
@@ -283,6 +296,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("启动作业")]
     public void StartJob(JobDetailInput input)
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.TryStartJob(input.JobId, out _);
     }
 
@@ -292,6 +306,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("取消作业")]
     public void CancelJob(JobDetailInput input)
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.TryCancelJob(input.JobId, out _);
     }
 
@@ -302,6 +317,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("执行作业")]
     public void RunJob(JobDetailInput input)
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         if (_schedulerFactory.TryRunJob(input.JobId, out _) != ScheduleResult.Succeed) throw Oops.Oh(ErrorCodeEnum.D1705);
     }
 
@@ -331,6 +347,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("强制唤醒作业调度器")]
     public void CancelSleep()
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.CancelSleep();
     }
 
@@ -340,6 +357,7 @@ public class SysJobService : IDynamicApiController, ITransient
     [DisplayName("强制触发所有作业持久化")]
     public void PersistAll()
     {
+        if (_schedulerFactory == null) throw Oops.Oh(ErrorCodeEnum.D1706);
         _schedulerFactory.PersistAll();
     }
 
