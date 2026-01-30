@@ -55,13 +55,15 @@ const viteConfig = defineConfig((mode: ConfigEnv) => {
 			JSON.parse(env.VITE_OPEN_CDN) ? buildConfig.cdn() : null,
 			// 使用说明 https://github.com/auto-i18n/auto-i18n-translation-plugins
 			vitePluginsAutoI18n({
+				// 是否触发翻译
+				enabled: false,
 				originLang: 'zh-cn', //源语言，翻译以此语言为基础
 				targetLangList: ['zh-hk', 'zh-tw', 'en', 'it'], // 目标语言列表，支持配置多个语言
-				translator: new EmptyTranslator() // 只生成Web\lang\index.json文件
+				translator: new EmptyTranslator(), // 只生成Web\lang\index.json文件
 				// translator: new YoudaoTranslator({ // 有道实时翻译
-                // appId: '你申请的appId',
-                // appKey: '你申请的appKey'
-            	// })
+				// appId: '你申请的appId',
+				// appKey: '你申请的appKey'
+				// })
 			}),
 		],
 		root: process.cwd(),
