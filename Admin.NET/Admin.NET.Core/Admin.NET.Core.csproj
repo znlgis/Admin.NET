@@ -10,7 +10,7 @@
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
     <Copyright>Admin.NET</Copyright>
     <Description>Admin.NET 通用权限开发平台</Description>
-    <PackageId>Admin.NET.Core</PackageId>
+    <PackageId>Fs.Admin.NET.Core</PackageId>
     <Version>1.0.0</Version>
     <Authors>Admin.NET</Authors>
     <IsPackable>true</IsPackable>
