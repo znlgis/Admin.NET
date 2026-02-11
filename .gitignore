@@ -45,3 +45,7 @@ node_modules/
 /Admin.NET/Admin.NET.sln.DotSettings.user
 Admin.NET/Admin.NET.Application/Configuration/DeepSeek.json
 *.user
+/demo/Admin.NET.Demo.Web.Entry/logs
+/demo/Admin.NET.Demo.Web.Entry/Admin.NET.db
+/demo/Admin.NET.Demo.Web.Entry/Admin.NET.db-journal
+/demo/.vs
