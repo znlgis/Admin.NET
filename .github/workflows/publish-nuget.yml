@@ -43,7 +43,7 @@ jobs:
           fi
 
       - name: Restore dependencies
-        run: dotnet restore Admin.NET/Admin.NET.sln
+        run: dotnet restore Admin.NET/Admin.NET.sln -p:Configuration=Release
 
       - name: Build
         run: dotnet build Admin.NET/Admin.NET.sln -c Release --no-restore
