@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFrameworks>net8.0;net10.0</TargetFrameworks>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <SatelliteResourceLanguages>zh-Hans</SatelliteResourceLanguages>
+    <ProduceReferenceAssembly>false</ProduceReferenceAssembly>
+    <GenerateSatelliteAssembliesForCore>true</GenerateSatelliteAssembliesForCore>
+    <Copyright>Admin.NET</Copyright>
+    <Description>Admin.NET Demo Web Entry (NuGet-based)</Description>
+    <AssemblyVersion>1.0.0</AssemblyVersion>
+    <FileVersion>1.0.0</FileVersion>
+    <Version>1.0.0</Version>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="logs\**" />
+    <Compile Remove="publish\**" />
+    <EmbeddedResource Remove="logs\**" />
+    <EmbeddedResource Remove="publish\**" />
+    <None Remove="logs\**" />
+    <None Remove="publish\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Fs.Admin.NET.Web.Core" Version="2.0.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Admin.NET.Demo.Application\Admin.NET.Demo.Application.csproj" />
+  </ItemGroup>
+
+</Project>
