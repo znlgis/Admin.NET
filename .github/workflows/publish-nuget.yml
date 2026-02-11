@@ -1,0 +1,76 @@
+name: Publish NuGet Packages
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Package version (e.g. 1.0.0)'
+        required: true
+
+env:
+  DOTNET_SKIP_FIRST_TIME_EXPERIENCE: true
+  DOTNET_CLI_TELEMETRY_OPTOUT: true
+
+permissions:
+  contents: read
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: |
+            8.0.x
+            10.0.x
+
+      - name: Determine version
+        id: version
+        run: |
+          if [ "${{ github.event_name }}" = "workflow_dispatch" ]; then
+            echo "VERSION=${{ github.event.inputs.version }}" >> "$GITHUB_OUTPUT"
+          else
+            TAG="${GITHUB_REF#refs/tags/v}"
+            echo "VERSION=$TAG" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Restore dependencies
+        run: dotnet restore Admin.NET/Admin.NET.sln
+
+      - name: Build
+        run: dotnet build Admin.NET/Admin.NET.sln -c Release --no-restore
+
+      - name: Pack Admin.NET.Core
+        run: dotnet pack Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Admin.NET.Web.Core
+        run: dotnet pack Admin.NET/Admin.NET.Web.Core/Admin.NET.Web.Core.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Plugin.DingTalk
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Admin.NET.Plugin.DingTalk.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Plugin.GoView
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.GoView/Admin.NET.Plugin.GoView.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Plugin.ApprovalFlow
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Admin.NET.Plugin.ApprovalFlow.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Plugin.K3Cloud
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Admin.NET.Plugin.K3Cloud.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Plugin.WorkWeixin
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Admin.NET.Plugin.WorkWeixin.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Pack Plugin.ReZero
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.ReZero/Admin.NET.Plugin.ReZero.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+
+      - name: Push to NuGet
+        run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
