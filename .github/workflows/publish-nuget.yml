@@ -49,28 +49,28 @@ jobs:
         run: dotnet build Admin.NET/Admin.NET.sln -c Release --no-restore
 
       - name: Pack Admin.NET.Core
-        run: dotnet pack Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Admin.NET.Core/Admin.NET.Core.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Core
 
       - name: Pack Admin.NET.Web.Core
-        run: dotnet pack Admin.NET/Admin.NET.Web.Core/Admin.NET.Web.Core.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Admin.NET.Web.Core/Admin.NET.Web.Core.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Web.Core
 
       - name: Pack Plugin.DingTalk
-        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Admin.NET.Plugin.DingTalk.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.DingTalk/Admin.NET.Plugin.DingTalk.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Plugin.DingTalk
 
       - name: Pack Plugin.GoView
-        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.GoView/Admin.NET.Plugin.GoView.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.GoView/Admin.NET.Plugin.GoView.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Plugin.GoView
 
       - name: Pack Plugin.ApprovalFlow
-        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Admin.NET.Plugin.ApprovalFlow.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.ApprovalFlow/Admin.NET.Plugin.ApprovalFlow.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Plugin.ApprovalFlow
 
       - name: Pack Plugin.K3Cloud
-        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Admin.NET.Plugin.K3Cloud.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.K3Cloud/Admin.NET.Plugin.K3Cloud.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Plugin.K3Cloud
 
       - name: Pack Plugin.WorkWeixin
-        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Admin.NET.Plugin.WorkWeixin.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.WorkWeixin/Admin.NET.Plugin.WorkWeixin.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Plugin.WorkWeixin
 
       - name: Pack Plugin.ReZero
-        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.ReZero/Admin.NET.Plugin.ReZero.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }}
+        run: dotnet pack Admin.NET/Plugins/Admin.NET.Plugin.ReZero/Admin.NET.Plugin.ReZero.csproj -c Release --no-build -o ./nupkgs /p:Version=${{ steps.version.outputs.VERSION }} /p:IsPackable=true /p:PackageId=Fs.Admin.NET.Plugin.ReZero
 
       - name: Push to NuGet
         run: dotnet nuget push ./nupkgs/*.nupkg --source https://api.nuget.org/v3/index.json --api-key ${{ secrets.NUGET_API_KEY }} --skip-duplicate
